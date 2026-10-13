@@ -5,6 +5,7 @@ import { createDefaultBoard } from './lib/defaults';
 import { validateBoard } from './lib/validation';
 import { DesignEditor } from './components/DesignEditor';
 import { PreviewPanel } from './components/PreviewPanel';
+import { LumberPlanner } from './components/LumberPlanner';
 import { PdfGenerator } from './lib/pdf';
 
 function App() {
@@ -90,6 +91,8 @@ function App() {
         <DesignEditor design={design} onChange={handleDesignChange} />
         <PreviewPanel design={design} />
       </div>
+
+      <LumberPlanner design={design} />
 
       <div className="button-group">
         <button className="primary" onClick={handleExportPDF} disabled={!validation.valid}>
