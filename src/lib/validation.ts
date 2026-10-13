@@ -1,6 +1,6 @@
 import { BoardDesign, ValidationResult, AngleConstraints, BoardStyle } from '../types';
-
-const KERF_MM = 3.175; // 1/8" kerf
+import { getKerf } from './catalogLoader';
+import { CatalogStyleName } from '../types/catalog';
 
 /**
  * Angle constraints for different styles
@@ -149,10 +149,13 @@ export function validateAngle(style: BoardStyle, angle: number): ValidationResul
 export function calculateStripeCount(
   boardLength: number,
   stripeWidth: number,
-  includeKerf: boolean = true
+  includeKerf: boolean = true,
+  style: BoardStyle = 'checkerboard'
 ): number {
   if (includeKerf) {
-    const effectiveWidth = stripeWidth + (2 * KERF_MM);
+    // Get kerf from catalog for the style
+    const kerf = getKerf(style as CatalogStyleName);
+    const effectiveWidth = stripeWidth + (2 * kerf);
     return Math.floor(boardLength / effectiveWidth);
   }
   

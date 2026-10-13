@@ -5,6 +5,8 @@
 
 import { BoardDesign, CutListItem } from '../types';
 import { generatePattern } from './patterns';
+import { loadStyleCatalog } from './catalogLoader';
+import { CatalogStyleName } from '../types/catalog';
 
 export interface StockBoard {
   id: string;
@@ -13,7 +15,7 @@ export interface StockBoard {
   thickness: number;   // mm
   length: number;      // mm
   quantity: number;
-  pricePerBF?: number | null; // Always null per spec
+  pricePerBF?: number | null; // May be null per spec
 }
 
 export interface CutPlan {
@@ -48,10 +50,30 @@ export interface OptimizationResult {
   cutList: CutListItem[];
 }
 
-const KERF = 3.175; // mm (1/8" blade kerf)
-const ROUGH_OVERSIZE = 3.0; // mm extra for rough stock
-const PLANER_MINIMUM = 2.0; // mm minimum pass
-// const FLATTENING_ALLOWANCE = 1.5; // mm for initial flattening (reserved for future use)
+/**
+ * Get allowances for a specific style from catalog
+ */
+function getAllowances(style: string) {
+  try {
+    const catalog = loadStyleCatalog(style as CatalogStyleName);
+    return {
+      kerf: catalog.cutListAllowances.kerf_mm,
+      roughOversize: catalog.cutListAllowances.roughToFinalOversize_mm,
+      planerMinimum: catalog.cutListAllowances.planerMinimum_mm,
+      flatteningAllowance: catalog.cutListAllowances.flatteningAllowance_mm,
+      sandingLoss: catalog.cutListAllowances.sandingLoss_mm,
+    };
+  } catch {
+    // Fallback to shop defaults if style not found
+    return {
+      kerf: 3.175,
+      roughOversize: { thickness: 3.0, width: 6.0, length: 50.0 },
+      planerMinimum: { length: 305.0, thickness: 6.5 },
+      flatteningAllowance: 3.0,
+      sandingLoss: 0.5,
+    };
+  }
+}
 
 /**
  * Calculate required parts from board design
@@ -87,10 +109,18 @@ export function calculateRequiredParts(design: BoardDesign): CutItem[] {
  */
 export function optimizeCuttingPlan(
   requiredParts: CutItem[],
-  availableStock: StockBoard[]
+  availableStock: StockBoard[],
+  boardStyle: string = 'checkerboard'
 ): OptimizationResult {
   const cutPlans: CutPlan[] = [];
   const remainingParts = [...requiredParts];
+  
+  // Get allowances from catalog
+  const allowances = getAllowances(boardStyle);
+  const KERF = allowances.kerf;
+  const ROUGH_OVERSIZE_WIDTH = allowances.roughOversize.width;
+  const ROUGH_OVERSIZE_LENGTH = allowances.roughOversize.length;
+  const PLANER_MINIMUM_THICKNESS = allowances.planerMinimum.thickness;
   
   // Sort stock by size (largest first for efficiency)
   const sortedStock = [...availableStock].sort((a, b) => {
@@ -111,11 +141,11 @@ export function optimizeCuttingPlan(
         
         // Check if part fits in this stock
         if (part.species === stock.species &&
-            part.width + ROUGH_OVERSIZE * 2 <= stock.width &&
-            part.thickness + PLANER_MINIMUM * 2 <= stock.thickness) {
+            part.width + ROUGH_OVERSIZE_WIDTH <= stock.width &&
+            part.thickness + PLANER_MINIMUM_THICKNESS <= stock.thickness) {
           
           // Check how many we can fit lengthwise
-          const partLengthWithKerf = part.length + KERF + ROUGH_OVERSIZE * 2;
+          const partLengthWithKerf = part.length + KERF + ROUGH_OVERSIZE_LENGTH;
           const availableLength = stock.length - usedLength;
           const fitsCount = Math.floor(availableLength / partLengthWithKerf);
           

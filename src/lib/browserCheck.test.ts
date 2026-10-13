@@ -53,7 +53,7 @@ describe('Browser Check (requires dev server)', () => {
             waitUntil: 'networkidle2', 
             timeout: 10000 
           });
-          await page.waitForTimeout(500);
+          await new Promise(resolve => setTimeout(resolve, 500));
         } catch (error) {
           // Dev server not running - skip these tests
           console.warn('Dev server not running at', TEST_URL, '- skipping browser checks');
