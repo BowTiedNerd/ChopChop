@@ -84,7 +84,9 @@ describe('SvgBuilder', () => {
     expect(viewBoxMatch).toBeTruthy();
     
     if (viewBoxMatch) {
-      const [, , , width, height] = viewBoxMatch[1].split(' ').map(Number);
+      const values = viewBoxMatch[1].split(' ').map(Number);
+      const width = values[2]; // width is the third value
+      const height = values[3]; // height is the fourth value
       expect(width).toBeGreaterThan(200);
       expect(height).toBeGreaterThan(200);
     }

@@ -22,7 +22,7 @@ interface Fraction {
 }
 
 function toFraction(value: number, maxDenominator: number = 64): Fraction {
-  const tolerance = 1 / (maxDenominator * 2);
+  const tolerance = 1e-6; // Very small tolerance for exact matching
   
   // Handle whole numbers
   const whole = Math.floor(value);
@@ -35,11 +35,10 @@ function toFraction(value: number, maxDenominator: number = 64): Fraction {
     };
   }
   
-  // Find best fraction
+  // Find best fraction (only power-of-2 denominators for standard fractions)
   let bestNum = 0;
   let bestDen = 1;
   let bestError = Math.abs(fractional);
-  let isExact = false;
   
   for (let den = 2; den <= maxDenominator; den *= 2) {
     const num = Math.round(fractional * den);
@@ -49,13 +48,11 @@ function toFraction(value: number, maxDenominator: number = 64): Fraction {
       bestNum = num;
       bestDen = den;
       bestError = error;
-      
-      if (error < tolerance) {
-        isExact = true;
-        break;
-      }
     }
   }
+  
+  // Check if the best approximation is exact (within tolerance)
+  const isExact = bestError < tolerance;
   
   // Simplify fraction
   const gcd = greatestCommonDivisor(bestNum, bestDen);

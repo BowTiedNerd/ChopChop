@@ -1,4 +1,3 @@
-import { useEffect, useRef } from 'react';
 import { BoardDesign } from '../types';
 import { TopView } from './TopView';
 import { ThreeView } from './ThreeView';

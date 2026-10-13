@@ -9,8 +9,6 @@ interface TopViewProps {
 
 export function TopView({ design }: TopViewProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const cueRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!containerRef.current) return;

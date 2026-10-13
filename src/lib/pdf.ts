@@ -1,6 +1,6 @@
 import { jsPDF } from 'jspdf';
 import { BoardDesign, StepInstruction, CutListItem } from '../types';
-import { inchText, metricText, formatHardware } from '../utils/format';
+import { inchText, metricText } from '../utils/format';
 
 const BANNER_FONT = 11;
 const BANNER_LINE = 14;
@@ -261,7 +261,7 @@ export class PdfGenerator {
   /**
    * Add figure (SVG as image or placeholder)
    */
-  private addFigure(svg: string): void {
+  private addFigure(_svg: string): void {
     this.yPosition += 5;
     // SVG would be rendered here
     // For now, add placeholder
@@ -326,7 +326,7 @@ export class PdfGenerator {
 /**
  * Generate mill plan PDF
  */
-export function generateMillPlan(design: BoardDesign): jsPDF {
+export function generateMillPlan(_design: BoardDesign): jsPDF {
   const doc = new jsPDF({
     orientation: 'portrait',
     unit: 'mm',

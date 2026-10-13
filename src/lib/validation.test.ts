@@ -83,7 +83,7 @@ describe('calculateStripeCount', () => {
   it('should calculate stripe count including 2×kerf', () => {
     const boardLength = 400; // mm
     const stripeWidth = 25.4; // mm (1 inch)
-    const kerf = 3.175; // mm (1/8 inch)
+    // kerf = 3.175 mm (1/8 inch) - used in calculation
     
     const count = calculateStripeCount(boardLength, stripeWidth, true);
     

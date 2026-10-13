@@ -135,8 +135,8 @@ function updateBoard(scene: THREE.Scene, design: BoardDesign) {
 }
 
 function addJuiceGroove(scene: THREE.Scene, design: BoardDesign) {
-  const { width, length, thickness } = design.dimensions;
-  const { width: grooveWidth, depth, fromEdge } = design.juiceGroove;
+  const { width, thickness } = design.dimensions;
+  const { width: grooveWidth, fromEdge } = design.juiceGroove;
 
   const grooveGeometry = new THREE.TorusGeometry(
     (width / 2 - fromEdge - grooveWidth / 2),

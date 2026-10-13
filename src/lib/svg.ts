@@ -33,16 +33,12 @@ export interface SvgLabel {
 
 export class SvgBuilder {
   private elements: SvgElement[] = [];
-  private width: number = 800;
-  private height: number = 600;
   private minX: number = 0;
   private minY: number = 0;
   private maxX: number = 800;
   private maxY: number = 600;
 
   constructor(width: number = 800, height: number = 600) {
-    this.width = width;
-    this.height = height;
     this.maxX = width;
     this.maxY = height;
   }
