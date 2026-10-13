@@ -1,6 +1,8 @@
 import { BoardDesign, BoardStyle } from '../types';
 import { STYLE_NAMES, WOOD_SPECIES } from '../lib/defaults';
 import { inchText, metricText, mmToInches } from '../utils/format';
+import { CustomDesigner } from './CustomDesigner';
+import { CustomDesign } from '../lib/customDesigner';
 
 interface DesignEditorProps {
   design: BoardDesign;
@@ -58,6 +60,13 @@ export function DesignEditor({ design, onChange }: DesignEditorProps) {
     } else {
       return inchText(mmToInches(mm));
     }
+  };
+
+  const handleApplyCustomDesign = (_customDesign: CustomDesign) => {
+    // Custom design applied - would update the board design
+    // For now, just log it
+    console.log('Custom design applied:', _customDesign);
+    // In future: convert CustomDesign to BoardDesign pattern
   };
 
   return (
@@ -265,6 +274,8 @@ export function DesignEditor({ design, onChange }: DesignEditorProps) {
           </div>
         </div>
       )}
+
+      <CustomDesigner onApply={handleApplyCustomDesign} />
     </div>
   );
 }
