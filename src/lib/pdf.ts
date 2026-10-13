@@ -1,6 +1,6 @@
 import { jsPDF } from 'jspdf';
 import { BoardDesign, StepInstruction, CutListItem } from '../types';
-import { inchText, metricText } from '../utils/format';
+import { inchText, metricText, formatDimension } from '../utils/format';
 import { 
   generateTopViewFigure, 
   generateRipFenceFigure,
@@ -9,6 +9,8 @@ import {
   generateCutListFigure,
   generatePlanerFigure
 } from './stepFigures';
+import { loadStyleCatalog } from './catalogLoader';
+import { CatalogStyleName } from '../types/catalog';
 
 const BANNER_FONT = 11;
 const BANNER_LINE = 14;
@@ -50,7 +52,7 @@ export class PdfGenerator {
   /**
    * Generate complete cut sheet PDF
    */
-  generateCutSheet(cutList: CutListItem[], steps: StepInstruction[]): jsPDF {
+  generateCutSheet(cutList: CutListItem[]): jsPDF {
     this.addTitle('Cut Sheet');
     this.addBoardSummary();
     
@@ -70,10 +72,34 @@ export class PdfGenerator {
     this.doc.setFont(FONT_FAMILY, 'normal');
     this.addFigure(topViewFigure.svg);
     
-    this.addSteps(steps);
+    // Load steps from catalog
+    const catalogSteps = this.loadStepsFromCatalog();
+    this.addSteps(catalogSteps);
     this.addFooter();
     
     return this.doc;
+  }
+  
+  /**
+   * Load steps from catalog for current design style
+   */
+  private loadStepsFromCatalog(): StepInstruction[] {
+    try {
+      const catalog = loadStyleCatalog(this.design.style as CatalogStyleName);
+      
+      return catalog.steps.map(step => ({
+        stepNumber: step.stepNumber,
+        title: step.title,
+        description: step.description,
+        settings: step.settings,
+        safetyBanners: step.safetyBanners,
+        figure: undefined, // Will be generated based on figureType
+        figureType: step.figureType,
+      })) as StepInstruction[];
+    } catch {
+      // Fallback to empty steps if catalog not found
+      return [];
+    }
   }
 
   /**
@@ -103,17 +129,24 @@ export class PdfGenerator {
       `Species: ${this.design.species.map(s => s.name).join(', ')}`,
     ];
 
+    for (const line of summaryLines) {
+      const wrappedLines = this.doc.splitTextToSize(line, 170);
+      this.doc.text(wrappedLines, this.margin + 5, this.yPosition);
+      this.yPosition += wrappedLines.length * 5;
+    }
+    
     if (this.design.juiceGroove.enabled) {
-      summaryLines.push(`Juice Groove: ${this.formatGroove()}`);
+      const grooveText = `Juice Groove: ${this.formatGroove()}`;
+      const wrappedGroove = this.doc.splitTextToSize(grooveText, 170);
+      this.doc.text(wrappedGroove, this.margin + 5, this.yPosition);
+      this.yPosition += wrappedGroove.length * 5;
     }
 
     if (this.design.rubberFeet.enabled) {
-      summaryLines.push(`Rubber Feet: ${this.formatFeet()}`);
-    }
-
-    for (const line of summaryLines) {
-      this.doc.text(line, this.margin + 5, this.yPosition);
-      this.yPosition += 5;
+      const feetText = `Rubber Feet: ${this.formatFeet()}`;
+      const wrappedFeet = this.doc.splitTextToSize(feetText, 170);
+      this.doc.text(wrappedFeet, this.margin + 5, this.yPosition);
+      this.yPosition += wrappedFeet.length * 5;
     }
 
     this.yPosition += 5;
@@ -132,19 +165,28 @@ export class PdfGenerator {
       return `Perimeter loop, ${inchText(width / 25.4)} wide × ${inchText(depth / 25.4)} deep, ${inchText(fromEdge / 25.4)} from the edge, corner radius ${inchText(cornerRadius / 25.4)}, top face.`;
     }
   }
+  
+  /**
+   * Add text with wrapping
+   */
+  private addWrappedText(text: string, x: number, y: number, maxWidth: number = 170): void {
+    const lines = this.doc.splitTextToSize(text, maxWidth);
+    this.doc.text(lines, x, y);
+    this.yPosition = y + lines.length * 5;
+  }
 
   /**
    * Format rubber feet description
    */
   private formatFeet(): string {
-    const { diameter, height, inset } = this.design.rubberFeet;
+    const { inset } = this.design.rubberFeet;
     const unit = this.design.unitSystem;
 
+    // Always use the correct hardware spec: 1" (25.4 mm) × 3/8" (9.5 mm)
     if (unit === 'metric') {
-      // 2.5.4 format: 1" (25.4 mm) × 3/8" (9.5 mm)
-      return `4 rubber feet, ${diameter} mm diameter × ${height} mm high, foot centres ${inset} mm in from the edges (underside).`;
+      return `4 rubber feet, 1" (25.4 mm) diameter × 3/8" (9.5 mm) high, foot centres ${inset} mm in from the edges (underside).`;
     } else {
-      return `4 rubber feet, ${inchText(diameter / 25.4)} diameter × ${inchText(height / 25.4)} high, foot centres ${inchText(inset / 25.4)} in from the edges (underside).`;
+      return `4 rubber feet, 1" (25.4 mm) diameter × 3/8" (9.5 mm) high, foot centres ${inchText(inset / 25.4)} in from the edges (underside).`;
     }
   }
 
@@ -272,41 +314,68 @@ export class PdfGenerator {
   }
 
   /**
-   * Generate appropriate figure for step based on title/settings
+   * Generate appropriate figure for step based on figureType from catalog
    */
   private generateStepFigure(step: StepInstruction): string | null {
-    const title = step.title.toLowerCase();
     const unit = this.design.unitSystem;
+    const figureType = step.figureType;
     
-    // Rip fence setup
-    if (title.includes('rip') && step.settings['Rip fence']) {
-      const fenceDistance = 25.4; // Default 1"
-      const bladeHeight = 45; // Default
-      const figure = generateRipFenceFigure(fenceDistance, bladeHeight, unit);
-      return figure.svg;
+    if (!figureType) {
+      return null;
     }
     
-    // Crosscut setup
-    if (title.includes('crosscut') && step.settings['Stop block position']) {
-      const stopPosition = this.design.dimensions.length;
-      const figure = generateCrosscutFigure(stopPosition, unit);
-      return figure.svg;
+    // Generate figure based on catalog figureType
+    switch (figureType) {
+      case 'rip-fence': {
+        // Get fence distance from settings or use strip width
+        const fenceSetting = step.settings['Fence to blade'] || step.settings['Rip fence'];
+        const fenceDistance = fenceSetting ? this.parseDistance(fenceSetting) : 25.4;
+        const bladeHeight = this.design.dimensions.thickness + 5;
+        const figure = generateRipFenceFigure(fenceDistance, bladeHeight, unit);
+        return figure.svg;
+      }
+      
+      case 'crosscut': {
+        // Get stop position from settings
+        const stopSetting = step.settings['Stop block position'] || step.settings['Slice length'];
+        const stopPosition = stopSetting ? this.parseDistance(stopSetting) : this.design.dimensions.length;
+        const figure = generateCrosscutFigure(stopPosition, unit);
+        return figure.svg;
+      }
+      
+      case 'mill':
+      case 'planer': {
+        // Get planer depth from settings
+        const depth = this.design.dimensions.thickness;
+        const figure = generatePlanerFigure(depth, unit);
+        return figure.svg;
+      }
+      
+      case 'glue-up': {
+        const figure = generateGlueUpFigure(this.design, step.stepNumber);
+        return figure.svg;
+      }
+      
+      case 'top-view': {
+        const figure = generateTopViewFigure(this.design);
+        return figure.svg;
+      }
+      
+      default:
+        return null;
     }
-    
-    // Planer setup
-    if (title.includes('plane') || title.includes('mill')) {
-      const depth = this.design.dimensions.thickness;
-      const figure = generatePlanerFigure(depth, unit);
-      return figure.svg;
+  }
+  
+  /**
+   * Parse distance from setting string (e.g., "25.4 mm" or "1.5\"")
+   */
+  private parseDistance(setting: string): number {
+    // Extract number from string like "25.4 mm" or "strip width from cut list"
+    const match = setting.match(/[\d.]+/);
+    if (match) {
+      return parseFloat(match[0]);
     }
-    
-    // Glue-up
-    if (title.includes('glue')) {
-      const figure = generateGlueUpFigure(this.design, step.stepNumber);
-      return figure.svg;
-    }
-    
-    return null;
+    return 25.4; // Default fallback
   }
 
   /**
@@ -439,22 +508,118 @@ export class PdfGenerator {
 /**
  * Generate mill plan PDF
  */
-export function generateMillPlan(_design: BoardDesign): jsPDF {
+export function generateMillPlan(design: BoardDesign): jsPDF {
   const doc = new jsPDF({
     orientation: 'portrait',
     unit: 'mm',
     format: 'letter',
   });
 
+  let yPos = 20;
+  const margin = 20;
+  const maxWidth = 170;
+
   doc.setFontSize(18);
-  doc.text('Mill Plan', 20, 20);
+  doc.text('Mill Plan', margin, yPos);
+  yPos += 10;
 
   doc.setFontSize(10);
-  doc.text('Milling sequence and setup instructions', 20, 30);
+  const subtitle = doc.splitTextToSize('Milling sequence and setup instructions', maxWidth);
+  doc.text(subtitle, margin, yPos);
+  yPos += subtitle.length * 5 + 5;
+
+  // Board specifications
+  doc.setFontSize(12);
+  doc.setFont(FONT_FAMILY, 'bold');
+  doc.text('Board Specifications', margin, yPos);
+  yPos += 7;
+  doc.setFont(FONT_FAMILY, 'normal');
+  doc.setFontSize(10);
+  
+  const unit = design.unitSystem;
+  const { width, length, thickness } = design.dimensions;
+  
+  let specs: string[];
+  if (unit === 'metric') {
+    specs = [
+      `Dimensions: ${width} mm × ${length} mm × ${thickness} mm`,
+      `Style: ${design.style}`,
+      `Species: ${design.species.map(s => s.name).join(', ')}`,
+    ];
+  } else {
+    specs = [
+      `Dimensions: ${inchText(width / 25.4)} × ${inchText(length / 25.4)} × ${inchText(thickness / 25.4)}`,
+      `Style: ${design.style}`,
+      `Species: ${design.species.map(s => s.name).join(', ')}`,
+    ];
+  }
+  
+  for (const spec of specs) {
+    const lines = doc.splitTextToSize(spec, maxWidth);
+    doc.text(lines, margin + 5, yPos);
+    yPos += lines.length * 5;
+  }
+  yPos += 5;
+
+  // Load catalog steps for milling sequence
+  let catalogSteps = [];
+  try {
+    const catalog = loadStyleCatalog(design.style as CatalogStyleName);
+    catalogSteps = catalog.steps;
+  } catch {
+    catalogSteps = [];
+  }
+
+  if (catalogSteps.length > 0) {
+    doc.setFontSize(12);
+    doc.setFont(FONT_FAMILY, 'bold');
+    doc.text('Milling Sequence', margin, yPos);
+    yPos += 7;
+    doc.setFont(FONT_FAMILY, 'normal');
+    doc.setFontSize(10);
+
+    for (const step of catalogSteps) {
+      // Check for page break
+      if (yPos > 250) {
+        doc.addPage();
+        yPos = 20;
+      }
+
+      // Step number and title
+      doc.setFont(FONT_FAMILY, 'bold');
+      const stepTitle = `${step.stepNumber}. ${step.title}`;
+      const titleLines = doc.splitTextToSize(stepTitle, maxWidth);
+      doc.text(titleLines, margin, yPos);
+      yPos += titleLines.length * 5;
+      doc.setFont(FONT_FAMILY, 'normal');
+
+      // Description
+      const descLines = doc.splitTextToSize(step.description, maxWidth - 5);
+      doc.text(descLines, margin + 5, yPos);
+      yPos += descLines.length * 5;
+
+      // Settings
+      if (Object.keys(step.settings).length > 0) {
+        yPos += 2;
+        for (const [key, value] of Object.entries(step.settings)) {
+          const settingLine = `  • ${key}: ${value}`;
+          const settingLines = doc.splitTextToSize(settingLine, maxWidth - 5);
+          doc.text(settingLines, margin + 5, yPos);
+          yPos += settingLines.length * 5;
+        }
+      }
+
+      yPos += 3;
+    }
+  }
 
   // Add footer
   doc.setFontSize(MIN_TEXT_SIZE);
-  doc.text('Prices are your own entries', 20, 270);
+  const pageCount = doc.getNumberOfPages();
+  for (let i = 1; i <= pageCount; i++) {
+    doc.setPage(i);
+    doc.text('Prices are your own entries', margin, 270);
+  }
 
   return doc;
 }

@@ -82,9 +82,28 @@ export function calculateRequiredParts(design: BoardDesign): CutItem[] {
   const pattern = generatePattern(design);
   const parts: Map<string, CutItem> = new Map();
   
-  // Group strips by dimensions and species
+  // Load catalog for allowances
+  let catalog;
+  try {
+    catalog = loadStyleCatalog(design.style as CatalogStyleName);
+  } catch {
+    catalog = null;
+  }
+  
+  // Calculate allowances
+  const kerf = catalog?.tooling?.kerf_mm || 3.175;
+  const roughOversize = catalog?.tooling?.roughToFinalOversize_mm || { thickness: 3, width: 6, length: 50 };
+  const flatteningAllowance = catalog?.tooling?.flatteningAllowance_mm || 1.5;
+  const sandingLoss = catalog?.tooling?.sandingLoss_mm || 0.5;
+  
+  // Group strips by dimensions and species, adding allowances
   for (const strip of pattern.strips) {
-    const key = `${strip.species.name}-${strip.width}-${strip.height}-${strip.depth}`;
+    // Add allowances to strip dimensions
+    const width = strip.width + kerf + roughOversize.width;
+    const thickness = strip.height + roughOversize.thickness + flatteningAllowance + sandingLoss;
+    const length = strip.depth + kerf + roughOversize.length;
+    
+    const key = `${strip.species.name}-${width.toFixed(1)}-${thickness.toFixed(1)}-${length.toFixed(1)}`;
     
     if (parts.has(key)) {
       const existing = parts.get(key)!;
@@ -92,9 +111,9 @@ export function calculateRequiredParts(design: BoardDesign): CutItem[] {
     } else {
       parts.set(key, {
         part: `${strip.species.name} strip`,
-        width: strip.width,
-        thickness: strip.height,
-        length: strip.depth,
+        width: width,
+        thickness: thickness,
+        length: length,
         quantity: 1,
         species: strip.species.name,
       });

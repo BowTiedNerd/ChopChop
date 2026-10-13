@@ -40,6 +40,11 @@ export interface CutListAllowances {
   jointerMinimum_mm: {
     length: number;
   };
+  minPieceLength_mm: {
+    planerJointer: number;
+    tableSawFreehand: number;
+    sledHoldDownMax: number;
+  };
   flatteningAllowance_mm: number;
   sandingLoss_mm: number;
   shopDefault: boolean;  // New flag

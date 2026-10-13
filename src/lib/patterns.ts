@@ -61,7 +61,9 @@ export function generatePattern(design: BoardDesign): PatternResult {
 function generateCheckerboard(design: BoardDesign): PatternResult {
   const { width, length, thickness } = design.dimensions;
   const species = design.species;
-  const squareSize = 25.4; // 1" squares
+  // Calculate square size based on board dimensions (typically aim for 12-20 squares across width)
+  const targetSquaresAcross = 12;
+  const squareSize = width / targetSquaresAcross;
   
   const strips: StripPosition[] = [];
   const cols = Math.floor(width / squareSize);
@@ -92,8 +94,10 @@ function generateCheckerboard(design: BoardDesign): PatternResult {
 function generateBrickBasketweave(design: BoardDesign): PatternResult {
   const { width, length, thickness } = design.dimensions;
   const species = design.species;
-  const brickWidth = 25.4; // 1"
-  const brickLength = 76.2; // 3"
+  // Calculate brick dimensions based on board size (typically 1:3 ratio)
+  const targetBricksAcross = Math.floor(width / 25.4); // Approximate number of bricks
+  const brickWidth = width / targetBricksAcross;
+  const brickLength = brickWidth * 3;
   
   const strips: StripPosition[] = [];
   let z = 0;
@@ -148,7 +152,9 @@ function generateBrickBasketweave(design: BoardDesign): PatternResult {
 function generateChevron(design: BoardDesign, angle: number = 45): PatternResult {
   const { width, length, thickness } = design.dimensions;
   const species = design.species;
-  const stripWidth = 25.4; // 1"
+  // Calculate strip width to fit board nicely (aim for 12-16 strips across width)
+  const targetStrips = 14;
+  const stripWidth = width / targetStrips;
   
   const strips: StripPosition[] = [];
   const angleRad = (angle * Math.PI) / 180;
@@ -232,7 +238,9 @@ function generateEdgeGrain(design: BoardDesign): PatternResult {
 function generateEndGrain(design: BoardDesign): PatternResult {
   const { width, length, thickness } = design.dimensions;
   const species = design.species;
-  const stripWidth = 25.4; // 1"
+  // Calculate strip width based on board dimensions
+  const targetStrips = Math.round(width / 25.4); // Approximate even number
+  const stripWidth = width / targetStrips;
   
   const strips: StripPosition[] = [];
   let x = 0;
@@ -292,8 +300,10 @@ function generateFaceGrain(design: BoardDesign): PatternResult {
 function generateHerringbone(design: BoardDesign, angle: number = 45): PatternResult {
   const { width, length, thickness } = design.dimensions;
   const species = design.species;
-  const stripWidth = 25.4; // 1"
-  const stripLength = 152.4; // 6"
+  // Calculate strip dimensions based on board size
+  const targetStripsWidth = 14;
+  const stripWidth = width / targetStripsWidth;
+  const stripLength = stripWidth * 6; // Maintain proportion
   
   const strips: StripPosition[] = [];
   const angleRad = (angle * Math.PI) / 180;

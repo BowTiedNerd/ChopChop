@@ -96,6 +96,7 @@ export interface StepInstruction {
   settings: Record<string, string>;
   safetyBanners: string[];
   figure?: string; // SVG data
+  figureType?: string | null; // Type of figure from catalog
 }
 
 // Angle validation
