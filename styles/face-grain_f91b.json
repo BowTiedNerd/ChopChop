@@ -1,0 +1,125 @@
+{
+  "style": "face-grain",
+  "draft": "NEW DRAFT 3.0-draft2 by Board Master, rebuilt from standard shop practice after the 2026-10-13 data loss. NOT 2.5.3.2. Values marked shopDefault:true are my defaults, not recovered values.",
+  "displayName": "Face Grain",
+  "description": "Wide boards glued edge to edge, wide face up.",
+  "angles": null,
+  "steps": [
+    {
+      "stepNumber": 1,
+      "title": "Mill rough stock",
+      "description": "Joint one face and one edge on the jointer, then plane to final thickness plus 1/8\" (3 mm). Rest overnight, then plane to final thickness. Take ~1/64\" (0.4 mm) passes for the last two passes.",
+      "settings": {
+        "Final pass depth": "~1/64\" (0.4 mm)"
+      },
+      "safetyBanners": [
+        "WARNING: Use push blocks on the jointer. Never joint stock shorter than 12\" (305 mm) or thinner than 1/2\" (12.5 mm).",
+        "WARNING: Keep hands clear of the infeed and outfeed. Feed only boards at least 12\" (305 mm) long."
+      ],
+      "machineSetup": "jointer",
+      "figureType": "mill"
+    },
+    {
+      "stepNumber": 2,
+      "title": "Rip strips",
+      "description": "Rip boards to width with the jointed edge against the fence. Measure from the fence face to the near side of a tooth set toward the fence.",
+      "settings": {
+        "Fence to blade": "strip width from cut list"
+      },
+      "safetyBanners": [
+        "WARNING: Use the riving knife and blade guard on every through cut.",
+        "WARNING: Use a push stick for any rip narrower than 6\" (152 mm). Never reach over or behind the blade."
+      ],
+      "machineSetup": "table-saw",
+      "figureType": "rip-fence"
+    },
+    {
+      "stepNumber": 3,
+      "title": "Glue up",
+      "description": "Glue boards edge to edge, alternating growth rings. Alternate clamps above and below the panel and check for flat with a straightedge.",
+      "settings": {
+        "Clamp spacing": "about 8\" (200 mm)"
+      },
+      "safetyBanners": [
+        "NOTE: Use a waterproof PVA glue rated for indirect food contact. Clamp until squeeze-out turns rubbery, then scrape."
+      ],
+      "machineSetup": null,
+      "figureType": "glue-up"
+    },
+    {
+      "stepNumber": 4,
+      "title": "Trim to length",
+      "description": "Square both ends on a crosscut sled.",
+      "settings": {},
+      "safetyBanners": [
+        "DANGER: Never use the rip fence as a length stop for crosscuts. Use a crosscut sled with a stop block set before the blade, so the offcut is never trapped between blade and fence."
+      ],
+      "machineSetup": "crosscut-sled",
+      "figureType": "crosscut"
+    },
+    {
+      "stepNumber": 5,
+      "title": "Flatten and sand",
+      "description": "Scrape glue, then plane or sand flat. Sand 80, 120, 180 grit. Break edges (180 grit).",
+      "settings": {
+        "Grits": "80 / 120 / 180"
+      },
+      "safetyBanners": [
+        "WARNING: Keep hands clear of the infeed and outfeed. Feed only boards at least 12\" (305 mm) long."
+      ],
+      "machineSetup": null,
+      "figureType": "top-view"
+    },
+    {
+      "stepNumber": 6,
+      "title": "Edge profile",
+      "description": "Rout the edge profile, default: 1/8\" (3 mm) roundover. Optional finger grips: core box / round-nose bit 3/8\u20131/2\" (9.5\u201312.7 mm).",
+      "settings": {
+        "Bit": "1/8\" (3 mm) roundover"
+      },
+      "safetyBanners": [
+        "WARNING: Climb cuts can grab. Feed the router against the bit rotation and take shallow passes."
+      ],
+      "machineSetup": "router",
+      "figureType": "outline"
+    },
+    {
+      "stepNumber": 7,
+      "title": "Finish",
+      "description": "Raise the grain with a damp cloth, sand 180 again, then flood with food-safe mineral oil and top with board butter.",
+      "settings": {},
+      "safetyBanners": [
+        "NOTE: Use closed-grain, non-toxic hardwoods only. Avoid spalted, softwood or oily/sensitising exotics on cutting surfaces."
+      ],
+      "machineSetup": null,
+      "figureType": null
+    }
+  ],
+  "cutListAllowances": {
+    "kerf_mm": 3.175,
+    "kerf_text": "1/8\" (3.2 mm) full-kerf blade",
+    "roughToFinalOversize_mm": {
+      "thickness": 3.0,
+      "width": 6.0,
+      "length": 50.0
+    },
+    "planerMinimum_mm": {
+      "length": 305.0,
+      "thickness": 6.5
+    },
+    "jointerMinimum_mm": {
+      "length": 305.0
+    },
+    "minPieceLength_mm": {
+      "planerJointer": 305.0,
+      "tableSawFreehand": 152.0,
+      "sledHoldDownMax": 152.0
+    },
+    "flatteningAllowance_mm": 1.5,
+    "sandingLoss_mm": 0.5,
+    "shopDefault": true
+  },
+  "sizes": null,
+  "pricePerBF": null,
+  "notes": "Take ~1/64\" (0.4 mm) passes for final surfacing."
+}
