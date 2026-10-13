@@ -20,7 +20,8 @@ import {
   create16x24Board, 
   createMetricBoard
 } from '../src/lib/defaults';
-import { BoardDesign, CutListItem } from '../src/types';
+import { BoardDesign } from '../src/types';
+import { calculateRequiredParts } from '../src/lib/lumberPlanner';
 
 const SAMPLES_DIR = 'samples';
 
@@ -29,31 +30,14 @@ if (!existsSync(SAMPLES_DIR)) {
   mkdirSync(SAMPLES_DIR, { recursive: true });
 }
 
-// Sample cut list
-const sampleCutList: CutListItem[] = [
-  {
-    part: 'Board strips (Walnut)',
-    quantity: 10,
-    width: 25.4,
-    thickness: 38.1,
-    length: 406.4,
-    species: 'Walnut',
-  },
-  {
-    part: 'Board strips (Maple)',
-    quantity: 10,
-    width: 25.4,
-    thickness: 38.1,
-    length: 406.4,
-    species: 'Maple',
-  },
-];
-
 function generateSample(name: string, design: BoardDesign): void {
   console.log(`Generating ${name}...`);
   
+  // Calculate actual cut list from design
+  const cutList = calculateRequiredParts(design);
+  
   const generator = new PdfGenerator(design);
-  const pdf = generator.generateCutSheet(sampleCutList);
+  const pdf = generator.generateCutSheet(cutList);
   
   const buffer = pdf.output('arraybuffer');
   const filePath = join(SAMPLES_DIR, `${name}.pdf`);
