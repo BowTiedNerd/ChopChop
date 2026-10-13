@@ -18,8 +18,7 @@ import { PdfGenerator, generateMillPlan } from '../src/lib/pdf';
 import { 
   createDefaultBoard, 
   create16x24Board, 
-  createMetricBoard,
-  WOOD_SPECIES 
+  createMetricBoard
 } from '../src/lib/defaults';
 import { BoardDesign, CutListItem, StepInstruction } from '../src/types';
 

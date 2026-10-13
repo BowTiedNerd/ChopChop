@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { BoardDesign } from '../types';
+import { generatePattern } from '../lib/patterns';
 
 interface ThreeViewProps {
   design: BoardDesign;
@@ -98,30 +99,48 @@ export function ThreeView({ design }: ThreeViewProps) {
 }
 
 function updateBoard(scene: THREE.Scene, design: BoardDesign) {
-  // Remove existing board
-  const existingBoard = scene.getObjectByName('board');
-  if (existingBoard) {
-    scene.remove(existingBoard);
+  // Remove existing board strips
+  const existingStrips = scene.children.filter(child => child.name.startsWith('strip-'));
+  for (const strip of existingStrips) {
+    scene.remove(strip);
   }
+  
+  // Generate pattern and render each strip
+  const pattern = generatePattern(design);
+  
+  for (let i = 0; i < pattern.strips.length; i++) {
+    const strip = pattern.strips[i];
+    
+    // Create strip geometry
+    const geometry = new THREE.BoxGeometry(strip.width, strip.height, strip.depth);
+    
+    // Create material with wood color
+    const color = new THREE.Color(strip.species.color);
+    const material = new THREE.MeshStandardMaterial({
+      color: color,
+      roughness: 0.7,
+      metalness: 0.1,
+    });
 
-  const { width, length, thickness } = design.dimensions;
-  
-  // Create board geometry
-  const geometry = new THREE.BoxGeometry(width, thickness, length);
-  
-  // Create material with wood texture color
-  const color = new THREE.Color(design.species[0]?.color || '#D9B382');
-  const material = new THREE.MeshStandardMaterial({
-    color: color,
-    roughness: 0.7,
-    metalness: 0.1,
-  });
-
-  const board = new THREE.Mesh(geometry, material);
-  board.name = 'board';
-  board.position.set(0, thickness / 2, 0);
-  
-  scene.add(board);
+    const mesh = new THREE.Mesh(geometry, material);
+    mesh.name = `strip-${i}`;
+    
+    // Position: convert from pattern coords (x,y,z where y is height) to Three.js coords
+    // Pattern: x=width, y=height, z=depth
+    // Three.js: x=width, y=height, z=depth (but center origin)
+    const centerX = strip.x + strip.width / 2 - pattern.bounds.width / 2;
+    const centerY = strip.height / 2;
+    const centerZ = strip.z + strip.depth / 2 - pattern.bounds.depth / 2;
+    
+    mesh.position.set(centerX, centerY, centerZ);
+    
+    // Apply rotation if needed
+    if (strip.rotation !== 0) {
+      mesh.rotation.y = strip.rotation;
+    }
+    
+    scene.add(mesh);
+  }
 
   // Add juice groove if enabled
   if (design.juiceGroove.enabled) {

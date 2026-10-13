@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { BoardDesign } from '../types';
 import { SvgBuilder, wrapInScrollContainer } from '../lib/svg';
 import { formatDimension } from '../utils/format';
+import { generatePattern } from '../lib/patterns';
 
 interface TopViewProps {
   design: BoardDesign;
@@ -55,11 +56,30 @@ function generateTopViewSvg(design: BoardDesign): string {
   
   const builder = new SvgBuilder(svgWidth, svgHeight);
 
-  // Draw board outline
+  // Generate pattern
+  const pattern = generatePattern(design);
+  
   const boardX = 50;
   const boardY = 50;
+  
+  // Draw each strip in the pattern
+  for (const strip of pattern.strips) {
+    const x = boardX + strip.x * scale;
+    const y = boardY + strip.z * scale; // z maps to y in top view
+    const w = strip.width * scale;
+    const h = strip.depth * scale; // depth maps to height in top view
+    
+    builder.rect(x, y, w, h, {
+      fill: strip.species.color,
+      stroke: '#666',
+      'stroke-width': 0.5,
+      transform: strip.rotation !== 0 ? `rotate(${strip.rotation * 180 / Math.PI} ${x + w/2} ${y + h/2})` : undefined,
+    });
+  }
+  
+  // Draw board outline
   builder.rect(boardX, boardY, width * scale, length * scale, {
-    fill: design.species[0]?.color || '#D9B382',
+    fill: 'none',
     stroke: '#333',
     'stroke-width': 2,
   });
