@@ -1,6 +1,6 @@
 import { jsPDF } from 'jspdf';
 import { BoardDesign, StepInstruction, CutListItem } from '../types';
-import { inchText, metricText, formatDimension } from '../utils/format';
+import { inchText, metricText } from '../utils/format';
 import { 
   generateTopViewFigure, 
   generateRipFenceFigure,
@@ -164,15 +164,6 @@ export class PdfGenerator {
     } else {
       return `Perimeter loop, ${inchText(width / 25.4)} wide × ${inchText(depth / 25.4)} deep, ${inchText(fromEdge / 25.4)} from the edge, corner radius ${inchText(cornerRadius / 25.4)}, top face.`;
     }
-  }
-  
-  /**
-   * Add text with wrapping
-   */
-  private addWrappedText(text: string, x: number, y: number, maxWidth: number = 170): void {
-    const lines = this.doc.splitTextToSize(text, maxWidth);
-    this.doc.text(lines, x, y);
-    this.yPosition = y + lines.length * 5;
   }
 
   /**
@@ -562,7 +553,12 @@ export function generateMillPlan(design: BoardDesign): jsPDF {
   yPos += 5;
 
   // Load catalog steps for milling sequence
-  let catalogSteps = [];
+  let catalogSteps: Array<{
+    stepNumber: number;
+    title: string;
+    description: string;
+    settings: Record<string, string>;
+  }> = [];
   try {
     const catalog = loadStyleCatalog(design.style as CatalogStyleName);
     catalogSteps = catalog.steps;

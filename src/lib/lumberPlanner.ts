@@ -91,10 +91,10 @@ export function calculateRequiredParts(design: BoardDesign): CutItem[] {
   }
   
   // Calculate allowances
-  const kerf = catalog?.tooling?.kerf_mm || 3.175;
-  const roughOversize = catalog?.tooling?.roughToFinalOversize_mm || { thickness: 3, width: 6, length: 50 };
-  const flatteningAllowance = catalog?.tooling?.flatteningAllowance_mm || 1.5;
-  const sandingLoss = catalog?.tooling?.sandingLoss_mm || 0.5;
+  const kerf = catalog?.cutListAllowances?.kerf_mm || 3.175;
+  const roughOversize = catalog?.cutListAllowances?.roughToFinalOversize_mm || { thickness: 3, width: 6, length: 50 };
+  const flatteningAllowance = catalog?.cutListAllowances?.flatteningAllowance_mm || 1.5;
+  const sandingLoss = catalog?.cutListAllowances?.sandingLoss_mm || 0.5;
   
   // Group strips by dimensions and species, adding allowances
   for (const strip of pattern.strips) {

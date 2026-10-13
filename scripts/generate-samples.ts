@@ -20,7 +20,7 @@ import {
   create16x24Board, 
   createMetricBoard
 } from '../src/lib/defaults';
-import { BoardDesign, CutListItem, StepInstruction } from '../src/types';
+import { BoardDesign, CutListItem } from '../src/types';
 
 const SAMPLES_DIR = 'samples';
 
@@ -49,60 +49,11 @@ const sampleCutList: CutListItem[] = [
   },
 ];
 
-// Sample steps
-const sampleSteps: StepInstruction[] = [
-  {
-    stepNumber: 1,
-    title: 'Mill rough stock',
-    description: 'Joint edges on the jointer. Plane to final thickness using multiple passes.',
-    settings: {
-      'Planer depth': '38.1 mm (1.5")',
-      'Feed rate': 'Slow',
-      'Blade height': '40 mm',
-    },
-    safetyBanners: [
-      'WARNING: Keep hands away from cutterhead. Use push blocks.',
-      'CAUTION: Ensure stock is flat before planing.',
-    ],
-  },
-  {
-    stepNumber: 2,
-    title: 'Rip strips to width',
-    description: 'Set rip fence to 25.4 mm (1"). Cut all strips to uniform width.',
-    settings: {
-      'Rip fence': '25.4 mm (1")',
-      'Blade height': '45 mm',
-    },
-    safetyBanners: [
-      'WARNING: Use push stick. Keep hands clear of blade.',
-    ],
-  },
-  {
-    stepNumber: 3,
-    title: 'Crosscut strips to length',
-    description: 'Use stop block on crosscut sled. Cut all strips to exact length.',
-    settings: {
-      'Stop block position': '406.4 mm (16")',
-      'Blade height': '45 mm',
-    },
-    safetyBanners: [
-      'WARNING: Never reach over the blade.',
-    ],
-  },
-  {
-    stepNumber: 4,
-    title: 'Glue-up checkerboard pattern',
-    description: 'Arrange strips in alternating pattern. Apply even pressure with clamps. Let dry 24 hours.',
-    settings: {},
-    safetyBanners: [],
-  },
-];
-
 function generateSample(name: string, design: BoardDesign): void {
   console.log(`Generating ${name}...`);
   
   const generator = new PdfGenerator(design);
-  const pdf = generator.generateCutSheet(sampleCutList, sampleSteps);
+  const pdf = generator.generateCutSheet(sampleCutList);
   
   const buffer = pdf.output('arraybuffer');
   const filePath = join(SAMPLES_DIR, `${name}.pdf`);

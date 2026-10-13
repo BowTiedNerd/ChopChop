@@ -38,23 +38,7 @@ function App() {
       },
     ];
 
-    // Generate sample steps
-    const steps = [
-      {
-        stepNumber: 1,
-        title: 'Mill rough stock',
-        description: 'Joint edges on the jointer, then plane to final thickness.',
-        settings: {
-          'Planer depth': '38.1 mm (1.5")',
-          'Feed rate': 'Slow',
-        },
-        safetyBanners: [
-          'WARNING: Keep hands away from cutterhead. Use push blocks.',
-        ],
-      },
-    ];
-
-    const pdf = generator.generateCutSheet(cutList, steps);
+    const pdf = generator.generateCutSheet(cutList);
     pdf.save(`chopchop-${design.style}-${Date.now()}.pdf`);
   };
 
