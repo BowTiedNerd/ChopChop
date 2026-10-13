@@ -1,0 +1,600 @@
+%PDF-1.3
+%ºß¬à
+3 0 obj
+<</Type /Page
+/Parent 1 0 R
+/Resources 2 0 R
+/MediaBox [0 0 612. 792.]
+/Contents 4 0 R
+>>
+endobj
+4 0 obj
+<<
+/Length 5064
+>>
+stream
+0.5670000000000001 w
+0 G
+BT
+/F1 18 Tf
+20.6999999999999993 TL
+0 g
+56.6929133858267775 735.3070866141732722 Td
+(Cut Sheet) Tj
+ET
+BT
+/F1 12 Tf
+13.7999999999999989 TL
+0 g
+56.6929133858267775 706.9606299212598515 Td
+(Board Design Summary) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0 g
+70.8661417322834666 687.1181102362204456 Td
+(Style: checkerboard) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0 g
+70.8661417322834666 672.9448818897637921 Td
+(Dimensions: 12.000" \(12"\) × 18.000" \(18"\) × 1.500" \(1 1/2"\)) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0 g
+70.8661417322834666 658.7716535433071385 Td
+(Species: Walnut, Maple) Tj
+ET
+BT
+/F1 12 Tf
+13.7999999999999989 TL
+0 g
+56.6929133858267775 630.4251968503937178 Td
+(Cut List) Tj
+ET
+BT
+/F2 10 Tf
+11.5 TL
+0 g
+56.6929133858267775 610.5826771653543119 Td
+(Part) Tj
+ET
+BT
+/F2 10 Tf
+11.5 TL
+0 g
+170.0787401574803255 610.5826771653543119 Td
+(Qty) Tj
+ET
+BT
+/F2 10 Tf
+11.5 TL
+0 g
+212.5984251968504282 610.5826771653543119 Td
+(Width) Tj
+ET
+BT
+/F2 10 Tf
+11.5 TL
+0 g
+297.6377952755905767 610.5826771653543119 Td
+(Thickness) Tj
+ET
+BT
+/F2 10 Tf
+11.5 TL
+0 g
+382.6771653543307252 610.5826771653543119 Td
+(Length) Tj
+ET
+BT
+/F2 10 Tf
+11.5 TL
+0 g
+467.7165354330709306 610.5826771653543119 Td
+(Species) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0 g
+56.6929133858267775 593.5748031496062822 Td
+(Board strips \(Walnut\)) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0 g
+170.0787401574803255 593.5748031496062822 Td
+(10) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0 g
+212.5984251968504282 593.5748031496062822 Td
+(1.000" \(1"\)) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0 g
+297.6377952755905767 593.5748031496062822 Td
+(1.500" \(1 1/2"\)) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0 g
+382.6771653543307252 593.5748031496062822 Td
+(16.000" \(16"\)) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0 g
+467.7165354330709306 593.5748031496062822 Td
+(Walnut) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0 g
+56.6929133858267775 579.401574803149515 Td
+(Board strips \(Maple\)) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0 g
+170.0787401574803255 579.401574803149515 Td
+(10) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0 g
+212.5984251968504282 579.401574803149515 Td
+(1.000" \(1"\)) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0 g
+297.6377952755905767 579.401574803149515 Td
+(1.500" \(1 1/2"\)) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0 g
+382.6771653543307252 579.401574803149515 Td
+(16.000" \(16"\)) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0 g
+467.7165354330709306 579.401574803149515 Td
+(Maple) Tj
+ET
+BT
+/F2 12 Tf
+13.7999999999999989 TL
+0 g
+56.6929133858267775 551.0551181102362079 Td
+(Step 1: Mill rough stock) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0 g
+56.6929133858267775 531.2125984251968021 Td
+(Joint edges on the jointer. Plane to final thickness using multiple passes.) Tj
+ET
+BT
+/F2 10 Tf
+11.5 TL
+0 g
+56.6929133858267775 508.5354330708661337 Td
+(Settings:) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0 g
+56.6929133858267775 494.3622047244094233 Td
+(  Planer depth: 38.1 mm \(1.5"\)) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0 g
+56.6929133858267775 480.1889763779527129 Td
+(  Feed rate: Slow) Tj
+ET
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0 g
+56.6929133858267775 466.0157480314960026 Td
+(  + 1 more settings, see step text) Tj
+ET
+1. 0.78 0.78 rg
+56.6929133858267775 454.6771653543306684 481.8897637795275841 -11.3385826771653555 re
+f
+BT
+/F2 11 Tf
+12.6499999999999986 TL
+0 g
+70.8661417322834666 443.3385826771653342 Td
+(WARNING: Keep hands away from cutterhead. Use push blocks.) Tj
+ET
+1. 0.78 0.78 rg
+56.6929133858267775 429.1653543307086238 481.8897637795275841 -11.3385826771653555 re
+f
+BT
+/F2 11 Tf
+12.6499999999999986 TL
+0 g
+70.8661417322834666 417.8267716535432896 Td
+(CAUTION: Ensure stock is flat before planing.) Tj
+ET
+BT
+/F2 12 Tf
+13.7999999999999989 TL
+0 g
+56.6929133858267775 372.4724409448818392 Td
+(Step 2: Rip strips to width) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0 g
+56.6929133858267775 352.6299212598424901 Td
+(Set rip fence to 25.4 mm \(1"\). Cut all strips to uniform width.) Tj
+ET
+BT
+/F2 10 Tf
+11.5 TL
+0 g
+56.6929133858267775 329.9527559055117649 Td
+(Settings:) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0 g
+56.6929133858267775 315.7795275590550546 Td
+(  Rip fence: 25.4 mm \(1"\)) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0 g
+56.6929133858267775 301.606299212598401 Td
+(  Blade height: 45 mm) Tj
+ET
+1. 0.78 0.78 rg
+56.6929133858267775 290.26771653543301 481.8897637795275841 -11.3385826771653555 re
+f
+BT
+/F2 11 Tf
+12.6499999999999986 TL
+0 g
+70.8661417322834666 278.929133858267619 Td
+(WARNING: Use push stick. Keep hands clear of blade.) Tj
+ET
+BT
+/F2 12 Tf
+13.7999999999999989 TL
+0 g
+56.6929133858267775 233.5748031496062822 Td
+(Step 3: Crosscut strips to length) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0 g
+56.6929133858267775 213.7322834645668763 Td
+(Use stop block on crosscut sled. Cut all strips to exact length.) Tj
+ET
+BT
+/F2 10 Tf
+11.5 TL
+0 g
+56.6929133858267775 191.0551181102362079 Td
+(Settings:) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0 g
+56.6929133858267775 176.8818897637794407 Td
+(  Stop block position: 406.4 mm \(16"\)) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0 g
+56.6929133858267775 162.7086614173227872 Td
+(  Blade height: 45 mm) Tj
+ET
+1. 0.78 0.78 rg
+56.6929133858267775 151.3700787401574246 481.8897637795275841 -11.3385826771653555 re
+f
+BT
+/F2 11 Tf
+12.6499999999999986 TL
+0 g
+70.8661417322834666 140.0314960629920051 Td
+(WARNING: Never reach over the blade.) Tj
+ET
+endstream
+endobj
+5 0 obj
+<</Type /Page
+/Parent 1 0 R
+/Resources 2 0 R
+/MediaBox [0 0 612. 792.]
+/Contents 6 0 R
+>>
+endobj
+6 0 obj
+<<
+/Length 580
+>>
+stream
+0.5670000000000001 w
+0 G
+BT
+/F2 12 Tf
+13.7999999999999989 TL
+0 g
+56.6929133858267775 735.3070866141732722 Td
+(Step 4: Glue-up checkerboard pattern) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0 g
+56.6929133858267775 715.4645669291338663 Td
+(Arrange strips in alternating pattern. Apply even pressure with clamps. Let dry 24 hours.) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.392 g
+56.6929133858267775 26.6456692913385496 Td
+(Generated by ChopChop Cutting Board Designer) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.392 g
+368.5039370078740717 26.6456692913385496 Td
+(Prices are your own entries) Tj
+ET
+endstream
+endobj
+1 0 obj
+<</Type /Pages
+/Kids [3 0 R 5 0 R ]
+/Count 2
+>>
+endobj
+7 0 obj
+<<
+/Type /Font
+/BaseFont /Helvetica
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+8 0 obj
+<<
+/Type /Font
+/BaseFont /Helvetica-Bold
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+9 0 obj
+<<
+/Type /Font
+/BaseFont /Helvetica-Oblique
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+10 0 obj
+<<
+/Type /Font
+/BaseFont /Helvetica-BoldOblique
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+11 0 obj
+<<
+/Type /Font
+/BaseFont /Courier
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+12 0 obj
+<<
+/Type /Font
+/BaseFont /Courier-Bold
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+13 0 obj
+<<
+/Type /Font
+/BaseFont /Courier-Oblique
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+14 0 obj
+<<
+/Type /Font
+/BaseFont /Courier-BoldOblique
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+15 0 obj
+<<
+/Type /Font
+/BaseFont /Times-Roman
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+16 0 obj
+<<
+/Type /Font
+/BaseFont /Times-Bold
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+17 0 obj
+<<
+/Type /Font
+/BaseFont /Times-Italic
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+18 0 obj
+<<
+/Type /Font
+/BaseFont /Times-BoldItalic
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+19 0 obj
+<<
+/Type /Font
+/BaseFont /ZapfDingbats
+/Subtype /Type1
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+20 0 obj
+<<
+/Type /Font
+/BaseFont /Symbol
+/Subtype /Type1
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+2 0 obj
+<<
+/ProcSet [/PDF /Text /ImageB /ImageC /ImageI]
+/Font <<
+/F1 7 0 R
+/F2 8 0 R
+/F3 9 0 R
+/F4 10 0 R
+/F5 11 0 R
+/F6 12 0 R
+/F7 13 0 R
+/F8 14 0 R
+/F9 15 0 R
+/F10 16 0 R
+/F11 17 0 R
+/F12 18 0 R
+/F13 19 0 R
+/F14 20 0 R
+>>
+/XObject <<
+>>
+>>
+endobj
+21 0 obj
+<<
+/Producer (jsPDF 2.5.2)
+/CreationDate (D:20261013230713-00'00')
+>>
+endobj
+22 0 obj
+<<
+/Type /Catalog
+/Pages 1 0 R
+/OpenAction [3 0 R /FitH null]
+/PageLayout /OneColumn
+>>
+endobj
+xref
+0 23
+0000000000 65535 f 
+0000005972 00000 n 
+0000007797 00000 n 
+0000000015 00000 n 
+0000000120 00000 n 
+0000005236 00000 n 
+0000005341 00000 n 
+0000006035 00000 n 
+0000006160 00000 n 
+0000006290 00000 n 
+0000006423 00000 n 
+0000006561 00000 n 
+0000006685 00000 n 
+0000006814 00000 n 
+0000006946 00000 n 
+0000007082 00000 n 
+0000007210 00000 n 
+0000007337 00000 n 
+0000007466 00000 n 
+0000007599 00000 n 
+0000007701 00000 n 
+0000008047 00000 n 
+0000008133 00000 n 
+trailer
+<<
+/Size 23
+/Root 22 0 R
+/Info 21 0 R
+/ID [ <64CFB1154E7DC6A8328900E2ED2E7EAD> <64CFB1154E7DC6A8328900E2ED2E7EAD> ]
+>>
+startxref
+8237
+%%EOF

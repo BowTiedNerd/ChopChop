@@ -11,7 +11,8 @@
     "test:run": "vitest run",
     "typecheck": "tsc --noEmit",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "check-browser": "node scripts/check-svg-text.mjs"
+    "check-browser": "node scripts/check-svg-text.mjs",
+    "generate-samples": "tsx scripts/generate-samples.ts"
   },
   "dependencies": {
     "jspdf": "^2.5.2",
@@ -34,6 +35,7 @@
     "globals": "^15.11.0",
     "jsdom": "^29.1.1",
     "puppeteer": "^23.7.1",
+    "tsx": "^4.23.15",
     "typescript": "^5.6.3",
     "typescript-eslint": "^8.13.0",
     "vite": "^5.4.11",
