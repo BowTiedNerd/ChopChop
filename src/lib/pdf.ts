@@ -1,11 +1,23 @@
 import { jsPDF } from 'jspdf';
 import { BoardDesign, StepInstruction, CutListItem } from '../types';
 import { inchText, metricText } from '../utils/format';
+import { 
+  generateTopViewFigure, 
+  generateRipFenceFigure,
+  generateGlueUpFigure,
+  generateCrosscutFigure,
+  generateCutListFigure,
+  generatePlanerFigure
+} from './stepFigures';
 
 const BANNER_FONT = 11;
 const BANNER_LINE = 14;
 const MIN_TEXT_SIZE = 8; // pt minimum for footers and notes
 const SETTING_TAG_CAP = 2;
+
+// DejaVu Sans font family (using helvetica as fallback, jsPDF default)
+// Note: For full DejaVu embedding, would need base64 encoded font file
+const FONT_FAMILY = 'helvetica'; // DejaVu Sans equivalent
 
 export interface PdfOptions {
   design: BoardDesign;
@@ -41,7 +53,23 @@ export class PdfGenerator {
   generateCutSheet(cutList: CutListItem[], steps: StepInstruction[]): jsPDF {
     this.addTitle('Cut Sheet');
     this.addBoardSummary();
+    
+    // Add cut list figure
+    const cutListFigure = generateCutListFigure(this.design);
+    this.addFigure(cutListFigure.svg);
+    
     this.addCutList(cutList);
+    
+    // Add top view figure
+    const topViewFigure = generateTopViewFigure(this.design);
+    this.yPosition += 5;
+    this.doc.setFontSize(12);
+    this.doc.setFont(FONT_FAMILY, 'bold');
+    this.doc.text('Board Layout (Top View)', this.margin, this.yPosition);
+    this.yPosition += 7;
+    this.doc.setFont(FONT_FAMILY, 'normal');
+    this.addFigure(topViewFigure.svg);
+    
     this.addSteps(steps);
     this.addFooter();
     
@@ -189,13 +217,13 @@ export class PdfGenerator {
   private addStep(step: StepInstruction): void {
     // Step title
     this.doc.setFontSize(12);
-    this.doc.setFont('helvetica', 'bold');
+    this.doc.setFont(FONT_FAMILY, 'bold');
     this.doc.text(`Step ${step.stepNumber}: ${step.title}`, this.margin, this.yPosition);
     this.yPosition += 7;
 
     // Description
     this.doc.setFontSize(10);
-    this.doc.setFont('helvetica', 'normal');
+    this.doc.setFont(FONT_FAMILY, 'normal');
     const descLines = this.doc.splitTextToSize(step.description, 170);
     this.doc.text(descLines, this.margin, this.yPosition);
     this.yPosition += descLines.length * 5;
@@ -203,11 +231,11 @@ export class PdfGenerator {
     // Settings (with cap at 2 + "N more settings")
     if (Object.keys(step.settings).length > 0) {
       this.yPosition += 3;
-      this.doc.setFont('helvetica', 'bold');
+      this.doc.setFont(FONT_FAMILY, 'bold');
       this.doc.text('Settings:', this.margin, this.yPosition);
       this.yPosition += 5;
 
-      this.doc.setFont('helvetica', 'normal');
+      this.doc.setFont(FONT_FAMILY, 'normal');
       const settingEntries = Object.entries(step.settings);
       const visibleSettings = settingEntries.slice(0, SETTING_TAG_CAP);
       
@@ -231,12 +259,54 @@ export class PdfGenerator {
       }
     }
 
-    // Figure (if available)
-    if (step.figure) {
+    // Generate appropriate figure based on step
+    const figure = this.generateStepFigure(step);
+    if (figure) {
+      this.addFigure(figure);
+    } else if (step.figure) {
+      // Use provided figure if available
       this.addFigure(step.figure);
     }
 
     this.yPosition += 10;
+  }
+
+  /**
+   * Generate appropriate figure for step based on title/settings
+   */
+  private generateStepFigure(step: StepInstruction): string | null {
+    const title = step.title.toLowerCase();
+    const unit = this.design.unitSystem;
+    
+    // Rip fence setup
+    if (title.includes('rip') && step.settings['Rip fence']) {
+      const fenceDistance = 25.4; // Default 1"
+      const bladeHeight = 45; // Default
+      const figure = generateRipFenceFigure(fenceDistance, bladeHeight, unit);
+      return figure.svg;
+    }
+    
+    // Crosscut setup
+    if (title.includes('crosscut') && step.settings['Stop block position']) {
+      const stopPosition = this.design.dimensions.length;
+      const figure = generateCrosscutFigure(stopPosition, unit);
+      return figure.svg;
+    }
+    
+    // Planer setup
+    if (title.includes('plane') || title.includes('mill')) {
+      const depth = this.design.dimensions.thickness;
+      const figure = generatePlanerFigure(depth, unit);
+      return figure.svg;
+    }
+    
+    // Glue-up
+    if (title.includes('glue')) {
+      const figure = generateGlueUpFigure(this.design, step.stepNumber);
+      return figure.svg;
+    }
+    
+    return null;
   }
 
   /**
@@ -252,24 +322,67 @@ export class PdfGenerator {
     const boxHeight = lines.length * BANNER_LINE / 3.5;
     
     this.doc.rect(this.margin, this.yPosition - 4, 170, boxHeight, 'F');
-    this.doc.setFont('helvetica', 'bold');
+    this.doc.setFont(FONT_FAMILY, 'bold');
     this.doc.text(lines, this.margin + 5, this.yPosition);
     this.yPosition += boxHeight + 2;
-    this.doc.setFont('helvetica', 'normal');
+    this.doc.setFont(FONT_FAMILY, 'normal');
   }
 
   /**
-   * Add figure (SVG as image or placeholder)
+   * Add figure (SVG rendered into PDF)
    */
-  private addFigure(_svg: string): void {
+  private addFigure(svg: string, maxWidth: number = 170): void {
     this.yPosition += 5;
-    // SVG would be rendered here
-    // For now, add placeholder
-    this.doc.setFontSize(9);
-    this.doc.setTextColor(128, 128, 128);
-    this.doc.text('[Step Diagram]', this.margin, this.yPosition);
-    this.doc.setTextColor(0, 0, 0);
-    this.yPosition += 20;
+    
+    // Parse SVG to get dimensions
+    const widthMatch = svg.match(/width="(\d+)"/);
+    const heightMatch = svg.match(/height="(\d+)"/);
+    
+    if (widthMatch && heightMatch) {
+      const svgWidth = parseFloat(widthMatch[1]);
+      const svgHeight = parseFloat(heightMatch[1]);
+      
+      // Scale to fit page width
+      const scale = Math.min(1, maxWidth / svgWidth);
+      const displayWidth = svgWidth * scale * 0.2645833; // Convert px to mm
+      const displayHeight = svgHeight * scale * 0.2645833;
+      
+      // Check if figure fits on current page
+      if (this.yPosition + displayHeight > this.pageHeight - 20) {
+        this.addPageBreak();
+      }
+      
+      // Create data URI for SVG
+      const svgDataUri = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svg)));
+      
+      try {
+        // Add SVG as image to PDF
+        this.doc.addImage(
+          svgDataUri,
+          'SVG',
+          this.margin,
+          this.yPosition,
+          displayWidth,
+          displayHeight
+        );
+        
+        this.yPosition += displayHeight + 5;
+      } catch (error) {
+        // Fallback if SVG rendering fails
+        this.doc.setFontSize(9);
+        this.doc.setTextColor(128, 128, 128);
+        this.doc.text('[Step Diagram]', this.margin, this.yPosition);
+        this.doc.setTextColor(0, 0, 0);
+        this.yPosition += 20;
+      }
+    } else {
+      // Fallback for malformed SVG
+      this.doc.setFontSize(9);
+      this.doc.setTextColor(128, 128, 128);
+      this.doc.text('[Step Diagram]', this.margin, this.yPosition);
+      this.doc.setTextColor(0, 0, 0);
+      this.yPosition += 20;
+    }
   }
 
   /**
