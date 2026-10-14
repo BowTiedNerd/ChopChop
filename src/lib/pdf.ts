@@ -237,6 +237,12 @@ export class PdfGenerator {
       this.yPosition += wrappedFeet.length * 5;
     }
 
+    if (this.design.handles.enabled) {
+      const names = { 'handle': 'handle', 'hand-hole': 'hand hole', 'hand-hole-slot': 'hand-hole slot' } as const;
+      this.doc.text(`Handles: ${names[this.design.handles.type]}`, this.margin + 5, this.yPosition);
+      this.yPosition += 5;
+    }
+
     this.yPosition += 5;
   }
 

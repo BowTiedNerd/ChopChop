@@ -158,11 +158,13 @@ export class SvgBuilder {
       'data-dim-id': id,
     });
     
-    // Label
-    const labelX = (x1 + x2) / 2;
-    const labelY = (y1 + y2) / 2 - 5;
+    // Label: horizontal dims centre it above the line; vertical dims put it beside the line,
+    // away from the drawing (centring it there ran the text back over the geometry)
+    const vertical = Math.abs(dy) > Math.abs(dx);
+    const labelX = vertical ? x1 + 6 : (x1 + x2) / 2;
+    const labelY = vertical ? (y1 + y2) / 2 + 4 : (y1 + y2) / 2 - 5;
     this.text(labelX, labelY, value, 11, {
-      'text-anchor': 'middle',
+      'text-anchor': vertical ? 'start' : 'middle',
       'data-dim-id': id,
     });
   }

@@ -12,95 +12,77 @@ import { PdfGenerator } from './pdf';
 import { validateBoard, validateOutputFolder } from './validation';
 import { BOARD_STYLES } from '../types/catalog';
 
+// Shared: the default checkerboard cut sheet, raw and with inflated content streams
+import { calculateRequiredParts } from './lumberPlanner';
+import { loadStyleCatalog } from './catalogLoader';
+import { readdirSync } from 'fs';
+let cached: { raw: string; content: string } | null = null;
+function defaultPdf() {
+  if (!cached) {
+    const d = createDefaultBoard();
+    const raw = Buffer.from(new PdfGenerator(d).generateCutSheet(calculateRequiredParts(d)).output('arraybuffer')).toString('latin1');
+    cached = { raw, content: pdfContent(raw) };
+  }
+  return cached;
+}
+/** [fontSize, shownText] for every Tj, tracking the last Tf */
+function sizedText(content: string): Array<[number, string]> {
+  const out: Array<[number, string]> = [];
+  let size = NaN;
+  for (const line of content.split('\n')) {
+    for (const m of line.matchAll(/\/F\d+\s+([\d.]+)\s+Tf/g)) size = parseFloat(m[1]);
+    const t = /(?:^|\s)\((.*)\)\s*Tj$/.exec(line);
+    if (t) out.push([size, t[1]]);
+  }
+  return out;
+}
+
+
 describe('PR1-REVIEW #1: PDF minimum text size', () => {
   it('should enforce 8pt minimum in PDFs', () => {
-    // PDF uses MIN_TEXT_SIZE = 8 for footers and notes
-    // This is enforced in pdf.ts line 17
-    const MIN_PDF_TEXT = 8;
-    expect(MIN_PDF_TEXT).toBe(8);
-    
-    // Verify footers use MIN_TEXT_SIZE (checked in pdf.ts:663)
-    const design = createDefaultBoard();
-    const pdfGen = new PdfGenerator(design);
-    
-    expect(pdfGen).toBeDefined();
+    const texts = sizedText(defaultPdf().content);
+    expect(texts.length).toBeGreaterThan(50);
+    const tooSmall = texts.filter(([size]) => !(size >= 8)).map(([size, t]) => `${size}pt: ${t.slice(0, 40)}`);
+    expect(tooSmall).toEqual([]);
   });
-  
-  it('should use 8pt minimum for footer text', async () => {
-    // Footer text must be at least 8pt for readability
-    // This test parses the PDF output to verify footer font size
-    const design = createDefaultBoard();
-    const { calculateRequiredParts } = await import('./lumberPlanner');
-    const cutList = calculateRequiredParts(design);
-    const generator = new PdfGenerator(design);
-    const doc = generator.generateCutSheet(cutList);
-    const pdfBuffer = Buffer.from(doc.output('arraybuffer'));
-    
-    // Parse PDF as text to find font size directives
-    // PDF format: /F<n> <size> Tf sets font, followed by text
-    const pdfText = pdfContent(pdfBuffer.toString('latin1'));
-    
-    // Look for footer text and extract font size before it
-    // PDF text operators: "Tf" sets font, "Tj" or "TJ" outputs text
-    // Format: /F1 8 Tf (ChopChop) Tj
-    const footerPattern = /\/F\d+\s+(\d+(?:\.\d+)?)\s+Tf[^(]*\(.*ChopChop.*\)/;
-    const match = pdfText.match(footerPattern);
-    
-    if (match) {
-      const fontSize = parseFloat(match[1]);
-      // Footer must be at least 8pt
-      expect(fontSize).toBeGreaterThanOrEqual(8);
-    } else {
-      // Fallback: if we can't parse, at least verify footer text exists
-      expect(pdfText).toContain('ChopChop');
-    }
+
+  it('should use 8pt minimum for footer text', () => {
+    // No fallback: the footer must be found and its size parsed
+    const footers = sizedText(defaultPdf().content).filter(([, t]) => t.includes('ChopChop'));
+    expect(footers.length).toBeGreaterThan(0);
+    for (const [size] of footers) expect(size).toBeGreaterThanOrEqual(8);
   });
 });
 
 describe('PR1-REVIEW #2: CTM and scale validation', () => {
-  it('should not apply transform scale to dimension labels', () => {
-    // Dimension labels must not have scale() transforms
-    // This is tested via svg.ts which doesn't add scale to labels
-    const design = createDefaultBoard();
-    expect(design).toBeDefined();
-    
-    // Future: Parse generated SVG and verify no scale() on dimension labels
+  it('should not apply transform scale to dimension or step-figure labels', () => {
+    const svgs = readdirSync('visuals/steps/checkerboard').filter(f => f.endsWith('.svg'))
+      .map(f => readFileSync(`visuals/steps/checkerboard/${f}`, 'utf-8'));
+    expect(svgs.length).toBeGreaterThan(0);
+    for (const svg of svgs) {
+      const scaledText = svg.match(/<text[^>]*transform="[^"]*scale\(/g) ?? [];
+      expect(scaledText).toEqual([]);
+    }
   });
 
-  it('should use actual size for figures (no shrink-to-fit)', () => {
-    // pdf.ts:451 uses scale=1, not Math.min(1, maxWidth/svgWidth)
-    // This was fixed by removing the shrink-to-fit logic
-    const actualScale = 1;
-    const notShrinkToFit = actualScale; // Not Math.min(1, someRatio)
-    expect(notShrinkToFit).toBe(1);
-  });
-  
-  it('should not scale PDF figures below readable size', async () => {
-    // PDF figures should be at actual size (scale=1), not scaled down
-    // This test generates a PDF and checks it has reasonable size
-    const design = createDefaultBoard();
-    const { calculateRequiredParts } = await import('./lumberPlanner');
-    const cutList = calculateRequiredParts(design);
-    const generator = new PdfGenerator(design);
-    const doc = generator.generateCutSheet(cutList);
-    const pdfBuffer = Buffer.from(doc.output('arraybuffer'));
-    
-    // Byte-size heuristic removed (QA major: unrelated changes tripped it).
-    // Figure scale is asserted on embedded images in the figure-embedding tests.
-    expect(pdfBuffer.length).toBeGreaterThan(0);
+  it('places every step figure at actual size (no shrink-to-fit, not scaled below readable size)', () => {
+    // Each SVG px is drawn at 0.75 pt (96 dpi), so image width in the PDF = svg width × 0.75
+    const widths = Array.from(defaultPdf().content.matchAll(/([\d.]+) 0 0 ([\d.]+) [\d.-]+ [\d.-]+ cm\s*\/I\d+ Do/g)).map(m => parseFloat(m[1]));
+    expect(widths.length).toBeGreaterThan(0);
+    const steps = loadStyleCatalog('checkerboard').steps.filter(st => st.figureType);
+    for (const st of steps) {
+      const svg = readFileSync(`visuals/steps/checkerboard/${st.stepId}.svg`, 'utf-8');
+      const w = parseFloat(/<svg\b[^>]*\bwidth="([\d.]+)/.exec(svg)![1]);
+      expect(widths.some(x => Math.abs(x - w * 0.75) < 0.5), `${st.stepId} drawn at ${w * 0.75}pt`).toBe(true);
+    }
   });
 });
 
 describe('PR1-REVIEW #3: No [Step Diagram] placeholders in PDFs', () => {
-  it('should verify PDFs contain real figure SVGs, not placeholders', () => {
-    // When external figures are required, PDFs must never contain '[Step Diagram]'
-    // This is enforced by REQUIRE_EXTERNAL_FIGURES (default on)
-    // Test verifies the enforcement exists
-    const design = createDefaultBoard();
-    
-    // If external figures are missing and fallback is disabled, generation should fail
-    // (tested in externalFigures.test.ts)
-    expect(design).toBeDefined();
+  it('should verify PDFs contain real figures, not placeholders', () => {
+    const { raw } = defaultPdf();
+    expect(raw).not.toContain('[Step Diagram]');
+    expect((raw.match(/\/Subtype \/Image/g) ?? []).length).toBeGreaterThan(0);
   });
   
   it('should enforce 11pt minimum on step figure labels', async () => {
@@ -110,15 +92,10 @@ describe('PR1-REVIEW #3: No [Step Diagram] placeholders in PDFs', () => {
     
     // Generating a rip fence figure should work (uses 11pt)
     const figure = generateRipFenceFigure(25.4, 20, 'metric');
-    expect(figure).toBeDefined();
     expect(figure.svg).toContain('RIP FENCE');
-    
-    // The SVG should have font-size 11 or higher
-    const fontSizeMatch = figure.svg.match(/font-size="(\d+)"/);
-    if (fontSizeMatch) {
-      const fontSize = parseInt(fontSizeMatch[1]);
-      expect(fontSize).toBeGreaterThanOrEqual(11);
-    }
+    const sizes = Array.from(figure.svg.matchAll(/font-size="([\d.]+)"/g)).map(m => parseFloat(m[1]));
+    expect(sizes.length).toBeGreaterThan(0);
+    for (const sz of sizes) expect(sz).toBeGreaterThanOrEqual(11);
   });
   
   it('should not place labels on blade geometry', async () => {
@@ -127,16 +104,14 @@ describe('PR1-REVIEW #3: No [Step Diagram] placeholders in PDFs', () => {
     const { generateRipFenceFigure } = await import('./stepFigures');
     
     const figure = generateRipFenceFigure(25.4, 20, 'metric');
-    expect(figure).toBeDefined();
     
     // Find the label position in the SVG
     // Labels are text elements with content "RIP FENCE"
     const labelMatch = figure.svg.match(/<text[^>]*x="([^"]+)"[^>]*>RIP FENCE</);
-    if (labelMatch) {
-      const labelX = parseFloat(labelMatch[1]);
-      // Blade is at x=200, label should not be there (allow 10px tolerance)
-      expect(Math.abs(labelX - 200)).toBeGreaterThan(10);
-    }
+    expect(labelMatch).not.toBeNull();
+    const labelX = parseFloat(labelMatch![1]);
+    // Blade is at x=200, label should not be there (allow 10px tolerance)
+    expect(Math.abs(labelX - 200)).toBeGreaterThan(10);
   });
 });
 
@@ -181,29 +156,24 @@ describe('PR1-REVIEW #4: Banner tests', () => {
   });
 
   it('should print all safety banners, not just first', () => {
-    // When a step has multiple banners, all must appear
-    const banners = [
-      'WARNING: Keep hands away',
-      'CAUTION: Use guards',
-      'NOTE: Feed slowly'
-    ];
-    
-    // All banners must be included
-    expect(banners.length).toBe(3);
-    banners.forEach(banner => expect(banner.length).toBeGreaterThan(0));
+    const shown = pdfShownText(defaultPdf().raw);
+    const steps = loadStyleCatalog('checkerboard').steps.filter(st => st.safetyBanners.length > 1);
+    expect(steps.length).toBeGreaterThan(0);
+    for (const st of steps) for (const b of st.safetyBanners) {
+      expect(shown).toContain(b.split(' ').slice(0, 4).join(' '));
+    }
   });
 });
 
 describe('PR1-REVIEW #5: Settings in step text', () => {
   it('should include settings in step descriptions', () => {
-    // Step settings like "Rip fence: 25.4 mm" must appear in the text
-    // This is handled by the catalog and PDF generator
-    const settings = {
-      'Rip fence': '25.4 mm',
-      'Blade height': '45 mm'
-    };
-    
-    expect(Object.keys(settings).length).toBeGreaterThan(0);
+    const shown = pdfShownText(defaultPdf().raw);
+    const withSettings = loadStyleCatalog('checkerboard').steps.filter(st => Object.keys(st.settings).length > 0);
+    expect(withSettings.length).toBeGreaterThan(0);
+    for (const st of withSettings) {
+      const [key, value] = Object.entries(st.settings)[0];
+      expect(shown).toContain(`${key}: ${value}`.slice(0, 30));
+    }
   });
 });
 
@@ -214,8 +184,8 @@ describe('PR1-REVIEW #6: Other caps test', () => {
     const design = createDefaultBoard();
     const pattern = generatePattern(design);
     
-    // No artificial cap - all strips shown
-    expect(pattern.strips.length).toBeGreaterThan(0);
+    // No artificial cap: 12 across × 18 rows on the default 12x18 board
+    expect(pattern.strips.length).toBe(12 * 18);
   });
 
   it('should verify step cap removed (no 3-step limit)', () => {
@@ -278,13 +248,15 @@ describe('PR1-REVIEW #10: Refusal tests', () => {
 });
 
 describe('PR1-REVIEW #11: Concurrency test', () => {
-  it('should produce identical exports except timestamps', () => {
-    // Multiple concurrent exports should be identical except exportedAt
-    // This is tested by export command recording commitSha
-    const design = createDefaultBoard();
-    expect(design).toBeDefined();
-    
-    // Future: Generate two exports and compare
+  it('should produce identical exports except timestamps', async () => {
+    const { buildExportDoc } = await import('../../scripts/export');
+    const d = createDefaultBoard();
+    const [a, b] = await Promise.all([
+      Promise.resolve(buildExportDoc(d, { exportedAt: '2026-01-01T00:00:00Z', commitSha: 'x' }).exportDoc),
+      Promise.resolve(buildExportDoc(d, { exportedAt: '2026-01-02T00:00:00Z', commitSha: 'x' }).exportDoc),
+    ]);
+    expect({ ...a, exportedAt: '' }).toEqual({ ...b, exportedAt: '' });
+    expect(a.exportedAt).not.toBe(b.exportedAt);
   });
 });
 
@@ -298,14 +270,10 @@ describe('PR1-REVIEW #12: Undefined folder test', () => {
 });
 
 describe('PR1-REVIEW #13: Crosscut sled requirement', () => {
-  it('should require crosscut sled for panel slices', () => {
-    // When blankUnit='stripSetPanel', panelCrosscut must be 'crosscutSledWithStopBlock'
-    // This is enforced in the catalog and validated in cut list generation
-    const design = createDefaultBoard();
-    expect(design.style).toBeDefined();
-    
-    // Catalog specifies: "Crosscut every slice from a panel on a crosscut sled with a stop block"
-    // This requirement is in catalog draft5e panelWidthText
+  it('should require crosscut sled with stop block for panel slices', () => {
+    const panels = calculateRequiredParts(createDefaultBoard()).filter(p => p.part.includes('strip-set panel'));
+    expect(panels.length).toBeGreaterThan(0);
+    for (const p of panels) expect(p.part).toMatch(/crosscut sled with stop block \(never fence\)/);
   });
 });
 

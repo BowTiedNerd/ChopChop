@@ -96,8 +96,8 @@ export function calculateRequiredParts(design: BoardDesign): CutItem[] {
       flatteningAllowance,
       sandingLoss,
       blankRule,
-      catalog.cutListAllowances.planerMaxWidth_mm,
-      catalog.cutListAllowances.jointerMaxWidth_mm,
+      need(allowances.planerMaxWidth_mm, 'planerMaxWidth_mm'),
+      need(allowances.jointerMaxWidth_mm, 'jointerMaxWidth_mm'),
       design.unitSystem
     );
   }
@@ -161,8 +161,8 @@ function calculateBlanksWithRule(
   flatteningAllowance: number,
   sandingLoss: number,
   blankRule: BlankRule,
-  planerMaxWidth?: number,
-  jointerMaxWidth?: number,
+  planerMaxWidth: number,
+  jointerMaxWidth: number,
   unitSystem: 'imperial' | 'metric' = 'imperial'
 ): CutItem[] {
   const blanks: CutItem[] = [];
@@ -263,7 +263,7 @@ function calculateBlanksWithRule(
           const sled = w > sledMax
             ? `split first: panel ${sheetLen(w, unitSystem)} is wider than the ${sheetLen(sledMax, unitSystem)} sled, never freehand`
             : `sled must clear ${sheetLen(w, unitSystem)}`;
-          const jointNote = jointerMaxWidth !== undefined && w > jointerMaxWidth
+          const jointNote = w > jointerMaxWidth
             ? ' [Width exceeds jointer: flatten the first face on a planer sled or by hand]'
             : '';
           blanks.push({
@@ -315,9 +315,9 @@ function calculateBlanksWithRule(
 
         // Check width constraints
         let widthNote = '';
-        if (width > planerMaxWidth!) {
+        if (width > planerMaxWidth) {
           widthNote = ' [Width exceeds planer: use router sled or drum sander]';
-        } else if (width > jointerMaxWidth!) {
+        } else if (width > jointerMaxWidth) {
           widthNote = ' [Width exceeds jointer: use planer sled or hand flatten]';
         }
         

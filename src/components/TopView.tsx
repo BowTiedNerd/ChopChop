@@ -51,7 +51,7 @@ function generateTopViewSvg(design: BoardDesign): string {
   const { width, length } = design.dimensions;
   const scale = 1; // 1 mm = 1 unit
   
-  const svgWidth = width * scale + 100;
+  const svgWidth = width * scale + 220; // room for the length label right of the board
   const svgHeight = length * scale + 100;
   
   const builder = new SvgBuilder(svgWidth, svgHeight);

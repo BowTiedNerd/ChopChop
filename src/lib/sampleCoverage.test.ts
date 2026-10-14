@@ -4,7 +4,8 @@
  */
 
 import { describe, it, expect } from 'vitest';
-import { existsSync, readdirSync } from 'fs';
+import { existsSync, readdirSync, readFileSync } from 'fs';
+import { pdfShownText } from './pdfTestText';
 import { join } from 'path';
 
 const SAMPLES_DIR = join(process.cwd(), 'samples');
@@ -37,29 +38,23 @@ describe('Sample PDF Coverage', () => {
     expect(samples.length).toBeGreaterThanOrEqual(9);
   });
   
-  it('should cover all required features and patterns', () => {
-    // This test documents the feature coverage requirements
-    const coverage = {
-      patterns: ['checkerboard', 'chevron', 'herringbone', 'scrap-chaotic'],
-      sizes: ['16x24'],
-      units: ['metric'],
-      features: ['hand-hole', 'juice-groove', 'feet', 'finger-grip'],
-    };
-    
-    // Verify coverage mapping
-    expect(coverage.patterns).toHaveLength(4);
-    expect(coverage.features).toHaveLength(4);
-    
-    // All features should be present in samples:
-    // - metric: metric.pdf (has juice groove + feet)
-    // - 16x24: checkerboard-16x24.pdf
-    // - checkerboard: checkerboard-default.pdf, checkerboard-16x24.pdf
-    // - herringbone: herringbone.pdf
-    // - chevron: chevron.pdf
-    // - scrap-chaotic: scrap-chaotic.pdf
-    // - hand-hole: hand-hole.pdf
-    // - juice groove: features-combined.pdf, metric.pdf
-    // - feet: features-combined.pdf, metric.pdf
-    // - finger grip: features-combined.pdf
+  it('each sample PDF actually shows the feature it is meant to cover', () => {
+    const text = (name: string) => pdfShownText(readFileSync(join(SAMPLES_DIR, `${name}.pdf`)).toString('latin1'));
+    const expectations: Array<[string, RegExp[]]> = [
+      ['checkerboard-default', [/Style: checkerboard/, /Flatten panel 1\//]],
+      ['checkerboard-16x24', [/Style: checkerboard/, /16\.000" \(16"\) × 24\.000"/]],
+      ['chevron', [/Style: chevron/]],
+      ['herringbone', [/Style: herringbone/]],
+      ['scrap-chaotic', [/Style: scrap-chaotic/]],
+      ['hand-hole', [/Handles: hand hole/]],
+      ['metric', [/Dimensions: \d+ mm × \d+ mm × \d+ mm/]],
+      ['features-combined', [/Juice Groove:/, /Rubber Feet:/, /finger grip/i]],
+    ];
+    const missing: string[] = [];
+    for (const [name, patterns] of expectations) {
+      const t = text(name);
+      for (const re of patterns) if (!re.test(t)) missing.push(`${name}: ${re}`);
+    }
+    expect(missing).toEqual([]);
   });
 });

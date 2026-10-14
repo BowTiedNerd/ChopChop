@@ -121,14 +121,10 @@ describe('Browser Check (starts own dev server)', () => {
         
         const violations = await checkLabelOverlaps(page);
         
-        // Allow some violations in initial implementation
-        // Full compliance requires careful SVG generation
-        if (violations.length > 0) {
-          console.warn(`Label overlap warnings at ${viewport.name}:`, violations);
-        }
-        
-        // For now, just verify the check runs
-        expect(Array.isArray(violations)).toBe(true);
+        // Fails on any overlap (mobile 390 px included); no warning-only mode
+        const textCount = await page.evaluate(() => document.querySelectorAll('svg text').length);
+        expect(textCount).toBeGreaterThan(0);
+        expect(violations).toEqual([]);
       });
     });
   }
