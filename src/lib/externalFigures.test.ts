@@ -21,7 +21,7 @@ describe('External Figures - REQUIRE_EXTERNAL_FIGURES enforcement', () => {
     }
   });
 
-  it('should have step SVGs for at least one style', () => {
+  it('should have step SVGs for at least one style', async () => {
     const stepsDir = join(process.cwd(), 'visuals', 'steps');
     
     if (!existsSync(stepsDir)) {
