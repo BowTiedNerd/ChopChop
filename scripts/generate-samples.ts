@@ -8,7 +8,11 @@
  * - checkerboard-16x24.pdf
  * - chevron.pdf
  * - brick.pdf
+ * - herringbone.pdf
  * - metric.pdf
+ * - hand-hole.pdf
+ * - scrap-chaotic.pdf
+ * - features-combined.pdf (juice groove + feet + finger grip)
  * - mill-plan.pdf
  */
 
@@ -73,6 +77,66 @@ const metricBoard = createMetricBoard();
 metricBoard.juiceGroove.enabled = true;
 metricBoard.rubberFeet.enabled = true;
 generateSample('metric', metricBoard);
+
+// Herringbone
+const herringboneBoard = createDefaultBoard();
+herringboneBoard.style = 'herringbone';
+herringboneBoard.angle = 45;
+generateSample('herringbone', herringboneBoard);
+
+// Hand-hole handles
+const handHoleBoard = createDefaultBoard();
+handHoleBoard.handles = {
+  enabled: true,
+  type: 'handle',
+  width: 100,
+  length: 25.4,
+  cornerRadius: 12.7,
+  fromEdge: 25.4
+};
+generateSample('hand-hole', handHoleBoard);
+
+// Scrap chaotic
+const scrapBoard = createDefaultBoard();
+scrapBoard.style = 'scrap-chaotic';
+scrapBoard.species = [
+  { name: 'Walnut', color: '#654321' },
+  { name: 'Maple', color: '#F5E6D3' },
+  { name: 'Cherry', color: '#C04000' },
+];
+generateSample('scrap-chaotic', scrapBoard);
+
+// Features combined: juice groove + rubber feet + finger grip
+const featuresBoard = createDefaultBoard();
+featuresBoard.style = 'edge-grain';
+featuresBoard.dimensions = {
+  length: 450,
+  width: 300,
+  thickness: 38
+};
+featuresBoard.juiceGroove = {
+  enabled: true,
+  width: 10,
+  depth: 8,
+  fromEdge: 20,
+  cornerRadius: 25.5  // 25.5 mm corner radius as specified
+};
+featuresBoard.rubberFeet = {
+  enabled: true,
+  diameter: 25.4,  // 1" diameter
+  height: 9.5,     // 3/8" height
+  inset: 25.4
+};
+featuresBoard.handles = {
+  enabled: true,
+  type: 'finger-grip',
+  width: 75,
+  length: 10,  // Bit diameter 3/8-1/2" (9.5-12.7 mm)
+  cornerRadius: 5,
+  fromEdge: 25.4
+};
+featuresBoard.unitSystem = 'metric';
+generateSample('features-combined', featuresBoard);
 
 // Mill plan
 console.log('Generating mill-plan...');
