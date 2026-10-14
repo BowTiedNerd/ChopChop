@@ -61,7 +61,7 @@ jobs:
     
     - name: Run boardviz strict mode
       run: |
-        sudo pip3 install Pillow
+        python3 -m pip install --user Pillow
         cd visuals && CHOPCHOP_DIR=/home/runner/work/ChopChop/ChopChop python3 boardviz.py all --out /tmp/boardviz-test --strict
     
     - name: Verify metric sample export
