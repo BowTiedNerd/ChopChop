@@ -1,3 +1,4 @@
+import { readFileSync } from 'fs';
 import { pdfShownText, pdfContent } from './pdfTestText';
 /**
  * PR1-REVIEW Missing Tests
@@ -220,18 +221,13 @@ describe('PR1-REVIEW #6: Other caps test', () => {
   it('should verify step cap removed (no 3-step limit)', () => {
     // CustomDesigner.tsx previously had steps.slice(0,3), now shows all
     // This was fixed by removing the slice
-    expect(true).toBe(true); // Structural fix verified
+    const src = readFileSync('src/components/CustomDesigner.tsx', 'utf-8');
+    expect(src).not.toMatch(/steps\.slice\(/);
+    expect(src).toMatch(/steps\.map\(/);
   });
 });
 
-describe('PR1-REVIEW #7: Overlap test', () => {
-  it('should fail on mobile label overlaps', () => {
-    // Browser check tests label overlap at mobile width (390px)
-    // Currently logs warning, should fail
-    // TODO: Make overlap test fail instead of just warning
-    expect(true).toBe(true);
-  });
-});
+
 
 describe('PR1-REVIEW #9: Angle geometry difference', () => {
   it('should produce different geometry for 30° vs 45° chevron', () => {

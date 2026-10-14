@@ -179,6 +179,36 @@ export function validateOutputFolder(folder: string | undefined): void {
 }
 
 /**
+ * Validate an output FILE path: its folder must be defined (no "undefined"/"null" segment),
+ * outside virtual filesystems, and writable (checked on the nearest existing ancestor).
+ */
+export function validateOutputPath(
+  file: string | undefined,
+  fsApi: { existsSync: (p: string) => boolean; accessSync: (p: string, mode?: number) => void; W_OK: number },
+): void {
+  if (!file || file === 'undefined') throw new Error('Output file must be defined, got: ' + file);
+  const parts = file.split('/');
+  const slash = file.lastIndexOf('/');
+  const dir = slash < 0 ? '.' : slash === 0 ? '/' : file.slice(0, slash);
+  validateOutputFolder(dir);
+  if (parts.slice(0, -1).some(seg => seg === 'undefined' || seg === 'null')) {
+    throw new Error(`Output folder contains an undefined segment: ${dir}`);
+  }
+  if (/^\/(proc|sys|dev)(\/|$)/.test(dir)) throw new Error(`Output folder is on a virtual filesystem: ${dir}`);
+  let probe = dir;
+  while (!fsApi.existsSync(probe)) {
+    const up = probe.includes('/') ? probe.slice(0, probe.lastIndexOf('/')) || '/' : '.';
+    if (up === probe) break;
+    probe = up;
+  }
+  try {
+    fsApi.accessSync(probe, fsApi.W_OK);
+  } catch (e) {
+    throw new Error(`Output folder is not writable: ${probe} (${e instanceof Error ? e.message : String(e)})`);
+  }
+}
+
+/**
  * Check for concurrent export consistency
  * Concurrent exports must be identical except timestamps
  */

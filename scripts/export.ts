@@ -14,7 +14,8 @@ import { writeFileSync } from 'fs';
 import { execSync } from 'child_process';
 import { dirname } from 'path';
 import { BoardDesign } from '../src/types';
-import { validateBoard, validateAngle, validateOutputFolder } from '../src/lib/validation';
+import { validateBoard, validateAngle, validateOutputPath } from '../src/lib/validation';
+import { accessSync, constants as fsConstants } from 'fs';
 import { calculateRequiredParts } from '../src/lib/lumberPlanner';
 import { generatePattern } from '../src/lib/patterns';
 import { inchText } from '../src/utils/format';
@@ -53,7 +54,7 @@ function exportDesign(options: ExportOptions): void {
   // Validate output folder if writing to file
   if (options.outputFile) {
     try {
-      validateOutputFolder(options.outputFile);
+      validateOutputPath(options.outputFile, { existsSync, accessSync, W_OK: fsConstants.W_OK });
     } catch (error) {
       console.error('Error:', error instanceof Error ? error.message : String(error));
       process.exit(2);
