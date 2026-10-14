@@ -351,7 +351,7 @@ function calculateBlanksWithRule(
             ? `${rip}; strips milled ${shopSize(stripMillThickness, unitSystem)} thick; plane the glued panel to the square size ${shopSize(square, unitSystem)}`
             : rip;
           blanks.push({
-            part: `${label}: ${speciesList} strip-set panel: glue ${n} whole strips (order: ${initials(run)}), ${milling}; ${flatten}; then ${crosscutMethod} ${actualSlices} slices; slice ${shopSize(sliceThickness, unitSystem)} (${sled})${jointNote}`,
+            part: `${label}: ${speciesList} strip-set panel: glue ${n} whole strips (order: ${initials(run)}), ${milling}; ${flatten}; then ${crosscutMethod} ${actualSlices} slices × ${shopSize(sliceThickness, unitSystem)} each (${sled})${jointNote}`,
             width: w,
             thickness,
             length: len,
@@ -415,8 +415,12 @@ function calculateBlanksWithRule(
         const eg = ctx.endGrain ? ctx.allowances.endGrainGridRule as { panelThicknessEqualsCourseHeight?: string; stripMillThicknessOver_mm?: number } | undefined : undefined;
         const course = eg?.panelThicknessEqualsCourseHeight === ctx.style
           ? Math.min(...pattern.strips.map(st => Math.min(st.width, st.depth))) : undefined;
-        const egSlice = undefined as number | undefined;
+        const egSlice = ctx.endGrain ? group.strips[0].height + flatteningAllowance : undefined;
         const outThickness = course ?? thickness;
+        // stripRipRule: rip ripOver_mm over the strip width, then joint to final width
+        const stripW = group.strips[0].width;
+        const blankRipOver = need(ctx.allowances.stripRipRule?.ripOver_mm, 'stripRipRule.ripOver_mm');
+        const ripNote = `rip each strip ${shopSize(stripW + blankRipOver, unitSystem)}, then joint to ${shopSize(stripW, unitSystem)} wide; `;
         
         for (let i = 0; i < blankCount; i++) {
           const n = Math.floor(sliceCount / blankCount) + (i < sliceCount % blankCount ? 1 : 0);
@@ -424,9 +428,7 @@ function calculateBlanksWithRule(
             ? `mill ${shopSize(course + need(eg?.stripMillThicknessOver_mm, 'endGrainGridRule.stripMillThicknessOver_mm'), unitSystem)} thick, plane to the course height ${shopSize(course, unitSystem)}; `
             : '';
           blanks.push({
-            part: egSlice !== undefined
-              ? `${species} blank: ${millNote}crosscut ${n} slices; slice ${shopSize(egSlice, unitSystem)}${widthNote}`
-              : `${species} blank (mill & rip, then crosscut ${n} × ${sliceThickness.toFixed(1)} mm slices)${widthNote}`,
+            part: `${species} blank: ${ripNote}${millNote}crosscut ${n} slices × ${shopSize(egSlice ?? sliceThickness, unitSystem)} each${widthNote}`,
             width,
             thickness: outThickness,
             length: lenFor(n),
@@ -465,7 +467,7 @@ function calculateBlanksWithRule(
       const blankLength = Math.max(blankRule.blankMinLength_mm, minBlankLength);
       
       blanks.push({
-        part: `${species} blank (mill & rip, then crosscut ${sliceCount} × ${sliceThickness.toFixed(1)} mm slices)`,
+        part: `${species} blank: rip, mill, then crosscut ${sliceCount} slices × ${shopSize(sliceThickness, unitSystem)} each`,
         width,
         thickness,
         length: blankLength,

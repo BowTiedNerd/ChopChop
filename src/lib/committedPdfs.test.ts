@@ -12,8 +12,8 @@ describe('Committed PDFs: crosscut step prints the computed slice size (draft5h)
       expect(flat(n), n).toContain('Slice size: 1-11/16" (43 mm)');
     }
   });
-  it('metric: sheet units first, 40 mm + 5 mm = 45 mm (1-25/32"), never "45.0 mm"', () => {
-    expect(flat('metric')).toContain('Slice size: 45 mm (1-25/32")');
+  it('metric: sheet units first, 40 mm + 5 mm = 45 mm (1.77"), never "45.0 mm"', () => {
+    expect(flat('metric')).toContain('Slice size: 45 mm (1.77")');
     expect(flat('metric')).not.toContain('45.0 mm');
   });
 });
@@ -35,12 +35,12 @@ const partColumn = (name: string) => {
 describe('Board Master 2: every final/assembled flatten step prints its real width and route', () => {
   it('chevron Step 8 prints the glue-up width and the router sled / drum sander, then sanding', () => {
     expect(step('chevron', 'Flatten and sand').replace(/\s+/g, ' ')).toContain(
-      'Flatten the final glue-up, 12.0" (305 mm) wide: mixed grain: router sled or drum sander, never the planer. Then sand: 80, 120, 180 grit.');
+      'Flatten the final glue-up, 12" (304.8 mm) wide: mixed grain: router sled or drum sander, never the planer. Then sand: 80, 120, 180 grit.');
   });
   it('no sample prints the generic planer sentence in Flatten and sand', () => {
     for (const n of SAMPLES) {
       const s = step(n, 'Flatten and sand');
-      expect(s, n).toMatch(/Flatten the final glue-up, \S+ \(\d+ mm\)|Flatten the final glue-up, \d+ mm/);
+      expect(s, n).toMatch(/Flatten the final glue-up, \S+ \(\d+(?:\.\d)? mm\)|Flatten the final glue-up, \d+ mm/);
       expect(s, n).not.toMatch(/plane flat if the panel is no wider than/);
     }
   });
@@ -68,11 +68,11 @@ describe('Board Master 3 / Shop Tester D: length split and width split are label
 describe('Shop Tester A: end-grain square geometry', () => {
   it('checkerboard: strips 1" wide, milled 1.6 mm over, panel planed to the 1" square, 18 rows', () => {
     const f = partColumn('checkerboard-default');
-    expect(f).toContain('rip each strip 1-1/16" (27 mm), then joint to 1" (25 mm) wide; strips milled 1-1/16" (27 mm) thick; plane the glued panel to the square size 1" (25 mm)');
-    expect(f).toContain('18 slices; slice 1-11/16" (43 mm)');
+    expect(f).toContain('rip each strip 1-1/16" (27 mm), then joint to 1" (25.4 mm) wide; strips milled 1-1/16" (27 mm) thick; plane the glued panel to the square size 1" (25.4 mm)');
+    expect(f).toContain('18 slices × 1-11/16" (43 mm) each');
   });
   it('slice size is printed on the cut list and the crosscut step', () => {
-    expect(partColumn('end-grain')).toContain('slice 1-11/16" (43 mm)');
+    expect(partColumn('end-grain')).toContain('slices × 1-11/16" (43 mm) each');
     expect(step('end-grain', 'Crosscut slices')).toContain('Slice size: 1-11/16" (43 mm)');
   });
   it('metric board: 2 sub-panels', () => {
@@ -107,7 +107,7 @@ describe('Shop Tester E: every sub-panel prints its strip width', () => {
       const c = partColumn(n);
       const rows = (c.match(/sub-panel \d\/\d:/g) ?? []).length;
       expect(rows, n).toBeGreaterThan(0);
-      expect((c.match(/joint to \S+ \(\d+ mm\) wide|joint to \d+ mm \(\S+\) wide/g) ?? []).length, n).toBe(rows);
+      expect((c.match(/joint to \S+ \(\d+(?:\.\d)? mm\) wide|joint to \d+ mm \(\S+\) wide/g) ?? []).length, n).toBe(rows);
     }
   });
 });
@@ -116,7 +116,7 @@ describe('Shop Tester F: planer wording only for long grain within limits', () =
   it('every planer line is the template with a real width <= 305 mm', () => {
     for (const n of SAMPLES) {
       for (const m of text(n).matchAll(/[^\n]*(Planer OK|plane flat|planer capacity)[^\n]*/g)) {
-        const t = /Planer OK: (\S+ \((\d+) mm\)|(\d+) mm \(\S+\)) wide, long grain/.exec(m[0]);
+        const t = /Planer OK: (\S+ \((\d+(?:\.\d)?) mm\)|(\d+) mm \(\S+\)) wide, long grain/.exec(m[0]);
         expect(t, `${n}: ${m[0]}`).not.toBeNull();
         expect(Number(t![2] ?? t![3]), n).toBeLessThanOrEqual(305);
       }
@@ -133,8 +133,8 @@ describe('Shop Tester F: planer wording only for long grain within limits', () =
 });
 
 describe('Shop Tester G: brick, herringbone and scrap print their sled width', () => {
-  it('crosscut / angled-cut steps say "Sled width: sled must clear 12.0" (305 mm)"', () => {
-    for (const n of ['brick', 'herringbone', 'scrap-chaotic']) expect(flat(n), n).toContain('Sled width: sled must clear 12.0" (305 mm).');
+  it('crosscut / angled-cut steps say "Sled width: sled must clear 12" (305 mm)"', () => {
+    for (const n of ['brick', 'herringbone', 'scrap-chaotic']) expect(flat(n), n).toContain('Sled width: sled must clear 12" (304.8 mm).');
   });
 });
 
@@ -146,7 +146,7 @@ describe('Board QA minor 1: mill-plan.pdf is text only, by decision', () => {
   });
   it('mill plan steps carry the computed text, not the generic catalog sentence', () => {
     const f = flat('mill-plan');
-    expect(f).toContain('Flatten Panel A, sub-panel 1/2, 6.2" (158 mm) wide: Planer OK: 6.2" (158 mm) wide, long grain.');
+    expect(f).toContain('Flatten Panel A, sub-panel 1/2, 6-1/4" (158.4 mm) wide: Planer OK: 6-1/4" (158.4 mm) wide, long grain.');
     expect(f).not.toContain('plane flat if the panel is no wider than');
   });
 });
@@ -154,30 +154,30 @@ describe('Board QA minor 1: mill-plan.pdf is text only, by decision', () => {
 describe('draft5k/5l rules', () => {
   it('(1) brick: slice = board thickness + 5 mm on cut list and step 5, no face sizes; panel planed to the 1" (25 mm) course', () => {
     const c = partColumn('brick');
-    expect(c).toContain('slice 1-11/16" (43 mm)');
-    expect(c).toContain('plane to the course height 1" (25 mm)');
-    expect(c).not.toMatch(/25\.4 mm|76\.2 mm|1\.835"/);
+    expect(c).toContain('slices × 1-11/16" (43 mm) each');
+    expect(c).toContain('plane to the course height 1" (25.4 mm)');
+    expect(c).not.toMatch(/slices × (?:(?!each).)*(25\.4|76\.2)|1\.835"/);
     expect(cutList('brick')).not.toContain('1.835"');
     expect(step('brick', 'Crosscut slices')).toContain('Slice size: 1-11/16" (43 mm).');
   });
   it('(2) Planer OK never over 299 mm (planerMaxWidth_mm - planerMargin_mm)', () => {
-    for (const n of [...SAMPLES, 'tumbling-block']) {
-      for (const m of text(n).matchAll(/Planer OK: (?:\S+ \((\d+) mm\)|(\d+) mm)/g)) expect(Number(m[1] ?? m[2]), n).toBeLessThanOrEqual(299);
+    for (const n of [...SAMPLES, 'tumbling-block-3d']) {
+      for (const m of text(n).matchAll(/Planer OK: (?:\S+ \((\d+(?:\.\d)?) mm\)|(\d+) mm)/g)) expect(Number(m[1] ?? m[2]), n).toBeLessThanOrEqual(299);
     }
   });
   it('(3) mixed-grain styles: final flatten on the router sled or drum sander, then sanding, never Planer OK', () => {
-    for (const n of ['chevron', 'herringbone', 'scrap-chaotic', 'tumbling-block', 'brick']) {
+    for (const n of ['chevron', 'herringbone', 'scrap-chaotic', 'tumbling-block-3d', 'brick']) {
       const s = step(n, 'Flatten and sand').replace(/\s+/g, ' ');
       expect(s, n).toContain('router sled or drum sander, never the planer. Then sand:');
       expect(s, n).not.toContain('Planer OK');
     }
   });
   it('(4) stripRipRule: 16x24 strips ripped 1.6 mm over, then jointed to final width', () => {
-    expect(partColumn('checkerboard-16x24')).toContain('rip each strip 1-13/32" (35 mm), then joint to 1-11/32" (34 mm) wide');
+    expect(partColumn('checkerboard-16x24')).toContain('rip each strip 1-13/32" (35.5 mm), then joint to 1-11/32" (34 mm) wide');
   });
   it('(5) faceTooWideForJointerText replaces the old jointer line', () => {
     const f = flat('checkerboard-default');
-    expect(f).toContain('Too wide for the jointer (6.0" (152 mm)): flatten one face on a planer sled first, then plane the other face parallel');
+    expect(f).toContain('Too wide for the jointer (5-31/32" (152 mm)): flatten one face on a planer sled first, then plane the other face parallel');
     expect(f).not.toContain('Width exceeds jointer');
   });
   it('(6) one value per line, square labelled 1-11/32" (34 mm)', () => {
@@ -189,8 +189,8 @@ describe('draft5k/5l rules', () => {
     expect(cutList('checkerboard-default')).not.toMatch(/\d\.\d{3}"/);
   });
   it('(7) tumbling-block sample PDF and JSON exist with panel ids on sub-panel rows', () => {
-    expect(flat('tumbling-block')).toContain('Style: tumbling-block-3d');
-    const j = JSON.parse(readFileSync('samples/tumbling-block.json', 'utf-8'));
+    expect(flat('tumbling-block-3d')).toContain('Style: tumbling-block-3d');
+    const j = JSON.parse(readFileSync('samples/tumbling-block-3d.json', 'utf-8'));
     const subs = j.cutList.filter((r: { subPanel?: unknown }) => r.subPanel);
     expect(subs.length).toBe(2);
     for (const r of subs) expect(r.panelId).toBe('A');

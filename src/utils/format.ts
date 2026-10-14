@@ -133,9 +133,7 @@ export function formatHardware(nominalInch: string, exactMm: number): string {
 
 /** Length in sheet units first, e.g. 16.0" (406 mm) or 406 mm (16.0") */
 export function sheetLen(mm: number, unit: 'imperial' | 'metric'): string {
-  const inch = `${(mm / 25.4).toFixed(1)}"`;
-  const metric = `${Math.round(mm)} mm`;
-  return unit === 'metric' ? `${metric} (${inch})` : `${inch} (${metric})`;
+  return shopSize(mm, unit);
 }
 
 
@@ -149,8 +147,26 @@ export function sixteenthsText(mm: number, base = 16): string {
   return whole > 0 ? `${whole}-${num}/${den}"` : `${num}/${den}"`;
 }
 
-/** One shop size, sheet units first, nearest 1/32": 1-11/32" (34 mm) or 34 mm (1-11/32") */
+/** Rounding steps the shop-size printer uses (tests derive their tolerance from these). */
+export const INCH_FRACTION_DENOMINATOR = 32;   // inch sheets: fractions to 1/32"
+export const METRIC_INCH_DECIMALS = 2;         // metric sheets: inch value as a 2-place decimal
+
+/**
+ * One shop size, sheet units first (Board Master units ruling). The value in parentheses is a
+ * conversion of the printed main value, so it converts back to it within half the main rounding step.
+ * inch sheets: 1-11/32" (34 mm); metric sheets: 25 mm (0.98"), never a fraction.
+ */
 export function shopSize(mm: number, unit: 'imperial' | 'metric'): string {
-  const metric = `${Math.round(mm)} mm`;
-  return unit === 'metric' ? `${metric} (${sixteenthsText(mm, 32)})` : `${sixteenthsText(mm, 32)} (${metric})`;
+  if (unit === 'metric') {
+    const main = Math.round(mm);
+    return `${main} mm (${(main / 25.4).toFixed(METRIC_INCH_DECIMALS)}")`;
+  }
+  const n = Math.round((mm / 25.4) * INCH_FRACTION_DENOMINATOR);
+  const mainMm = (n / INCH_FRACTION_DENOMINATOR) * 25.4;
+  // mm of the true size: whole mm when within 0.15 mm of it and within half the 1/32" step of the
+  // printed fraction (so it converts back); otherwise one decimal (25.4 mm, 35.5 mm)
+  const tol = 25.4 / INCH_FRACTION_DENOMINATOR / 2;
+  const r = Math.round(mm);
+  const mmText = Math.abs(r - mm) < 0.15 && Math.abs(r - mainMm) <= tol ? `${r}` : mm.toFixed(1);
+  return `${sixteenthsText(mainMm, INCH_FRACTION_DENOMINATOR)} (${mmText} mm)`;
 }
