@@ -97,7 +97,7 @@ describe('stepId Validation', () => {
     }
     
     // Each style/stepId combination should appear exactly once
-    for (const [fullId, styles] of allStepIds.entries()) {
+    for (const [, styles] of allStepIds.entries()) {
       expect(styles.length).toBe(1);
     }
   });

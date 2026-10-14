@@ -300,7 +300,7 @@ export function createScrollCue(): string {
       padding: 8px;
       color: #666;
       font-size: 14px;
-      display: none;
+      visibility: hidden;
     ">
       → scroll for more
     </div>
