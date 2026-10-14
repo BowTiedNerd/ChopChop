@@ -18,8 +18,13 @@ AssertionError: expected 17621 to be greater than 18000
 ### E2: Only first banner printed
 **Change:** Print only first safety banner in pdf.ts
 **Expected:** Banner test should fail  
-**Command:** `npm test -- banner`
-**Status:** PENDING - Need multiple banners test
+**Command:** `npm test -- pr1Review`
+**Result:** ✅ FAILS - 1 test fails:
+```
+FAIL src/lib/pr1Review.test.ts > PR1-REVIEW #4: Banner tests > should never truncate safety banners
+AssertionError: expected 17888 to be greater than 18000
+```
+**Restore:** `git checkout -- src/lib/pdf.ts`
 
 ### E3: Label font size reduced to 10pt
 **Change:** Set RIP FENCE label font to 10pt in stepFigures.ts
