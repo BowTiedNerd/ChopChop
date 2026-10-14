@@ -244,23 +244,27 @@ function generateEndGrain(design: BoardDesign): PatternResult {
   const targetStrips = Math.round(width / 25.4); // Approximate even number
   const stripWidth = width / targetStrips;
   
+  // End grain = slices crosscut from the glued strip panel, rotated end-up and laid along the
+  // length. Each slice shows a row of square-ish end-grain blocks, so the pattern has rows along
+  // the length (one per slice), not a single full-length row. Columns use a fixed count so float
+  // accumulation can't add a sliver strip.
   const strips: StripPosition[] = [];
-  let x = 0;
-  let speciesIndex = 0;
-  
-  while (x < width) {
-    strips.push({
-      x,
-      y: 0,
-      z: 0,
-      width: Math.min(stripWidth, width - x),
-      height: thickness,
-      depth: length,
-      species: species[speciesIndex % species.length],
-      rotation: 0,
-    });
-    x += stripWidth;
-    speciesIndex++;
+  const cols = Math.max(1, targetStrips);
+  const rows = Math.max(1, Math.round(length / stripWidth));
+  const rowDepth = length / rows;
+  for (let row = 0; row < rows; row++) {
+    for (let col = 0; col < cols; col++) {
+      strips.push({
+        x: col * stripWidth,
+        y: 0,
+        z: row * rowDepth,
+        width: stripWidth,
+        height: thickness,
+        depth: rowDepth,
+        species: species[col % species.length],
+        rotation: 0,
+      });
+    }
   }
   
   return { strips, bounds: { width, height: thickness, depth: length } };
