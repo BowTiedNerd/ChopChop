@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="602" height="689" viewBox="0 0 602 689" data-figure="face-grain/flatten-and-sand">
+<rect data-bg="1" x="0" y="0" width="602" height="689" fill="#FFFFFF"/>
+<text x="20.00" y="30.00" font-family="DejaVu Sans" font-size="16" fill="#222222" font-weight="bold"><tspan x="20.00" y="30.00">Face Grain: top view</tspan></text>
+<polygon points="126.72,80.00 202.92,80.00 202.92,537.20 126.72,537.20" fill="#5B3A29" stroke="#333" stroke-width="0.5"/>
+<polygon points="202.92,80.00 279.12,80.00 279.12,537.20 202.92,537.20" fill="#F3E7D3" stroke="#333" stroke-width="0.5"/>
+<polygon points="279.12,80.00 355.32,80.00 355.32,537.20 279.12,537.20" fill="#5B3A29" stroke="#333" stroke-width="0.5"/>
+<polygon points="355.32,80.00 431.52,80.00 431.52,537.20 355.32,537.20" fill="#F3E7D3" stroke="#333" stroke-width="0.5"/>
+<rect x="126.72" y="80.00" width="304.80" height="457.20" rx="0.00" fill="none" stroke="#222222" stroke-width="1.5"/>
+<desc data-strips="4" data-export-strips="4"></desc>
+<line x1="126.72" y1="64.00" x2="431.52" y2="64.00" stroke="#555" stroke-width="1" data-dim="1"/>
+<line x1="126.72" y1="60.00" x2="126.72" y2="68.00" stroke="#555" stroke-width="1" data-dim="1"/>
+<line x1="431.52" y1="60.00" x2="431.52" y2="68.00" stroke="#555" stroke-width="1" data-dim="1"/>
+<rect data-patch="1" x="239.76" y="46.00" width="78.72" height="18.30" fill="#FFFFFF"/>
+<text x="279.12" y="59.00" font-family="DejaVu Sans" font-size="11" fill="#222222" text-anchor="middle" data-dim="1" data-src="text.width"><tspan x="279.12" y="59.00">12.000&quot; (12&quot;)</tspan></text>
+<line x1="110.72" y1="80.00" x2="110.72" y2="537.20" stroke="#555" stroke-width="1" data-dim="2"/>
+<line x1="106.72" y1="80.00" x2="114.72" y2="80.00" stroke="#555" stroke-width="1" data-dim="2"/>
+<line x1="106.72" y1="537.20" x2="114.72" y2="537.20" stroke="#555" stroke-width="1" data-dim="2"/>
+<rect data-patch="2" x="26.00" y="299.60" width="78.72" height="18.30" fill="#FFFFFF"/>
+<text x="102.72" y="312.60" font-family="DejaVu Sans" font-size="11" fill="#222222" text-anchor="end" data-dim="2" data-src="text.length"><tspan x="102.72" y="312.60">18.000&quot; (18&quot;)</tspan></text>
+<text x="126.72" y="567.20" font-family="DejaVu Sans" font-size="11" fill="#222222" data-src="label.thickness"><tspan x="126.72" y="567.20">Thickness 1.500&quot; (1 1/2&quot;)</tspan></text>
+<text x="20.00" y="604.50" font-family="DejaVu Sans" font-size="11" fill="#222222" data-src="catalog.steps.4.description"><tspan x="20.00" y="604.50">Scrape glue, then plane or sand flat. Sand 80, 120, 180 grit. Break edges (180 grit).</tspan></text>
+<text x="20.00" y="625.80" font-family="DejaVu Sans" font-size="11" fill="#222222" font-weight="bold"><tspan x="20.00" y="625.80">Grits: 80 / 120 / 180</tspan></text>
+<text x="20.00" y="647.10" font-family="DejaVu Sans" font-size="11" fill="#9B1C1C" font-weight="bold" data-src="catalog.steps.4.safetyBanners.0"><tspan x="20.00" y="647.10">WARNING: Keep hands clear of the infeed and outfeed. Feed only boards at least 12&quot; (305</tspan><tspan x="20.00" y="661.40">mm) long.</tspan></text>
+</svg>

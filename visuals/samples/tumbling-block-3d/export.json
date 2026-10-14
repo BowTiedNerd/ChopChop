@@ -1,0 +1,1095 @@
+{
+ "exporter": "boardviz export_design.ts over ChopChop PR#1 src/lib (calcBoard equivalent)",
+ "appDir": "/workspace/chopchop-ref",
+ "appHead": "6326b68",
+ "preset": "tumbling-block-3d",
+ "sets": [],
+ "angle": null,
+ "design": {
+  "style": "tumbling-block-3d",
+  "dimensions": {
+   "width": 304.8,
+   "length": 457.2,
+   "thickness": 38.1
+  },
+  "species": [
+   {
+    "name": "Walnut",
+    "color": "#5B3A29"
+   },
+   {
+    "name": "Maple",
+    "color": "#F3E7D3"
+   }
+  ],
+  "juiceGroove": {
+   "enabled": false,
+   "width": 12.5,
+   "depth": 5,
+   "fromEdge": 19,
+   "cornerRadius": 25.5
+  },
+  "handles": {
+   "enabled": false,
+   "type": "handle"
+  },
+  "rubberFeet": {
+   "enabled": false,
+   "diameter": 25.5,
+   "height": 9.5,
+   "inset": 32
+  },
+  "unitSystem": "imperial"
+ },
+ "styleName": "Tumbling Block 3D",
+ "validation": {
+  "valid": true,
+  "errors": [],
+  "warnings": []
+ },
+ "text": {
+  "width": "12.000\" (12\")",
+  "length": "18.000\" (18\")",
+  "thickness": "1.500\" (1 1/2\")",
+  "groove": null,
+  "feet": null
+ },
+ "pattern": {
+  "bounds": {
+   "width": 304.8,
+   "height": 38.1,
+   "depth": 457.2
+  },
+  "strips": [
+   {
+    "x": 0,
+    "z": 0,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 0
+   },
+   {
+    "x": 25.400000000000002,
+    "z": 0,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Maple",
+    "color": "#F3E7D3",
+    "rotation": 1.0471975511965976
+   },
+   {
+    "x": 50.800000000000004,
+    "z": 0,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 2.0943951023931953
+   },
+   {
+    "x": 76.2,
+    "z": 0,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 0
+   },
+   {
+    "x": 101.60000000000001,
+    "z": 0,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Maple",
+    "color": "#F3E7D3",
+    "rotation": 1.0471975511965976
+   },
+   {
+    "x": 127,
+    "z": 0,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 2.0943951023931953
+   },
+   {
+    "x": 152.4,
+    "z": 0,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 0
+   },
+   {
+    "x": 177.8,
+    "z": 0,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Maple",
+    "color": "#F3E7D3",
+    "rotation": 1.0471975511965976
+   },
+   {
+    "x": 203.20000000000002,
+    "z": 0,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 2.0943951023931953
+   },
+   {
+    "x": 228.60000000000002,
+    "z": 0,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 0
+   },
+   {
+    "x": 254.00000000000003,
+    "z": 0,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Maple",
+    "color": "#F3E7D3",
+    "rotation": 1.0471975511965976
+   },
+   {
+    "x": 279.40000000000003,
+    "z": 0,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 2.0943951023931953
+   },
+   {
+    "x": 38.1,
+    "z": 65.99113576837422,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 0
+   },
+   {
+    "x": 63.5,
+    "z": 65.99113576837422,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Maple",
+    "color": "#F3E7D3",
+    "rotation": 1.0471975511965976
+   },
+   {
+    "x": 88.9,
+    "z": 65.99113576837422,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 2.0943951023931953
+   },
+   {
+    "x": 114.30000000000001,
+    "z": 65.99113576837422,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 0
+   },
+   {
+    "x": 139.70000000000002,
+    "z": 65.99113576837422,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Maple",
+    "color": "#F3E7D3",
+    "rotation": 1.0471975511965976
+   },
+   {
+    "x": 165.10000000000002,
+    "z": 65.99113576837422,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 2.0943951023931953
+   },
+   {
+    "x": 190.5,
+    "z": 65.99113576837422,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 0
+   },
+   {
+    "x": 215.9,
+    "z": 65.99113576837422,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Maple",
+    "color": "#F3E7D3",
+    "rotation": 1.0471975511965976
+   },
+   {
+    "x": 241.3,
+    "z": 65.99113576837422,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 2.0943951023931953
+   },
+   {
+    "x": 266.7,
+    "z": 65.99113576837422,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 0
+   },
+   {
+    "x": 292.09999999999997,
+    "z": 65.99113576837422,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Maple",
+    "color": "#F3E7D3",
+    "rotation": 1.0471975511965976
+   },
+   {
+    "x": 317.5,
+    "z": 65.99113576837422,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 2.0943951023931953
+   },
+   {
+    "x": 0,
+    "z": 131.98227153674844,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 0
+   },
+   {
+    "x": 25.400000000000002,
+    "z": 131.98227153674844,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Maple",
+    "color": "#F3E7D3",
+    "rotation": 1.0471975511965976
+   },
+   {
+    "x": 50.800000000000004,
+    "z": 131.98227153674844,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 2.0943951023931953
+   },
+   {
+    "x": 76.2,
+    "z": 131.98227153674844,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 0
+   },
+   {
+    "x": 101.60000000000001,
+    "z": 131.98227153674844,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Maple",
+    "color": "#F3E7D3",
+    "rotation": 1.0471975511965976
+   },
+   {
+    "x": 127,
+    "z": 131.98227153674844,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 2.0943951023931953
+   },
+   {
+    "x": 152.4,
+    "z": 131.98227153674844,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 0
+   },
+   {
+    "x": 177.8,
+    "z": 131.98227153674844,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Maple",
+    "color": "#F3E7D3",
+    "rotation": 1.0471975511965976
+   },
+   {
+    "x": 203.20000000000002,
+    "z": 131.98227153674844,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 2.0943951023931953
+   },
+   {
+    "x": 228.60000000000002,
+    "z": 131.98227153674844,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 0
+   },
+   {
+    "x": 254.00000000000003,
+    "z": 131.98227153674844,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Maple",
+    "color": "#F3E7D3",
+    "rotation": 1.0471975511965976
+   },
+   {
+    "x": 279.40000000000003,
+    "z": 131.98227153674844,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 2.0943951023931953
+   },
+   {
+    "x": 38.1,
+    "z": 197.97340730512266,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 0
+   },
+   {
+    "x": 63.5,
+    "z": 197.97340730512266,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Maple",
+    "color": "#F3E7D3",
+    "rotation": 1.0471975511965976
+   },
+   {
+    "x": 88.9,
+    "z": 197.97340730512266,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 2.0943951023931953
+   },
+   {
+    "x": 114.30000000000001,
+    "z": 197.97340730512266,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 0
+   },
+   {
+    "x": 139.70000000000002,
+    "z": 197.97340730512266,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Maple",
+    "color": "#F3E7D3",
+    "rotation": 1.0471975511965976
+   },
+   {
+    "x": 165.10000000000002,
+    "z": 197.97340730512266,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 2.0943951023931953
+   },
+   {
+    "x": 190.5,
+    "z": 197.97340730512266,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 0
+   },
+   {
+    "x": 215.9,
+    "z": 197.97340730512266,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Maple",
+    "color": "#F3E7D3",
+    "rotation": 1.0471975511965976
+   },
+   {
+    "x": 241.3,
+    "z": 197.97340730512266,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 2.0943951023931953
+   },
+   {
+    "x": 266.7,
+    "z": 197.97340730512266,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 0
+   },
+   {
+    "x": 292.09999999999997,
+    "z": 197.97340730512266,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Maple",
+    "color": "#F3E7D3",
+    "rotation": 1.0471975511965976
+   },
+   {
+    "x": 317.5,
+    "z": 197.97340730512266,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 2.0943951023931953
+   },
+   {
+    "x": 0,
+    "z": 263.9645430734969,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 0
+   },
+   {
+    "x": 25.400000000000002,
+    "z": 263.9645430734969,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Maple",
+    "color": "#F3E7D3",
+    "rotation": 1.0471975511965976
+   },
+   {
+    "x": 50.800000000000004,
+    "z": 263.9645430734969,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 2.0943951023931953
+   },
+   {
+    "x": 76.2,
+    "z": 263.9645430734969,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 0
+   },
+   {
+    "x": 101.60000000000001,
+    "z": 263.9645430734969,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Maple",
+    "color": "#F3E7D3",
+    "rotation": 1.0471975511965976
+   },
+   {
+    "x": 127,
+    "z": 263.9645430734969,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 2.0943951023931953
+   },
+   {
+    "x": 152.4,
+    "z": 263.9645430734969,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 0
+   },
+   {
+    "x": 177.8,
+    "z": 263.9645430734969,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Maple",
+    "color": "#F3E7D3",
+    "rotation": 1.0471975511965976
+   },
+   {
+    "x": 203.20000000000002,
+    "z": 263.9645430734969,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 2.0943951023931953
+   },
+   {
+    "x": 228.60000000000002,
+    "z": 263.9645430734969,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 0
+   },
+   {
+    "x": 254.00000000000003,
+    "z": 263.9645430734969,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Maple",
+    "color": "#F3E7D3",
+    "rotation": 1.0471975511965976
+   },
+   {
+    "x": 279.40000000000003,
+    "z": 263.9645430734969,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 2.0943951023931953
+   },
+   {
+    "x": 38.1,
+    "z": 329.9556788418711,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 0
+   },
+   {
+    "x": 63.5,
+    "z": 329.9556788418711,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Maple",
+    "color": "#F3E7D3",
+    "rotation": 1.0471975511965976
+   },
+   {
+    "x": 88.9,
+    "z": 329.9556788418711,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 2.0943951023931953
+   },
+   {
+    "x": 114.30000000000001,
+    "z": 329.9556788418711,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 0
+   },
+   {
+    "x": 139.70000000000002,
+    "z": 329.9556788418711,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Maple",
+    "color": "#F3E7D3",
+    "rotation": 1.0471975511965976
+   },
+   {
+    "x": 165.10000000000002,
+    "z": 329.9556788418711,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 2.0943951023931953
+   },
+   {
+    "x": 190.5,
+    "z": 329.9556788418711,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 0
+   },
+   {
+    "x": 215.9,
+    "z": 329.9556788418711,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Maple",
+    "color": "#F3E7D3",
+    "rotation": 1.0471975511965976
+   },
+   {
+    "x": 241.3,
+    "z": 329.9556788418711,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 2.0943951023931953
+   },
+   {
+    "x": 266.7,
+    "z": 329.9556788418711,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 0
+   },
+   {
+    "x": 292.09999999999997,
+    "z": 329.9556788418711,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Maple",
+    "color": "#F3E7D3",
+    "rotation": 1.0471975511965976
+   },
+   {
+    "x": 317.5,
+    "z": 329.9556788418711,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 2.0943951023931953
+   },
+   {
+    "x": 0,
+    "z": 395.94681461024527,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 0
+   },
+   {
+    "x": 25.400000000000002,
+    "z": 395.94681461024527,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Maple",
+    "color": "#F3E7D3",
+    "rotation": 1.0471975511965976
+   },
+   {
+    "x": 50.800000000000004,
+    "z": 395.94681461024527,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 2.0943951023931953
+   },
+   {
+    "x": 76.2,
+    "z": 395.94681461024527,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 0
+   },
+   {
+    "x": 101.60000000000001,
+    "z": 395.94681461024527,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Maple",
+    "color": "#F3E7D3",
+    "rotation": 1.0471975511965976
+   },
+   {
+    "x": 127,
+    "z": 395.94681461024527,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 2.0943951023931953
+   },
+   {
+    "x": 152.4,
+    "z": 395.94681461024527,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 0
+   },
+   {
+    "x": 177.8,
+    "z": 395.94681461024527,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Maple",
+    "color": "#F3E7D3",
+    "rotation": 1.0471975511965976
+   },
+   {
+    "x": 203.20000000000002,
+    "z": 395.94681461024527,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 2.0943951023931953
+   },
+   {
+    "x": 228.60000000000002,
+    "z": 395.94681461024527,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 0
+   },
+   {
+    "x": 254.00000000000003,
+    "z": 395.94681461024527,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Maple",
+    "color": "#F3E7D3",
+    "rotation": 1.0471975511965976
+   },
+   {
+    "x": 279.40000000000003,
+    "z": 395.94681461024527,
+    "w": 25.400000000000002,
+    "d": 65.99113576837422,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 2.0943951023931953
+   }
+  ]
+ },
+ "cutList": [
+  {
+   "part": "Walnut strip",
+   "width": 34.575,
+   "thickness": 46.6,
+   "length": 119.16613576837422,
+   "quantity": 56,
+   "species": "Walnut",
+   "text": {
+    "width": "1.361\" (≈1 23/64\")",
+    "thickness": "1.835\" (≈1 53/64\")",
+    "length": "4.692\" (≈4 11/16\")"
+   }
+  },
+  {
+   "part": "Maple strip",
+   "width": 34.575,
+   "thickness": 46.6,
+   "length": 119.16613576837422,
+   "quantity": 28,
+   "species": "Maple",
+   "text": {
+    "width": "1.361\" (≈1 23/64\")",
+    "thickness": "1.835\" (≈1 53/64\")",
+    "length": "4.692\" (≈4 11/16\")"
+   }
+  }
+ ],
+ "catalog": {
+  "draft": "NEW DRAFT 3.0-draft3 by Board Master, rebuilt from standard shop practice after the 2026-10-13 data loss. NOT 2.5.3.2. Values marked shopDefault:true are my defaults, not recovered values.",
+  "displayName": "3D Tumbling Block (End Grain)",
+  "angles": {
+   "bevel_deg": 30
+  },
+  "steps": [
+   {
+    "stepNumber": 1,
+    "title": "Mill rough stock",
+    "description": "Joint one face and one edge on the jointer, then plane to final thickness plus 1/8\" (3 mm). Rest overnight, then plane to final thickness. Take ~1/64\" (0.4 mm) passes for the last two passes.",
+    "settings": {
+     "Final pass depth": "~1/64\" (0.4 mm)"
+    },
+    "safetyBanners": [
+     "WARNING: Use push blocks on the jointer. Never joint stock shorter than 12\" (305 mm) or thinner than 1/2\" (12.5 mm).",
+     "WARNING: Keep hands clear of the infeed and outfeed. Feed only boards at least 12\" (305 mm) long."
+    ],
+    "machineSetup": "jointer",
+    "figureType": "mill",
+    "stepId": "mill-rough-stock"
+   },
+   {
+    "stepNumber": 2,
+    "title": "Rip strips",
+    "description": "Rip three species to equal width with the jointed edge against the fence. Measure from the fence face to the near side of a tooth set toward the fence.",
+    "settings": {
+     "Fence to blade": "strip width from cut list"
+    },
+    "safetyBanners": [
+     "WARNING: Use the riving knife and blade guard on every through cut.",
+     "WARNING: Use a push stick for any rip narrower than 6\" (152 mm). Never reach over or behind the blade."
+    ],
+    "machineSetup": "table-saw",
+    "figureType": "rip-fence",
+    "stepId": "rip-strips"
+   },
+   {
+    "stepNumber": 3,
+    "title": "Bevel strips",
+    "description": "Rip a 30° bevel on both edges to make 60° diamonds in section. Use a hold-down; the offcut side must be the outside of the blade.",
+    "settings": {
+     "Blade tilt": "30°"
+    },
+    "safetyBanners": [
+     "WARNING: Use the riving knife and blade guard on every through cut.",
+     "WARNING: Use a push stick for any rip narrower than 6\" (152 mm). Never reach over or behind the blade.",
+     "WARNING: Make angled cuts on a sled or miter gauge with a hold-down, never against the rip fence alone."
+    ],
+    "machineSetup": "table-saw",
+    "figureType": "rip-fence",
+    "stepId": "bevel-strips"
+   },
+   {
+    "stepNumber": 4,
+    "title": "Glue up",
+    "description": "Glue the diamonds into hexagon logs, one of each tone. Alternate clamps above and below the panel and check for flat with a straightedge.",
+    "settings": {
+     "Clamp spacing": "about 8\" (200 mm)"
+    },
+    "safetyBanners": [
+     "NOTE: Use a waterproof PVA glue rated for indirect food contact. Clamp until squeeze-out turns rubbery, then scrape."
+    ],
+    "machineSetup": null,
+    "figureType": "glue-up",
+    "stepId": "glue-up"
+   },
+   {
+    "stepNumber": 5,
+    "title": "Crosscut slices",
+    "description": "Crosscut the logs into slices on a crosscut sled with a stop block.",
+    "settings": {},
+    "safetyBanners": [
+     "DANGER: Never use the rip fence as a length stop for crosscuts. Use a crosscut sled with a stop block set before the blade, so the offcut is never trapped between blade and fence.",
+     "WARNING: Do not cut pieces shorter than 6\" (152 mm) free-hand on the table saw. Use a sled with a hold-down."
+    ],
+    "machineSetup": "crosscut-sled",
+    "figureType": "crosscut",
+    "stepId": "crosscut-slices"
+   },
+   {
+    "stepNumber": 6,
+    "title": "Glue up",
+    "description": "Glue hexagon slices into the final panel, then trim the zig-zag edges square. Alternate clamps above and below the panel and check for flat with a straightedge.",
+    "settings": {
+     "Clamp spacing": "about 8\" (200 mm)"
+    },
+    "safetyBanners": [
+     "NOTE: Use a waterproof PVA glue rated for indirect food contact. Clamp until squeeze-out turns rubbery, then scrape."
+    ],
+    "machineSetup": null,
+    "figureType": "glue-up",
+    "stepId": "glue-up-2"
+   },
+   {
+    "stepNumber": 7,
+    "title": "Flatten and sand",
+    "description": "Flatten with a router sled or drum sander, never the thickness planer. Sand 80, 120, 180 grit. Break edges (180 grit).",
+    "settings": {
+     "Grits": "80 / 120 / 180"
+    },
+    "safetyBanners": [
+     "DANGER: Never run an end-grain glue-up through the thickness planer. It can blow apart. Flatten with a router sled or drum sander."
+    ],
+    "machineSetup": "router-sled",
+    "figureType": "top-view",
+    "stepId": "flatten-and-sand"
+   },
+   {
+    "stepNumber": 8,
+    "title": "Edge profile",
+    "description": "Rout the edge profile, default: 1/8\" (3 mm) roundover. Optional finger grips: core box / round-nose bit 3/8–1/2\" (9.5–12.7 mm).",
+    "settings": {
+     "Bit": "1/8\" (3 mm) roundover"
+    },
+    "safetyBanners": [
+     "WARNING: Climb cuts can grab. Feed the router against the bit rotation and take shallow passes."
+    ],
+    "machineSetup": "router",
+    "figureType": "outline",
+    "stepId": "edge-profile"
+   },
+   {
+    "stepNumber": 9,
+    "title": "Finish",
+    "description": "Raise the grain with a damp cloth, sand 180 again, then flood with food-safe mineral oil and top with board butter.",
+    "settings": {},
+    "safetyBanners": [
+     "NOTE: Use closed-grain, non-toxic hardwoods only. Avoid spalted, softwood or oily/sensitising exotics on cutting surfaces."
+    ],
+    "machineSetup": null,
+    "figureType": null,
+    "stepId": "finish"
+   }
+  ],
+  "cutListAllowances": {
+   "kerf_mm": 3.175,
+   "kerf_text": "1/8\" (3.2 mm) full-kerf blade",
+   "roughToFinalOversize_mm": {
+    "thickness": 3,
+    "width": 6,
+    "length": 50
+   },
+   "planerMinimum_mm": {
+    "length": 305,
+    "thickness": 6.5
+   },
+   "jointerMinimum_mm": {
+    "length": 305
+   },
+   "minPieceLength_mm": {
+    "planerJointer": 305,
+    "tableSawFreehand": 152,
+    "sledHoldDownMax": 152
+   },
+   "flatteningAllowance_mm": 5,
+   "sandingLoss_mm": 0.5,
+   "shopDefault": true
+  },
+  "kerfText": "0.125\" (1/8\")"
+ }
+}

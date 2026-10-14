@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="573" height="151" viewBox="0 0 573 151" data-figure="cross-section">
+<rect data-bg="1" x="0" y="0" width="573" height="151" fill="#FFFFFF"/>
+<text x="20.00" y="30.00" font-family="DejaVu Sans" font-size="16" fill="#222222" font-weight="bold"><tspan x="20.00" y="30.00">End Grain: cross-section (end view)</tspan></text>
+<rect x="101.44" y="70.00" width="37.50" height="60.00" rx="0.00" fill="#5B3A29" stroke="#333" stroke-width="0.8"/>
+<rect x="138.94" y="70.00" width="37.50" height="60.00" rx="0.00" fill="#F3E7D3" stroke="#333" stroke-width="0.8"/>
+<rect x="176.44" y="70.00" width="37.50" height="60.00" rx="0.00" fill="#5B3A29" stroke="#333" stroke-width="0.8"/>
+<rect x="213.94" y="70.00" width="37.50" height="60.00" rx="0.00" fill="#F3E7D3" stroke="#333" stroke-width="0.8"/>
+<rect x="251.44" y="70.00" width="37.50" height="60.00" rx="0.00" fill="#5B3A29" stroke="#333" stroke-width="0.8"/>
+<rect x="288.94" y="70.00" width="37.50" height="60.00" rx="0.00" fill="#F3E7D3" stroke="#333" stroke-width="0.8"/>
+<rect x="326.44" y="70.00" width="37.50" height="60.00" rx="0.00" fill="#5B3A29" stroke="#333" stroke-width="0.8"/>
+<rect x="363.94" y="70.00" width="37.50" height="60.00" rx="0.00" fill="#F3E7D3" stroke="#333" stroke-width="0.8"/>
+<rect x="401.44" y="70.00" width="37.50" height="60.00" rx="0.00" fill="#5B3A29" stroke="#333" stroke-width="0.8"/>
+<rect x="438.94" y="70.00" width="37.50" height="60.00" rx="0.00" fill="#F3E7D3" stroke="#333" stroke-width="0.8"/>
+<rect x="476.44" y="70.00" width="37.50" height="60.00" rx="0.00" fill="#5B3A29" stroke="#333" stroke-width="0.8"/>
+<rect x="513.94" y="70.00" width="37.50" height="60.00" rx="0.00" fill="#F3E7D3" stroke="#333" stroke-width="0.8"/>
+<line x1="87.44" y1="70.00" x2="87.44" y2="130.00" stroke="#555" stroke-width="1" data-dim="1"/>
+<line x1="83.44" y1="70.00" x2="91.44" y2="70.00" stroke="#555" stroke-width="1" data-dim="1"/>
+<line x1="83.44" y1="130.00" x2="91.44" y2="130.00" stroke="#555" stroke-width="1" data-dim="1"/>
+<rect data-patch="1" x="28.00" y="91.00" width="53.44" height="18.30" fill="#FFFFFF"/>
+<text x="79.44" y="104.00" font-family="DejaVu Sans" font-size="11" fill="#222222" text-anchor="end" data-dim="1" data-src="text.thickness"><tspan x="79.44" y="104.00">40.0 mm</tspan></text>
+</svg>

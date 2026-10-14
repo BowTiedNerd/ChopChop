@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="538" height="506" viewBox="0 0 538 506" data-figure="feet-overlay">
+<rect data-bg="1" x="0" y="0" width="538" height="506" fill="#FFFFFF"/>
+<text x="20.00" y="30.00" font-family="DejaVu Sans" font-size="16" fill="#222222" font-weight="bold"><tspan x="20.00" y="30.00">End Grain: feet overlay (underside)</tspan></text>
+<rect x="160.00" y="70.00" width="240.00" height="360.00" rx="0.00" fill="#E6D3B3" stroke="#222222" stroke-width="1.5"/>
+<circle cx="185.60" cy="95.60" r="10.20" fill="#333333" stroke="#222222" stroke-width="1"/>
+<circle cx="185.60" cy="404.40" r="10.20" fill="#333333" stroke="#222222" stroke-width="1"/>
+<circle cx="374.40" cy="95.60" r="10.20" fill="#333333" stroke="#222222" stroke-width="1"/>
+<circle cx="374.40" cy="404.40" r="10.20" fill="#333333" stroke="#222222" stroke-width="1"/>
+<line x1="160.00" y1="70.00" x2="142.00" y2="70.00" stroke="#555" stroke-width="0.8" stroke-dasharray="3,2" data-dim="1"/>
+<line x1="160.00" y1="95.60" x2="142.00" y2="95.60" stroke="#555" stroke-width="0.8" stroke-dasharray="3,2" data-dim="1"/>
+<line x1="146.00" y1="70.00" x2="146.00" y2="95.60" stroke="#555" stroke-width="1" data-dim="1"/>
+<line x1="142.00" y1="70.00" x2="150.00" y2="70.00" stroke="#555" stroke-width="1" data-dim="1"/>
+<line x1="142.00" y1="95.60" x2="150.00" y2="95.60" stroke="#555" stroke-width="1" data-dim="1"/>
+<rect data-patch="1" x="86.56" y="73.80" width="53.44" height="18.30" fill="#FFFFFF"/>
+<text x="138.00" y="86.80" font-family="DejaVu Sans" font-size="11" fill="#222222" text-anchor="end" data-dim="1" data-src="text.feet.inset"><tspan x="138.00" y="86.80">32.0 mm</tspan></text>
+<text x="20.00" y="464.00" font-family="DejaVu Sans" font-size="11" fill="#222222" data-src="modifier.feet"><tspan x="20.00" y="464.00">4 rubber feet, 25.5 mm diameter × 9.5 mm high, foot centres 32.0 mm in from the edges</tspan><tspan x="20.00" y="478.30">(underside).</tspan></text>
+</svg>

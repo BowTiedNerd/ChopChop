@@ -1,0 +1,18 @@
+{
+ "ok": true,
+ "labelsChecked": 63,
+ "issues": [],
+ "exportSha256": "1efec47223b4e2ae6c806668a4ed4734ff354ef8168ae1afd102bb5dd57534a2",
+ "freshExportIdentical": true,
+ "preset": "end-grain",
+ "sets": [
+  "unitSystem=metric",
+  "dimensions.width=300",
+  "dimensions.length=450",
+  "dimensions.thickness=40",
+  "juiceGroove.enabled=true",
+  "rubberFeet.enabled=true"
+ ],
+ "catalogDraft": "NEW DRAFT 3.0-draft3 by Board Master, re",
+ "exportVsCatalog": []
+}

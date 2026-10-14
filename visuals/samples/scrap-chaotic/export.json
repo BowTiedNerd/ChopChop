@@ -1,0 +1,647 @@
+{
+ "exporter": "boardviz export_design.ts over ChopChop PR#1 src/lib (calcBoard equivalent)",
+ "appDir": "/workspace/chopchop-ref",
+ "appHead": "6326b68",
+ "preset": "scrap-chaotic",
+ "sets": [],
+ "angle": null,
+ "design": {
+  "style": "scrap-chaotic",
+  "dimensions": {
+   "width": 304.8,
+   "length": 457.2,
+   "thickness": 38.1
+  },
+  "species": [
+   {
+    "name": "Walnut",
+    "color": "#5B3A29"
+   },
+   {
+    "name": "Maple",
+    "color": "#F3E7D3"
+   }
+  ],
+  "juiceGroove": {
+   "enabled": false,
+   "width": 12.5,
+   "depth": 5,
+   "fromEdge": 19,
+   "cornerRadius": 25.5
+  },
+  "handles": {
+   "enabled": false,
+   "type": "handle"
+  },
+  "rubberFeet": {
+   "enabled": false,
+   "diameter": 25.5,
+   "height": 9.5,
+   "inset": 32
+  },
+  "unitSystem": "imperial"
+ },
+ "styleName": "Scrap Chaotic",
+ "validation": {
+  "valid": true,
+  "errors": [],
+  "warnings": []
+ },
+ "text": {
+  "width": "12.000\" (12\")",
+  "length": "18.000\" (18\")",
+  "thickness": "1.500\" (1 1/2\")",
+  "groove": null,
+  "feet": null
+ },
+ "pattern": {
+  "bounds": {
+   "width": 304.8,
+   "height": 38.1,
+   "depth": 457.2
+  },
+  "strips": [
+   {
+    "x": 0,
+    "z": 0,
+    "w": 91.31601508916324,
+    "d": 51.38846021947874,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 0
+   },
+   {
+    "x": 91.31601508916324,
+    "z": 0,
+    "w": 72.07347393689986,
+    "d": 76.51320301783265,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 0
+   },
+   {
+    "x": 163.3894890260631,
+    "z": 0,
+    "w": 122.04389574759945,
+    "d": 51.40646433470508,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 0
+   },
+   {
+    "x": 285.43338477366257,
+    "z": 0,
+    "w": 19.366615226337444,
+    "d": 117.73491083676268,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 0
+   },
+   {
+    "x": 0,
+    "z": 96.29029492455419,
+    "w": 117.16520919067214,
+    "d": 74.74279835390946,
+    "h": 38.1,
+    "species": "Maple",
+    "color": "#F3E7D3",
+    "rotation": 0
+   },
+   {
+    "x": 117.16520919067214,
+    "z": 96.29029492455419,
+    "w": 91.36402606310014,
+    "d": 97.93852880658437,
+    "h": 38.1,
+    "species": "Maple",
+    "color": "#F3E7D3",
+    "rotation": 0
+   },
+   {
+    "x": 208.5292352537723,
+    "z": 96.29029492455419,
+    "w": 81.99802812071331,
+    "d": 84.79166666666666,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 0
+   },
+   {
+    "x": 290.52726337448564,
+    "z": 96.29029492455419,
+    "w": 14.27273662551437,
+    "d": 76.96887860082305,
+    "h": 38.1,
+    "species": "Maple",
+    "color": "#F3E7D3",
+    "rotation": 0
+   },
+   {
+    "x": 0,
+    "z": 175.52854938271605,
+    "w": 116.13683127572017,
+    "d": 109.79981138545953,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 0
+   },
+   {
+    "x": 116.13683127572017,
+    "z": 175.52854938271605,
+    "w": 143.9621913580247,
+    "d": 113.47393689986282,
+    "h": 38.1,
+    "species": "Maple",
+    "color": "#F3E7D3",
+    "rotation": 0
+   },
+   {
+    "x": 260.0990226337449,
+    "z": 175.52854938271605,
+    "w": 44.70097736625513,
+    "d": 61.36102537722908,
+    "h": 38.1,
+    "species": "Maple",
+    "color": "#F3E7D3",
+    "rotation": 0
+   },
+   {
+    "x": 0,
+    "z": 307.7803497942387,
+    "w": 95.12774348422496,
+    "d": 104.27426268861454,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 0
+   },
+   {
+    "x": 95.12774348422496,
+    "z": 307.7803497942387,
+    "w": 56.44075788751715,
+    "d": 76.62122770919066,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 0
+   },
+   {
+    "x": 151.56850137174212,
+    "z": 307.7803497942387,
+    "w": 86.9667352537723,
+    "d": 98.73671124828533,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 0
+   },
+   {
+    "x": 238.53523662551441,
+    "z": 307.7803497942387,
+    "w": 66.2647633744856,
+    "d": 112.28737997256516,
+    "h": 38.1,
+    "species": "Maple",
+    "color": "#F3E7D3",
+    "rotation": 0
+   },
+   {
+    "x": 0,
+    "z": 430.10459533607684,
+    "w": 58.93990054869685,
+    "d": 27.095404663923148,
+    "h": 38.1,
+    "species": "Maple",
+    "color": "#F3E7D3",
+    "rotation": 0
+   },
+   {
+    "x": 58.93990054869685,
+    "z": 430.10459533607684,
+    "w": 80.36093964334705,
+    "d": 27.095404663923148,
+    "h": 38.1,
+    "species": "Maple",
+    "color": "#F3E7D3",
+    "rotation": 0
+   },
+   {
+    "x": 139.3008401920439,
+    "z": 430.10459533607684,
+    "w": 118.21716392318244,
+    "d": 27.095404663923148,
+    "h": 38.1,
+    "species": "Maple",
+    "color": "#F3E7D3",
+    "rotation": 0
+   },
+   {
+    "x": 257.51800411522635,
+    "z": 430.10459533607684,
+    "w": 47.281995884773664,
+    "d": 27.095404663923148,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 0
+   }
+  ]
+ },
+ "cutList": [
+  {
+   "part": "Walnut strip",
+   "width": 100.49101508916324,
+   "thickness": 46.6,
+   "length": 104.56346021947874,
+   "quantity": 1,
+   "species": "Walnut",
+   "text": {
+    "width": "3.956\" (≈3 61/64\")",
+    "thickness": "1.835\" (≈1 53/64\")",
+    "length": "4.117\" (≈4 7/64\")"
+   }
+  },
+  {
+   "part": "Walnut strip",
+   "width": 81.24847393689986,
+   "thickness": 46.6,
+   "length": 129.68820301783265,
+   "quantity": 1,
+   "species": "Walnut",
+   "text": {
+    "width": "3.199\" (≈3 13/64\")",
+    "thickness": "1.835\" (≈1 53/64\")",
+    "length": "5.106\" (≈5 7/64\")"
+   }
+  },
+  {
+   "part": "Walnut strip",
+   "width": 131.21889574759945,
+   "thickness": 46.6,
+   "length": 104.58146433470507,
+   "quantity": 1,
+   "species": "Walnut",
+   "text": {
+    "width": "5.166\" (≈5 11/64\")",
+    "thickness": "1.835\" (≈1 53/64\")",
+    "length": "4.117\" (≈4 1/8\")"
+   }
+  },
+  {
+   "part": "Walnut strip",
+   "width": 28.541615226337445,
+   "thickness": 46.6,
+   "length": 170.90991083676266,
+   "quantity": 1,
+   "species": "Walnut",
+   "text": {
+    "width": "1.124\" (≈1 1/8\")",
+    "thickness": "1.835\" (≈1 53/64\")",
+    "length": "6.729\" (≈6 47/64\")"
+   }
+  },
+  {
+   "part": "Maple strip",
+   "width": 126.34020919067214,
+   "thickness": 46.6,
+   "length": 127.91779835390946,
+   "quantity": 1,
+   "species": "Maple",
+   "text": {
+    "width": "4.974\" (≈4 31/32\")",
+    "thickness": "1.835\" (≈1 53/64\")",
+    "length": "5.036\" (≈5 1/32\")"
+   }
+  },
+  {
+   "part": "Maple strip",
+   "width": 100.53902606310014,
+   "thickness": 46.6,
+   "length": 151.11352880658438,
+   "quantity": 1,
+   "species": "Maple",
+   "text": {
+    "width": "3.958\" (≈3 61/64\")",
+    "thickness": "1.835\" (≈1 53/64\")",
+    "length": "5.949\" (≈5 61/64\")"
+   }
+  },
+  {
+   "part": "Walnut strip",
+   "width": 91.17302812071331,
+   "thickness": 46.6,
+   "length": 137.96666666666664,
+   "quantity": 1,
+   "species": "Walnut",
+   "text": {
+    "width": "3.589\" (≈3 19/32\")",
+    "thickness": "1.835\" (≈1 53/64\")",
+    "length": "5.432\" (≈5 7/16\")"
+   }
+  },
+  {
+   "part": "Maple strip",
+   "width": 23.44773662551437,
+   "thickness": 46.6,
+   "length": 130.14387860082303,
+   "quantity": 1,
+   "species": "Maple",
+   "text": {
+    "width": "0.923\" (≈59/64\")",
+    "thickness": "1.835\" (≈1 53/64\")",
+    "length": "5.124\" (≈5 1/8\")"
+   }
+  },
+  {
+   "part": "Walnut strip",
+   "width": 125.31183127572017,
+   "thickness": 46.6,
+   "length": 162.97481138545953,
+   "quantity": 1,
+   "species": "Walnut",
+   "text": {
+    "width": "4.934\" (≈4 15/16\")",
+    "thickness": "1.835\" (≈1 53/64\")",
+    "length": "6.416\" (≈6 27/64\")"
+   }
+  },
+  {
+   "part": "Maple strip",
+   "width": 153.13719135802472,
+   "thickness": 46.6,
+   "length": 166.6489368998628,
+   "quantity": 1,
+   "species": "Maple",
+   "text": {
+    "width": "6.029\" (≈6 1/32\")",
+    "thickness": "1.835\" (≈1 53/64\")",
+    "length": "6.561\" (≈6 9/16\")"
+   }
+  },
+  {
+   "part": "Maple strip",
+   "width": 53.87597736625513,
+   "thickness": 46.6,
+   "length": 114.53602537722908,
+   "quantity": 1,
+   "species": "Maple",
+   "text": {
+    "width": "2.121\" (≈2 1/8\")",
+    "thickness": "1.835\" (≈1 53/64\")",
+    "length": "4.509\" (≈4 33/64\")"
+   }
+  },
+  {
+   "part": "Walnut strip",
+   "width": 104.30274348422496,
+   "thickness": 46.6,
+   "length": 157.44926268861454,
+   "quantity": 1,
+   "species": "Walnut",
+   "text": {
+    "width": "4.106\" (≈4 7/64\")",
+    "thickness": "1.835\" (≈1 53/64\")",
+    "length": "6.199\" (≈6 13/64\")"
+   }
+  },
+  {
+   "part": "Walnut strip",
+   "width": 65.61575788751715,
+   "thickness": 46.6,
+   "length": 129.79622770919065,
+   "quantity": 1,
+   "species": "Walnut",
+   "text": {
+    "width": "2.583\" (≈2 37/64\")",
+    "thickness": "1.835\" (≈1 53/64\")",
+    "length": "5.110\" (≈5 7/64\")"
+   }
+  },
+  {
+   "part": "Walnut strip",
+   "width": 96.1417352537723,
+   "thickness": 46.6,
+   "length": 151.91171124828531,
+   "quantity": 1,
+   "species": "Walnut",
+   "text": {
+    "width": "3.785\" (≈3 25/32\")",
+    "thickness": "1.835\" (≈1 53/64\")",
+    "length": "5.981\" (≈5 63/64\")"
+   }
+  },
+  {
+   "part": "Maple strip",
+   "width": 75.4397633744856,
+   "thickness": 46.6,
+   "length": 165.46237997256515,
+   "quantity": 1,
+   "species": "Maple",
+   "text": {
+    "width": "2.970\" (≈2 31/32\")",
+    "thickness": "1.835\" (≈1 53/64\")",
+    "length": "6.514\" (≈6 33/64\")"
+   }
+  },
+  {
+   "part": "Maple strip",
+   "width": 68.11490054869685,
+   "thickness": 46.6,
+   "length": 80.27040466392314,
+   "quantity": 1,
+   "species": "Maple",
+   "text": {
+    "width": "2.682\" (≈2 11/16\")",
+    "thickness": "1.835\" (≈1 53/64\")",
+    "length": "3.160\" (≈3 5/32\")"
+   }
+  },
+  {
+   "part": "Maple strip",
+   "width": 89.53593964334705,
+   "thickness": 46.6,
+   "length": 80.27040466392314,
+   "quantity": 1,
+   "species": "Maple",
+   "text": {
+    "width": "3.525\" (≈3 17/32\")",
+    "thickness": "1.835\" (≈1 53/64\")",
+    "length": "3.160\" (≈3 5/32\")"
+   }
+  },
+  {
+   "part": "Maple strip",
+   "width": 127.39216392318244,
+   "thickness": 46.6,
+   "length": 80.27040466392314,
+   "quantity": 1,
+   "species": "Maple",
+   "text": {
+    "width": "5.015\" (≈5 1/64\")",
+    "thickness": "1.835\" (≈1 53/64\")",
+    "length": "3.160\" (≈3 5/32\")"
+   }
+  },
+  {
+   "part": "Walnut strip",
+   "width": 56.45699588477366,
+   "thickness": 46.6,
+   "length": 80.27040466392314,
+   "quantity": 1,
+   "species": "Walnut",
+   "text": {
+    "width": "2.223\" (≈2 7/32\")",
+    "thickness": "1.835\" (≈1 53/64\")",
+    "length": "3.160\" (≈3 5/32\")"
+   }
+  }
+ ],
+ "catalog": {
+  "draft": "NEW DRAFT 3.0-draft3 by Board Master, rebuilt from standard shop practice after the 2026-10-13 data loss. NOT 2.5.3.2. Values marked shopDefault:true are my defaults, not recovered values.",
+  "displayName": "Scrap Chaotic (End Grain)",
+  "angles": null,
+  "steps": [
+   {
+    "stepNumber": 1,
+    "title": "Mill rough stock",
+    "description": "Joint one face and one edge on the jointer, then plane to final thickness plus 1/8\" (3 mm). Rest overnight, then plane to final thickness. Take ~1/64\" (0.4 mm) passes for the last two passes.",
+    "settings": {
+     "Final pass depth": "~1/64\" (0.4 mm)"
+    },
+    "safetyBanners": [
+     "WARNING: Use push blocks on the jointer. Never joint stock shorter than 12\" (305 mm) or thinner than 1/2\" (12.5 mm).",
+     "WARNING: Keep hands clear of the infeed and outfeed. Feed only boards at least 12\" (305 mm) long."
+    ],
+    "machineSetup": "jointer",
+    "figureType": "mill",
+    "stepId": "mill-rough-stock"
+   },
+   {
+    "stepNumber": 2,
+    "title": "Sort offcuts",
+    "description": "Discard pieces with checks, knots or softwood. Only pieces at least 12\" (305 mm) long go through the jointer and planer; glue shorter offcuts onto a 305 mm carrier panel first or sand them to thickness. Cut pieces of 6\" (152 mm) or less only on a sled with a hold-down.",
+    "settings": {},
+    "safetyBanners": [
+     "NOTE: Use closed-grain, non-toxic hardwoods only. Avoid spalted, softwood or oily/sensitising exotics on cutting surfaces.",
+     "WARNING: Use push blocks on the jointer. Never joint stock shorter than 12\" (305 mm) or thinner than 1/2\" (12.5 mm).",
+     "WARNING: Do not cut pieces shorter than 6\" (152 mm) free-hand on the table saw. Use a sled with a hold-down."
+    ],
+    "machineSetup": null,
+    "figureType": null,
+    "stepId": "sort-offcuts"
+   },
+   {
+    "stepNumber": 3,
+    "title": "Glue up",
+    "description": "Glue offcuts into rough panels. Alternate clamps above and below the panel and check for flat with a straightedge.",
+    "settings": {
+     "Clamp spacing": "about 8\" (200 mm)"
+    },
+    "safetyBanners": [
+     "NOTE: Use a waterproof PVA glue rated for indirect food contact. Clamp until squeeze-out turns rubbery, then scrape."
+    ],
+    "machineSetup": null,
+    "figureType": "glue-up",
+    "stepId": "glue-up"
+   },
+   {
+    "stepNumber": 4,
+    "title": "Crosscut slices",
+    "description": "Crosscut slices on a crosscut sled with a stop block.",
+    "settings": {},
+    "safetyBanners": [
+     "DANGER: Never use the rip fence as a length stop for crosscuts. Use a crosscut sled with a stop block set before the blade, so the offcut is never trapped between blade and fence.",
+     "WARNING: Do not cut pieces shorter than 6\" (152 mm) free-hand on the table saw. Use a sled with a hold-down."
+    ],
+    "machineSetup": "crosscut-sled",
+    "figureType": "crosscut",
+    "stepId": "crosscut-slices"
+   },
+   {
+    "stepNumber": 5,
+    "title": "Glue up",
+    "description": "Glue slices end grain up in random order. Alternate clamps above and below the panel and check for flat with a straightedge.",
+    "settings": {
+     "Clamp spacing": "about 8\" (200 mm)"
+    },
+    "safetyBanners": [
+     "NOTE: Use a waterproof PVA glue rated for indirect food contact. Clamp until squeeze-out turns rubbery, then scrape."
+    ],
+    "machineSetup": null,
+    "figureType": "glue-up",
+    "stepId": "glue-up-2"
+   },
+   {
+    "stepNumber": 6,
+    "title": "Flatten and sand",
+    "description": "Flatten with a router sled or drum sander, never the thickness planer. Sand 80, 120, 180 grit. Break edges (180 grit).",
+    "settings": {
+     "Grits": "80 / 120 / 180"
+    },
+    "safetyBanners": [
+     "DANGER: Never run an end-grain glue-up through the thickness planer. It can blow apart. Flatten with a router sled or drum sander."
+    ],
+    "machineSetup": "router-sled",
+    "figureType": "top-view",
+    "stepId": "flatten-and-sand"
+   },
+   {
+    "stepNumber": 7,
+    "title": "Edge profile",
+    "description": "Rout the edge profile, default: 1/8\" (3 mm) roundover. Optional finger grips: core box / round-nose bit 3/8–1/2\" (9.5–12.7 mm).",
+    "settings": {
+     "Bit": "1/8\" (3 mm) roundover"
+    },
+    "safetyBanners": [
+     "WARNING: Climb cuts can grab. Feed the router against the bit rotation and take shallow passes."
+    ],
+    "machineSetup": "router",
+    "figureType": "outline",
+    "stepId": "edge-profile"
+   },
+   {
+    "stepNumber": 8,
+    "title": "Finish",
+    "description": "Raise the grain with a damp cloth, sand 180 again, then flood with food-safe mineral oil and top with board butter.",
+    "settings": {},
+    "safetyBanners": [
+     "NOTE: Use closed-grain, non-toxic hardwoods only. Avoid spalted, softwood or oily/sensitising exotics on cutting surfaces."
+    ],
+    "machineSetup": null,
+    "figureType": null,
+    "stepId": "finish"
+   }
+  ],
+  "cutListAllowances": {
+   "kerf_mm": 3.175,
+   "kerf_text": "1/8\" (3.2 mm) full-kerf blade",
+   "roughToFinalOversize_mm": {
+    "thickness": 3,
+    "width": 6,
+    "length": 50
+   },
+   "planerMinimum_mm": {
+    "length": 305,
+    "thickness": 6.5
+   },
+   "jointerMinimum_mm": {
+    "length": 305
+   },
+   "minPieceLength_mm": {
+    "planerJointer": 305,
+    "tableSawFreehand": 152,
+    "sledHoldDownMax": 152
+   },
+   "flatteningAllowance_mm": 5,
+   "sandingLoss_mm": 0.5,
+   "shopDefault": true
+  },
+  "kerfText": "0.125\" (1/8\")"
+ }
+}

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="602" height="199" viewBox="0 0 602 199" data-figure="edge-grain/mill-rough-stock">
+<rect data-bg="1" x="0" y="0" width="602" height="199" fill="#FFFFFF"/>
+<text x="20.00" y="30.00" font-family="DejaVu Sans" font-size="16" fill="#222222" font-weight="bold"><tspan x="20.00" y="30.00">Edge Grain: step 1: Mill rough stock</tspan></text>
+<text x="20.00" y="64.00" font-family="DejaVu Sans" font-size="11" fill="#222222" data-src="catalog.steps.0.description"><tspan x="20.00" y="64.00">Joint one face and one edge on the jointer, then plane to final thickness plus 1/8&quot; (3 mm). Rest</tspan><tspan x="20.00" y="78.30">overnight, then plane to final thickness. Take ~1/64&quot; (0.4 mm) passes for the last two passes.</tspan></text>
+<text x="20.00" y="99.60" font-family="DejaVu Sans" font-size="11" fill="#222222" font-weight="bold"><tspan x="20.00" y="99.60">Final pass depth: ~1/64&quot; (0.4 mm)</tspan></text>
+<text x="20.00" y="120.90" font-family="DejaVu Sans" font-size="11" fill="#9B1C1C" font-weight="bold" data-src="catalog.steps.0.safetyBanners.0"><tspan x="20.00" y="120.90">WARNING: Use push blocks on the jointer. Never joint stock shorter than 12&quot; (305 mm) or</tspan><tspan x="20.00" y="135.20">thinner than 1/2&quot; (12.5 mm).</tspan></text>
+<text x="20.00" y="156.50" font-family="DejaVu Sans" font-size="11" fill="#9B1C1C" font-weight="bold" data-src="catalog.steps.0.safetyBanners.1"><tspan x="20.00" y="156.50">WARNING: Keep hands clear of the infeed and outfeed. Feed only boards at least 12&quot; (305</tspan><tspan x="20.00" y="170.80">mm) long.</tspan></text>
+</svg>

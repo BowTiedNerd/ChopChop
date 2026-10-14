@@ -1,0 +1,345 @@
+{
+ "exporter": "boardviz export_design.ts over ChopChop PR#1 src/lib (calcBoard equivalent)",
+ "appDir": "/workspace/chopchop-ref",
+ "appHead": "6326b68",
+ "preset": "stripe-inlay",
+ "sets": [],
+ "angle": null,
+ "design": {
+  "style": "stripe-inlay",
+  "dimensions": {
+   "width": 304.8,
+   "length": 457.2,
+   "thickness": 38.1
+  },
+  "species": [
+   {
+    "name": "Walnut",
+    "color": "#5B3A29"
+   },
+   {
+    "name": "Maple",
+    "color": "#F3E7D3"
+   }
+  ],
+  "juiceGroove": {
+   "enabled": false,
+   "width": 12.5,
+   "depth": 5,
+   "fromEdge": 19,
+   "cornerRadius": 25.5
+  },
+  "handles": {
+   "enabled": false,
+   "type": "handle"
+  },
+  "rubberFeet": {
+   "enabled": false,
+   "diameter": 25.5,
+   "height": 9.5,
+   "inset": 32
+  },
+  "unitSystem": "imperial"
+ },
+ "styleName": "Stripe Inlay",
+ "validation": {
+  "valid": true,
+  "errors": [],
+  "warnings": []
+ },
+ "text": {
+  "width": "12.000\" (12\")",
+  "length": "18.000\" (18\")",
+  "thickness": "1.500\" (1 1/2\")",
+  "groove": null,
+  "feet": null
+ },
+ "pattern": {
+  "bounds": {
+   "width": 304.8,
+   "height": 38.1,
+   "depth": 457.2
+  },
+  "strips": [
+   {
+    "x": 0,
+    "z": 0,
+    "w": 50.8,
+    "d": 457.2,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 0
+   },
+   {
+    "x": 50.8,
+    "z": 0,
+    "w": 6.35,
+    "d": 457.2,
+    "h": 38.1,
+    "species": "Maple",
+    "color": "#F3E7D3",
+    "rotation": 0
+   },
+   {
+    "x": 57.15,
+    "z": 0,
+    "w": 50.8,
+    "d": 457.2,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 0
+   },
+   {
+    "x": 107.94999999999999,
+    "z": 0,
+    "w": 6.35,
+    "d": 457.2,
+    "h": 38.1,
+    "species": "Maple",
+    "color": "#F3E7D3",
+    "rotation": 0
+   },
+   {
+    "x": 114.29999999999998,
+    "z": 0,
+    "w": 50.8,
+    "d": 457.2,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 0
+   },
+   {
+    "x": 165.09999999999997,
+    "z": 0,
+    "w": 6.35,
+    "d": 457.2,
+    "h": 38.1,
+    "species": "Maple",
+    "color": "#F3E7D3",
+    "rotation": 0
+   },
+   {
+    "x": 171.44999999999996,
+    "z": 0,
+    "w": 50.8,
+    "d": 457.2,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 0
+   },
+   {
+    "x": 222.24999999999994,
+    "z": 0,
+    "w": 6.35,
+    "d": 457.2,
+    "h": 38.1,
+    "species": "Maple",
+    "color": "#F3E7D3",
+    "rotation": 0
+   },
+   {
+    "x": 228.59999999999994,
+    "z": 0,
+    "w": 50.8,
+    "d": 457.2,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 0
+   },
+   {
+    "x": 279.3999999999999,
+    "z": 0,
+    "w": 6.35,
+    "d": 457.2,
+    "h": 38.1,
+    "species": "Maple",
+    "color": "#F3E7D3",
+    "rotation": 0
+   },
+   {
+    "x": 285.74999999999994,
+    "z": 0,
+    "w": 19.050000000000068,
+    "d": 457.2,
+    "h": 38.1,
+    "species": "Walnut",
+    "color": "#5B3A29",
+    "rotation": 0
+   }
+  ]
+ },
+ "cutList": [
+  {
+   "part": "Walnut strip",
+   "width": 59.974999999999994,
+   "thickness": 43.1,
+   "length": 510.375,
+   "quantity": 5,
+   "species": "Walnut",
+   "text": {
+    "width": "2.361\" (≈2 23/64\")",
+    "thickness": "1.697\" (≈1 45/64\")",
+    "length": "20.094\" (≈20 3/32\")"
+   }
+  },
+  {
+   "part": "Maple strip",
+   "width": 15.524999999999999,
+   "thickness": 43.1,
+   "length": 510.375,
+   "quantity": 5,
+   "species": "Maple",
+   "text": {
+    "width": "0.611\" (≈39/64\")",
+    "thickness": "1.697\" (≈1 45/64\")",
+    "length": "20.094\" (≈20 3/32\")"
+   }
+  },
+  {
+   "part": "Walnut strip",
+   "width": 28.22500000000007,
+   "thickness": 43.1,
+   "length": 510.375,
+   "quantity": 1,
+   "species": "Walnut",
+   "text": {
+    "width": "1.111\" (≈1 7/64\")",
+    "thickness": "1.697\" (≈1 45/64\")",
+    "length": "20.094\" (≈20 3/32\")"
+   }
+  }
+ ],
+ "catalog": {
+  "draft": "NEW DRAFT 3.0-draft3 by Board Master, rebuilt from standard shop practice after the 2026-10-13 data loss. NOT 2.5.3.2. Values marked shopDefault:true are my defaults, not recovered values.",
+  "displayName": "Stripe / Inlay",
+  "angles": null,
+  "steps": [
+   {
+    "stepNumber": 1,
+    "title": "Mill rough stock",
+    "description": "Joint one face and one edge on the jointer, then plane to final thickness plus 1/8\" (3 mm). Rest overnight, then plane to final thickness. Take ~1/64\" (0.4 mm) passes for the last two passes.",
+    "settings": {
+     "Final pass depth": "~1/64\" (0.4 mm)"
+    },
+    "safetyBanners": [
+     "WARNING: Use push blocks on the jointer. Never joint stock shorter than 12\" (305 mm) or thinner than 1/2\" (12.5 mm).",
+     "WARNING: Keep hands clear of the infeed and outfeed. Feed only boards at least 12\" (305 mm) long."
+    ],
+    "machineSetup": "jointer",
+    "figureType": "mill",
+    "stepId": "mill-rough-stock"
+   },
+   {
+    "stepNumber": 2,
+    "title": "Rip strips",
+    "description": "Rip main boards and thin stripe strips. Rip stripes from a wide board with the stripe falling to the outside, away from the fence with the jointed edge against the fence. Measure from the fence face to the near side of a tooth set toward the fence.",
+    "settings": {
+     "Fence to blade": "strip width from cut list"
+    },
+    "safetyBanners": [
+     "WARNING: Use the riving knife and blade guard on every through cut.",
+     "WARNING: Use a push stick for any rip narrower than 6\" (152 mm). Never reach over or behind the blade."
+    ],
+    "machineSetup": "table-saw",
+    "figureType": "rip-fence",
+    "stepId": "rip-strips"
+   },
+   {
+    "stepNumber": 3,
+    "title": "Glue up",
+    "description": "Glue main boards and stripes edge to edge. Alternate clamps above and below the panel and check for flat with a straightedge.",
+    "settings": {
+     "Clamp spacing": "about 8\" (200 mm)"
+    },
+    "safetyBanners": [
+     "NOTE: Use a waterproof PVA glue rated for indirect food contact. Clamp until squeeze-out turns rubbery, then scrape."
+    ],
+    "machineSetup": null,
+    "figureType": "glue-up",
+    "stepId": "glue-up"
+   },
+   {
+    "stepNumber": 4,
+    "title": "Trim to length",
+    "description": "Square both ends on a crosscut sled.",
+    "settings": {},
+    "safetyBanners": [
+     "DANGER: Never use the rip fence as a length stop for crosscuts. Use a crosscut sled with a stop block set before the blade, so the offcut is never trapped between blade and fence."
+    ],
+    "machineSetup": "crosscut-sled",
+    "figureType": "crosscut",
+    "stepId": "trim-to-length"
+   },
+   {
+    "stepNumber": 5,
+    "title": "Flatten and sand",
+    "description": "Scrape glue, then plane or sand flat. Sand 80, 120, 180 grit. Break edges (180 grit).",
+    "settings": {
+     "Grits": "80 / 120 / 180"
+    },
+    "safetyBanners": [
+     "WARNING: Keep hands clear of the infeed and outfeed. Feed only boards at least 12\" (305 mm) long."
+    ],
+    "machineSetup": null,
+    "figureType": "top-view",
+    "stepId": "flatten-and-sand"
+   },
+   {
+    "stepNumber": 6,
+    "title": "Edge profile",
+    "description": "Rout the edge profile, default: 1/8\" (3 mm) roundover. Optional finger grips: core box / round-nose bit 3/8–1/2\" (9.5–12.7 mm).",
+    "settings": {
+     "Bit": "1/8\" (3 mm) roundover"
+    },
+    "safetyBanners": [
+     "WARNING: Climb cuts can grab. Feed the router against the bit rotation and take shallow passes."
+    ],
+    "machineSetup": "router",
+    "figureType": "outline",
+    "stepId": "edge-profile"
+   },
+   {
+    "stepNumber": 7,
+    "title": "Finish",
+    "description": "Raise the grain with a damp cloth, sand 180 again, then flood with food-safe mineral oil and top with board butter.",
+    "settings": {},
+    "safetyBanners": [
+     "NOTE: Use closed-grain, non-toxic hardwoods only. Avoid spalted, softwood or oily/sensitising exotics on cutting surfaces."
+    ],
+    "machineSetup": null,
+    "figureType": null,
+    "stepId": "finish"
+   }
+  ],
+  "cutListAllowances": {
+   "kerf_mm": 3.175,
+   "kerf_text": "1/8\" (3.2 mm) full-kerf blade",
+   "roughToFinalOversize_mm": {
+    "thickness": 3,
+    "width": 6,
+    "length": 50
+   },
+   "planerMinimum_mm": {
+    "length": 305,
+    "thickness": 6.5
+   },
+   "jointerMinimum_mm": {
+    "length": 305
+   },
+   "minPieceLength_mm": {
+    "planerJointer": 305,
+    "tableSawFreehand": 152,
+    "sledHoldDownMax": 152
+   },
+   "flatteningAllowance_mm": 1.5,
+   "sandingLoss_mm": 0.5,
+   "shopDefault": true
+  },
+  "kerfText": "0.125\" (1/8\")"
+ }
+}

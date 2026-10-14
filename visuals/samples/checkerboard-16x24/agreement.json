@@ -1,0 +1,16 @@
+{
+ "ok": true,
+ "labelsChecked": 61,
+ "issues": [],
+ "exportSha256": "ea873304efc4d5dbeb9898c407ed6f9bb6c02675f9427ac3bf42e27d42866453",
+ "freshExportIdentical": true,
+ "preset": "checkerboard-16x24",
+ "sets": [
+  "juiceGroove.enabled=true"
+ ],
+ "catalogDraft": "NEW DRAFT 3.0-draft3 by Board Master, re",
+ "exportVsCatalog": [
+  "cutList.0 (Walnut strip): length 87.0 mm is under the 305 mm planer/jointer minimum; export gives no longer blank to mill first",
+  "cutList.1 (Maple strip): length 87.0 mm is under the 305 mm planer/jointer minimum; export gives no longer blank to mill first"
+ ]
+}

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="454" height="595" viewBox="0 0 454 595" data-figure="top-view">
+<rect data-bg="1" x="0" y="0" width="454" height="595" fill="#FFFFFF"/>
+<text x="20.00" y="30.00" font-family="DejaVu Sans" font-size="16" fill="#222222" font-weight="bold"><tspan x="20.00" y="30.00">Scrap Chaotic (End Grain): top view</tspan></text>
+<polygon points="126.72,80.00 218.03,80.00 218.03,131.39 126.72,131.39" fill="#5B3A29" stroke="#333" stroke-width="0.5"/>
+<polygon points="218.03,80.00 290.11,80.00 290.11,156.51 218.03,156.51" fill="#5B3A29" stroke="#333" stroke-width="0.5"/>
+<polygon points="290.11,80.00 412.15,80.00 412.15,131.41 290.11,131.41" fill="#5B3A29" stroke="#333" stroke-width="0.5"/>
+<polygon points="412.15,80.00 431.52,80.00 431.52,197.73 412.15,197.73" fill="#5B3A29" stroke="#333" stroke-width="0.5"/>
+<polygon points="126.72,176.29 243.88,176.29 243.88,251.03 126.72,251.03" fill="#F3E7D3" stroke="#333" stroke-width="0.5"/>
+<polygon points="243.88,176.29 335.25,176.29 335.25,274.23 243.88,274.23" fill="#F3E7D3" stroke="#333" stroke-width="0.5"/>
+<polygon points="335.25,176.29 417.25,176.29 417.25,261.08 335.25,261.08" fill="#5B3A29" stroke="#333" stroke-width="0.5"/>
+<polygon points="417.25,176.29 431.52,176.29 431.52,253.26 417.25,253.26" fill="#F3E7D3" stroke="#333" stroke-width="0.5"/>
+<polygon points="126.72,255.53 242.86,255.53 242.86,365.33 126.72,365.33" fill="#5B3A29" stroke="#333" stroke-width="0.5"/>
+<polygon points="242.86,255.53 386.82,255.53 386.82,369.00 242.86,369.00" fill="#F3E7D3" stroke="#333" stroke-width="0.5"/>
+<polygon points="386.82,255.53 431.52,255.53 431.52,316.89 386.82,316.89" fill="#F3E7D3" stroke="#333" stroke-width="0.5"/>
+<polygon points="126.72,387.78 221.85,387.78 221.85,492.05 126.72,492.05" fill="#5B3A29" stroke="#333" stroke-width="0.5"/>
+<polygon points="221.85,387.78 278.29,387.78 278.29,464.40 221.85,464.40" fill="#5B3A29" stroke="#333" stroke-width="0.5"/>
+<polygon points="278.29,387.78 365.25,387.78 365.25,486.52 278.29,486.52" fill="#5B3A29" stroke="#333" stroke-width="0.5"/>
+<polygon points="365.25,387.78 431.52,387.78 431.52,500.07 365.25,500.07" fill="#F3E7D3" stroke="#333" stroke-width="0.5"/>
+<polygon points="126.72,510.10 185.66,510.10 185.66,537.20 126.72,537.20" fill="#F3E7D3" stroke="#333" stroke-width="0.5"/>
+<polygon points="185.66,510.10 266.02,510.10 266.02,537.20 185.66,537.20" fill="#F3E7D3" stroke="#333" stroke-width="0.5"/>
+<polygon points="266.02,510.10 384.24,510.10 384.24,537.20 266.02,537.20" fill="#F3E7D3" stroke="#333" stroke-width="0.5"/>
+<polygon points="384.24,510.10 431.52,510.10 431.52,537.20 384.24,537.20" fill="#5B3A29" stroke="#333" stroke-width="0.5"/>
+<rect x="126.72" y="80.00" width="304.80" height="457.20" rx="0.00" fill="none" stroke="#222222" stroke-width="1.5"/>
+<desc data-strips="19" data-export-strips="19"></desc>
+<line x1="126.72" y1="64.00" x2="431.52" y2="64.00" stroke="#555" stroke-width="1" data-dim="1"/>
+<line x1="126.72" y1="60.00" x2="126.72" y2="68.00" stroke="#555" stroke-width="1" data-dim="1"/>
+<line x1="431.52" y1="60.00" x2="431.52" y2="68.00" stroke="#555" stroke-width="1" data-dim="1"/>
+<rect data-patch="1" x="239.76" y="46.00" width="78.72" height="18.30" fill="#FFFFFF"/>
+<text x="279.12" y="59.00" font-family="DejaVu Sans" font-size="11" fill="#222222" text-anchor="middle" data-dim="1" data-src="text.width"><tspan x="279.12" y="59.00">12.000&quot; (12&quot;)</tspan></text>
+<line x1="110.72" y1="80.00" x2="110.72" y2="537.20" stroke="#555" stroke-width="1" data-dim="2"/>
+<line x1="106.72" y1="80.00" x2="114.72" y2="80.00" stroke="#555" stroke-width="1" data-dim="2"/>
+<line x1="106.72" y1="537.20" x2="114.72" y2="537.20" stroke="#555" stroke-width="1" data-dim="2"/>
+<rect data-patch="2" x="26.00" y="299.60" width="78.72" height="18.30" fill="#FFFFFF"/>
+<text x="102.72" y="312.60" font-family="DejaVu Sans" font-size="11" fill="#222222" text-anchor="end" data-dim="2" data-src="text.length"><tspan x="102.72" y="312.60">18.000&quot; (18&quot;)</tspan></text>
+<text x="126.72" y="567.20" font-family="DejaVu Sans" font-size="11" fill="#222222" data-src="label.thickness"><tspan x="126.72" y="567.20">Thickness 1.500&quot; (1 1/2&quot;)</tspan></text>
+</svg>
