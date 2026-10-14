@@ -115,4 +115,55 @@ describe('Fix-off: missing external figure', () => {
     // Verify restore worked
     expect(process.env.ALLOW_FALLBACK_FIGURES).toBe(oldValue);
   });
+
+  it('should throw error when required SVG is missing and ALLOW_FALLBACK is false', async () => {
+    // This is the automated version of the manual fix-off test
+    // It verifies that PDF generation fails when a required SVG is missing
+    const { PdfGenerator } = await import('../lib/pdf');
+    const { calculateRequiredParts } = await import('../lib/lumberPlanner');
+    const { renameSync, existsSync } = await import('fs');
+    
+    const testSvg = join(process.cwd(), 'visuals', 'steps', 'checkerboard', 'rip-strips.svg');
+    const backupSvg = `${testSvg}.test-backup`;
+    
+    // Skip test if SVG doesn't exist
+    if (!existsSync(testSvg)) {
+      console.warn('Test SVG not found, skipping missing-figure test');
+      return;
+    }
+    
+    // Save old env var
+    const oldAllowFallback = process.env.ALLOW_FALLBACK_FIGURES;
+    delete process.env.ALLOW_FALLBACK_FIGURES;
+    
+    try {
+      // Move the SVG file temporarily
+      renameSync(testSvg, backupSvg);
+      
+      // Try to generate a PDF for checkerboard (should fail)
+      const design = {
+        style: 'checkerboard',
+        dimensions: { length: 18, width: 12, thickness: 0.75 },
+        stripWidth: 1.5,
+        unit: 'in' as const
+      };
+      
+      const cutList = calculateRequiredParts(design);
+      const generator = new PdfGenerator(design);
+      
+      // This should throw an error about missing figure
+      expect(() => generator.generateCutSheet(cutList)).toThrow(/Missing required figure.*rip-strips\.svg/);
+      
+    } finally {
+      // Always restore the SVG file
+      if (existsSync(backupSvg)) {
+        renameSync(backupSvg, testSvg);
+      }
+      
+      // Restore env var
+      if (oldAllowFallback !== undefined) {
+        process.env.ALLOW_FALLBACK_FIGURES = oldAllowFallback;
+      }
+    }
+  });
 });
