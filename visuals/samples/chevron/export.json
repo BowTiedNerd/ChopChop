@@ -1,7 +1,7 @@
 {
  "exporter": "boardviz export_design.ts over ChopChop PR#1 src/lib (calcBoard equivalent)",
- "appDir": "/workspace/chopchop-ref",
- "appHead": "6326b68",
+ "appDir": "/workspace",
+ "appHead": "b517552",
  "preset": "chevron",
  "sets": [],
  "angle": null,
@@ -3145,29 +3145,29 @@
  },
  "cutList": [
   {
-   "part": "Walnut strip",
-   "width": 30.946428571428573,
+   "part": "Walnut blank (mill & rip, then crosscut 154 × 30.8 mm slices)",
+   "width": 30.9,
    "thickness": 43.1,
-   "length": 83.96444955795138,
-   "quantity": 154,
+   "length": 5280.525231924513,
+   "quantity": 1,
    "species": "Walnut",
    "text": {
-    "width": "1.218\" (≈1 7/32\")",
+    "width": "1.217\" (≈1 7/32\")",
     "thickness": "1.697\" (≈1 45/64\")",
-    "length": "3.306\" (≈3 5/16\")"
+    "length": "207.895\" (≈207 57/64\")"
    }
   },
   {
-   "part": "Maple strip",
-   "width": 30.946428571428573,
+   "part": "Maple blank (mill & rip, then crosscut 154 × 30.8 mm slices)",
+   "width": 30.9,
    "thickness": 43.1,
-   "length": 83.96444955795138,
-   "quantity": 154,
+   "length": 5280.525231924513,
+   "quantity": 1,
    "species": "Maple",
    "text": {
-    "width": "1.218\" (≈1 7/32\")",
+    "width": "1.217\" (≈1 7/32\")",
     "thickness": "1.697\" (≈1 45/64\")",
-    "length": "3.306\" (≈3 5/16\")"
+    "length": "207.895\" (≈207 57/64\")"
    }
   }
  ],
@@ -3200,32 +3200,32 @@
  "derivedBlanks": [
   {
    "cutListIndex": 0,
-   "slices": 154,
-   "slice_mm": 83.96444955795138,
+   "slices": 1,
+   "slice_mm": 5280.525231924513,
    "kerf_mm": 3.175,
-   "length_mm": 13469.475231924513,
-   "width_mm": 30.946428571428573,
+   "length_mm": 5333.700231924513,
+   "width_mm": 30.9,
    "thickness_mm": 43.1,
    "text": {
-    "length": "530.294\" (≈530 19/64\")",
-    "slice": "3.306\" (≈3 5/16\")",
-    "width": "1.218\" (≈1 7/32\")",
+    "length": "209.988\" (≈209 63/64\")",
+    "slice": "207.895\" (≈207 57/64\")",
+    "width": "1.217\" (≈1 7/32\")",
     "thickness": "1.697\" (≈1 45/64\")",
     "boardWidth": "12.000\" (12\")"
    }
   },
   {
    "cutListIndex": 1,
-   "slices": 154,
-   "slice_mm": 83.96444955795138,
+   "slices": 1,
+   "slice_mm": 5280.525231924513,
    "kerf_mm": 3.175,
-   "length_mm": 13469.475231924513,
-   "width_mm": 30.946428571428573,
+   "length_mm": 5333.700231924513,
+   "width_mm": 30.9,
    "thickness_mm": 43.1,
    "text": {
-    "length": "530.294\" (≈530 19/64\")",
-    "slice": "3.306\" (≈3 5/16\")",
-    "width": "1.218\" (≈1 7/32\")",
+    "length": "209.988\" (≈209 63/64\")",
+    "slice": "207.895\" (≈207 57/64\")",
+    "width": "1.217\" (≈1 7/32\")",
     "thickness": "1.697\" (≈1 45/64\")",
     "boardWidth": "12.000\" (12\")"
    }

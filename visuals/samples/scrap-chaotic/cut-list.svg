@@ -1,145 +1,145 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="677" height="600" viewBox="0 0 677 600" data-figure="cut-list">
-<rect data-bg="1" x="0" y="0" width="677" height="600" fill="#FFFFFF"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="1305" height="586" viewBox="0 0 1305 586" data-figure="cut-list">
+<rect data-bg="1" x="0" y="0" width="1305" height="586" fill="#FFFFFF"/>
 <text x="20.00" y="30.00" font-family="DejaVu Sans" font-size="16" fill="#222222" font-weight="bold"><tspan x="20.00" y="30.00">Scrap Chaotic (End Grain): cut list</tspan></text>
-<rect data-panel="cutlist-header" x="20.00" y="50.00" width="636.16" height="26.00" fill="#5B3A29"/>
+<rect data-panel="cutlist-header" x="20.00" y="50.00" width="1264.62" height="26.00" fill="#5B3A29"/>
 <text x="30.00" y="68.00" font-family="DejaVu Sans" font-size="12" fill="#FFFFFF" font-weight="bold"><tspan x="30.00" y="68.00">Part</tspan></text>
-<text x="126.36" y="68.00" font-family="DejaVu Sans" font-size="12" fill="#FFFFFF" font-weight="bold"><tspan x="126.36" y="68.00">Qty</tspan></text>
-<text x="174.12" y="68.00" font-family="DejaVu Sans" font-size="12" fill="#FFFFFF" font-weight="bold"><tspan x="174.12" y="68.00">Width</tspan></text>
-<text x="312.84" y="68.00" font-family="DejaVu Sans" font-size="12" fill="#FFFFFF" font-weight="bold"><tspan x="312.84" y="68.00">Thickness</tspan></text>
-<text x="451.56" y="68.00" font-family="DejaVu Sans" font-size="12" fill="#FFFFFF" font-weight="bold"><tspan x="451.56" y="68.00">Length</tspan></text>
-<text x="590.28" y="68.00" font-family="DejaVu Sans" font-size="12" fill="#FFFFFF" font-weight="bold"><tspan x="590.28" y="68.00">Species</tspan></text>
-<rect data-panel="cutlist-row" x="20.00" y="76.00" width="636.16" height="24.00" fill="#F3E7D3"/>
-<text x="30.00" y="93.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.0.part"><tspan x="30.00" y="93.00">Walnut strip</tspan></text>
-<text x="126.36" y="93.00" font-family="DejaVu Sans" font-size="12" fill="#222222"><tspan x="126.36" y="93.00">1</tspan></text>
-<text x="174.12" y="93.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.0.text.width"><tspan x="174.12" y="93.00">3.956&quot; (≈3 61/64&quot;)</tspan></text>
-<text x="312.84" y="93.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.0.text.thickness"><tspan x="312.84" y="93.00">1.835&quot; (≈1 53/64&quot;)</tspan></text>
-<text x="451.56" y="93.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.0.text.length"><tspan x="451.56" y="93.00">4.117&quot; (≈4 7/64&quot;)</tspan></text>
-<text x="590.28" y="93.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.0.species"><tspan x="590.28" y="93.00">Walnut</tspan></text>
-<rect data-panel="cutlist-row" x="20.00" y="100.00" width="636.16" height="24.00" fill="#FBF8F2"/>
-<text x="30.00" y="117.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.1.part"><tspan x="30.00" y="117.00">Walnut strip</tspan></text>
-<text x="126.36" y="117.00" font-family="DejaVu Sans" font-size="12" fill="#222222"><tspan x="126.36" y="117.00">1</tspan></text>
-<text x="174.12" y="117.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.1.text.width"><tspan x="174.12" y="117.00">3.199&quot; (≈3 13/64&quot;)</tspan></text>
-<text x="312.84" y="117.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.1.text.thickness"><tspan x="312.84" y="117.00">1.835&quot; (≈1 53/64&quot;)</tspan></text>
-<text x="451.56" y="117.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.1.text.length"><tspan x="451.56" y="117.00">5.106&quot; (≈5 7/64&quot;)</tspan></text>
-<text x="590.28" y="117.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.1.species"><tspan x="590.28" y="117.00">Walnut</tspan></text>
-<rect data-panel="cutlist-row" x="20.00" y="124.00" width="636.16" height="24.00" fill="#F3E7D3"/>
-<text x="30.00" y="141.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.2.part"><tspan x="30.00" y="141.00">Walnut strip</tspan></text>
-<text x="126.36" y="141.00" font-family="DejaVu Sans" font-size="12" fill="#222222"><tspan x="126.36" y="141.00">1</tspan></text>
-<text x="174.12" y="141.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.2.text.width"><tspan x="174.12" y="141.00">5.166&quot; (≈5 11/64&quot;)</tspan></text>
-<text x="312.84" y="141.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.2.text.thickness"><tspan x="312.84" y="141.00">1.835&quot; (≈1 53/64&quot;)</tspan></text>
-<text x="451.56" y="141.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.2.text.length"><tspan x="451.56" y="141.00">4.117&quot; (≈4 1/8&quot;)</tspan></text>
-<text x="590.28" y="141.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.2.species"><tspan x="590.28" y="141.00">Walnut</tspan></text>
-<rect data-panel="cutlist-row" x="20.00" y="148.00" width="636.16" height="24.00" fill="#FBF8F2"/>
-<text x="30.00" y="165.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.3.part"><tspan x="30.00" y="165.00">Walnut strip</tspan></text>
-<text x="126.36" y="165.00" font-family="DejaVu Sans" font-size="12" fill="#222222"><tspan x="126.36" y="165.00">1</tspan></text>
-<text x="174.12" y="165.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.3.text.width"><tspan x="174.12" y="165.00">1.124&quot; (≈1 1/8&quot;)</tspan></text>
-<text x="312.84" y="165.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.3.text.thickness"><tspan x="312.84" y="165.00">1.835&quot; (≈1 53/64&quot;)</tspan></text>
-<text x="451.56" y="165.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.3.text.length"><tspan x="451.56" y="165.00">6.729&quot; (≈6 47/64&quot;)</tspan></text>
-<text x="590.28" y="165.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.3.species"><tspan x="590.28" y="165.00">Walnut</tspan></text>
-<rect data-panel="cutlist-row" x="20.00" y="172.00" width="636.16" height="24.00" fill="#F3E7D3"/>
-<text x="30.00" y="189.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.4.part"><tspan x="30.00" y="189.00">Maple strip</tspan></text>
-<text x="126.36" y="189.00" font-family="DejaVu Sans" font-size="12" fill="#222222"><tspan x="126.36" y="189.00">1</tspan></text>
-<text x="174.12" y="189.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.4.text.width"><tspan x="174.12" y="189.00">4.974&quot; (≈4 31/32&quot;)</tspan></text>
-<text x="312.84" y="189.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.4.text.thickness"><tspan x="312.84" y="189.00">1.835&quot; (≈1 53/64&quot;)</tspan></text>
-<text x="451.56" y="189.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.4.text.length"><tspan x="451.56" y="189.00">5.036&quot; (≈5 1/32&quot;)</tspan></text>
-<text x="590.28" y="189.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.4.species"><tspan x="590.28" y="189.00">Maple</tspan></text>
-<rect data-panel="cutlist-row" x="20.00" y="196.00" width="636.16" height="24.00" fill="#FBF8F2"/>
-<text x="30.00" y="213.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.5.part"><tspan x="30.00" y="213.00">Maple strip</tspan></text>
-<text x="126.36" y="213.00" font-family="DejaVu Sans" font-size="12" fill="#222222"><tspan x="126.36" y="213.00">1</tspan></text>
-<text x="174.12" y="213.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.5.text.width"><tspan x="174.12" y="213.00">3.958&quot; (≈3 61/64&quot;)</tspan></text>
-<text x="312.84" y="213.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.5.text.thickness"><tspan x="312.84" y="213.00">1.835&quot; (≈1 53/64&quot;)</tspan></text>
-<text x="451.56" y="213.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.5.text.length"><tspan x="451.56" y="213.00">5.949&quot; (≈5 61/64&quot;)</tspan></text>
-<text x="590.28" y="213.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.5.species"><tspan x="590.28" y="213.00">Maple</tspan></text>
-<rect data-panel="cutlist-row" x="20.00" y="220.00" width="636.16" height="24.00" fill="#F3E7D3"/>
-<text x="30.00" y="237.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.6.part"><tspan x="30.00" y="237.00">Walnut strip</tspan></text>
-<text x="126.36" y="237.00" font-family="DejaVu Sans" font-size="12" fill="#222222"><tspan x="126.36" y="237.00">1</tspan></text>
-<text x="174.12" y="237.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.6.text.width"><tspan x="174.12" y="237.00">3.589&quot; (≈3 19/32&quot;)</tspan></text>
-<text x="312.84" y="237.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.6.text.thickness"><tspan x="312.84" y="237.00">1.835&quot; (≈1 53/64&quot;)</tspan></text>
-<text x="451.56" y="237.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.6.text.length"><tspan x="451.56" y="237.00">5.432&quot; (≈5 7/16&quot;)</tspan></text>
-<text x="590.28" y="237.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.6.species"><tspan x="590.28" y="237.00">Walnut</tspan></text>
-<rect data-panel="cutlist-row" x="20.00" y="244.00" width="636.16" height="24.00" fill="#FBF8F2"/>
-<text x="30.00" y="261.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.7.part"><tspan x="30.00" y="261.00">Maple strip</tspan></text>
-<text x="126.36" y="261.00" font-family="DejaVu Sans" font-size="12" fill="#222222"><tspan x="126.36" y="261.00">1</tspan></text>
-<text x="174.12" y="261.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.7.text.width"><tspan x="174.12" y="261.00">0.923&quot; (≈59/64&quot;)</tspan></text>
-<text x="312.84" y="261.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.7.text.thickness"><tspan x="312.84" y="261.00">1.835&quot; (≈1 53/64&quot;)</tspan></text>
-<text x="451.56" y="261.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.7.text.length"><tspan x="451.56" y="261.00">5.124&quot; (≈5 1/8&quot;)</tspan></text>
-<text x="590.28" y="261.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.7.species"><tspan x="590.28" y="261.00">Maple</tspan></text>
-<rect data-panel="cutlist-row" x="20.00" y="268.00" width="636.16" height="24.00" fill="#F3E7D3"/>
-<text x="30.00" y="285.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.8.part"><tspan x="30.00" y="285.00">Walnut strip</tspan></text>
-<text x="126.36" y="285.00" font-family="DejaVu Sans" font-size="12" fill="#222222"><tspan x="126.36" y="285.00">1</tspan></text>
-<text x="174.12" y="285.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.8.text.width"><tspan x="174.12" y="285.00">4.934&quot; (≈4 15/16&quot;)</tspan></text>
-<text x="312.84" y="285.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.8.text.thickness"><tspan x="312.84" y="285.00">1.835&quot; (≈1 53/64&quot;)</tspan></text>
-<text x="451.56" y="285.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.8.text.length"><tspan x="451.56" y="285.00">6.416&quot; (≈6 27/64&quot;)</tspan></text>
-<text x="590.28" y="285.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.8.species"><tspan x="590.28" y="285.00">Walnut</tspan></text>
-<rect data-panel="cutlist-row" x="20.00" y="292.00" width="636.16" height="24.00" fill="#FBF8F2"/>
-<text x="30.00" y="309.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.9.part"><tspan x="30.00" y="309.00">Maple strip</tspan></text>
-<text x="126.36" y="309.00" font-family="DejaVu Sans" font-size="12" fill="#222222"><tspan x="126.36" y="309.00">1</tspan></text>
-<text x="174.12" y="309.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.9.text.width"><tspan x="174.12" y="309.00">6.029&quot; (≈6 1/32&quot;)</tspan></text>
-<text x="312.84" y="309.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.9.text.thickness"><tspan x="312.84" y="309.00">1.835&quot; (≈1 53/64&quot;)</tspan></text>
-<text x="451.56" y="309.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.9.text.length"><tspan x="451.56" y="309.00">6.561&quot; (≈6 9/16&quot;)</tspan></text>
-<text x="590.28" y="309.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.9.species"><tspan x="590.28" y="309.00">Maple</tspan></text>
-<rect data-panel="cutlist-row" x="20.00" y="316.00" width="636.16" height="24.00" fill="#F3E7D3"/>
-<text x="30.00" y="333.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.10.part"><tspan x="30.00" y="333.00">Maple strip</tspan></text>
-<text x="126.36" y="333.00" font-family="DejaVu Sans" font-size="12" fill="#222222"><tspan x="126.36" y="333.00">1</tspan></text>
-<text x="174.12" y="333.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.10.text.width"><tspan x="174.12" y="333.00">2.121&quot; (≈2 1/8&quot;)</tspan></text>
-<text x="312.84" y="333.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.10.text.thickness"><tspan x="312.84" y="333.00">1.835&quot; (≈1 53/64&quot;)</tspan></text>
-<text x="451.56" y="333.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.10.text.length"><tspan x="451.56" y="333.00">4.509&quot; (≈4 33/64&quot;)</tspan></text>
-<text x="590.28" y="333.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.10.species"><tspan x="590.28" y="333.00">Maple</tspan></text>
-<rect data-panel="cutlist-row" x="20.00" y="340.00" width="636.16" height="24.00" fill="#FBF8F2"/>
-<text x="30.00" y="357.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.11.part"><tspan x="30.00" y="357.00">Walnut strip</tspan></text>
-<text x="126.36" y="357.00" font-family="DejaVu Sans" font-size="12" fill="#222222"><tspan x="126.36" y="357.00">1</tspan></text>
-<text x="174.12" y="357.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.11.text.width"><tspan x="174.12" y="357.00">4.106&quot; (≈4 7/64&quot;)</tspan></text>
-<text x="312.84" y="357.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.11.text.thickness"><tspan x="312.84" y="357.00">1.835&quot; (≈1 53/64&quot;)</tspan></text>
-<text x="451.56" y="357.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.11.text.length"><tspan x="451.56" y="357.00">6.199&quot; (≈6 13/64&quot;)</tspan></text>
-<text x="590.28" y="357.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.11.species"><tspan x="590.28" y="357.00">Walnut</tspan></text>
-<rect data-panel="cutlist-row" x="20.00" y="364.00" width="636.16" height="24.00" fill="#F3E7D3"/>
-<text x="30.00" y="381.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.12.part"><tspan x="30.00" y="381.00">Walnut strip</tspan></text>
-<text x="126.36" y="381.00" font-family="DejaVu Sans" font-size="12" fill="#222222"><tspan x="126.36" y="381.00">1</tspan></text>
-<text x="174.12" y="381.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.12.text.width"><tspan x="174.12" y="381.00">2.583&quot; (≈2 37/64&quot;)</tspan></text>
-<text x="312.84" y="381.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.12.text.thickness"><tspan x="312.84" y="381.00">1.835&quot; (≈1 53/64&quot;)</tspan></text>
-<text x="451.56" y="381.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.12.text.length"><tspan x="451.56" y="381.00">5.110&quot; (≈5 7/64&quot;)</tspan></text>
-<text x="590.28" y="381.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.12.species"><tspan x="590.28" y="381.00">Walnut</tspan></text>
-<rect data-panel="cutlist-row" x="20.00" y="388.00" width="636.16" height="24.00" fill="#FBF8F2"/>
-<text x="30.00" y="405.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.13.part"><tspan x="30.00" y="405.00">Walnut strip</tspan></text>
-<text x="126.36" y="405.00" font-family="DejaVu Sans" font-size="12" fill="#222222"><tspan x="126.36" y="405.00">1</tspan></text>
-<text x="174.12" y="405.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.13.text.width"><tspan x="174.12" y="405.00">3.785&quot; (≈3 25/32&quot;)</tspan></text>
-<text x="312.84" y="405.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.13.text.thickness"><tspan x="312.84" y="405.00">1.835&quot; (≈1 53/64&quot;)</tspan></text>
-<text x="451.56" y="405.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.13.text.length"><tspan x="451.56" y="405.00">5.981&quot; (≈5 63/64&quot;)</tspan></text>
-<text x="590.28" y="405.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.13.species"><tspan x="590.28" y="405.00">Walnut</tspan></text>
-<rect data-panel="cutlist-row" x="20.00" y="412.00" width="636.16" height="24.00" fill="#F3E7D3"/>
-<text x="30.00" y="429.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.14.part"><tspan x="30.00" y="429.00">Maple strip</tspan></text>
-<text x="126.36" y="429.00" font-family="DejaVu Sans" font-size="12" fill="#222222"><tspan x="126.36" y="429.00">1</tspan></text>
-<text x="174.12" y="429.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.14.text.width"><tspan x="174.12" y="429.00">2.970&quot; (≈2 31/32&quot;)</tspan></text>
-<text x="312.84" y="429.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.14.text.thickness"><tspan x="312.84" y="429.00">1.835&quot; (≈1 53/64&quot;)</tspan></text>
-<text x="451.56" y="429.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.14.text.length"><tspan x="451.56" y="429.00">6.514&quot; (≈6 33/64&quot;)</tspan></text>
-<text x="590.28" y="429.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.14.species"><tspan x="590.28" y="429.00">Maple</tspan></text>
-<rect data-panel="cutlist-row" x="20.00" y="436.00" width="636.16" height="24.00" fill="#FBF8F2"/>
-<text x="30.00" y="453.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.15.part"><tspan x="30.00" y="453.00">Maple strip</tspan></text>
-<text x="126.36" y="453.00" font-family="DejaVu Sans" font-size="12" fill="#222222"><tspan x="126.36" y="453.00">1</tspan></text>
-<text x="174.12" y="453.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.15.text.width"><tspan x="174.12" y="453.00">2.682&quot; (≈2 11/16&quot;)</tspan></text>
-<text x="312.84" y="453.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.15.text.thickness"><tspan x="312.84" y="453.00">1.835&quot; (≈1 53/64&quot;)</tspan></text>
-<text x="451.56" y="453.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.15.text.length"><tspan x="451.56" y="453.00">3.160&quot; (≈3 5/32&quot;)</tspan></text>
-<text x="590.28" y="453.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.15.species"><tspan x="590.28" y="453.00">Maple</tspan></text>
-<rect data-panel="cutlist-row" x="20.00" y="460.00" width="636.16" height="24.00" fill="#F3E7D3"/>
-<text x="30.00" y="477.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.16.part"><tspan x="30.00" y="477.00">Maple strip</tspan></text>
-<text x="126.36" y="477.00" font-family="DejaVu Sans" font-size="12" fill="#222222"><tspan x="126.36" y="477.00">1</tspan></text>
-<text x="174.12" y="477.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.16.text.width"><tspan x="174.12" y="477.00">3.525&quot; (≈3 17/32&quot;)</tspan></text>
-<text x="312.84" y="477.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.16.text.thickness"><tspan x="312.84" y="477.00">1.835&quot; (≈1 53/64&quot;)</tspan></text>
-<text x="451.56" y="477.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.16.text.length"><tspan x="451.56" y="477.00">3.160&quot; (≈3 5/32&quot;)</tspan></text>
-<text x="590.28" y="477.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.16.species"><tspan x="590.28" y="477.00">Maple</tspan></text>
-<rect data-panel="cutlist-row" x="20.00" y="484.00" width="636.16" height="24.00" fill="#FBF8F2"/>
-<text x="30.00" y="501.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.17.part"><tspan x="30.00" y="501.00">Maple strip</tspan></text>
-<text x="126.36" y="501.00" font-family="DejaVu Sans" font-size="12" fill="#222222"><tspan x="126.36" y="501.00">1</tspan></text>
-<text x="174.12" y="501.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.17.text.width"><tspan x="174.12" y="501.00">5.015&quot; (≈5 1/64&quot;)</tspan></text>
-<text x="312.84" y="501.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.17.text.thickness"><tspan x="312.84" y="501.00">1.835&quot; (≈1 53/64&quot;)</tspan></text>
-<text x="451.56" y="501.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.17.text.length"><tspan x="451.56" y="501.00">3.160&quot; (≈3 5/32&quot;)</tspan></text>
-<text x="590.28" y="501.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.17.species"><tspan x="590.28" y="501.00">Maple</tspan></text>
-<rect data-panel="cutlist-row" x="20.00" y="508.00" width="636.16" height="24.00" fill="#F3E7D3"/>
-<text x="30.00" y="525.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.18.part"><tspan x="30.00" y="525.00">Walnut strip</tspan></text>
-<text x="126.36" y="525.00" font-family="DejaVu Sans" font-size="12" fill="#222222"><tspan x="126.36" y="525.00">1</tspan></text>
-<text x="174.12" y="525.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.18.text.width"><tspan x="174.12" y="525.00">2.223&quot; (≈2 7/32&quot;)</tspan></text>
-<text x="312.84" y="525.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.18.text.thickness"><tspan x="312.84" y="525.00">1.835&quot; (≈1 53/64&quot;)</tspan></text>
-<text x="451.56" y="525.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.18.text.length"><tspan x="451.56" y="525.00">3.160&quot; (≈3 5/32&quot;)</tspan></text>
-<text x="590.28" y="525.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.18.species"><tspan x="590.28" y="525.00">Walnut</tspan></text>
-<text x="20.00" y="558.00" font-family="DejaVu Sans" font-size="11" fill="#222222"><tspan x="20.00" y="558.00">Catalog allowances (shop defaults): kerf 1/8&quot; (3.2 mm) full-kerf blade; rough oversize 3 mm thick, 6 mm wide, 50</tspan><tspan x="20.00" y="572.30">mm long; flattening 5 mm; sanding 0.5 mm.</tspan></text>
+<text x="747.19" y="68.00" font-family="DejaVu Sans" font-size="12" fill="#FFFFFF" font-weight="bold"><tspan x="747.19" y="68.00">Qty</tspan></text>
+<text x="794.95" y="68.00" font-family="DejaVu Sans" font-size="12" fill="#FFFFFF" font-weight="bold"><tspan x="794.95" y="68.00">Width</tspan></text>
+<text x="933.67" y="68.00" font-family="DejaVu Sans" font-size="12" fill="#FFFFFF" font-weight="bold"><tspan x="933.67" y="68.00">Thickness</tspan></text>
+<text x="1072.39" y="68.00" font-family="DejaVu Sans" font-size="12" fill="#FFFFFF" font-weight="bold"><tspan x="1072.39" y="68.00">Length</tspan></text>
+<text x="1218.75" y="68.00" font-family="DejaVu Sans" font-size="12" fill="#FFFFFF" font-weight="bold"><tspan x="1218.75" y="68.00">Species</tspan></text>
+<rect data-panel="cutlist-row" x="20.00" y="76.00" width="1264.62" height="24.00" fill="#F3E7D3"/>
+<text x="30.00" y="93.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.0.part"><tspan x="30.00" y="93.00">Walnut blank (mill &amp; rip, then crosscut 1 × 51.4 mm slices)</tspan></text>
+<text x="747.19" y="93.00" font-family="DejaVu Sans" font-size="12" fill="#222222"><tspan x="747.19" y="93.00">1</tspan></text>
+<text x="794.95" y="93.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.0.text.width"><tspan x="794.95" y="93.00">3.957&quot; (≈3 61/64&quot;)</tspan></text>
+<text x="933.67" y="93.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.0.text.thickness"><tspan x="933.67" y="93.00">1.835&quot; (≈1 53/64&quot;)</tspan></text>
+<text x="1072.39" y="93.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.0.text.length"><tspan x="1072.39" y="93.00">12.008&quot; (≈12 1/64&quot;)</tspan></text>
+<text x="1218.75" y="93.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.0.species"><tspan x="1218.75" y="93.00">Walnut</tspan></text>
+<rect data-panel="cutlist-row" x="20.00" y="100.00" width="1264.62" height="24.00" fill="#FBF8F2"/>
+<text x="30.00" y="117.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.1.part"><tspan x="30.00" y="117.00">Walnut blank (mill &amp; rip, then crosscut 1 × 76.5 mm slices)</tspan></text>
+<text x="747.19" y="117.00" font-family="DejaVu Sans" font-size="12" fill="#222222"><tspan x="747.19" y="117.00">1</tspan></text>
+<text x="794.95" y="117.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.1.text.width"><tspan x="794.95" y="117.00">3.197&quot; (≈3 13/64&quot;)</tspan></text>
+<text x="933.67" y="117.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.1.text.thickness"><tspan x="933.67" y="117.00">1.835&quot; (≈1 53/64&quot;)</tspan></text>
+<text x="1072.39" y="117.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.1.text.length"><tspan x="1072.39" y="117.00">12.008&quot; (≈12 1/64&quot;)</tspan></text>
+<text x="1218.75" y="117.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.1.species"><tspan x="1218.75" y="117.00">Walnut</tspan></text>
+<rect data-panel="cutlist-row" x="20.00" y="124.00" width="1264.62" height="24.00" fill="#F3E7D3"/>
+<text x="30.00" y="141.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.2.part"><tspan x="30.00" y="141.00">Walnut blank (mill &amp; rip, then crosscut 1 × 51.4 mm slices)</tspan></text>
+<text x="747.19" y="141.00" font-family="DejaVu Sans" font-size="12" fill="#222222"><tspan x="747.19" y="141.00">1</tspan></text>
+<text x="794.95" y="141.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.2.text.width"><tspan x="794.95" y="141.00">5.165&quot; (≈5 11/64&quot;)</tspan></text>
+<text x="933.67" y="141.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.2.text.thickness"><tspan x="933.67" y="141.00">1.835&quot; (≈1 53/64&quot;)</tspan></text>
+<text x="1072.39" y="141.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.2.text.length"><tspan x="1072.39" y="141.00">12.008&quot; (≈12 1/64&quot;)</tspan></text>
+<text x="1218.75" y="141.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.2.species"><tspan x="1218.75" y="141.00">Walnut</tspan></text>
+<rect data-panel="cutlist-row" x="20.00" y="148.00" width="1264.62" height="24.00" fill="#FBF8F2"/>
+<text x="30.00" y="165.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.3.part"><tspan x="30.00" y="165.00">Walnut blank (mill &amp; rip, then crosscut 1 × 117.7 mm slices)</tspan></text>
+<text x="747.19" y="165.00" font-family="DejaVu Sans" font-size="12" fill="#222222"><tspan x="747.19" y="165.00">1</tspan></text>
+<text x="794.95" y="165.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.3.text.width"><tspan x="794.95" y="165.00">1.122&quot; (≈1 1/8&quot;)</tspan></text>
+<text x="933.67" y="165.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.3.text.thickness"><tspan x="933.67" y="165.00">1.835&quot; (≈1 53/64&quot;)</tspan></text>
+<text x="1072.39" y="165.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.3.text.length"><tspan x="1072.39" y="165.00">12.008&quot; (≈12 1/64&quot;)</tspan></text>
+<text x="1218.75" y="165.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.3.species"><tspan x="1218.75" y="165.00">Walnut</tspan></text>
+<rect data-panel="cutlist-row" x="20.00" y="172.00" width="1264.62" height="24.00" fill="#F3E7D3"/>
+<text x="30.00" y="189.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.4.part"><tspan x="30.00" y="189.00">Maple blank (mill &amp; rip, then crosscut 1 × 74.7 mm slices)</tspan></text>
+<text x="747.19" y="189.00" font-family="DejaVu Sans" font-size="12" fill="#222222"><tspan x="747.19" y="189.00">1</tspan></text>
+<text x="794.95" y="189.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.4.text.width"><tspan x="794.95" y="189.00">4.972&quot; (≈4 31/32&quot;)</tspan></text>
+<text x="933.67" y="189.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.4.text.thickness"><tspan x="933.67" y="189.00">1.835&quot; (≈1 53/64&quot;)</tspan></text>
+<text x="1072.39" y="189.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.4.text.length"><tspan x="1072.39" y="189.00">12.008&quot; (≈12 1/64&quot;)</tspan></text>
+<text x="1218.75" y="189.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.4.species"><tspan x="1218.75" y="189.00">Maple</tspan></text>
+<rect data-panel="cutlist-row" x="20.00" y="196.00" width="1264.62" height="24.00" fill="#FBF8F2"/>
+<text x="30.00" y="213.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.5.part"><tspan x="30.00" y="213.00">Maple blank (mill &amp; rip, then crosscut 1 × 97.9 mm slices)</tspan></text>
+<text x="747.19" y="213.00" font-family="DejaVu Sans" font-size="12" fill="#222222"><tspan x="747.19" y="213.00">1</tspan></text>
+<text x="794.95" y="213.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.5.text.width"><tspan x="794.95" y="213.00">3.957&quot; (≈3 61/64&quot;)</tspan></text>
+<text x="933.67" y="213.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.5.text.thickness"><tspan x="933.67" y="213.00">1.835&quot; (≈1 53/64&quot;)</tspan></text>
+<text x="1072.39" y="213.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.5.text.length"><tspan x="1072.39" y="213.00">12.008&quot; (≈12 1/64&quot;)</tspan></text>
+<text x="1218.75" y="213.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.5.species"><tspan x="1218.75" y="213.00">Maple</tspan></text>
+<rect data-panel="cutlist-row" x="20.00" y="220.00" width="1264.62" height="24.00" fill="#F3E7D3"/>
+<text x="30.00" y="237.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.6.part"><tspan x="30.00" y="237.00">Walnut blank (mill &amp; rip, then crosscut 1 × 84.8 mm slices)</tspan></text>
+<text x="747.19" y="237.00" font-family="DejaVu Sans" font-size="12" fill="#222222"><tspan x="747.19" y="237.00">1</tspan></text>
+<text x="794.95" y="237.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.6.text.width"><tspan x="794.95" y="237.00">3.591&quot; (≈3 19/32&quot;)</tspan></text>
+<text x="933.67" y="237.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.6.text.thickness"><tspan x="933.67" y="237.00">1.835&quot; (≈1 53/64&quot;)</tspan></text>
+<text x="1072.39" y="237.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.6.text.length"><tspan x="1072.39" y="237.00">12.008&quot; (≈12 1/64&quot;)</tspan></text>
+<text x="1218.75" y="237.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.6.species"><tspan x="1218.75" y="237.00">Walnut</tspan></text>
+<rect data-panel="cutlist-row" x="20.00" y="244.00" width="1264.62" height="24.00" fill="#FBF8F2"/>
+<text x="30.00" y="261.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.7.part"><tspan x="30.00" y="261.00">Maple blank (mill &amp; rip, then crosscut 1 × 77.0 mm slices)</tspan></text>
+<text x="747.19" y="261.00" font-family="DejaVu Sans" font-size="12" fill="#222222"><tspan x="747.19" y="261.00">1</tspan></text>
+<text x="794.95" y="261.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.7.text.width"><tspan x="794.95" y="261.00">0.921&quot; (≈59/64&quot;)</tspan></text>
+<text x="933.67" y="261.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.7.text.thickness"><tspan x="933.67" y="261.00">1.835&quot; (≈1 53/64&quot;)</tspan></text>
+<text x="1072.39" y="261.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.7.text.length"><tspan x="1072.39" y="261.00">12.008&quot; (≈12 1/64&quot;)</tspan></text>
+<text x="1218.75" y="261.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.7.species"><tspan x="1218.75" y="261.00">Maple</tspan></text>
+<rect data-panel="cutlist-row" x="20.00" y="268.00" width="1264.62" height="24.00" fill="#F3E7D3"/>
+<text x="30.00" y="285.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.8.part"><tspan x="30.00" y="285.00">Walnut blank (mill &amp; rip, then crosscut 1 × 109.8 mm slices)</tspan></text>
+<text x="747.19" y="285.00" font-family="DejaVu Sans" font-size="12" fill="#222222"><tspan x="747.19" y="285.00">1</tspan></text>
+<text x="794.95" y="285.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.8.text.width"><tspan x="794.95" y="285.00">4.933&quot; (≈4 15/16&quot;)</tspan></text>
+<text x="933.67" y="285.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.8.text.thickness"><tspan x="933.67" y="285.00">1.835&quot; (≈1 53/64&quot;)</tspan></text>
+<text x="1072.39" y="285.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.8.text.length"><tspan x="1072.39" y="285.00">12.008&quot; (≈12 1/64&quot;)</tspan></text>
+<text x="1218.75" y="285.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.8.species"><tspan x="1218.75" y="285.00">Walnut</tspan></text>
+<rect data-panel="cutlist-row" x="20.00" y="292.00" width="1264.62" height="24.00" fill="#FBF8F2"/>
+<text x="30.00" y="309.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.9.part"><tspan x="30.00" y="309.00">Maple blank (mill &amp; rip, then crosscut 1 × 113.5 mm slices) [Width exceeds jointer: use planer sled or hand flatten]</tspan></text>
+<text x="747.19" y="309.00" font-family="DejaVu Sans" font-size="12" fill="#222222"><tspan x="747.19" y="309.00">1</tspan></text>
+<text x="794.95" y="309.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.9.text.width"><tspan x="794.95" y="309.00">6.028&quot; (≈6 1/32&quot;)</tspan></text>
+<text x="933.67" y="309.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.9.text.thickness"><tspan x="933.67" y="309.00">1.835&quot; (≈1 53/64&quot;)</tspan></text>
+<text x="1072.39" y="309.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.9.text.length"><tspan x="1072.39" y="309.00">12.008&quot; (≈12 1/64&quot;)</tspan></text>
+<text x="1218.75" y="309.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.9.species"><tspan x="1218.75" y="309.00">Maple</tspan></text>
+<rect data-panel="cutlist-row" x="20.00" y="316.00" width="1264.62" height="24.00" fill="#F3E7D3"/>
+<text x="30.00" y="333.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.10.part"><tspan x="30.00" y="333.00">Maple blank (mill &amp; rip, then crosscut 1 × 61.4 mm slices)</tspan></text>
+<text x="747.19" y="333.00" font-family="DejaVu Sans" font-size="12" fill="#222222"><tspan x="747.19" y="333.00">1</tspan></text>
+<text x="794.95" y="333.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.10.text.width"><tspan x="794.95" y="333.00">2.122&quot; (≈2 1/8&quot;)</tspan></text>
+<text x="933.67" y="333.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.10.text.thickness"><tspan x="933.67" y="333.00">1.835&quot; (≈1 53/64&quot;)</tspan></text>
+<text x="1072.39" y="333.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.10.text.length"><tspan x="1072.39" y="333.00">12.008&quot; (≈12 1/64&quot;)</tspan></text>
+<text x="1218.75" y="333.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.10.species"><tspan x="1218.75" y="333.00">Maple</tspan></text>
+<rect data-panel="cutlist-row" x="20.00" y="340.00" width="1264.62" height="24.00" fill="#FBF8F2"/>
+<text x="30.00" y="357.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.11.part"><tspan x="30.00" y="357.00">Walnut blank (mill &amp; rip, then crosscut 1 × 104.3 mm slices)</tspan></text>
+<text x="747.19" y="357.00" font-family="DejaVu Sans" font-size="12" fill="#222222"><tspan x="747.19" y="357.00">1</tspan></text>
+<text x="794.95" y="357.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.11.text.width"><tspan x="794.95" y="357.00">4.106&quot; (≈4 7/64&quot;)</tspan></text>
+<text x="933.67" y="357.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.11.text.thickness"><tspan x="933.67" y="357.00">1.835&quot; (≈1 53/64&quot;)</tspan></text>
+<text x="1072.39" y="357.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.11.text.length"><tspan x="1072.39" y="357.00">12.008&quot; (≈12 1/64&quot;)</tspan></text>
+<text x="1218.75" y="357.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.11.species"><tspan x="1218.75" y="357.00">Walnut</tspan></text>
+<rect data-panel="cutlist-row" x="20.00" y="364.00" width="1264.62" height="24.00" fill="#F3E7D3"/>
+<text x="30.00" y="381.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.12.part"><tspan x="30.00" y="381.00">Walnut blank (mill &amp; rip, then crosscut 1 × 76.6 mm slices)</tspan></text>
+<text x="747.19" y="381.00" font-family="DejaVu Sans" font-size="12" fill="#222222"><tspan x="747.19" y="381.00">1</tspan></text>
+<text x="794.95" y="381.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.12.text.width"><tspan x="794.95" y="381.00">2.583&quot; (≈2 37/64&quot;)</tspan></text>
+<text x="933.67" y="381.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.12.text.thickness"><tspan x="933.67" y="381.00">1.835&quot; (≈1 53/64&quot;)</tspan></text>
+<text x="1072.39" y="381.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.12.text.length"><tspan x="1072.39" y="381.00">12.008&quot; (≈12 1/64&quot;)</tspan></text>
+<text x="1218.75" y="381.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.12.species"><tspan x="1218.75" y="381.00">Walnut</tspan></text>
+<rect data-panel="cutlist-row" x="20.00" y="388.00" width="1264.62" height="24.00" fill="#FBF8F2"/>
+<text x="30.00" y="405.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.13.part"><tspan x="30.00" y="405.00">Walnut blank (mill &amp; rip, then crosscut 1 × 98.7 mm slices)</tspan></text>
+<text x="747.19" y="405.00" font-family="DejaVu Sans" font-size="12" fill="#222222"><tspan x="747.19" y="405.00">1</tspan></text>
+<text x="794.95" y="405.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.13.text.width"><tspan x="794.95" y="405.00">3.783&quot; (≈3 25/32&quot;)</tspan></text>
+<text x="933.67" y="405.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.13.text.thickness"><tspan x="933.67" y="405.00">1.835&quot; (≈1 53/64&quot;)</tspan></text>
+<text x="1072.39" y="405.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.13.text.length"><tspan x="1072.39" y="405.00">12.008&quot; (≈12 1/64&quot;)</tspan></text>
+<text x="1218.75" y="405.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.13.species"><tspan x="1218.75" y="405.00">Walnut</tspan></text>
+<rect data-panel="cutlist-row" x="20.00" y="412.00" width="1264.62" height="24.00" fill="#F3E7D3"/>
+<text x="30.00" y="429.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.14.part"><tspan x="30.00" y="429.00">Maple blank (mill &amp; rip, then crosscut 1 × 112.3 mm slices)</tspan></text>
+<text x="747.19" y="429.00" font-family="DejaVu Sans" font-size="12" fill="#222222"><tspan x="747.19" y="429.00">1</tspan></text>
+<text x="794.95" y="429.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.14.text.width"><tspan x="794.95" y="429.00">2.969&quot; (≈2 31/32&quot;)</tspan></text>
+<text x="933.67" y="429.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.14.text.thickness"><tspan x="933.67" y="429.00">1.835&quot; (≈1 53/64&quot;)</tspan></text>
+<text x="1072.39" y="429.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.14.text.length"><tspan x="1072.39" y="429.00">12.008&quot; (≈12 1/64&quot;)</tspan></text>
+<text x="1218.75" y="429.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.14.species"><tspan x="1218.75" y="429.00">Maple</tspan></text>
+<rect data-panel="cutlist-row" x="20.00" y="436.00" width="1264.62" height="24.00" fill="#FBF8F2"/>
+<text x="30.00" y="453.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.15.part"><tspan x="30.00" y="453.00">Maple blank (mill &amp; rip, then crosscut 1 × 27.1 mm slices)</tspan></text>
+<text x="747.19" y="453.00" font-family="DejaVu Sans" font-size="12" fill="#222222"><tspan x="747.19" y="453.00">1</tspan></text>
+<text x="794.95" y="453.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.15.text.width"><tspan x="794.95" y="453.00">2.681&quot; (≈2 11/16&quot;)</tspan></text>
+<text x="933.67" y="453.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.15.text.thickness"><tspan x="933.67" y="453.00">1.835&quot; (≈1 53/64&quot;)</tspan></text>
+<text x="1072.39" y="453.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.15.text.length"><tspan x="1072.39" y="453.00">12.008&quot; (≈12 1/64&quot;)</tspan></text>
+<text x="1218.75" y="453.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.15.species"><tspan x="1218.75" y="453.00">Maple</tspan></text>
+<rect data-panel="cutlist-row" x="20.00" y="460.00" width="1264.62" height="24.00" fill="#F3E7D3"/>
+<text x="30.00" y="477.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.16.part"><tspan x="30.00" y="477.00">Maple blank (mill &amp; rip, then crosscut 1 × 27.1 mm slices)</tspan></text>
+<text x="747.19" y="477.00" font-family="DejaVu Sans" font-size="12" fill="#222222"><tspan x="747.19" y="477.00">1</tspan></text>
+<text x="794.95" y="477.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.16.text.width"><tspan x="794.95" y="477.00">3.524&quot; (≈3 17/32&quot;)</tspan></text>
+<text x="933.67" y="477.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.16.text.thickness"><tspan x="933.67" y="477.00">1.835&quot; (≈1 53/64&quot;)</tspan></text>
+<text x="1072.39" y="477.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.16.text.length"><tspan x="1072.39" y="477.00">12.008&quot; (≈12 1/64&quot;)</tspan></text>
+<text x="1218.75" y="477.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.16.species"><tspan x="1218.75" y="477.00">Maple</tspan></text>
+<rect data-panel="cutlist-row" x="20.00" y="484.00" width="1264.62" height="24.00" fill="#FBF8F2"/>
+<text x="30.00" y="501.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.17.part"><tspan x="30.00" y="501.00">Maple blank (mill &amp; rip, then crosscut 1 × 27.1 mm slices)</tspan></text>
+<text x="747.19" y="501.00" font-family="DejaVu Sans" font-size="12" fill="#222222"><tspan x="747.19" y="501.00">1</tspan></text>
+<text x="794.95" y="501.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.17.text.width"><tspan x="794.95" y="501.00">5.016&quot; (≈5 1/64&quot;)</tspan></text>
+<text x="933.67" y="501.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.17.text.thickness"><tspan x="933.67" y="501.00">1.835&quot; (≈1 53/64&quot;)</tspan></text>
+<text x="1072.39" y="501.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.17.text.length"><tspan x="1072.39" y="501.00">12.008&quot; (≈12 1/64&quot;)</tspan></text>
+<text x="1218.75" y="501.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.17.species"><tspan x="1218.75" y="501.00">Maple</tspan></text>
+<rect data-panel="cutlist-row" x="20.00" y="508.00" width="1264.62" height="24.00" fill="#F3E7D3"/>
+<text x="30.00" y="525.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.18.part"><tspan x="30.00" y="525.00">Walnut blank (mill &amp; rip, then crosscut 1 × 27.1 mm slices)</tspan></text>
+<text x="747.19" y="525.00" font-family="DejaVu Sans" font-size="12" fill="#222222"><tspan x="747.19" y="525.00">1</tspan></text>
+<text x="794.95" y="525.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.18.text.width"><tspan x="794.95" y="525.00">2.224&quot; (≈2 7/32&quot;)</tspan></text>
+<text x="933.67" y="525.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.18.text.thickness"><tspan x="933.67" y="525.00">1.835&quot; (≈1 53/64&quot;)</tspan></text>
+<text x="1072.39" y="525.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.18.text.length"><tspan x="1072.39" y="525.00">12.008&quot; (≈12 1/64&quot;)</tspan></text>
+<text x="1218.75" y="525.00" font-family="DejaVu Sans" font-size="12" fill="#222222" data-src="cutList.18.species"><tspan x="1218.75" y="525.00">Walnut</tspan></text>
+<text x="20.00" y="558.00" font-family="DejaVu Sans" font-size="11" fill="#222222"><tspan x="20.00" y="558.00">Catalog allowances (shop defaults): kerf 1/8&quot; (3.2 mm) full-kerf blade; rough oversize 3 mm thick, 6 mm wide, 50 mm long; flattening 5 mm; sanding 0.5 mm.</tspan></text>
 </svg>

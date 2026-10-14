@@ -1,7 +1,7 @@
 {
  "exporter": "boardviz export_design.ts over ChopChop PR#1 src/lib (calcBoard equivalent)",
- "appDir": "/workspace/chopchop-ref",
- "appHead": "6326b68",
+ "appDir": "/workspace",
+ "appHead": "b517552",
  "preset": "brick-basketweave",
  "sets": [],
  "angle": null,
@@ -865,68 +865,68 @@
  },
  "cutList": [
   {
-   "part": "Walnut strip",
-   "width": 85.375,
+   "part": "Walnut blank (mill & rip, then crosscut 12 × 25.4 mm slices)",
+   "width": 85.4,
    "thickness": 46.6,
-   "length": 78.575,
-   "quantity": 12,
+   "length": 392.90000000000003,
+   "quantity": 1,
    "species": "Walnut",
    "text": {
-    "width": "3.361\" (≈3 23/64\")",
+    "width": "3.362\" (≈3 23/64\")",
     "thickness": "1.835\" (≈1 53/64\")",
-    "length": "3.094\" (≈3 3/32\")"
+    "length": "15.469\" (≈15 15/32\")"
    }
   },
   {
-   "part": "Walnut strip",
-   "width": 34.575,
+   "part": "Walnut blank (mill & rip, then crosscut 24 × 76.2 mm slices)",
+   "width": 34.6,
    "thickness": 46.6,
-   "length": 129.375,
-   "quantity": 24,
+   "length": 1955,
+   "quantity": 1,
    "species": "Walnut",
    "text": {
-    "width": "1.361\" (≈1 23/64\")",
+    "width": "1.362\" (≈1 23/64\")",
     "thickness": "1.835\" (≈1 53/64\")",
-    "length": "5.094\" (≈5 3/32\")"
+    "length": "76.969\" (≈76 31/32\")"
    }
   },
   {
-   "part": "Maple strip",
-   "width": 85.375,
+   "part": "Maple blank (mill & rip, then crosscut 8 × 25.4 mm slices)",
+   "width": 85.4,
    "thickness": 46.6,
-   "length": 78.575,
-   "quantity": 8,
+   "length": 305,
+   "quantity": 1,
    "species": "Maple",
    "text": {
-    "width": "3.361\" (≈3 23/64\")",
+    "width": "3.362\" (≈3 23/64\")",
     "thickness": "1.835\" (≈1 53/64\")",
-    "length": "3.094\" (≈3 3/32\")"
+    "length": "12.008\" (≈12 1/64\")"
    }
   },
   {
-   "part": "Maple strip",
-   "width": 34.575,
+   "part": "Maple blank (mill & rip, then crosscut 24 × 76.2 mm slices)",
+   "width": 34.6,
    "thickness": 46.6,
-   "length": 129.375,
-   "quantity": 24,
+   "length": 1955,
+   "quantity": 1,
    "species": "Maple",
    "text": {
-    "width": "1.361\" (≈1 23/64\")",
+    "width": "1.362\" (≈1 23/64\")",
     "thickness": "1.835\" (≈1 53/64\")",
-    "length": "5.094\" (≈5 3/32\")"
+    "length": "76.969\" (≈76 31/32\")"
    }
   },
   {
-   "part": "Walnut strip",
-   "width": 34.575,
+   "part": "Walnut blank (mill & rip, then crosscut 12 × 25.4 mm slices)",
+   "width": 34.6,
    "thickness": 46.6,
-   "length": 78.57500000000003,
-   "quantity": 12,
+   "length": 392.90000000000043,
+   "quantity": 1,
    "species": "Walnut",
    "text": {
-    "width": "1.361\" (≈1 23/64\")",
+    "width": "1.362\" (≈1 23/64\")",
     "thickness": "1.835\" (≈1 53/64\")",
-    "length": "3.094\" (≈3 3/32\")"
+    "length": "15.469\" (≈15 15/32\")"
    }
   }
  ],
@@ -959,80 +959,80 @@
  "derivedBlanks": [
   {
    "cutListIndex": 0,
-   "slices": 12,
-   "slice_mm": 78.575,
+   "slices": 1,
+   "slice_mm": 392.90000000000003,
    "kerf_mm": 3.175,
-   "length_mm": 1031,
-   "width_mm": 85.375,
+   "length_mm": 446.07500000000005,
+   "width_mm": 85.4,
    "thickness_mm": 46.6,
    "text": {
-    "length": "40.591\" (≈40 19/32\")",
-    "slice": "3.094\" (≈3 3/32\")",
-    "width": "3.361\" (≈3 23/64\")",
+    "length": "17.562\" (≈17 9/16\")",
+    "slice": "15.469\" (≈15 15/32\")",
+    "width": "3.362\" (≈3 23/64\")",
     "thickness": "1.835\" (≈1 53/64\")",
     "boardWidth": "12.000\" (12\")"
    }
   },
   {
    "cutListIndex": 1,
-   "slices": 24,
-   "slice_mm": 129.375,
+   "slices": 1,
+   "slice_mm": 1955,
    "kerf_mm": 3.175,
-   "length_mm": 3231.2000000000003,
-   "width_mm": 34.575,
+   "length_mm": 2008.175,
+   "width_mm": 34.6,
    "thickness_mm": 46.6,
    "text": {
-    "length": "127.213\" (≈127 7/32\")",
-    "slice": "5.094\" (≈5 3/32\")",
-    "width": "1.361\" (≈1 23/64\")",
+    "length": "79.062\" (≈79 1/16\")",
+    "slice": "76.969\" (≈76 31/32\")",
+    "width": "1.362\" (≈1 23/64\")",
     "thickness": "1.835\" (≈1 53/64\")",
     "boardWidth": "12.000\" (12\")"
    }
   },
   {
    "cutListIndex": 2,
-   "slices": 8,
-   "slice_mm": 78.575,
+   "slices": 1,
+   "slice_mm": 305,
    "kerf_mm": 3.175,
-   "length_mm": 704,
-   "width_mm": 85.375,
+   "length_mm": 358.175,
+   "width_mm": 85.4,
    "thickness_mm": 46.6,
    "text": {
-    "length": "27.717\" (≈27 23/32\")",
-    "slice": "3.094\" (≈3 3/32\")",
-    "width": "3.361\" (≈3 23/64\")",
+    "length": "14.101\" (≈14 3/32\")",
+    "slice": "12.008\" (≈12 1/64\")",
+    "width": "3.362\" (≈3 23/64\")",
     "thickness": "1.835\" (≈1 53/64\")",
     "boardWidth": "12.000\" (12\")"
    }
   },
   {
    "cutListIndex": 3,
-   "slices": 24,
-   "slice_mm": 129.375,
+   "slices": 1,
+   "slice_mm": 1955,
    "kerf_mm": 3.175,
-   "length_mm": 3231.2000000000003,
-   "width_mm": 34.575,
+   "length_mm": 2008.175,
+   "width_mm": 34.6,
    "thickness_mm": 46.6,
    "text": {
-    "length": "127.213\" (≈127 7/32\")",
-    "slice": "5.094\" (≈5 3/32\")",
-    "width": "1.361\" (≈1 23/64\")",
+    "length": "79.062\" (≈79 1/16\")",
+    "slice": "76.969\" (≈76 31/32\")",
+    "width": "1.362\" (≈1 23/64\")",
     "thickness": "1.835\" (≈1 53/64\")",
     "boardWidth": "12.000\" (12\")"
    }
   },
   {
    "cutListIndex": 4,
-   "slices": 12,
-   "slice_mm": 78.57500000000003,
+   "slices": 1,
+   "slice_mm": 392.90000000000043,
    "kerf_mm": 3.175,
-   "length_mm": 1031.0000000000005,
-   "width_mm": 34.575,
+   "length_mm": 446.07500000000044,
+   "width_mm": 34.6,
    "thickness_mm": 46.6,
    "text": {
-    "length": "40.591\" (≈40 19/32\")",
-    "slice": "3.094\" (≈3 3/32\")",
-    "width": "1.361\" (≈1 23/64\")",
+    "length": "17.562\" (≈17 9/16\")",
+    "slice": "15.469\" (≈15 15/32\")",
+    "width": "1.362\" (≈1 23/64\")",
     "thickness": "1.835\" (≈1 53/64\")",
     "boardWidth": "12.000\" (12\")"
    }

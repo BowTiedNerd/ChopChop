@@ -1,7 +1,7 @@
 {
  "exporter": "boardviz export_design.ts over ChopChop PR#1 src/lib (calcBoard equivalent)",
- "appDir": "/workspace/chopchop-ref",
- "appHead": "6326b68",
+ "appDir": "/workspace",
+ "appHead": "b517552",
  "preset": "end-grain",
  "sets": [
   "unitSystem=metric",
@@ -55,19 +55,19 @@
   "warnings": []
  },
  "text": {
-  "width": "300.0 mm",
-  "length": "450.0 mm",
-  "thickness": "40.0 mm",
+  "width": "300 mm",
+  "length": "450 mm",
+  "thickness": "40 mm",
   "groove": {
    "width": "12.5 mm",
-   "depth": "5.0 mm",
-   "fromEdge": "19.0 mm",
+   "depth": "5 mm",
+   "fromEdge": "19 mm",
    "cornerRadius": "25.5 mm"
   },
   "feet": {
    "diameter": "25.5 mm",
    "height": "9.5 mm",
-   "inset": "32.0 mm"
+   "inset": "32 mm"
   }
  },
  "pattern": {
@@ -201,29 +201,29 @@
  },
  "cutList": [
   {
-   "part": "Walnut strip",
-   "width": 34.175,
+   "part": "Walnut blank (mill & rip, then crosscut 6 × 450.0 mm slices)",
+   "width": 34.2,
    "thickness": 48.5,
-   "length": 503.175,
-   "quantity": 6,
+   "length": 2769.05,
+   "quantity": 1,
    "species": "Walnut",
    "text": {
     "width": "34.2 mm",
     "thickness": "48.5 mm",
-    "length": "503.2 mm"
+    "length": "2769.1 mm"
    }
   },
   {
-   "part": "Maple strip",
-   "width": 34.175,
+   "part": "Maple blank (mill & rip, then crosscut 6 × 450.0 mm slices)",
+   "width": 34.2,
    "thickness": 48.5,
-   "length": 503.175,
-   "quantity": 6,
+   "length": 2769.05,
+   "quantity": 1,
    "species": "Maple",
    "text": {
     "width": "34.2 mm",
     "thickness": "48.5 mm",
-    "length": "503.2 mm"
+    "length": "2769.1 mm"
    }
   }
  ],
@@ -236,9 +236,9 @@
    "bit": "1/2\" (12.7 mm) straight or spiral bit",
    "text": "Hand-hole slot 4\" (100 mm) long x 1\" (25.4 mm) wide, round ends, centred 1-1/2\" (38 mm) in from the end. Rout through with a template and a 1/2\" (12.7 mm) bit in shallow passes.",
    "text_fmt": {
-    "length": "100.0 mm",
+    "length": "100 mm",
     "width": "25.4 mm",
-    "edgeInset": "38.0 mm"
+    "edgeInset": "38 mm"
    }
   },
   "fingerGrip": {
@@ -248,7 +248,7 @@
    "bit": "core box / round-nose bit 3/8–1/2\" (9.5–12.7 mm)",
    "text": "Finger grips 4\" (100 mm) long, routed into the end grain of each end with a core box bit, centred on the width.",
    "text_fmt": {
-    "length": "100.0 mm",
+    "length": "100 mm",
     "depth": "9.5 mm"
    }
   }
@@ -256,34 +256,34 @@
  "derivedBlanks": [
   {
    "cutListIndex": 0,
-   "slices": 6,
-   "slice_mm": 503.175,
+   "slices": 1,
+   "slice_mm": 2769.05,
    "kerf_mm": 3.175,
-   "length_mm": 3088.1000000000004,
-   "width_mm": 34.175,
+   "length_mm": 2822.2250000000004,
+   "width_mm": 34.2,
    "thickness_mm": 48.5,
    "text": {
-    "length": "3088.1 mm",
-    "slice": "503.2 mm",
+    "length": "2822.2 mm",
+    "slice": "2769.1 mm",
     "width": "34.2 mm",
     "thickness": "48.5 mm",
-    "boardWidth": "300.0 mm"
+    "boardWidth": "300 mm"
    }
   },
   {
    "cutListIndex": 1,
-   "slices": 6,
-   "slice_mm": 503.175,
+   "slices": 1,
+   "slice_mm": 2769.05,
    "kerf_mm": 3.175,
-   "length_mm": 3088.1000000000004,
-   "width_mm": 34.175,
+   "length_mm": 2822.2250000000004,
+   "width_mm": 34.2,
    "thickness_mm": 48.5,
    "text": {
-    "length": "3088.1 mm",
-    "slice": "503.2 mm",
+    "length": "2822.2 mm",
+    "slice": "2769.1 mm",
     "width": "34.2 mm",
     "thickness": "48.5 mm",
-    "boardWidth": "300.0 mm"
+    "boardWidth": "300 mm"
    }
   }
  ],

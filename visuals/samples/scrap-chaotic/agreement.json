@@ -2,30 +2,10 @@
  "ok": true,
  "labelsChecked": 157,
  "issues": [],
- "exportSha256": "ec0781ad1bbbff2411fc67523551874480c640ad0cadb93bdc94305db1f8e85b",
+ "exportSha256": "33e6e3b1af8179192878b8069a14da40d6c201428db622e08c5d98ae5460e114",
  "freshExportIdentical": true,
  "preset": "scrap-chaotic",
  "sets": [],
  "catalogDraft": "NEW DRAFT 3.0-draft5 by Board Master, re",
- "exportVsCatalog": [
-  "cutList.0 (Walnut strip): length 104.6 mm is under the 305 mm planer/jointer minimum; export gives no longer blank to mill first",
-  "cutList.1 (Walnut strip): length 129.7 mm is under the 305 mm planer/jointer minimum; export gives no longer blank to mill first",
-  "cutList.2 (Walnut strip): length 104.6 mm is under the 305 mm planer/jointer minimum; export gives no longer blank to mill first",
-  "cutList.3 (Walnut strip): length 170.9 mm is under the 305 mm planer/jointer minimum; export gives no longer blank to mill first",
-  "cutList.4 (Maple strip): length 127.9 mm is under the 305 mm planer/jointer minimum; export gives no longer blank to mill first",
-  "cutList.5 (Maple strip): length 151.1 mm is under the 305 mm planer/jointer minimum; export gives no longer blank to mill first",
-  "cutList.6 (Walnut strip): length 138.0 mm is under the 305 mm planer/jointer minimum; export gives no longer blank to mill first",
-  "cutList.7 (Maple strip): length 130.1 mm is under the 305 mm planer/jointer minimum; export gives no longer blank to mill first",
-  "cutList.8 (Walnut strip): length 163.0 mm is under the 305 mm planer/jointer minimum; export gives no longer blank to mill first",
-  "cutList.9 (Maple strip): length 166.6 mm is under the 305 mm planer/jointer minimum; export gives no longer blank to mill first",
-  "cutList.10 (Maple strip): length 114.5 mm is under the 305 mm planer/jointer minimum; export gives no longer blank to mill first",
-  "cutList.11 (Walnut strip): length 157.4 mm is under the 305 mm planer/jointer minimum; export gives no longer blank to mill first",
-  "cutList.12 (Walnut strip): length 129.8 mm is under the 305 mm planer/jointer minimum; export gives no longer blank to mill first",
-  "cutList.13 (Walnut strip): length 151.9 mm is under the 305 mm planer/jointer minimum; export gives no longer blank to mill first",
-  "cutList.14 (Maple strip): length 165.5 mm is under the 305 mm planer/jointer minimum; export gives no longer blank to mill first",
-  "cutList.15 (Maple strip): length 80.3 mm is under the 305 mm planer/jointer minimum; export gives no longer blank to mill first",
-  "cutList.16 (Maple strip): length 80.3 mm is under the 305 mm planer/jointer minimum; export gives no longer blank to mill first",
-  "cutList.17 (Maple strip): length 80.3 mm is under the 305 mm planer/jointer minimum; export gives no longer blank to mill first",
-  "cutList.18 (Walnut strip): length 80.3 mm is under the 305 mm planer/jointer minimum; export gives no longer blank to mill first"
- ]
+ "exportVsCatalog": []
 }
