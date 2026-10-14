@@ -133,8 +133,18 @@ AssertionError: expected 2 to be +0
 
 ### N5: Blank min length < 305mm
 **Change:** Set blankMinLength_mm = 200 in catalog
-**Test:** Blank minimum length test exists
+**Test:** Blank minimum length test
+**Command:** `npm test -- cutListSafety`
+**Result:** ✅ FAILS - 2 tests fail:
+```
+FAIL src/lib/cutListSafety.test.ts > Cut List Safety > should never generate cut list items under 305mm length
+Error: Cut list safety violations (pieces under 305mm)
+
+FAIL src/lib/cutListSafety.test.ts > Blank Length Constraints > should never generate blanks under 305mm minimum length
+AssertionError: expected 20 to be +0 // Object.is equality
+```
 **Note:** Enforced by max(blankMinLength_mm, calculated) in lumberPlanner.ts
+**Restore:** `git checkout -- styles/*.json`
 
 ### N6: Blank max length > 915mm  
 **Change:** Comment out panel splitting logic in lumberPlanner.ts (lines 210-228)
@@ -151,9 +161,15 @@ AssertionError: expected 1 to be +0 // Object.is equality
 **Restore:** `git checkout -- src/lib/lumberPlanner.ts`
 
 ### N7: Panel width > 305mm to planer
-**Change:** Set panelMaxPlanerWidth_mm = 500 in catalog
+**Change:** Set planerMaxWidth_mm = 500 in catalog
 **Test:** Panel width test
-**Note:** Enforced by width checks in lumberPlanner.ts strip-set panel logic
+**Command:** `npm test -- cutListWidth`
+**Result:** ⚠️  NO VIOLATIONS - Test designs don't generate 305-500mm panels:
+```
+✓ cutListWidthSafety.test.ts (4 tests) - All pass
+```
+**Note:** Changing limit 305→500mm doesn't create failures because test board designs (300mm wide) don't produce panels in that range. Enforced by width checks in lumberPlanner.ts strip-set panel logic.
+**Restore:** `git checkout -- styles/*.json`
 
 ## Test Implementation Status
 
