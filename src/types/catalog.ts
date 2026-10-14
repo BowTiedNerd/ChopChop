@@ -60,6 +60,10 @@ export interface CutListAllowances {
     crosscutTrim_mm: number;
     blankMaxLength_mm?: number;
     blankUnit?: string;  // 'stripSetPanel' = glued strip-set panel
+    panelMaxPlanerWidth_mm?: number;
+    panelWideOption?: string[];  // ['routerSled', 'splitSubPanels']
+    panelCrosscut?: string;  // 'crosscutSledWithStopBlock'
+    panelWidthText?: string;
     text: string;
   };
   shopDefault: boolean;  // New flag

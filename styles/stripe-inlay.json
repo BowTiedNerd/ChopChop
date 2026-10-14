@@ -1,6 +1,6 @@
 {
   "style": "stripe-inlay",
-  "draft": "NEW DRAFT 3.0-draft5 by Board Master, rebuilt from standard shop practice after the 2026-10-13 data loss. NOT 2.5.3.2. Values marked shopDefault:true are my defaults, not recovered values.",
+  "draft": "NEW DRAFT 3.0-draft5e by Board Master, rebuilt from standard shop practice after the 2026-10-13 data loss. NOT 2.5.3.2. Values marked shopDefault:true are my defaults, not recovered values.",
   "displayName": "Stripe / Inlay",
   "description": "Long-grain board with thin contrasting stripes.",
   "angles": null,
@@ -135,6 +135,13 @@
       "crosscutTrim_mm": 25.0,
       "blankMaxLength_mm": 915.0,
       "blankUnit": "stripSetPanel",
+      "panelMaxPlanerWidth_mm": 305.0,
+      "panelWideOption": [
+        "routerSled",
+        "splitSubPanels"
+      ],
+      "panelCrosscut": "crosscutSledWithStopBlock",
+      "panelWidthText": "A panel no wider than 12\" (305 mm) is planed. A wider panel is either flattened on the router sled or drum sander, or glued as sub-panels each no wider than 305 mm, which are planed and then glued together. Crosscut every slice from a panel on a crosscut sled with a stop block, never against the rip fence.",
       "text": "Mill and rip whole blanks before any crosscut. A blank is a glued strip-set panel (one strip of each species in pattern order), not a single strip. Blank length = max(305 mm, slices x (slice + kerf) + 2 x 25 mm trim). If that exceeds 915 mm (36\"), split the slices across the fewest equal panels that each fit 305-915 mm. Never send a crosscut slice or piece shorter than 305 mm to the jointer or planer."
     },
     "shopDefault": true
