@@ -295,14 +295,11 @@ export function CustomDesigner({ onApply }: CustomDesignerProps) {
           <div style={{ marginTop: '1.5rem', padding: '1rem', background: '#e8f5e9', borderRadius: '4px' }}>
             <h4>Build Steps</h4>
             <div style={{ fontSize: '0.9rem' }}>
-              {steps.slice(0, 3).map((step) => (
+              {steps.map((step) => (
                 <div key={step.stepNumber} style={{ marginBottom: '0.5rem' }}>
                   <strong>Step {step.stepNumber}:</strong> {step.title}
                 </div>
               ))}
-              <div style={{ color: '#666', marginTop: '0.5rem' }}>
-                ... and {steps.length - 3} more steps
-              </div>
             </div>
           </div>
         )}

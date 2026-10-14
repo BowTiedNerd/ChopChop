@@ -160,15 +160,14 @@ export function generateGlueUpFigure(design: BoardDesign, stepNumber: number): S
     'font-weight': 'bold',
   });
   
-  // Generate pattern (simplified)
+  // Generate pattern
   const pattern = generatePattern(design);
   
-  // Show first few strips
+  // Show all strips
   const startY = 60;
   const stripHeight = 30;
-  const maxStrips = Math.min(8, pattern.strips.length);
   
-  for (let i = 0; i < maxStrips; i++) {
+  for (let i = 0; i < pattern.strips.length; i++) {
     const strip = pattern.strips[i];
     const y = startY + i * (stripHeight + 5);
     
@@ -180,13 +179,6 @@ export function generateGlueUpFigure(design: BoardDesign, stepNumber: number): S
     
     // Strip label
     builder.text(50, y + 20, `${i + 1}`, 11);
-  }
-  
-  if (pattern.strips.length > maxStrips) {
-    builder.text(100, startY + maxStrips * (stripHeight + 5) + 20, 
-      `... ${pattern.strips.length - maxStrips} more strips`, 11, {
-        fill: '#666',
-      });
   }
   
   // Clamp indicators

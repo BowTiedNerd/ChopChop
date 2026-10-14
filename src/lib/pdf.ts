@@ -441,7 +441,7 @@ export class PdfGenerator {
   /**
    * Add figure (SVG rendered into PDF)
    */
-  private addFigure(svg: string, maxWidth: number = 170): void {
+  private addFigure(svg: string): void {
     this.yPosition += 5;
     
     // Parse SVG to get dimensions
@@ -452,8 +452,8 @@ export class PdfGenerator {
       const svgWidth = parseFloat(widthMatch[1]);
       const svgHeight = parseFloat(heightMatch[1]);
       
-      // Scale to fit page width
-      const scale = Math.min(1, maxWidth / svgWidth);
+      // No scaling - use actual size
+      const scale = 1;
       const displayWidth = svgWidth * scale * 0.2645833; // Convert px to mm
       const displayHeight = svgHeight * scale * 0.2645833;
       
