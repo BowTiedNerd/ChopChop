@@ -7,8 +7,13 @@ This document records turn-off experiments: deliberate violations that must fail
 ### E1: Banner truncated to 20 characters
 **Change:** Truncate safety banners to 20 chars in pdf.ts
 **Expected:** Banner test should fail
-**Command:** `npm test -- banner`
-**Status:** PENDING - Need banner truncation test
+**Command:** `npm test -- "truncate"`
+**Result:** ✅ FAILS - 1 test fails:
+```
+FAIL src/lib/pr1Review.test.ts > PR1-REVIEW #4: Banner tests > should never truncate safety banners
+AssertionError: expected 17621 to be greater than 18000
+```
+**Restore:** `git checkout -- src/lib/pdf.ts`
 
 ### E2: Only first banner printed
 **Change:** Print only first safety banner in pdf.ts
