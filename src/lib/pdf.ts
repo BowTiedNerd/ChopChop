@@ -1,6 +1,6 @@
 import { jsPDF } from 'jspdf';
 import { BoardDesign, StepInstruction, CutListItem } from '../types';
-import { inchText, metricText, sheetLen } from '../utils/format';
+import { inchText, metricText, sheetLen, shopSize } from '../utils/format';
 import { 
   generateTopViewFigure, 
   generateRipFenceFigure,
@@ -131,6 +131,12 @@ export class PdfGenerator {
           if (step.stepId === 'flatten-first-panel' || (!hasFlattenStep && step.stepId === 'glue-up')) {
             const lines = this.customizeFlattenDescription('', catalog);
             description = step.stepId === 'glue-up' && lines ? `${description}\n${lines}` : (lines || description);
+          }
+          if (step.stepId === 'crosscut-slices') {
+            const allowance = catalog.cutListAllowances.flatteningAllowance_mm;
+            if (typeof allowance !== 'number') throw new Error(`${this.design.style}: catalog flatteningAllowance_mm missing`);
+            const slice = this.design.dimensions.thickness + allowance;
+            description = `${description}\nSlice size: ${shopSize(slice, this.design.unitSystem)} (final thickness ${shopSize(this.design.dimensions.thickness, this.design.unitSystem)} + ${allowance} mm end-grain allowance).`;
           }
           if (/crosscut|angled-cuts/.test(step.stepId)) {
             const sled = this.crosscutSledLines(catalog);

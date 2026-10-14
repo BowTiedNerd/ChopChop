@@ -138,3 +138,19 @@ export function sheetLen(mm: number, unit: 'imperial' | 'metric'): string {
   return unit === 'metric' ? `${metric} (${inch})` : `${inch} (${metric})`;
 }
 
+
+/** Shop fraction to the nearest 1/16", e.g. 1-11/16" */
+export function sixteenthsText(mm: number): string {
+  const n = Math.round((mm / 25.4) * 16);
+  const whole = Math.floor(n / 16);
+  let num = n % 16, den = 16;
+  while (num > 0 && num % 2 === 0) { num /= 2; den /= 2; }
+  if (num === 0) return `${whole}"`;
+  return whole > 0 ? `${whole}-${num}/${den}"` : `${num}/${den}"`;
+}
+
+/** Shop size in sheet units first: 1-11/16" (43 mm) or 43 mm (1-11/16") */
+export function shopSize(mm: number, unit: 'imperial' | 'metric'): string {
+  const metric = `${Math.round(mm)} mm`;
+  return unit === 'metric' ? `${metric} (${sixteenthsText(mm)})` : `${sixteenthsText(mm)} (${metric})`;
+}

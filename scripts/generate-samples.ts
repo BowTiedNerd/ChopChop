@@ -75,6 +75,11 @@ const board16x24 = create16x24Board();
 board16x24.juiceGroove.enabled = true;
 generateSample('checkerboard-16x24', board16x24);
 
+// End grain (default dimensions)
+const endGrainBoard = createDefaultBoard();
+endGrainBoard.style = 'end-grain';
+generateSample('end-grain', endGrainBoard);
+
 // Chevron
 const chevronBoard = createDefaultBoard();
 chevronBoard.style = 'chevron';
