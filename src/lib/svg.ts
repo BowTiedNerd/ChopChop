@@ -46,7 +46,7 @@ export class SvgBuilder {
   /**
    * Add a rectangle
    */
-  rect(x: number, y: number, width: number, height: number, attrs: Record<string, any> = {}): void {
+  rect(x: number, y: number, width: number, height: number, attrs: Record<string, unknown> = {}): void {
     this.elements.push({
       tag: 'rect',
       attrs: {
@@ -64,7 +64,7 @@ export class SvgBuilder {
   /**
    * Add a line
    */
-  line(x1: number, y1: number, x2: number, y2: number, attrs: Record<string, any> = {}): void {
+  line(x1: number, y1: number, x2: number, y2: number, attrs: Record<string, unknown> = {}): void {
     this.elements.push({
       tag: 'line',
       attrs: {
@@ -84,7 +84,7 @@ export class SvgBuilder {
   /**
    * Add a path
    */
-  path(d: string, attrs: Record<string, any> = {}): void {
+  path(d: string, attrs: Record<string, unknown> = {}): void {
     this.elements.push({
       tag: 'path',
       attrs: {
@@ -100,7 +100,7 @@ export class SvgBuilder {
   /**
    * Add text with minimum font size enforcement
    */
-  text(x: number, y: number, text: string, fontSize: number = 12, attrs: Record<string, any> = {}): void {
+  text(x: number, y: number, text: string, fontSize: number = 12, attrs: Record<string, unknown> = {}): void {
     // Enforce minimum font size
     if (fontSize < MIN_FONT_SIZE) {
       throw new Error(`Font size ${fontSize} is below minimum ${MIN_FONT_SIZE}`);
@@ -172,7 +172,7 @@ export class SvgBuilder {
   label(label: SvgLabel): void {
     const { x, y, text, dimId, anchor = 'start' } = label;
     
-    const attrs: Record<string, any> = {
+    const attrs: Record<string, unknown> = {
       'text-anchor': anchor,
     };
     

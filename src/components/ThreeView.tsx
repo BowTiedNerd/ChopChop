@@ -15,7 +15,8 @@ export function ThreeView({ design }: ThreeViewProps) {
   const animationIdRef = useRef<number | null>(null);
 
   useEffect(() => {
-    if (!containerRef.current) return;
+    const container = containerRef.current;
+    if (!container) return;
 
     // Initialize scene
     const scene = new THREE.Scene();
@@ -23,8 +24,8 @@ export function ThreeView({ design }: ThreeViewProps) {
     sceneRef.current = scene;
 
     // Initialize camera
-    const width = containerRef.current.clientWidth;
-    const height = containerRef.current.clientHeight;
+    const width = container.clientWidth;
+    const height = container.clientHeight;
     const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 10000);
     camera.position.set(500, 400, 500);
     camera.lookAt(0, 0, 0);
@@ -33,7 +34,7 @@ export function ThreeView({ design }: ThreeViewProps) {
     // Initialize renderer
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(width, height);
-    containerRef.current.appendChild(renderer.domElement);
+    container.appendChild(renderer.domElement);
     rendererRef.current = renderer;
 
     // Add lights
@@ -82,11 +83,12 @@ export function ThreeView({ design }: ThreeViewProps) {
       if (animationIdRef.current) {
         cancelAnimationFrame(animationIdRef.current);
       }
-      if (rendererRef.current && containerRef.current) {
-        containerRef.current.removeChild(rendererRef.current.domElement);
+      if (rendererRef.current && container) {
+        container.removeChild(rendererRef.current.domElement);
       }
       window.removeEventListener('resize', handleResize);
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

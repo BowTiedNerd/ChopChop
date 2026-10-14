@@ -89,6 +89,7 @@ export class PdfGenerator {
       
       return catalog.steps.map(step => ({
         stepNumber: step.stepNumber,
+        stepId: step.stepId,
         title: step.title,
         description: step.description,
         settings: step.settings,
@@ -306,20 +307,28 @@ export class PdfGenerator {
 
   /**
    * Generate appropriate figure for step based on figureType from catalog
-   * Checks for external SVG at styles/<styleId>/<stepId>.svg first
+   * Rule: non-null figureType MUST have visuals/<styleId>/<stepId>.svg (gated for RC1)
    */
   private generateStepFigure(step: StepInstruction): string | null {
     const unit = this.design.unitSystem;
     const figureType = step.figureType;
     
     if (!figureType) {
+      // figureType:null steps may use built-in figures
       return null;
     }
     
-    // Check for external SVG file first (clean seam for custom figures)
-    const externalSvg = this.loadExternalStepFigure(step.stepNumber);
+    // Check for external SVG file first (visuals/ seam)
+    const externalSvg = this.loadExternalStepFigure(step.stepId);
     if (externalSvg) {
       return externalSvg;
+    }
+    
+    // Gate for RC1: visuals/ doesn't exist yet, so allow fallback
+    // TODO: When visuals/ lands, enable REQUIRE_EXTERNAL_FIGURES and remove fallback
+    const REQUIRE_EXTERNAL_FIGURES = process.env.REQUIRE_EXTERNAL_FIGURES === 'true';
+    if (REQUIRE_EXTERNAL_FIGURES) {
+      throw new Error(`Missing required figure: visuals/${this.design.style}/${step.stepId}.svg (figureType: ${figureType})`);
     }
     
     // Generate figure based on catalog figureType
@@ -378,10 +387,10 @@ export class PdfGenerator {
 
   /**
    * Load external step figure SVG if it exists
-   * Looks for styles/<styleId>/<stepNumber>.svg
+   * Looks for visuals/<styleId>/<stepId>.svg
    * Returns null if file doesn't exist or not in Node.js environment
    */
-  private loadExternalStepFigure(stepNumber: number): string | null {
+  private loadExternalStepFigure(stepId: string): string | null {
     // Only attempt to load external figures in Node.js (not browser)
     if (typeof process === 'undefined' || !process.versions || !process.versions.node) {
       return null;
@@ -389,19 +398,21 @@ export class PdfGenerator {
 
     try {
       // Dynamic import for Node.js-only modules
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
       const fs = require('fs');
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
       const path = require('path');
       
       const styleId = this.design.style;
-      const figureDir = path.join(process.cwd(), 'styles', styleId);
-      const figurePath = path.join(figureDir, `${stepNumber}.svg`);
+      const figureDir = path.join(process.cwd(), 'visuals', styleId);
+      const figurePath = path.join(figureDir, `${stepId}.svg`);
       
       if (fs.existsSync(figurePath)) {
         const svgContent = fs.readFileSync(figurePath, 'utf-8');
         console.log(`Loaded external figure: ${figurePath}`);
         return svgContent;
       }
-    } catch (error) {
+    } catch {
       // File doesn't exist or can't be read - fall back to generated figure
     }
     return null;
@@ -465,7 +476,7 @@ export class PdfGenerator {
         );
         
         this.yPosition += displayHeight + 5;
-      } catch (error) {
+      } catch {
         // Fallback if SVG rendering fails
         this.doc.setFontSize(9);
         this.doc.setTextColor(128, 128, 128);

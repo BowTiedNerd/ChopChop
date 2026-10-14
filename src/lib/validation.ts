@@ -176,9 +176,10 @@ export function validateOutputFolder(folder: string | undefined): void {
  * Check for concurrent export consistency
  * Concurrent exports must be identical except timestamps
  */
-export function compareExports(export1: any, export2: any): boolean {
+export function compareExports(export1: Record<string, unknown>, export2: Record<string, unknown>): boolean {
   // Remove timestamp fields before comparison
-  const cleanExport = (obj: any) => {
+  const cleanExport = (obj: Record<string, unknown>) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { timestamp, createdAt, ...rest } = obj;
     return rest;
   };

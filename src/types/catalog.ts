@@ -16,7 +16,8 @@ export interface StyleCatalog {
 }
 
 export interface CatalogStep {
-  stepNumber: number;
+  stepNumber: number;  // Display order only
+  stepId: string;      // Stable identifier for figures and exports
   title: string;
   description: string;
   settings: Record<string, string>;

@@ -90,7 +90,8 @@ export interface CutListItem {
 
 // Step instruction
 export interface StepInstruction {
-  stepNumber: number;
+  stepNumber: number;  // Display order only
+  stepId: string;      // Stable identifier for figures
   title: string;
   description: string;
   settings: Record<string, string>;

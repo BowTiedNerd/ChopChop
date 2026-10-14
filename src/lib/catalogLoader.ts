@@ -5,16 +5,16 @@
 import { StyleCatalog, CatalogStyleName, BOARD_STYLES } from '../types/catalog';
 
 // Import all catalog JSON files
-import brickBasketweaveData from '../../styles/brick-basketweave_23b0.json';
-import checkerboardData from '../../styles/checkerboard_5664.json';
-import chevronData from '../../styles/chevron_7d86.json';
-import edgeGrainData from '../../styles/edge-grain_12fb.json';
-import endGrainData from '../../styles/end-grain_fa5f.json';
-import faceGrainData from '../../styles/face-grain_e305.json';
-import herringboneData from '../../styles/herringbone_ee60.json';
-import scrapChaoticData from '../../styles/scrap-chaotic_d65d.json';
-import stripeInlayData from '../../styles/stripe-inlay_939c.json';
-import tumblingBlock3dData from '../../styles/tumbling-block-3d_f8f5.json';
+import brickBasketweaveData from '../../styles/brick-basketweave.json';
+import checkerboardData from '../../styles/checkerboard.json';
+import chevronData from '../../styles/chevron.json';
+import edgeGrainData from '../../styles/edge-grain.json';
+import endGrainData from '../../styles/end-grain.json';
+import faceGrainData from '../../styles/face-grain.json';
+import herringboneData from '../../styles/herringbone.json';
+import scrapChaoticData from '../../styles/scrap-chaotic.json';
+import stripeInlayData from '../../styles/stripe-inlay.json';
+import tumblingBlock3dData from '../../styles/tumbling-block-3d.json';
 
 const catalogData: Record<string, StyleCatalog> = {
   'brick-basketweave': brickBasketweaveData as unknown as StyleCatalog,

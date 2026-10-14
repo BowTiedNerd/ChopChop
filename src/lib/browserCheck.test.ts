@@ -164,7 +164,7 @@ async function checkTextSizes(page: Page): Promise<string[]> {
             }
           }
         }
-      } catch (_error) {
+      } catch {
         // Skip elements that can't be measured
       }
     }
@@ -243,7 +243,7 @@ async function checkLabelOverlaps(page: Page): Promise<string[]> {
             }
           }
         }
-      } catch (_error) {
+      } catch {
         // Skip elements that can't be checked
       }
     }
