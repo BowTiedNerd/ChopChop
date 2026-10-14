@@ -3,6 +3,7 @@
  * Ensures catalog widthRule is enforced: no planer over 305mm, no jointer over 152mm
  */
 
+import { withTones } from './sampleDesigns';
 import { describe, it, expect } from 'vitest';
 import { calculateRequiredParts } from './lumberPlanner';
 import { BoardDesign } from '../types';
@@ -47,7 +48,7 @@ describe('Cut List Width Safety - widthRule enforcement', () => {
       };
       
       // Calculate required parts
-      const parts = calculateRequiredParts(design);
+      const parts = calculateRequiredParts(withTones(design));
       
       // Check each part for width violations (only if marked for planer)
       for (const part of parts) {
@@ -126,7 +127,7 @@ describe('Cut List Width Safety - widthRule enforcement', () => {
           unitSystem: 'metric',
         };
         
-        const parts = calculateRequiredParts(design);
+        const parts = calculateRequiredParts(withTones(design));
         
         // Check wide panels have correct routing (NO planer, must use sled or split)
         for (const part of parts) {
@@ -149,10 +150,10 @@ describe('Cut List Width Safety - widthRule enforcement', () => {
             }
             
             // Verify routing note is present
-            const hasRoutingNote = part.part.includes('[Panel') && part.part.includes('mm wide');
+            const hasRoutingNote = (part.part.includes('[Panel') && part.part.includes('mm wide')) || /too wide for the planer at /.test(part.part);
             if (!hasRoutingNote) {
               violations.push(
-                `${style} (${testCase.desc}): Panel ${part.width.toFixed(0)}mm lacks width routing note`
+                `${style} (${testCase.desc}): Panel ${part.width.toFixed(0)}mm lacks width routing note: ${part.part.slice(0, 160)}`
               );
             }
           }
@@ -204,7 +205,7 @@ describe('Cut List Width Safety - widthRule enforcement', () => {
       };
       
       // Calculate required parts
-      const parts = calculateRequiredParts(design);
+      const parts = calculateRequiredParts(withTones(design));
       
       // Check each part for jointer width violations
       for (const part of parts) {

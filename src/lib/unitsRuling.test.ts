@@ -64,60 +64,108 @@ describe('units ruling: printed values vs true dimensions', () => {
   });
 });
 
-/** Every numeric value in the catalog (the true sizes its prose quotes). */
-function catalogTruths(): number[] {
-  const vals = new Set<number>();
-  const walk = (o: unknown): void => {
-    if (typeof o === 'number' && o > 0) vals.add(o);
-    else if (Array.isArray(o)) o.forEach(walk);
-    else if (o && typeof o === 'object') Object.values(o).forEach(walk);
-  };
-  for (const f of readdirSync('styles').filter(x => x.endsWith('.json'))) walk(JSON.parse(readFileSync(`styles/${f}`, 'utf-8')));
-  return [...vals];
-}
 /** Catalog keys holding fixed text printed verbatim (the '~1/64" (0.4 mm)' final-pass note): exempt by key. */
 const EXEMPT_KEYS = new Set<string>([...VERBATIM_CATALOG_KEYS, 'notes']);
-/** Every string in the catalog, except those under an exempt key. */
-function catalogStrings(): string[] {
-  const out: string[] = [];
-  const walk = (o: unknown, key = ''): void => {
-    if (EXEMPT_KEYS.has(key)) { if (typeof o === 'string') fixed.add(o); return; }
-    if (typeof o === 'string') out.push(o);
-    else if (Array.isArray(o)) o.forEach(x => walk(x, key));
-    else if (o && typeof o === 'object') Object.entries(o).forEach(([k, v]) => walk(v, k));
-  };
-  const fixed = new Set<string>();
-  for (const f of readdirSync('styles').filter(x => x.endsWith('.json'))) walk(JSON.parse(readFileSync(`styles/${f}`, 'utf-8')));
-  // the fixed value of an exempt key (e.g. settings['Final pass depth']) is also exempt where step prose repeats it
-  const vals = [...fixed].filter(v => v.length < 40);
-  return out.map(t => vals.reduce((acc, v) => acc.split(v).join(''), t));
-}
 
-describe('units ruling: quoted catalog text agrees with catalog values (no exception for "about")', () => {
-  it('each inch-first pair: fraction within 1/64" and mm within half its printed step of the true value', () => {
-    const truths = catalogTruths();
-    const bad: string[] = [];
-    let n = 0;
-    for (const s of catalogStrings()) {
-      for (const m of s.matchAll(/(~?)(?:(\d+)-)?(\d+)(?:\/(\d+))?"\s*\((\d+(?:\.(\d+))?) mm\)/g)) {
-        n++;
-        const inMm = (m[4] ? Number(m[2] ?? 0) + Number(m[3]) / Number(m[4]) : Number(m[3])) * 25.4;
-        const mm = Number(m[5]);
-        const inTol = 25.4 / INCH_FRACTION_DENOMINATOR / 2;
-        const mmTol = Math.pow(10, -(m[6]?.length ?? 0)) / 2;
-        // the true value both printed numbers must round from: the nearest catalog value within 3 mm, else the fraction itself
-        const near = truths.filter(t => Math.abs(t - mm) <= 3 && Math.abs(t - inMm) <= 3)
-          .sort((a, b) => Math.abs(a - mm) + Math.abs(a - inMm) - Math.abs(b - mm) - Math.abs(b - inMm))[0];
-        const t = near ?? inMm;
-        if (Math.abs(inMm - t) > inTol + 1e-9 || Math.abs(mm - t) > mmTol + 1e-9) bad.push(`${m[0]} (true ${t} mm)`);
+type Quoted = { file: string; path: string; text: string; at: number; pair: string; catalog: Record<string, unknown> };
+/** Every inch-first pair quoted in catalog text, with the key path it sits under (exempt keys and their fixed value skipped). */
+export function quotedCatalogPairs(dir = 'styles'): Quoted[] {
+  const out: Quoted[] = [];
+  for (const file of readdirSync(dir).filter(x => x.endsWith('.json'))) {
+    const catalog = JSON.parse(readFileSync(`${dir}/${file}`, 'utf-8'));
+    const fixed = new Set<string>();
+    const strings: Array<[string, string]> = [];
+    const walk = (o: unknown, path: string, key: string): void => {
+      if (EXEMPT_KEYS.has(key)) { if (typeof o === 'string') fixed.add(o); return; }
+      if (typeof o === 'string') strings.push([path, o]);
+      else if (Array.isArray(o)) o.forEach(x => walk(x, `${path}[]`, key));
+      else if (o && typeof o === 'object') Object.entries(o).forEach(([k, v]) => walk(v, `${path}.${k}`, k));
+    };
+    walk(catalog, '', '');
+    // the fixed value of an exempt key is also exempt where step prose repeats it verbatim
+    const vals = [...fixed].filter(v => v.length < 40);
+    for (const [path, raw] of strings) {
+      const text = vals.reduce((acc, v) => acc.split(v).join(''), raw);
+      for (const m of text.matchAll(/~?(?:\d+-)?\d+(?:\/\d+)?"\s*\(\d+(?:\.\d+)? mm\)/g)) {
+        out.push({ file, path, text, at: m.index!, pair: m[0], catalog });
       }
     }
-    expect(n).toBeGreaterThan(0);
-    // draft5n (frozen) still quotes three sizes whose catalog value is 0.4 mm off the fraction (> 1/64"):
-    // jointerMaxWidth_mm 152 vs 6", sledMaxWidth_mm 610 vs 24", handHole width_mm 25 vs 1". Reported to Board Master;
-    // any other mismatch (e.g. draft5m's 4" (100 mm) vs length_mm 101.6) fails here.
-    const KNOWN_DRAFT5N = ['6" (152 mm) (true 152 mm)', '24" (610 mm) (true 610 mm)', '1" (25 mm) (true 25 mm)'];
-    expect([...new Set(bad)].sort()).toEqual([...KNOWN_DRAFT5N].sort());
+  }
+  return out;
+}
+
+/**
+ * Each quoted pair, mapped explicitly to the catalog field it states: [pair, key path, text just before the pair, field].
+ * field null = the catalog has no number for it (the fraction itself is the true size). An unmapped pair fails the test.
+ */
+const QUOTED_FIELDS: Array<[string, RegExp, RegExp, string | null]> = [
+  ['1/8" (3 mm)', /\.steps\[\]\.description$/, /final thickness plus $/, 'cutListAllowances.roughToFinalOversize_mm.thickness'],
+  ['1/8" (3 mm)', /\.steps\[\]\.description$/, /default: $/, null],
+  ['1/8" (3 mm)', /\.settings\.Bit$/, /^$/, null],
+  ['1/8" (3.2 mm)', /\.cutListAllowances\.kerf_text$/, /^$/, 'cutListAllowances.kerf_mm'],
+  ['12" (305 mm)', /\.cutListAllowances\.blankRule\.panelWidthText$/, /no wider than $/, 'cutListAllowances.planerMaxWidth_mm'],
+  ['12" (305 mm)', /\.steps\[\]\.description$/, /at least $/, 'cutListAllowances.minPieceLength_mm.planerJointer'],
+  ['12" (305 mm)', /\.steps\[\]\.safetyBanners\[\]$/, /joint stock shorter than $/, 'cutListAllowances.jointerMinimum_mm.length'],
+  ['12" (305 mm)', /\.steps\[\]\.safetyBanners\[\]$/, /Feed only boards at least $/, 'cutListAllowances.planerMinimum_mm.length'],
+  ['12" (305 mm)', /\.steps\[\]\.description$/, /no wider than $/, 'cutListAllowances.planerMaxWidth_mm'],
+  ['1/2" (12.7 mm)', /\.features\.handHole\.(bit|text)$/, /(^|a )$/, 'features.handHole.endRadius_mm'],
+  ['1/2" (12.7 mm)', /\.steps\[\]\.safetyBanners\[\]$/, /thinner than $/, null],
+  ['6" (152 mm)', /\.steps\[\]\.(description|safetyBanners)(\[\])?$/, /(Cut pieces of|shorter than) $/, 'cutListAllowances.minPieceLength_mm.tableSawFreehand'],
+  ['6" (152 mm)', /\.steps\[\]\.safetyBanners\[\]$/, /narrower than $/, null],
+  ['8" (203 mm)', /\.settings\.Clamp spacing$/, /about $/, null],
+  ['24" (610 mm)', /\.cutListAllowances\.blankRule\.panelWidthText$/, /over $/, 'cutListAllowances.blankRule.sledMaxWidth_mm'],
+  ['36" (914 mm)', /\.cutListAllowances\.blankRule\.text$/, /exceeds $/, 'cutListAllowances.blankRule.blankMaxLength_mm'],
+  ['4" (102 mm)', /\.features\.fingerGrip\.text$/, /grips $/, 'features.fingerGrip.length_mm'],
+  ['4" (102 mm)', /\.features\.handHole\.text$/, /slot $/, 'features.handHole.length_mm'],
+  ['1" (25 mm)', /\.features\.handHole\.text$/, /long x $/, 'features.handHole.width_mm'],
+  ['1-1/2" (38 mm)', /\.features\.handHole\.text$/, /centred $/, 'features.handHole.edgeInset_mm'],
+];
+const field = (o: Record<string, unknown>, path: string): unknown => path.split('.').reduce<unknown>((a, k) => (a as Record<string, unknown> | undefined)?.[k], o);
+
+/** Mismatches between quoted pairs and their mapped catalog fields (exported for the rule-off script). */
+export function quotedPairMismatches(dir = 'styles'): string[] {
+  const bad: string[] = [];
+  for (const q of quotedCatalogPairs(dir)) {
+    const before = q.text.slice(Math.max(0, q.at - 40), q.at);
+    const map = QUOTED_FIELDS.find(([pair, path, ctx]) => pair === q.pair && path.test(q.path) && ctx.test(before));
+    if (!map) { bad.push(`${q.file} ${q.path}: unmapped ${q.pair} after "${before}"`); continue; }
+    const m = /^~?(?:(\d+)-)?(\d+)(?:\/(\d+))?"\s*\((\d+(?:\.(\d+))?) mm\)$/.exec(q.pair)!;
+    const inMm = (m[3] ? Number(m[1] ?? 0) + Number(m[2]) / Number(m[3]) : Number(m[2])) * 25.4;
+    const mm = Number(m[4]);
+    let t = inMm;
+    if (map[3]) {
+      const v = field(q.catalog, map[3]);
+      if (typeof v !== 'number') { bad.push(`${q.file}: ${map[3]} missing for ${q.pair}`); continue; }
+      t = v;
+    }
+    const inTol = 25.4 / INCH_FRACTION_DENOMINATOR / 2;
+    const mmTol = Math.pow(10, -(m[5]?.length ?? 0)) / 2;
+    if (Math.abs(inMm - t) > inTol + 1e-9 || Math.abs(mm - t) > mmTol + 1e-9) bad.push(`${q.file} ${q.pair} vs ${map[3]} = ${t}`);
+  }
+  return [...new Set(bad)];
+}
+
+describe('verbatim final-pass note (catalog settings["Final pass depth"])', () => {
+  const note = (): string => (JSON.parse(readFileSync('styles/checkerboard.json', 'utf-8')).steps as Array<{ settings?: Record<string, string> }>)
+    .map(st => st.settings?.['Final pass depth']).find(Boolean)!;
+  it('is printed exactly as the catalog writes it on inch and metric sheets (setting and step text)', () => {
+    expect(note()).toBe('~1/64" (0.4 mm)');
+    for (const nm of ['checkerboard-default', 'metric']) {
+      const t = pdf(nm).replace(/\s+/g, ' ');
+      expect(t, nm).toContain(`Final pass depth: ${note()}`);
+      expect(t, nm).toContain(`Take ${note()} passes`);
+    }
+  });
+  it('is exempt from the quoted-pair check by its key: an unmapped ~1/64" pair would otherwise fail', () => {
+    expect(QUOTED_FIELDS.some(([pair]) => pair.startsWith('~'))).toBe(false);
+    expect(EXEMPT_KEYS.has('Final pass depth')).toBe(true);
+  });
+});
+
+describe('units ruling: quoted catalog text agrees with catalog values (no exception for "about")', () => {
+  it('each quoted pair is mapped to its catalog field: fraction within 1/64", mm within half its printed step', () => {
+    expect(quotedCatalogPairs().length).toBeGreaterThan(0);
+    expect(quotedPairMismatches()).toEqual([]);
   });
   it('the printed sheets re-print catalog pairs to the ruling: inch sheets mm one decimal under 25 mm, metric sheets mm-first', () => {
     for (const nm of ['checkerboard-default', 'brick', 'chevron']) {

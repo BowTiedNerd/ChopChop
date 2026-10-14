@@ -94,6 +94,8 @@ generateSample('brick', brickBoard);
 // Tumbling block
 const tumblingBoard = createDefaultBoard();
 tumblingBoard.style = 'tumbling-block-3d';
+// light / mid / dark (catalog tumblingBlockMethod.minSpecies 3)
+tumblingBoard.species = [{ name: 'Maple', color: '#F5E6D3' }, { name: 'Cherry', color: '#C04000' }, { name: 'Walnut', color: '#654321' }] as typeof tumblingBoard.species;
 generateSample('tumbling-block-3d', tumblingBoard);
 generateSampleJson('tumbling-block-3d', tumblingBoard);
 
@@ -142,7 +144,7 @@ featuresBoard.juiceGroove = {
   width: 10,
   depth: 8,
   fromEdge: 20,
-  cornerRadius: 25.5  // 25.5 mm corner radius as specified
+  cornerRadius: 25.4  // 1" (25 mm) corner radius
 };
 featuresBoard.rubberFeet = {
   enabled: true,
@@ -156,6 +158,14 @@ featuresBoard.handles = {
 };
 featuresBoard.unitSystem = 'metric';
 generateSample('features-combined', featuresBoard);
+
+// Planer margin edge case: long-grain edge-grain board 11-7/8" (302 mm) wide, inside the planer's 305 mm but over
+// the 299 mm limit (planerMaxWidth_mm - planerMargin_mm), so the planer-margin rule-off has something to fail on
+const planerMarginBoard = createDefaultBoard();
+planerMarginBoard.style = 'edge-grain';
+planerMarginBoard.dimensions = { length: 457.2, width: 301.625, thickness: 38.1 };
+generateSample('planer-margin', planerMarginBoard);
+generateSampleJson('planer-margin', planerMarginBoard);
 
 // Mill plan
 console.log('Generating mill-plan...');

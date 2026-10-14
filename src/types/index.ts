@@ -87,6 +87,10 @@ export interface CutListItem {
   length: number;
   species: string;
   notes?: string;
+  /** slices (or angled pieces) crosscut from this blank/panel/log */
+  slices?: number;
+  /** tumbling block numbers (catalog tumblingBlockMethod) */
+  tumbling?: { diamondSide_mm: number; stripThickness_mm: number; stripsPerTone: number; logCount: number; logLength_mm: number; slicesPerLog: number; tones: { light: string; mid: string; dark: string } };
 }
 
 // Step instruction

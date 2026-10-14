@@ -108,7 +108,13 @@ export function buildExportDoc(design: BoardDesign, meta: { exportedAt: string; 
       ...(item.panelId ? { panelId: item.panelId } : {}),
       ...(item.subPanel ? { subPanel: item.subPanel } : {}),
       ...(item.dims ? { dims: item.dims } : {}),
+      ...(item.slices !== undefined ? { slices: item.slices } : {}),
     })),
+    // tumbling block (catalog tumblingBlockMethod): the numbers Board Visuals checks
+    ...(cutList.find(i => i.tumbling) ? { tumblingBlock: (() => {
+      const t = cutList.find(i => i.tumbling)!.tumbling!;
+      return { ...t, diamondSide_mm: f(t.diamondSide_mm), stripThickness_mm: f(t.stripThickness_mm), logLength_mm: f(t.logLength_mm) };
+    })() } : {}),
   };
   
   return { exportDoc, cutList };

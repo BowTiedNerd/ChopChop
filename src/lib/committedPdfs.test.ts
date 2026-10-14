@@ -18,7 +18,7 @@ describe('Committed PDFs: crosscut step prints the computed slice size (draft5h)
   });
 });
 
-const SAMPLES = ['checkerboard-default', 'checkerboard-16x24', 'end-grain', 'chevron', 'brick', 'metric', 'herringbone', 'hand-hole', 'scrap-chaotic', 'features-combined'];
+const SAMPLES = ['checkerboard-default', 'checkerboard-16x24', 'end-grain', 'chevron', 'brick', 'metric', 'herringbone', 'hand-hole', 'scrap-chaotic', 'features-combined', 'tumbling-block-3d'];
 /** Text of one step, "Step N: Title" up to the next step heading. */
 const step = (name: string, title: string) => {
   const t = text(name);
@@ -115,7 +115,7 @@ describe('Shop Tester E: every sub-panel prints its strip width', () => {
 describe('Shop Tester F: planer wording only for long grain within limits', () => {
   it('every planer line is the template with a real width <= 305 mm', () => {
     for (const n of SAMPLES) {
-      for (const m of text(n).matchAll(/[^\n]*(Planer OK|plane flat|planer capacity)[^\n]*/g)) {
+      for (const m of flat(n).matchAll(/(Planer OK|plane flat|planer capacity).{0,60}/g)) {
         const t = /Planer OK: (\S+ \((\d+(?:\.\d)?) mm\)|(\d+) mm \(\S+\)) wide, long grain/.exec(m[0]);
         expect(t, `${n}: ${m[0]}`).not.toBeNull();
         expect(Number(t![2] ?? t![3]), n).toBeLessThanOrEqual(305);
@@ -134,7 +134,7 @@ describe('Shop Tester F: planer wording only for long grain within limits', () =
 
 describe('Shop Tester G: brick, herringbone and scrap print their sled width', () => {
   it('crosscut / angled-cut steps say "Sled width: sled must clear 12" (305 mm)"', () => {
-    for (const n of ['brick', 'herringbone', 'scrap-chaotic']) expect(flat(n), n).toContain('Sled width: sled must clear 12" (305 mm).');
+    for (const n of ['brick', 'herringbone', 'scrap-chaotic']) expect(flat(n), n).toMatch(/(Sled width|Panel [A-Z]): sled must clear 12" \(305 mm\)\./);
   });
 });
 
@@ -146,7 +146,7 @@ describe('Board QA minor 1: mill-plan.pdf is text only, by decision', () => {
   });
   it('mill plan steps carry the computed text, not the generic catalog sentence', () => {
     const f = flat('mill-plan');
-    expect(f).toContain('Flatten Panel A, sub-panel 1/2, 6-1/4" (158 mm) wide: Planer OK: 6-1/4" (158 mm) wide, long grain.');
+    expect(f).toContain('Flatten Panel A, sub-panel 1/2, 6-1/4" (158 mm) wide: Strip-set (long grain, before slicing): Planer OK: 6-1/4" (158 mm) wide, long grain.');
     expect(f).not.toContain('plane flat if the panel is no wider than');
   });
 });
@@ -155,15 +155,23 @@ describe('draft5k/5l rules', () => {
   it('(1) brick: slice = board thickness + 5 mm on cut list and step 5, no face sizes; panel planed to the 1" (25 mm) course', () => {
     const c = partColumn('brick');
     expect(c).toContain('slices × 1-11/16" (43 mm) each');
-    expect(c).toContain('plane to the course height 1" (25 mm)');
+    expect(c).toContain('plane the panel to the course height 1" (25 mm)');
     expect(c).not.toMatch(/slices × (?:(?!each).)*(25\.4|76\.2)|1\.835"/);
     expect(cutList('brick')).not.toContain('1.835"');
     expect(step('brick', 'Crosscut slices')).toContain('Slice size: 1-11/16" (43 mm).');
   });
   it('(2) Planer OK never over 299 mm (planerMaxWidth_mm - planerMargin_mm)', () => {
-    for (const n of [...SAMPLES, 'tumbling-block-3d']) {
+    for (const n of [...SAMPLES, 'tumbling-block-3d', 'planer-margin', 'features-combined']) {
       for (const m of text(n).matchAll(/Planer OK: (?:\S+ \((\d+(?:\.\d)?) mm\)|(\d+) mm)/g)) expect(Number(m[1] ?? m[2]), n).toBeLessThanOrEqual(299);
     }
+  });
+  it('(2b) planer-margin sample: 11-7/8" (302 mm) long-grain panel is between 299 and 305 mm and never gets Planer OK', () => {
+    const f = flat('planer-margin');
+    const widths = [...f.matchAll(/Flatten the (?:first glued panel|final glue-up), \S+ \((\d+) mm\) wide/g)].map(m => Number(m[1]));
+    expect(widths.length).toBeGreaterThan(0);
+    for (const w of widths) { expect(w).toBeGreaterThan(299); expect(w).toBeLessThanOrEqual(305); }
+    expect(f).toContain('too wide for the planer at 11-7/8" (302 mm): router sled or drum sander');
+    expect(f).not.toContain('Planer OK');
   });
   it('(3) mixed-grain styles: final flatten on the router sled or drum sander, then sanding, never Planer OK', () => {
     for (const n of ['chevron', 'herringbone', 'scrap-chaotic', 'tumbling-block-3d', 'brick']) {
@@ -177,7 +185,7 @@ describe('draft5k/5l rules', () => {
   });
   it('(5) faceTooWideForJointerText replaces the old jointer line', () => {
     const f = flat('checkerboard-default');
-    expect(f).toContain('Too wide for the jointer (5-31/32" (152 mm)): flatten one face on a planer sled first, then plane the other face parallel');
+    expect(f).toContain('Too wide for the jointer (6" (152 mm)): flatten one face on a planer sled first, then plane the other face parallel');
     expect(f).not.toContain('Width exceeds jointer');
   });
   it('(6) one value per line, square labelled 1-11/32" (34 mm)', () => {
@@ -188,12 +196,16 @@ describe('draft5k/5l rules', () => {
     }
     expect(cutList('checkerboard-default')).not.toMatch(/\d\.\d{3}"/);
   });
-  it('(7) tumbling-block sample PDF and JSON exist with panel ids on sub-panel rows', () => {
+  it('(7) tumbling-block sample PDF and JSON exist: log rows carry ids, export has the tumbling fields', () => {
     expect(flat('tumbling-block-3d')).toContain('Style: tumbling-block-3d');
+    expect(flat('tumbling-block-3d')).toContain('Species: Maple, Cherry, Walnut');
     const j = JSON.parse(readFileSync('samples/tumbling-block-3d.json', 'utf-8'));
-    const subs = j.cutList.filter((r: { subPanel?: unknown }) => r.subPanel);
-    expect(subs.length).toBe(2);
-    for (const r of subs) expect(r.panelId).toBe('A');
+    const logs = j.cutList.filter((r: { part: string }) => /^Log [A-Z]:/.test(r.part));
+    expect(logs.map((r: { panelId: string }) => r.panelId)).toEqual(['A', 'B']);
+    const t = j.tumblingBlock;
+    for (const k of ['diamondSide_mm', 'stripThickness_mm', 'stripsPerTone', 'logCount', 'logLength_mm', 'slicesPerLog']) expect(t[k], k).toBeDefined();
+    expect(t.tones).toEqual({ light: 'Maple', mid: 'Cherry', dark: 'Walnut' });
+    expect(logs.reduce((a: number, r: { slices: number }) => a + r.slices, 0)).toBe(t.logCount * t.slicesPerLog);
   });
   it('(draft5l) scrap sheet never advises a carrier panel; "carrier" only in the never-warning', () => {
     const lines = flat('scrap-chaotic').split(/(?<=[.;])\s/).filter(l => /carrier/i.test(l));

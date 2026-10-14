@@ -19,7 +19,7 @@
         "width": "0.492\" (≈31/64\")",
         "depth": "0.197\" (≈13/64\")",
         "fromEdge": "0.748\" (≈3/4\")",
-        "cornerRadius": "1.004\" (≈1\")"
+        "cornerRadius": "1.000\" (1\")"
       },
       "handles": null,
       "feet": {
@@ -151,270 +151,27 @@
   },
   "cutList": [
     {
-      "part": "Maple blank: rip each strip 3-21/32\" (93 mm), then joint to 3-19/32\" (91 mm) wide; crosscut 1 slices × 1-11/16\" (43 mm) each",
+      "part": "Panel A: Maple/Walnut strip-set panel 12\" (305 mm) wide: 1 × Maple 3-19/32\" (91 mm) (rip 3-21/32\" (93 mm), then joint) + 1 × Walnut 2-27/32\" (72 mm) (rip 2-29/32\" (74 mm), then joint) + 1 × Walnut 4-13/16\" (122 mm) (rip 4-7/8\" (124 mm), then joint) + 1 × Walnut 3/4\" (19.4 mm) (rip 13/16\" (21.0 mm), then joint); too wide for the planer at 12\" (305 mm): flatten on the router sled or drum sander; then crosscut sled with stop block (never fence) 5 slices × 1-11/16\" (43 mm) each; Too wide for the jointer (6\" (152 mm)): flatten one face on a planer sled first, then plane the other face parallel",
       "quantity": 1,
-      "width": "3.957\" (≈3 61/64\")",
+      "width": "12.000\" (12\")",
       "thickness": "1.835\" (≈1 53/64\")",
       "length": "12.008\" (≈12 1/64\")",
-      "species": "Maple",
+      "species": "Maple/Walnut",
+      "panelId": "A",
       "dims": {
-        "ripWidth_mm": 92.91601508916324,
-        "stripWidth_mm": 91.31601508916324,
+        "panelWidth_mm": 304.8,
         "sliceThickness_mm": 43.1,
-        "jointerMaxWidth_mm": 152
-      }
-    },
-    {
-      "part": "Walnut blank: rip each strip 2-29/32\" (74 mm), then joint to 2-27/32\" (72 mm) wide; crosscut 1 slices × 1-11/16\" (43 mm) each",
-      "quantity": 1,
-      "width": "3.197\" (≈3 13/64\")",
-      "thickness": "1.835\" (≈1 53/64\")",
-      "length": "12.008\" (≈12 1/64\")",
-      "species": "Walnut",
-      "dims": {
-        "ripWidth_mm": 73.67347393689985,
-        "stripWidth_mm": 72.07347393689986,
-        "sliceThickness_mm": 43.1,
-        "jointerMaxWidth_mm": 152
-      }
-    },
-    {
-      "part": "Walnut blank: rip each strip 4-7/8\" (124 mm), then joint to 4-13/16\" (122 mm) wide; crosscut 1 slices × 1-11/16\" (43 mm) each",
-      "quantity": 1,
-      "width": "5.165\" (≈5 11/64\")",
-      "thickness": "1.835\" (≈1 53/64\")",
-      "length": "12.008\" (≈12 1/64\")",
-      "species": "Walnut",
-      "dims": {
-        "ripWidth_mm": 123.64389574759944,
-        "stripWidth_mm": 122.04389574759945,
-        "sliceThickness_mm": 43.1,
-        "jointerMaxWidth_mm": 152
-      }
-    },
-    {
-      "part": "Walnut blank: rip each strip 13/16\" (21.0 mm), then joint to 3/4\" (19.4 mm) wide; crosscut 1 slices × 1-11/16\" (43 mm) each",
-      "quantity": 1,
-      "width": "1.122\" (≈1 1/8\")",
-      "thickness": "1.835\" (≈1 53/64\")",
-      "length": "12.008\" (≈12 1/64\")",
-      "species": "Walnut",
-      "dims": {
-        "ripWidth_mm": 20.966615226337446,
-        "stripWidth_mm": 19.366615226337444,
-        "sliceThickness_mm": 43.1,
-        "jointerMaxWidth_mm": 152
-      }
-    },
-    {
-      "part": "Maple blank: rip each strip 4-11/16\" (119 mm), then joint to 4-5/8\" (117 mm) wide; crosscut 1 slices × 1-11/16\" (43 mm) each",
-      "quantity": 1,
-      "width": "4.972\" (≈4 31/32\")",
-      "thickness": "1.835\" (≈1 53/64\")",
-      "length": "12.008\" (≈12 1/64\")",
-      "species": "Maple",
-      "dims": {
-        "ripWidth_mm": 118.76520919067214,
-        "stripWidth_mm": 117.16520919067214,
-        "sliceThickness_mm": 43.1,
-        "jointerMaxWidth_mm": 152
-      }
-    },
-    {
-      "part": "Cherry blank: rip each strip 3-21/32\" (93 mm), then joint to 3-19/32\" (91 mm) wide; crosscut 1 slices × 1-11/16\" (43 mm) each",
-      "quantity": 1,
-      "width": "3.957\" (≈3 61/64\")",
-      "thickness": "1.835\" (≈1 53/64\")",
-      "length": "12.008\" (≈12 1/64\")",
-      "species": "Cherry",
-      "dims": {
-        "ripWidth_mm": 92.96402606310014,
-        "stripWidth_mm": 91.36402606310014,
-        "sliceThickness_mm": 43.1,
-        "jointerMaxWidth_mm": 152
-      }
-    },
-    {
-      "part": "Walnut blank: rip each strip 3-9/32\" (84 mm), then joint to 3-7/32\" (82 mm) wide; crosscut 1 slices × 1-11/16\" (43 mm) each",
-      "quantity": 1,
-      "width": "3.591\" (≈3 19/32\")",
-      "thickness": "1.835\" (≈1 53/64\")",
-      "length": "12.008\" (≈12 1/64\")",
-      "species": "Walnut",
-      "dims": {
-        "ripWidth_mm": 83.59802812071331,
-        "stripWidth_mm": 81.99802812071331,
-        "sliceThickness_mm": 43.1,
-        "jointerMaxWidth_mm": 152
-      }
-    },
-    {
-      "part": "Maple blank: rip each strip 5/8\" (15.9 mm), then joint to 9/16\" (14.3 mm) wide; crosscut 1 slices × 1-11/16\" (43 mm) each",
-      "quantity": 1,
-      "width": "0.921\" (≈59/64\")",
-      "thickness": "1.835\" (≈1 53/64\")",
-      "length": "12.008\" (≈12 1/64\")",
-      "species": "Maple",
-      "dims": {
-        "ripWidth_mm": 15.872736625514369,
-        "stripWidth_mm": 14.27273662551437,
-        "sliceThickness_mm": 43.1,
-        "jointerMaxWidth_mm": 152
-      }
-    },
-    {
-      "part": "Walnut blank: rip each strip 4-5/8\" (118 mm), then joint to 4-9/16\" (116 mm) wide; crosscut 1 slices × 1-11/16\" (43 mm) each",
-      "quantity": 1,
-      "width": "4.933\" (≈4 15/16\")",
-      "thickness": "1.835\" (≈1 53/64\")",
-      "length": "12.008\" (≈12 1/64\")",
-      "species": "Walnut",
-      "dims": {
-        "ripWidth_mm": 117.73683127572016,
-        "stripWidth_mm": 116.13683127572017,
-        "sliceThickness_mm": 43.1,
-        "jointerMaxWidth_mm": 152
-      }
-    },
-    {
-      "part": "Cherry blank: rip each strip 5-23/32\" (146 mm), then joint to 5-21/32\" (144 mm) wide; crosscut 1 slices × 1-11/16\" (43 mm) each; Too wide for the jointer (5-31/32\" (152 mm)): flatten one face on a planer sled first, then plane the other face parallel",
-      "quantity": 1,
-      "width": "6.028\" (≈6 1/32\")",
-      "thickness": "1.835\" (≈1 53/64\")",
-      "length": "12.008\" (≈12 1/64\")",
-      "species": "Cherry",
-      "dims": {
-        "ripWidth_mm": 145.5621913580247,
-        "stripWidth_mm": 143.9621913580247,
-        "sliceThickness_mm": 43.1,
-        "jointerMaxWidth_mm": 152
-      }
-    },
-    {
-      "part": "Cherry blank: rip each strip 1-13/16\" (46 mm), then joint to 1-3/4\" (45 mm) wide; crosscut 1 slices × 1-11/16\" (43 mm) each",
-      "quantity": 1,
-      "width": "2.122\" (≈2 1/8\")",
-      "thickness": "1.835\" (≈1 53/64\")",
-      "length": "12.008\" (≈12 1/64\")",
-      "species": "Cherry",
-      "dims": {
-        "ripWidth_mm": 46.30097736625513,
-        "stripWidth_mm": 44.70097736625513,
-        "sliceThickness_mm": 43.1,
-        "jointerMaxWidth_mm": 152
-      }
-    },
-    {
-      "part": "Walnut blank: rip each strip 3-13/16\" (97 mm), then joint to 3-3/4\" (95 mm) wide; crosscut 1 slices × 1-11/16\" (43 mm) each",
-      "quantity": 1,
-      "width": "4.106\" (≈4 7/64\")",
-      "thickness": "1.835\" (≈1 53/64\")",
-      "length": "12.008\" (≈12 1/64\")",
-      "species": "Walnut",
-      "dims": {
-        "ripWidth_mm": 96.72774348422496,
-        "stripWidth_mm": 95.12774348422496,
-        "sliceThickness_mm": 43.1,
-        "jointerMaxWidth_mm": 152
-      }
-    },
-    {
-      "part": "Walnut blank: rip each strip 2-9/32\" (58 mm), then joint to 2-7/32\" (56 mm) wide; crosscut 1 slices × 1-11/16\" (43 mm) each",
-      "quantity": 1,
-      "width": "2.583\" (≈2 37/64\")",
-      "thickness": "1.835\" (≈1 53/64\")",
-      "length": "12.008\" (≈12 1/64\")",
-      "species": "Walnut",
-      "dims": {
-        "ripWidth_mm": 58.04075788751715,
-        "stripWidth_mm": 56.44075788751715,
-        "sliceThickness_mm": 43.1,
-        "jointerMaxWidth_mm": 152
-      }
-    },
-    {
-      "part": "Walnut blank: rip each strip 3-1/2\" (89 mm), then joint to 3-7/16\" (87 mm) wide; crosscut 1 slices × 1-11/16\" (43 mm) each",
-      "quantity": 1,
-      "width": "3.783\" (≈3 25/32\")",
-      "thickness": "1.835\" (≈1 53/64\")",
-      "length": "12.008\" (≈12 1/64\")",
-      "species": "Walnut",
-      "dims": {
-        "ripWidth_mm": 88.5667352537723,
-        "stripWidth_mm": 86.9667352537723,
-        "sliceThickness_mm": 43.1,
-        "jointerMaxWidth_mm": 152
-      }
-    },
-    {
-      "part": "Maple blank: rip each strip 2-21/32\" (68 mm), then joint to 2-19/32\" (66 mm) wide; crosscut 1 slices × 1-11/16\" (43 mm) each",
-      "quantity": 1,
-      "width": "2.969\" (≈2 31/32\")",
-      "thickness": "1.835\" (≈1 53/64\")",
-      "length": "12.008\" (≈12 1/64\")",
-      "species": "Maple",
-      "dims": {
-        "ripWidth_mm": 67.86476337448559,
-        "stripWidth_mm": 66.2647633744856,
-        "sliceThickness_mm": 43.1,
-        "jointerMaxWidth_mm": 152
-      }
-    },
-    {
-      "part": "Maple blank: rip each strip 2-3/8\" (61 mm), then joint to 2-5/16\" (59 mm) wide; crosscut 1 slices × 1-11/16\" (43 mm) each",
-      "quantity": 1,
-      "width": "2.681\" (≈2 11/16\")",
-      "thickness": "1.835\" (≈1 53/64\")",
-      "length": "12.008\" (≈12 1/64\")",
-      "species": "Maple",
-      "dims": {
-        "ripWidth_mm": 60.53990054869685,
-        "stripWidth_mm": 58.93990054869685,
-        "sliceThickness_mm": 43.1,
-        "jointerMaxWidth_mm": 152
-      }
-    },
-    {
-      "part": "Cherry blank: rip each strip 3-7/32\" (82 mm), then joint to 3-5/32\" (80 mm) wide; crosscut 1 slices × 1-11/16\" (43 mm) each",
-      "quantity": 1,
-      "width": "3.524\" (≈3 17/32\")",
-      "thickness": "1.835\" (≈1 53/64\")",
-      "length": "12.008\" (≈12 1/64\")",
-      "species": "Cherry",
-      "dims": {
-        "ripWidth_mm": 81.96093964334705,
-        "stripWidth_mm": 80.36093964334705,
-        "sliceThickness_mm": 43.1,
-        "jointerMaxWidth_mm": 152
-      }
-    },
-    {
-      "part": "Cherry blank: rip each strip 4-23/32\" (120 mm), then joint to 4-21/32\" (118 mm) wide; crosscut 1 slices × 1-11/16\" (43 mm) each",
-      "quantity": 1,
-      "width": "5.016\" (≈5 1/64\")",
-      "thickness": "1.835\" (≈1 53/64\")",
-      "length": "12.008\" (≈12 1/64\")",
-      "species": "Cherry",
-      "dims": {
-        "ripWidth_mm": 119.81716392318243,
-        "stripWidth_mm": 118.21716392318244,
-        "sliceThickness_mm": 43.1,
-        "jointerMaxWidth_mm": 152
-      }
-    },
-    {
-      "part": "Walnut blank: rip each strip 1-15/16\" (49 mm), then joint to 1-7/8\" (47 mm) wide; crosscut 1 slices × 1-11/16\" (43 mm) each",
-      "quantity": 1,
-      "width": "2.224\" (≈2 7/32\")",
-      "thickness": "1.835\" (≈1 53/64\")",
-      "length": "12.008\" (≈12 1/64\")",
-      "species": "Walnut",
-      "dims": {
-        "ripWidth_mm": 48.881995884773666,
-        "stripWidth_mm": 47.281995884773664,
-        "sliceThickness_mm": 43.1,
-        "jointerMaxWidth_mm": 152
-      }
+        "jointerMaxWidth_mm": 152.4,
+        "stripWidth0_mm": 91.31601508916324,
+        "ripWidth0_mm": 92.91601508916324,
+        "stripWidth1_mm": 72.07347393689986,
+        "ripWidth1_mm": 73.67347393689985,
+        "stripWidth2_mm": 122.04389574759945,
+        "ripWidth2_mm": 123.64389574759944,
+        "stripWidth3_mm": 19.366615226337444,
+        "ripWidth3_mm": 20.966615226337446
+      },
+      "slices": 5
     }
   ]
 }

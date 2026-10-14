@@ -10,8 +10,9 @@
       "thickness": "1.500\" (1 1/2\")"
     },
     "species": [
-      "Walnut",
-      "Maple"
+      "Maple",
+      "Cherry",
+      "Walnut"
     ],
     "modifiers": {
       "juiceGroove": null,
@@ -24,37 +25,13 @@
     "stripCount": 84,
     "strips": [
       {
-        "species": "Walnut",
-        "width": "1.000\" (1\")",
-        "height": "1.500\" (1 1/2\")",
-        "depth": "2.598\" (≈2 19/32\")"
-      },
-      {
         "species": "Maple",
         "width": "1.000\" (1\")",
         "height": "1.500\" (1 1/2\")",
         "depth": "2.598\" (≈2 19/32\")"
       },
       {
-        "species": "Walnut",
-        "width": "1.000\" (1\")",
-        "height": "1.500\" (1 1/2\")",
-        "depth": "2.598\" (≈2 19/32\")"
-      },
-      {
-        "species": "Walnut",
-        "width": "1.000\" (1\")",
-        "height": "1.500\" (1 1/2\")",
-        "depth": "2.598\" (≈2 19/32\")"
-      },
-      {
-        "species": "Maple",
-        "width": "1.000\" (1\")",
-        "height": "1.500\" (1 1/2\")",
-        "depth": "2.598\" (≈2 19/32\")"
-      },
-      {
-        "species": "Walnut",
+        "species": "Cherry",
         "width": "1.000\" (1\")",
         "height": "1.500\" (1 1/2\")",
         "depth": "2.598\" (≈2 19/32\")"
@@ -72,7 +49,7 @@
         "depth": "2.598\" (≈2 19/32\")"
       },
       {
-        "species": "Walnut",
+        "species": "Cherry",
         "width": "1.000\" (1\")",
         "height": "1.500\" (1 1/2\")",
         "depth": "2.598\" (≈2 19/32\")"
@@ -90,7 +67,7 @@
         "depth": "2.598\" (≈2 19/32\")"
       },
       {
-        "species": "Walnut",
+        "species": "Cherry",
         "width": "1.000\" (1\")",
         "height": "1.500\" (1 1/2\")",
         "depth": "2.598\" (≈2 19/32\")"
@@ -108,7 +85,7 @@
         "depth": "2.598\" (≈2 19/32\")"
       },
       {
-        "species": "Walnut",
+        "species": "Cherry",
         "width": "1.000\" (1\")",
         "height": "1.500\" (1 1/2\")",
         "depth": "2.598\" (≈2 19/32\")"
@@ -126,7 +103,7 @@
         "depth": "2.598\" (≈2 19/32\")"
       },
       {
-        "species": "Walnut",
+        "species": "Cherry",
         "width": "1.000\" (1\")",
         "height": "1.500\" (1 1/2\")",
         "depth": "2.598\" (≈2 19/32\")"
@@ -144,7 +121,7 @@
         "depth": "2.598\" (≈2 19/32\")"
       },
       {
-        "species": "Walnut",
+        "species": "Cherry",
         "width": "1.000\" (1\")",
         "height": "1.500\" (1 1/2\")",
         "depth": "2.598\" (≈2 19/32\")"
@@ -162,7 +139,7 @@
         "depth": "2.598\" (≈2 19/32\")"
       },
       {
-        "species": "Walnut",
+        "species": "Cherry",
         "width": "1.000\" (1\")",
         "height": "1.500\" (1 1/2\")",
         "depth": "2.598\" (≈2 19/32\")"
@@ -180,7 +157,7 @@
         "depth": "2.598\" (≈2 19/32\")"
       },
       {
-        "species": "Walnut",
+        "species": "Cherry",
         "width": "1.000\" (1\")",
         "height": "1.500\" (1 1/2\")",
         "depth": "2.598\" (≈2 19/32\")"
@@ -198,7 +175,7 @@
         "depth": "2.598\" (≈2 19/32\")"
       },
       {
-        "species": "Walnut",
+        "species": "Cherry",
         "width": "1.000\" (1\")",
         "height": "1.500\" (1 1/2\")",
         "depth": "2.598\" (≈2 19/32\")"
@@ -216,7 +193,7 @@
         "depth": "2.598\" (≈2 19/32\")"
       },
       {
-        "species": "Walnut",
+        "species": "Cherry",
         "width": "1.000\" (1\")",
         "height": "1.500\" (1 1/2\")",
         "depth": "2.598\" (≈2 19/32\")"
@@ -234,7 +211,7 @@
         "depth": "2.598\" (≈2 19/32\")"
       },
       {
-        "species": "Walnut",
+        "species": "Cherry",
         "width": "1.000\" (1\")",
         "height": "1.500\" (1 1/2\")",
         "depth": "2.598\" (≈2 19/32\")"
@@ -252,7 +229,7 @@
         "depth": "2.598\" (≈2 19/32\")"
       },
       {
-        "species": "Walnut",
+        "species": "Cherry",
         "width": "1.000\" (1\")",
         "height": "1.500\" (1 1/2\")",
         "depth": "2.598\" (≈2 19/32\")"
@@ -270,7 +247,7 @@
         "depth": "2.598\" (≈2 19/32\")"
       },
       {
-        "species": "Walnut",
+        "species": "Cherry",
         "width": "1.000\" (1\")",
         "height": "1.500\" (1 1/2\")",
         "depth": "2.598\" (≈2 19/32\")"
@@ -288,7 +265,7 @@
         "depth": "2.598\" (≈2 19/32\")"
       },
       {
-        "species": "Walnut",
+        "species": "Cherry",
         "width": "1.000\" (1\")",
         "height": "1.500\" (1 1/2\")",
         "depth": "2.598\" (≈2 19/32\")"
@@ -306,7 +283,7 @@
         "depth": "2.598\" (≈2 19/32\")"
       },
       {
-        "species": "Walnut",
+        "species": "Cherry",
         "width": "1.000\" (1\")",
         "height": "1.500\" (1 1/2\")",
         "depth": "2.598\" (≈2 19/32\")"
@@ -324,7 +301,7 @@
         "depth": "2.598\" (≈2 19/32\")"
       },
       {
-        "species": "Walnut",
+        "species": "Cherry",
         "width": "1.000\" (1\")",
         "height": "1.500\" (1 1/2\")",
         "depth": "2.598\" (≈2 19/32\")"
@@ -342,7 +319,7 @@
         "depth": "2.598\" (≈2 19/32\")"
       },
       {
-        "species": "Walnut",
+        "species": "Cherry",
         "width": "1.000\" (1\")",
         "height": "1.500\" (1 1/2\")",
         "depth": "2.598\" (≈2 19/32\")"
@@ -360,7 +337,7 @@
         "depth": "2.598\" (≈2 19/32\")"
       },
       {
-        "species": "Walnut",
+        "species": "Cherry",
         "width": "1.000\" (1\")",
         "height": "1.500\" (1 1/2\")",
         "depth": "2.598\" (≈2 19/32\")"
@@ -378,7 +355,7 @@
         "depth": "2.598\" (≈2 19/32\")"
       },
       {
-        "species": "Walnut",
+        "species": "Cherry",
         "width": "1.000\" (1\")",
         "height": "1.500\" (1 1/2\")",
         "depth": "2.598\" (≈2 19/32\")"
@@ -396,7 +373,7 @@
         "depth": "2.598\" (≈2 19/32\")"
       },
       {
-        "species": "Walnut",
+        "species": "Cherry",
         "width": "1.000\" (1\")",
         "height": "1.500\" (1 1/2\")",
         "depth": "2.598\" (≈2 19/32\")"
@@ -414,7 +391,7 @@
         "depth": "2.598\" (≈2 19/32\")"
       },
       {
-        "species": "Walnut",
+        "species": "Cherry",
         "width": "1.000\" (1\")",
         "height": "1.500\" (1 1/2\")",
         "depth": "2.598\" (≈2 19/32\")"
@@ -432,7 +409,7 @@
         "depth": "2.598\" (≈2 19/32\")"
       },
       {
-        "species": "Walnut",
+        "species": "Cherry",
         "width": "1.000\" (1\")",
         "height": "1.500\" (1 1/2\")",
         "depth": "2.598\" (≈2 19/32\")"
@@ -450,7 +427,7 @@
         "depth": "2.598\" (≈2 19/32\")"
       },
       {
-        "species": "Walnut",
+        "species": "Cherry",
         "width": "1.000\" (1\")",
         "height": "1.500\" (1 1/2\")",
         "depth": "2.598\" (≈2 19/32\")"
@@ -468,7 +445,7 @@
         "depth": "2.598\" (≈2 19/32\")"
       },
       {
-        "species": "Walnut",
+        "species": "Cherry",
         "width": "1.000\" (1\")",
         "height": "1.500\" (1 1/2\")",
         "depth": "2.598\" (≈2 19/32\")"
@@ -486,7 +463,7 @@
         "depth": "2.598\" (≈2 19/32\")"
       },
       {
-        "species": "Walnut",
+        "species": "Cherry",
         "width": "1.000\" (1\")",
         "height": "1.500\" (1 1/2\")",
         "depth": "2.598\" (≈2 19/32\")"
@@ -504,7 +481,7 @@
         "depth": "2.598\" (≈2 19/32\")"
       },
       {
-        "species": "Walnut",
+        "species": "Cherry",
         "width": "1.000\" (1\")",
         "height": "1.500\" (1 1/2\")",
         "depth": "2.598\" (≈2 19/32\")"
@@ -517,6 +494,30 @@
       },
       {
         "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "2.598\" (≈2 19/32\")"
+      },
+      {
+        "species": "Cherry",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "2.598\" (≈2 19/32\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "2.598\" (≈2 19/32\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "2.598\" (≈2 19/32\")"
+      },
+      {
+        "species": "Cherry",
         "width": "1.000\" (1\")",
         "height": "1.500\" (1 1/2\")",
         "depth": "2.598\" (≈2 19/32\")"
@@ -531,44 +532,84 @@
   },
   "cutList": [
     {
-      "part": "Panel A, sub-panel 1/2: Walnut/Maple strip-set panel: glue 6 whole strips (order: W M W M W M), rip each strip 1-1/16\" (27 mm), then joint to 1\" (25 mm) wide; Planer OK: 6-1/4\" (158 mm) wide, long grain; then crosscut sled with stop block (never fence) 7 slices × 1-11/16\" (43 mm) each (sled must clear 6-1/4\" (158 mm)); Too wide for the jointer (5-31/32\" (152 mm)): flatten one face on a planer sled first, then plane the other face parallel",
-      "quantity": 1,
-      "width": "6.236\" (≈6 15/64\")",
-      "thickness": "1.835\" (≈1 53/64\")",
-      "length": "14.721\" (≈14 23/32\")",
-      "species": "Walnut/Maple",
-      "panelId": "A",
-      "subPanel": {
-        "index": 1,
-        "count": 2
-      },
+      "part": "Maple (light) diamond strips: diamond side 1-1/2\" (38 mm), 60°/120° angles; mill stock 1-5/16\" (33 mm) thick (side × sin 60°) and at least 6\" (152 mm) wide; bevel the wide stock at 30° first, then cut each diamond off with a thin-rip jig, keeper away from the fence; 2 strips per tone × 27-15/32\" (698 mm) long",
+      "quantity": 2,
+      "width": "6.000\" (6\")",
+      "thickness": "1.299\" (≈1 19/64\")",
+      "length": "27.474\" (≈27 15/32\")",
+      "species": "Maple",
       "dims": {
-        "ripWidth_mm": 27.000000000000004,
-        "stripWidth_mm": 25.400000000000002,
-        "panelWidth_mm": 158.4,
-        "sliceThickness_mm": 43.1,
-        "jointerMaxWidth_mm": 152
+        "diamondSide_mm": 38.1,
+        "stripThickness_mm": 32.99556788418711,
+        "logLength_mm": 697.85
       }
     },
     {
-      "part": "Panel A, sub-panel 2/2: Walnut/Maple strip-set panel: glue 6 whole strips (order: W M W M W M), rip each strip 1-1/16\" (27 mm), then joint to 1\" (25 mm) wide; Planer OK: 6-1/4\" (158 mm) wide, long grain; then crosscut sled with stop block (never fence) 7 slices × 1-11/16\" (43 mm) each (sled must clear 6-1/4\" (158 mm)); Too wide for the jointer (5-31/32\" (152 mm)): flatten one face on a planer sled first, then plane the other face parallel",
-      "quantity": 1,
-      "width": "6.236\" (≈6 15/64\")",
-      "thickness": "1.835\" (≈1 53/64\")",
-      "length": "14.721\" (≈14 23/32\")",
-      "species": "Walnut/Maple",
-      "panelId": "A",
-      "subPanel": {
-        "index": 2,
-        "count": 2
-      },
+      "part": "Cherry (mid) diamond strips: diamond side 1-1/2\" (38 mm), 60°/120° angles; mill stock 1-5/16\" (33 mm) thick (side × sin 60°) and at least 6\" (152 mm) wide; bevel the wide stock at 30° first, then cut each diamond off with a thin-rip jig, keeper away from the fence; 2 strips per tone × 27-15/32\" (698 mm) long",
+      "quantity": 2,
+      "width": "6.000\" (6\")",
+      "thickness": "1.299\" (≈1 19/64\")",
+      "length": "27.474\" (≈27 15/32\")",
+      "species": "Cherry",
       "dims": {
-        "ripWidth_mm": 27.000000000000004,
-        "stripWidth_mm": 25.400000000000002,
-        "panelWidth_mm": 158.4,
-        "sliceThickness_mm": 43.1,
-        "jointerMaxWidth_mm": 152
+        "diamondSide_mm": 38.1,
+        "stripThickness_mm": 32.99556788418711,
+        "logLength_mm": 697.85
       }
+    },
+    {
+      "part": "Walnut (dark) diamond strips: diamond side 1-1/2\" (38 mm), 60°/120° angles; mill stock 1-5/16\" (33 mm) thick (side × sin 60°) and at least 6\" (152 mm) wide; bevel the wide stock at 30° first, then cut each diamond off with a thin-rip jig, keeper away from the fence; 2 strips per tone × 27-15/32\" (698 mm) long",
+      "quantity": 2,
+      "width": "6.000\" (6\")",
+      "thickness": "1.299\" (≈1 19/64\")",
+      "length": "27.474\" (≈27 15/32\")",
+      "species": "Walnut",
+      "dims": {
+        "diamondSide_mm": 38.1,
+        "stripThickness_mm": 32.99556788418711,
+        "logLength_mm": 697.85
+      }
+    },
+    {
+      "part": "Log A: glue one diamond strip of each tone (Maple/Cherry/Walnut) into an offset log in a 60° cradle or by the masking-tape roll-up method, light clamp pressure only; logs are never planed; log 27-15/32\" (698 mm) long; crosscut 14 slices × 1-11/16\" (43 mm) each on a crosscut sled with a stop block",
+      "quantity": 1,
+      "width": "2.598\" (≈2 19/32\")",
+      "thickness": "2.598\" (≈2 19/32\")",
+      "length": "27.474\" (≈27 15/32\")",
+      "species": "Maple/Cherry/Walnut",
+      "panelId": "A",
+      "dims": {
+        "logLength_mm": 697.85,
+        "sliceThickness_mm": 43.1
+      },
+      "slices": 14
+    },
+    {
+      "part": "Log B: glue one diamond strip of each tone (Maple/Cherry/Walnut) into an offset log in a 60° cradle or by the masking-tape roll-up method, light clamp pressure only; logs are never planed; log 27-15/32\" (698 mm) long; crosscut 14 slices × 1-11/16\" (43 mm) each on a crosscut sled with a stop block",
+      "quantity": 1,
+      "width": "2.598\" (≈2 19/32\")",
+      "thickness": "2.598\" (≈2 19/32\")",
+      "length": "27.474\" (≈27 15/32\")",
+      "species": "Maple/Cherry/Walnut",
+      "panelId": "B",
+      "dims": {
+        "logLength_mm": 697.85,
+        "sliceThickness_mm": 43.1
+      },
+      "slices": 14
     }
-  ]
+  ],
+  "tumblingBlock": {
+    "diamondSide_mm": "1.500\" (1 1/2\")",
+    "stripThickness_mm": "1.299\" (≈1 19/64\")",
+    "stripsPerTone": 2,
+    "logCount": 2,
+    "logLength_mm": "27.474\" (≈27 15/32\")",
+    "slicesPerLog": 14,
+    "tones": {
+      "light": "Maple",
+      "mid": "Cherry",
+      "dark": "Walnut"
+    }
+  }
 }

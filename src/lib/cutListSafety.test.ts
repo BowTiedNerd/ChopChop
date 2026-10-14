@@ -3,6 +3,7 @@
  * Ensures catalog blankRule is enforced: no pieces under 305mm for jointer/planer
  */
 
+import { withTones } from './sampleDesigns';
 import { describe, it, expect } from 'vitest';
 import { calculateRequiredParts } from './lumberPlanner';
 import { BoardDesign } from '../types';
@@ -46,7 +47,7 @@ describe('Cut List Safety - blankRule enforcement', () => {
       };
       
       // Calculate required parts
-      const parts = calculateRequiredParts(design);
+      const parts = calculateRequiredParts(withTones(design));
       
       // Check each part
       for (const part of parts) {
@@ -112,7 +113,7 @@ describe('Fix-off: blankRule disabled', () => {
       unitSystem: 'imperial',
     };
     
-    const cutList = calculateRequiredParts(design);
+    const cutList = calculateRequiredParts(withTones(design));
     const underMin = cutList.filter(p => p.length < PLANER_JOINTER_MINIMUM_MM);
     
     // With blankRule enabled, should be 0 violations
@@ -131,7 +132,7 @@ describe('Blank Length Constraints', () => {
       const design = createDefaultBoard();
       design.style = style;
       
-      const cutList = calculateRequiredParts(design);
+      const cutList = calculateRequiredParts(withTones(design));
       
       for (const part of cutList) {
         if (part.length < PLANER_JOINTER_MINIMUM_MM) {
@@ -153,7 +154,7 @@ describe('Blank Length Constraints', () => {
       const design = createDefaultBoard();
       design.style = style;
       
-      const cutList = calculateRequiredParts(design);
+      const cutList = calculateRequiredParts(withTones(design));
       
       for (const part of cutList) {
         if (part.length > catalogBlankMax(style)) {
@@ -179,7 +180,7 @@ describe('Blank Length Constraints', () => {
     
     // With proper config, no violations
     const design = createDefaultBoard();
-    const cutList = calculateRequiredParts(design);
+    const cutList = calculateRequiredParts(withTones(design));
     const underMin = cutList.filter(p => p.length < PLANER_JOINTER_MINIMUM_MM);
     expect(underMin.length).toBe(0);
   });
@@ -195,7 +196,7 @@ describe('Blank Length Constraints', () => {
     
     // With proper config, no violations
     const design = createDefaultBoard();
-    const cutList = calculateRequiredParts(design);
+    const cutList = calculateRequiredParts(withTones(design));
     const overMax = cutList.filter(p => p.length > catalogBlankMax(design.style));
     expect(overMax.length).toBe(0);
   });

@@ -15,14 +15,14 @@ export const WOOD_SPECIES: WoodSpecies[] = [
 /**
  * Default juice groove (metric)
  * Known label: "Perimeter loop, 12.5 mm wide × 5 mm deep, 19 mm from the edge, 
- *               corner radius 25.5 mm, top face."
+ *               corner radius 25.4 mm, top face."
  */
 export const DEFAULT_JUICE_GROOVE_METRIC: JuiceGroove = {
   enabled: false,
   width: 12.5,
   depth: 5,
   fromEdge: 19,
-  cornerRadius: roundToHalfMm(25.5), // 25.5 mm
+  cornerRadius: 25.4, // 1" (25 mm) (Board QA: not 25.5, which prints 1" (26 mm))
 };
 
 /**

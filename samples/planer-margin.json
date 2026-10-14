@@ -1,0 +1,108 @@
+{
+  "version": "1.0.0",
+  "exportedAt": "2026-01-01T00:00:00.000Z",
+  "commitSha": "sample",
+  "design": {
+    "style": "edge-grain",
+    "dimensions": {
+      "width": "11.875\" (11 7/8\")",
+      "length": "18.000\" (18\")",
+      "thickness": "1.500\" (1 1/2\")"
+    },
+    "species": [
+      "Walnut",
+      "Maple"
+    ],
+    "modifiers": {
+      "juiceGroove": {
+        "width": "0.492\" (≈31/64\")",
+        "depth": "0.197\" (≈13/64\")",
+        "fromEdge": "0.748\" (≈3/4\")",
+        "cornerRadius": "1.000\" (1\")"
+      },
+      "handles": null,
+      "feet": {
+        "diameter": "1.004\" (≈1\")",
+        "height": "0.374\" (≈3/8\")",
+        "inset": "1.260\" (≈1 17/64\")"
+      }
+    },
+    "unitSystem": "imperial"
+  },
+  "pattern": {
+    "stripCount": 8,
+    "strips": [
+      {
+        "species": "Walnut",
+        "width": "1.500\" (1 1/2\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "18.000\" (18\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.500\" (1 1/2\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "18.000\" (18\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.500\" (1 1/2\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "18.000\" (18\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.500\" (1 1/2\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "18.000\" (18\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.500\" (1 1/2\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "18.000\" (18\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.500\" (1 1/2\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "18.000\" (18\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.500\" (1 1/2\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "18.000\" (18\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.375\" (1 3/8\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "18.000\" (18\")"
+      }
+    ]
+  },
+  "cutList": [
+    {
+      "part": "Panel A: Walnut/Maple strip-set panel 11-7/8\" (302 mm) wide: 4 × Walnut 1-1/2\" (38 mm) (rip 1-9/16\" (40 mm), then joint) + 3 × Maple 1-1/2\" (38 mm) (rip 1-9/16\" (40 mm), then joint) + 1 × Maple 1-3/8\" (35 mm) (rip 1-7/16\" (37 mm), then joint); too wide for the planer at 11-7/8\" (302 mm): flatten on the router sled or drum sander; then crosscut sled with stop block (never fence) 1 slice × 18\" (457 mm) each; Too wide for the jointer (6\" (152 mm)): flatten one face on a planer sled first, then plane the other face parallel",
+      "quantity": 1,
+      "width": "11.875\" (11 7/8\")",
+      "thickness": "1.697\" (≈1 45/64\")",
+      "length": "20.094\" (≈20 3/32\")",
+      "species": "Walnut/Maple",
+      "panelId": "A",
+      "dims": {
+        "panelWidth_mm": 301.625,
+        "sliceThickness_mm": 457.2,
+        "jointerMaxWidth_mm": 152.4,
+        "stripWidth0_mm": 38.1,
+        "ripWidth0_mm": 39.7,
+        "stripWidth1_mm": 38.1,
+        "ripWidth1_mm": 39.7,
+        "stripWidth2_mm": 34.92500000000001,
+        "ripWidth2_mm": 36.52500000000001
+      },
+      "slices": 1
+    }
+  ]
+}
