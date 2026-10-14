@@ -25,11 +25,6 @@ describe('Browser Check (starts own dev server)', () => {
   let browser: Browser;
 
   beforeAll(async () => {
-    // Skip browser tests in CI if requested
-    if (process.env.SKIP_BROWSER_TESTS === 'true') {
-      console.log('Skipping browser tests (SKIP_BROWSER_TESTS=true)');
-      return;
-    }
     
     devServer = await startDevServer();
     TEST_URL = devServer.url;
@@ -41,9 +36,6 @@ describe('Browser Check (starts own dev server)', () => {
   }, 40000); // 40 second timeout for setup
 
   afterAll(async () => {
-    if (process.env.SKIP_BROWSER_TESTS === 'true') {
-      return;
-    }
     
     if (browser) {
       await browser.close();
@@ -57,9 +49,6 @@ describe('Browser Check (starts own dev server)', () => {
       let page: Page;
 
       beforeAll(async () => {
-        if (process.env.SKIP_BROWSER_TESTS === 'true') {
-          return;
-        }
         
         page = await browser.newPage();
         await page.setViewport({
@@ -77,17 +66,13 @@ describe('Browser Check (starts own dev server)', () => {
       });
 
       afterAll(async () => {
-        if (process.env.SKIP_BROWSER_TESTS === 'true' || !page) {
+        if (!page) {
           return;
         }
         await page.close();
       });
 
       it('should render text at minimum size (10.67px)', async () => {
-        if (process.env.SKIP_BROWSER_TESTS === 'true') {
-          console.log('Skipped (SKIP_BROWSER_TESTS=true)');
-          return;
-        }
         
         const violations = await checkTextSizes(page);
         
@@ -99,10 +84,6 @@ describe('Browser Check (starts own dev server)', () => {
       });
 
       it('should show scroll cue only when needed', async () => {
-        if (process.env.SKIP_BROWSER_TESTS === 'true') {
-          console.log('Skipped (SKIP_BROWSER_TESTS=true)');
-          return;
-        }
         
         const violations = await checkScrollCue(page);
         
@@ -114,10 +95,6 @@ describe('Browser Check (starts own dev server)', () => {
       });
 
       it('should not overlap labels with geometry', async () => {
-        if (process.env.SKIP_BROWSER_TESTS === 'true') {
-          console.log('Skipped (SKIP_BROWSER_TESTS=true)');
-          return;
-        }
         
         const violations = await checkLabelOverlaps(page);
         

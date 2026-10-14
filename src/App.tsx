@@ -1,4 +1,5 @@
 import { buildPdfInBrowser } from './lib/browserPdf';
+import { generateMillPlan } from './lib/pdf';
 import { useState } from 'react';
 import './App.css';
 import { BoardDesign } from './types';
@@ -30,6 +31,15 @@ function App() {
       console.error('PDF export failed:', error);
       alert(`PDF export failed: ${error instanceof Error ? error.message : String(error)}`);
     });
+  };
+
+  const handleExportMillPlan = () => {
+    try {
+      generateMillPlan(design).save(`chopchop-mill-plan-${design.style}-${Date.now()}.pdf`);
+    } catch (error: unknown) {
+      console.error('Mill plan export failed:', error);
+      alert(`Mill plan export failed: ${error instanceof Error ? error.message : String(error)}`);
+    }
   };
 
   return (
@@ -72,7 +82,7 @@ function App() {
         <button className="primary" onClick={handleExportPDF} disabled={!validation.valid}>
           Export Cut Sheet PDF
         </button>
-        <button className="secondary">
+        <button className="secondary" onClick={handleExportMillPlan} disabled={!validation.valid}>
           Export Mill Plan PDF
         </button>
       </div>

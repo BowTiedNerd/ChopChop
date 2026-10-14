@@ -1,15 +1,9 @@
 import { jsPDF } from 'jspdf';
 import { BoardDesign, StepInstruction, CutListItem } from '../types';
 import { inchText, metricText, sheetLen, shopSize } from '../utils/format';
-import { 
-  generateTopViewFigure, 
-  generateRipFenceFigure,
-  generateGlueUpFigure,
-  generateCrosscutFigure,
-  generateCutListFigure,
-  generatePlanerFigure
-} from './stepFigures';
+import { generateTopViewFigure, generateCutListFigure } from './stepFigures';
 import { loadStyleCatalog } from './catalogLoader';
+import { calculateRequiredParts } from './lumberPlanner';
 import { CatalogStyleName, StyleCatalog } from '../types/catalog';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -132,14 +126,18 @@ export class PdfGenerator {
             const lines = this.customizeFlattenDescription('', catalog);
             description = step.stepId === 'glue-up' && lines ? `${description}\n${lines}` : (lines || description);
           }
+          if (step.stepId === 'flatten-and-sand') {
+            description = this.finalFlattenDescription(description, catalog);
+          }
           if (step.stepId === 'crosscut-slices') {
-            const allowance = catalog.cutListAllowances.flatteningAllowance_mm;
+            const faRaw = catalog.cutListAllowances.flatteningAllowance_mm as unknown as number | { endGrain?: number };
+            const allowance = typeof faRaw === 'number' ? faRaw : faRaw?.endGrain;
             if (typeof allowance !== 'number') throw new Error(`${this.design.style}: catalog flatteningAllowance_mm missing`);
             const slice = this.design.dimensions.thickness + allowance;
             description = `${description}\nSlice size: ${shopSize(slice, this.design.unitSystem)} (final thickness ${shopSize(this.design.dimensions.thickness, this.design.unitSystem)} + ${allowance} mm end-grain allowance).`;
           }
           if (/crosscut|angled-cuts/.test(step.stepId)) {
-            const sled = this.crosscutSledLines(catalog);
+            const sled = this.crosscutSledLines(catalog, step.stepId);
             if (sled) description = `${description}\n${sled}`;
           }
         }
@@ -149,7 +147,7 @@ export class PdfGenerator {
           stepId: step.stepId,
           title: step.title,
           description,
-          settings: step.settings,
+          settings: this.resolveSettings(step.settings, catalog),
           safetyBanners: step.safetyBanners,
           figure: undefined, // Will be generated based on figureType
           figureType: step.figureType,
@@ -158,42 +156,94 @@ export class PdfGenerator {
     }
   }
 
+  /** Replace catalog "from cut list" placeholders with the computed value the cut list prints. */
+  private resolveSettings(settings: Record<string, string> | undefined, catalog: StyleCatalog): Record<string, string> | undefined {
+    if (!settings || this.cutList.length === 0) return settings;
+    const unit = this.design.unitSystem;
+    const strip = /strips ([^,;]+?) wide/.exec(this.cutList.map(i => i.part).join('\n'))?.[1]
+      ?? shopSize(Math.min(...this.cutList.map(i => i.width)), unit);
+    const faRaw = catalog.cutListAllowances.flatteningAllowance_mm as unknown as number | { endGrain?: number };
+    const fa = typeof faRaw === 'number' ? faRaw : faRaw?.endGrain ?? 0;
+    const out: Record<string, string> = {};
+    for (const [k, v] of Object.entries(settings)) {
+      if (!/from (the )?cut list/.test(v)) { out[k] = v; continue; }
+      out[k] = /slice/i.test(k) ? shopSize(this.design.dimensions.thickness + fa, unit) : strip;
+    }
+    return out;
+  }
+
   /** Strip-set panel items in the cut list */
   private panelItems() {
     return this.cutList.filter(item => item.part.includes('strip-set panel'));
   }
 
-  /**
-   * One flatten line per panel, sheet units first, e.g. Panel 1/2: 16.0" (406 mm) wide.
-   * No planer for panels wider than catalog panelMaxPlanerWidth_mm.
-   */
-  private customizeFlattenDescription(genericDescription: string, catalog: StyleCatalog): string {
-    const blankRule = catalog.cutListAllowances?.blankRule;
-    const panels = this.panelItems();
-    if (!blankRule || panels.length === 0) return genericDescription;
-    const max = blankRule.panelMaxPlanerWidth_mm;
-    if (max === undefined) throw new Error(`${this.design.style}: catalog panelMaxPlanerWidth_mm missing`);
+  /** Planer wording per catalog planerTextRule: only long grain, width <= planer max, length >= planer minimum. */
+  private planerRoute(width: number, length: number, endGrain: boolean, catalog: StyleCatalog): string {
+    const a = catalog.cutListAllowances as unknown as {
+      planerMaxWidth_mm?: number; planerMinimum_mm?: { length?: number };
+      planerTextRule?: { template?: string };
+    };
     const unit = this.design.unitSystem;
-    return panels.map((p, i) => {
-      const w = sheetLen(p.width, unit);
-      const how = p.width <= max
-        ? 'plane flat (within planer capacity)'
-        : 'too wide for the planer: flatten on the router sled or drum sander';
-      return `Flatten panel ${i + 1}/${panels.length}, ${w} wide: ${how}.`;
-    }).join('\n');
+    const max = a.planerMaxWidth_mm, min = a.planerMinimum_mm?.length, tpl = a.planerTextRule?.template;
+    if (max === undefined || min === undefined || !tpl) throw new Error(`${this.design.style}: catalog planer rule missing`);
+    const w = sheetLen(width, unit);
+    if (endGrain) return `end grain: router sled or drum sander, never the planer`;
+    if (width > max) return `too wide for the planer at ${w}: router sled or drum sander`;
+    if (length < min) return `too short for the planer at ${sheetLen(length, unit)} long: router sled or drum sander`;
+    return tpl.replace('{width}', w);
+  }
+
+  private isEndGrain(catalog: StyleCatalog): boolean {
+    // end grain: an explicit flip step, or slices glued end grain up (scrap-chaotic)
+    return catalog.steps.some(st => st.stepId === 'rotate-slices' || /end grain up/i.test(st.description));
+  }
+
+  private labelOf(item: { part: string }): string {
+    return item.part.split(':')[0];
+  }
+
+  /** One flatten line per panel with its real width and route. */
+  private customizeFlattenDescription(_generic: string, catalog: StyleCatalog): string {
+    const panels = this.panelItems();
+    const unit = this.design.unitSystem;
+    if (panels.length === 0) {
+      // no strip-set panel rows (brick): the first glued panel is the full board width
+      const w = this.design.dimensions.width;
+      const L = Math.max(...this.cutList.map(i => i.length));
+      return `Flatten the first glued panel, ${sheetLen(w, unit)} wide:\n${this.planerRoute(w, L, false, catalog)}.`;
+    }
+    return panels.map(p => `Flatten ${this.labelOf(p)}, ${sheetLen(p.width, unit)} wide:\n${this.planerRoute(p.width, p.length, false, catalog)}.`).join('\n');
+  }
+
+  /** Final/assembled flatten: real glue-up width and route, replacing the generic planer sentence. */
+  private finalFlattenDescription(generic: string, catalog: StyleCatalog): string {
+    const d = this.design.dimensions;
+    const unit = this.design.unitSystem;
+    const route = this.planerRoute(d.width, d.length, this.isEndGrain(catalog), catalog);
+    const rest = generic.slice(Math.max(0, generic.indexOf('Sand ')));
+    return `Flatten the final glue-up, ${sheetLen(d.width, unit)} wide x ${sheetLen(d.length, unit)} long:\n${route}.\n${rest}`.trim();
   }
 
   /** Sled width each crosscut needs; over catalog sledMaxWidth_mm, split first. */
-  private crosscutSledLines(catalog: StyleCatalog): string {
+  private crosscutSledLines(catalog: StyleCatalog, stepId = ''): string {
     const blankRule = catalog.cutListAllowances?.blankRule;
-    const panels = this.panelItems();
-    if (!blankRule || panels.length === 0) return '';
-    const sledMax = blankRule.sledMaxWidth_mm;
+    const sledMax = blankRule?.sledMaxWidth_mm;
     if (sledMax === undefined) throw new Error(`${this.design.style}: catalog sledMaxWidth_mm missing`);
     const unit = this.design.unitSystem;
-    return panels.map((p, i) => p.width > sledMax
-      ? `Panel ${i + 1}/${panels.length}: ${sheetLen(p.width, unit)} is wider than the ${sheetLen(sledMax, unit)} sled. Split it first into sub-panels of whole strips; never crosscut freehand.`
-      : `Panel ${i + 1}/${panels.length}: sled must clear ${sheetLen(p.width, unit)}.`).join('\n');
+    const panels = this.panelItems();
+    if (panels.length === 0) {
+      // no strip-set panels: after a glue-up the sled crosscuts the glued panel (full board width);
+      // before any glue-up it cuts the widest cut-list stock
+      const idx = catalog.steps.findIndex(st => st.stepId === stepId);
+      const glued = catalog.steps.slice(0, Math.max(idx, 0)).some(st => /^glue-up/.test(st.stepId));
+      const widest = glued ? this.design.dimensions.width : Math.max(...this.cutList.map(i => i.width));
+      return widest > sledMax
+        ? `Sled width: stock is ${sheetLen(widest, unit)}, wider than the ${sheetLen(sledMax, unit)} sled. Rip it narrower first; never crosscut freehand.`
+        : `Sled width: sled must clear ${sheetLen(widest, unit)}.`;
+    }
+    return panels.map(p => p.width > sledMax
+      ? `${this.labelOf(p)}: ${sheetLen(p.width, unit)} is wider than the ${sheetLen(sledMax, unit)} sled. Split it first into sub-panels of whole strips; never crosscut freehand.`
+      : `${this.labelOf(p)}${/order: ([^)]+)/.exec(p.part) ? ` (order: ${/order: ([^)]+)/.exec(p.part)![1]})` : ''}: sled must clear ${sheetLen(p.width, unit)}.`).join('\n');
   }
 
   /**
@@ -293,7 +343,7 @@ export class PdfGenerator {
     this.doc.setFontSize(10);
     this.doc.setFont('helvetica', 'bold');
     const headers = ['Part', 'Qty', 'Width', 'Thickness', 'Length', 'Species'];
-    const colWidths = [40, 15, 30, 30, 30, 35];
+    const colWidths = [80, 8, 20, 20, 20, 22];
     let xPos = this.margin;
 
     for (let i = 0; i < headers.length; i++) {
@@ -302,16 +352,12 @@ export class PdfGenerator {
     }
     this.yPosition += 6;
 
-    // Table rows
+    // Table rows: every cell wraps inside its own column (no overflow into the next one)
     this.doc.setFont('helvetica', 'normal');
+    this.doc.setFontSize(8);
+    const lineH = 3.6;
     for (const item of cutList) {
-      if (this.yPosition > this.pageHeight - 20) {
-        this.addPageBreak();
-      }
-
-      xPos = this.margin;
       const unit = this.design.unitSystem;
-      
       const row = [
         item.part,
         item.quantity.toString(),
@@ -320,13 +366,24 @@ export class PdfGenerator {
         this.formatDim(item.length, unit),
         item.species,
       ];
-
-      for (let i = 0; i < row.length; i++) {
-        this.doc.text(row[i], xPos, this.yPosition);
+      // part text wraps per '; ' clause so a clause such as the planer line stays on one line when it fits
+      const wrap = (t: string, w: number) => this.doc.splitTextToSize(t, w) as string[];
+      const cells = row.map((t, i) => i === 0
+        ? t.split('; ').flatMap((seg, k, all) => wrap(seg + (k < all.length - 1 ? ';' : ''), colWidths[i] - 2))
+        : wrap(t, colWidths[i] - 2));
+      const h = Math.max(...cells.map(c => c.length)) * lineH + 1.5;
+      if (this.yPosition + h > this.pageHeight - 20) {
+        this.addPageBreak();
+        this.doc.setFontSize(8);
+      }
+      xPos = this.margin;
+      for (let i = 0; i < cells.length; i++) {
+        cells[i].forEach((line, k) => this.doc.text(line, xPos, this.yPosition + k * lineH));
         xPos += colWidths[i];
       }
-      this.yPosition += 5;
+      this.yPosition += h;
     }
+    this.doc.setFontSize(10);
 
     this.yPosition += 5;
   }
@@ -409,7 +466,6 @@ export class PdfGenerator {
    * Rule: non-null figureType MUST have visuals/<styleId>/<stepId>.svg (gated for RC1)
    */
   private generateStepFigure(step: StepInstruction): string | null {
-    const unit = this.design.unitSystem;
     const figureType = step.figureType;
     
     if (!figureType) {
@@ -423,67 +479,10 @@ export class PdfGenerator {
       return externalSvg;
     }
     
-    // Require external figures by default (boardviz generates them)
-    // Set ALLOW_FALLBACK_FIGURES=true to generate figures inline (dev/test only)
-    const ALLOW_FALLBACK = process.env.ALLOW_FALLBACK_FIGURES === 'true';
-    if (!ALLOW_FALLBACK) {
-      throw new Error(`Missing required figure: visuals/steps/${this.design.style}/${step.stepId}.svg (figureType: ${figureType})`);
-    }
-    
-    // Fallback: generate figure based on catalog figureType (dev/test only)
-    switch (figureType) {
-      case 'rip-fence': {
-        // Get fence distance from settings or use strip width
-        const fenceSetting = step.settings['Fence to blade'] || step.settings['Rip fence'];
-        const fenceDistance = fenceSetting ? this.parseDistance(fenceSetting) : 25.4;
-        const bladeHeight = this.design.dimensions.thickness + 5;
-        const figure = generateRipFenceFigure(fenceDistance, bladeHeight, unit);
-        return figure.svg;
-      }
-      
-      case 'crosscut': {
-        // Get stop position from settings
-        const stopSetting = step.settings['Stop block position'] || step.settings['Slice length'];
-        const stopPosition = stopSetting ? this.parseDistance(stopSetting) : this.design.dimensions.length;
-        const figure = generateCrosscutFigure(stopPosition, unit);
-        return figure.svg;
-      }
-      
-      case 'mill':
-      case 'planer': {
-        // Get planer depth from settings
-        const depth = this.design.dimensions.thickness;
-        const figure = generatePlanerFigure(depth, unit);
-        return figure.svg;
-      }
-      
-      case 'glue-up': {
-        const figure = generateGlueUpFigure(this.design, step.stepNumber);
-        return figure.svg;
-      }
-      
-      case 'top-view': {
-        const figure = generateTopViewFigure(this.design);
-        return figure.svg;
-      }
-      
-      default:
-        return null;
-    }
+    // No fallback: a missing boardviz figure is always fatal (Board QA minor 3).
+    throw new Error(`Missing required figure: visuals/steps/${this.design.style}/${step.stepId}.svg (figureType: ${figureType})`);
   }
   
-  /**
-   * Parse distance from setting string (e.g., "25.4 mm" or "1.5\"")
-   */
-  private parseDistance(setting: string): number {
-    // Extract number from string like "25.4 mm" or "strip width from cut list"
-    const match = setting.match(/[\d.]+/);
-    if (match) {
-      return parseFloat(match[0]);
-    }
-    return 25.4; // Default fallback
-  }
-
   /**
    * Load external step figure SVG if it exists
    * Looks for visuals/steps/<styleId>/<stepId>.svg
@@ -615,6 +614,12 @@ export class PdfGenerator {
     }
   }
 
+  /** Step texts computed from this cut list (same customization as the cut sheet). */
+  stepsFor(cutList: CutListItem[]): StepInstruction[] {
+    this.cutList = cutList;
+    return this.loadStepsFromCatalog();
+  }
+
   /**
    * Get the generated PDF document
    */
@@ -689,7 +694,14 @@ export function generateMillPlan(design: BoardDesign): jsPDF {
     description: string;
     settings: Record<string, string>;
   }> = [];
-  catalogSteps = loadStyleCatalog(design.style as CatalogStyleName).steps;
+  // same computed widths, routes, sled widths and slice sizes as the cut sheet, never the generic catalog sentence
+  catalogSteps = new PdfGenerator(design).stepsFor(calculateRequiredParts(design)).map(st => ({
+    stepNumber: st.stepNumber, title: st.title, description: st.description, settings: st.settings ?? {},
+  }));
+
+  // Decision: the mill plan is a text checklist; the figures live in the cut sheet PDF.
+  doc.text('Figures: see the cut sheet PDF (this mill plan is text only).', margin, yPos);
+  yPos += 8;
 
   if (catalogSteps.length > 0) {
     doc.setFontSize(12);

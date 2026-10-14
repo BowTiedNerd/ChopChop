@@ -15,7 +15,7 @@ describe('PDF text encoding', () => {
       const shown = pdfShownText(raw);
       expect(shown.length).toBeGreaterThan(100);
       expect(shown).not.toMatch(/"H|\(H|≈/);
-      expect(shown).toMatch(/Flatten panel 1\/\d+, [\d.]+" \(\d+ mm\) wide/);
+      expect(shown).toMatch(/Flatten Panel A, sub-panel 1\/\d+, [\d.]+" \(\d+ mm\) wide/);
     });
   }
 });

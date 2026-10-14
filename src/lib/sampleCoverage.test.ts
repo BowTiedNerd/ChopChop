@@ -41,7 +41,7 @@ describe('Sample PDF Coverage', () => {
   it('each sample PDF actually shows the feature it is meant to cover', () => {
     const text = (name: string) => pdfShownText(readFileSync(join(SAMPLES_DIR, `${name}.pdf`)).toString('latin1'));
     const expectations: Array<[string, RegExp[]]> = [
-      ['checkerboard-default', [/Style: checkerboard/, /Flatten panel 1\//]],
+      ['checkerboard-default', [/Style: checkerboard/, /Flatten Panel A, sub-panel 1\//]],
       ['checkerboard-16x24', [/Style: checkerboard/, /16\.000" \(16"\) × 24\.000"/]],
       ['chevron', [/Style: chevron/]],
       ['herringbone', [/Style: herringbone/]],

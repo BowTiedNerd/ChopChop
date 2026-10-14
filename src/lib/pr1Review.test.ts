@@ -172,7 +172,13 @@ describe('PR1-REVIEW #5: Settings in step text', () => {
     expect(withSettings.length).toBeGreaterThan(0);
     for (const st of withSettings) {
       const [key, value] = Object.entries(st.settings)[0];
-      expect(shown).toContain(`${key}: ${value}`.slice(0, 30));
+      // "from cut list" placeholders are replaced by the computed value (Shop Tester A)
+      if (/from (the )?cut list/.test(value)) {
+        expect(shown).toContain(`${key}: `);
+        expect(shown).not.toContain(value);
+      } else {
+        expect(shown).toContain(`${key}: ${value}`.slice(0, 30));
+      }
     }
   });
 });

@@ -112,7 +112,7 @@ describe('PDF Flatten Step Text for Wide Panels (N7)', () => {
       const pdf = generator.generateCutSheet(cutList);
       const raw = Buffer.from(pdf.output('arraybuffer')).toString('latin1');
       const shown = pdfShownText(raw);
-      const lines = shown.match(/Flatten panel \d+\/\d+/g) ?? [];
+      const lines = shown.match(/Flatten Panel [A-Z][^,]*(?:, sub-panel \d+\/\d+)?, /g) ?? [];
       if (lines.length !== panels.length) {
         violations.push(`${testCase.style}: ${lines.length} flatten lines for ${panels.length} panels`);
       }

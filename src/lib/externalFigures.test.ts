@@ -94,26 +94,20 @@ describe('Fix-off: missing external figure', () => {
     }
   });
   
-  it('should allow fallback when ALLOW_FALLBACK_FIGURES=true', () => {
-    // When ALLOW_FALLBACK_FIGURES=true, the PDF generator should use inline figures
-    // This is for dev/test only, not production
-    const oldValue = process.env.ALLOW_FALLBACK_FIGURES;
+  it('has no fallback: ALLOW_FALLBACK_FIGURES=true still throws on a missing figure', async () => {
+    const { PdfGenerator } = await import('../lib/pdf');
+    const { calculateRequiredParts } = await import('../lib/lumberPlanner');
+    const { createDefaultBoard } = await import('../lib/defaults');
+    const design = createDefaultBoard();
+    const old = process.env.ALLOW_FALLBACK_FIGURES;
     process.env.ALLOW_FALLBACK_FIGURES = 'true';
-    
-    // Verify env var is set
-    expect(process.env.ALLOW_FALLBACK_FIGURES).toBe('true');
-    
-    // The PDF generator checks this env var in pdf.ts line 328
-    // When true, it falls back to generated figures instead of throwing
-    
-    if (oldValue !== undefined) {
-      process.env.ALLOW_FALLBACK_FIGURES = oldValue;
-    } else {
-      delete process.env.ALLOW_FALLBACK_FIGURES;
+    try {
+      // preloaded figure map with no entries = every external figure is missing
+      const gen = new PdfGenerator(design, {});
+      expect(() => gen.generateCutSheet(calculateRequiredParts(design))).toThrow(/Missing required figure: visuals\/steps\/checkerboard\//);
+    } finally {
+      if (old === undefined) delete process.env.ALLOW_FALLBACK_FIGURES; else process.env.ALLOW_FALLBACK_FIGURES = old;
     }
-    
-    // Verify restore worked
-    expect(process.env.ALLOW_FALLBACK_FIGURES).toBe(oldValue);
   });
 
   it('should throw error when required SVG is missing and ALLOW_FALLBACK is false', async () => {
