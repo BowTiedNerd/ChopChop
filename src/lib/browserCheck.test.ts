@@ -7,10 +7,10 @@
 
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import puppeteer, { Browser, Page } from 'puppeteer';
-import { spawn, ChildProcess } from 'child_process';
+import { startDevServer, DevServer } from './testServer';
 
-const TEST_URL = process.env.TEST_URL || 'http://localhost:5173';
-let devServer: ChildProcess | null = null;
+let TEST_URL = '';
+let devServer: DevServer | null = null;
 
 const VIEWPORTS = [
   { width: 1280, height: 800, name: 'desktop' },
@@ -20,26 +20,6 @@ const VIEWPORTS = [
 
 const MIN_DRAWN_SIZE_PX = 10.67;
 const SAMPLE_INTERVAL = 1.5;
-
-/**
- * Wait for server to become available
- */
-async function waitForServer(url: string, timeoutMs: number): Promise<boolean> {
-  const startTime = Date.now();
-  while (Date.now() - startTime < timeoutMs) {
-    try {
-      const response = await fetch(url);
-      if (response.ok) {
-        return true;
-      }
-    } catch (error) {
-      // Server not ready yet: expected while polling, logged so real failures are visible
-      console.error('waitForServer: not ready yet:', String(error));
-    }
-    await new Promise(resolve => setTimeout(resolve, 500));
-  }
-  return false;
-}
 
 describe('Browser Check (starts own dev server)', () => {
   let browser: Browser;
@@ -51,20 +31,8 @@ describe('Browser Check (starts own dev server)', () => {
       return;
     }
     
-    // Start dev server
-    console.log('Starting dev server for browser checks...');
-    devServer = spawn('npm', ['run', 'dev'], {
-      cwd: process.cwd(),
-      stdio: ['ignore', 'pipe', 'pipe'],
-      shell: true,
-    });
-
-    // Wait for server to be ready
-    const serverReady = await waitForServer(TEST_URL, 30000);
-    if (!serverReady) {
-      throw new Error(`Dev server failed to start at ${TEST_URL} within 30 seconds. Browser checks CANNOT run without a dev server.`);
-    }
-    console.log('Dev server ready at', TEST_URL);
+    devServer = await startDevServer();
+    TEST_URL = devServer.url;
 
     browser = await puppeteer.launch({
       headless: true,
@@ -81,13 +49,7 @@ describe('Browser Check (starts own dev server)', () => {
       await browser.close();
     }
     
-    // Kill dev server
-    if (devServer) {
-      console.log('Stopping dev server...');
-      devServer.kill('SIGTERM');
-      // Give it a moment to cleanup
-      await new Promise(resolve => setTimeout(resolve, 1000));
-    }
+    if (devServer) await devServer.stop();
   });
 
   for (const viewport of VIEWPORTS) {

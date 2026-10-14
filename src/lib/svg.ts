@@ -54,7 +54,8 @@ export class SvgBuilder {
         y,
         width,
         height,
-        ...attrs,
+        // Drop undefined/null attributes: they rendered as transform="undefined"
+        ...Object.fromEntries(Object.entries(attrs).filter(([, v]) => v !== undefined && v !== null)),
       },
     });
     this.updateBounds(x, y);

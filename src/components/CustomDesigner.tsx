@@ -236,7 +236,7 @@ export function CustomDesigner({ onApply }: CustomDesignerProps) {
           <h3 style={{ borderBottom: '2px solid #5B3A29', paddingBottom: '0.5rem' }}>
             Final Dimensions
           </h3>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: '1rem' }}>
             <div className="form-group">
               <label>Width (mm)</label>
               <input

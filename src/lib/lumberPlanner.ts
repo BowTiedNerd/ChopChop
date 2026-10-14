@@ -33,6 +33,8 @@ export interface CutItem {
   length: number;
   quantity: number;
   species: string;
+  /** For glued panels: the single-species strips ripped from stock to make it */
+  strips?: Array<{ species: string; width: number; count: number }>;
 }
 
 export interface MillingStep {
@@ -246,9 +248,16 @@ function calculateBlanksWithRule(
         }
       }
 
+      const xOrder = Array.from(new Set(pattern.strips.map(s => (s as { x?: number }).x ?? 0))).sort((a, b) => a - b);
+      const speciesAt = xOrder.map(x => pattern.strips.find(s => ((s as { x?: number }).x ?? 0) === x)!.species.name);
       for (let i = 0; i < panelCount; i++) {
         const actualSlices = slicesPer[i];
+        let offset = 0;
         groups.forEach((n, j) => {
+          const counts = new Map<string, number>();
+          for (const sp of speciesAt.slice(offset, offset + n)) counts.set(sp, (counts.get(sp) ?? 0) + 1);
+          offset += n;
+          const strips = Array.from(counts, ([species, count]) => ({ species, width: firstStrip.width, count }));
           const w = n * firstStrip.width + roughOversize.width;
           const sub = groups.length > 1 ? ` sub-panel ${j + 1}/${groups.length}` : '';
           const sled = w > sledMax
@@ -264,6 +273,7 @@ function calculateBlanksWithRule(
             length: lenFor(actualSlices),
             quantity: 1,
             species: speciesList,
+            strips,
           });
         });
       }
@@ -375,7 +385,18 @@ export function optimizeCuttingPlan(
   boardStyle: string = 'checkerboard'
 ): OptimizationResult {
   const cutPlans: CutPlan[] = [];
-  const remainingParts = [...requiredParts];
+  // Glued panels are made from single-species strips: plan the strips, not the panel.
+  // Copies, so the caller's parts are never mutated.
+  const remainingParts: CutItem[] = requiredParts.flatMap(p => p.strips
+    ? p.strips.map(st => ({
+        part: `${st.species} strip for ${p.part.split(':')[0]}`,
+        width: st.width,
+        thickness: p.thickness,
+        length: p.length,
+        quantity: st.count * p.quantity,
+        species: st.species,
+      }))
+    : [{ ...p }]);
   
   // Get allowances from catalog
   const allowances = getAllowances(boardStyle);
@@ -404,12 +425,15 @@ export function optimizeCuttingPlan(
         // Check if part fits in this stock
         if (part.species === stock.species &&
             part.width + ROUGH_OVERSIZE_WIDTH <= stock.width &&
-            part.thickness + PLANER_MINIMUM_THICKNESS <= stock.thickness) {
+            part.thickness <= stock.thickness &&
+            part.thickness >= PLANER_MINIMUM_THICKNESS) {
           
-          // Check how many we can fit lengthwise
+          // Lanes across the stock width (rip), times pieces along the remaining length
           const partLengthWithKerf = part.length + KERF + ROUGH_OVERSIZE_LENGTH;
           const availableLength = stock.length - usedLength;
-          const fitsCount = Math.floor(availableLength / partLengthWithKerf);
+          const lanes = Math.max(1, Math.floor(stock.width / (part.width + ROUGH_OVERSIZE_WIDTH + KERF)));
+          const rows = Math.floor(availableLength / partLengthWithKerf);
+          const fitsCount = rows * lanes;
           
           if (fitsCount > 0) {
             const cutCount = Math.min(fitsCount, part.quantity);
@@ -419,7 +443,7 @@ export function optimizeCuttingPlan(
               quantity: cutCount,
             });
             
-            usedLength += partLengthWithKerf * cutCount;
+            usedLength += partLengthWithKerf * Math.ceil(cutCount / lanes);
             part.quantity -= cutCount;
             
             if (part.quantity === 0) {

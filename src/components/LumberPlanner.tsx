@@ -19,7 +19,7 @@ export function LumberPlanner({ design }: LumberPlannerProps) {
 
   const handleOptimize = () => {
     const requiredParts = calculateRequiredParts(design);
-    const result = optimizeCuttingPlan(requiredParts, stock);
+    const result = optimizeCuttingPlan(requiredParts, stock, design.style);
     setOptimization(result);
   };
 

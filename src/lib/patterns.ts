@@ -66,8 +66,10 @@ function generateCheckerboard(design: BoardDesign): PatternResult {
   const squareSize = width / targetSquaresAcross;
   
   const strips: StripPosition[] = [];
-  const cols = Math.floor(width / squareSize);
-  const rows = Math.floor(length / squareSize);
+  // Round (not floor): 457.2 / 25.4 is 17.999... in floating point, which dropped a row
+  const cols = targetSquaresAcross;
+  const rows = Math.max(1, Math.round(length / squareSize));
+  const rowDepth = length / rows; // rows always fill the full length
   
   for (let row = 0; row < rows; row++) {
     for (let col = 0; col < cols; col++) {
@@ -75,10 +77,10 @@ function generateCheckerboard(design: BoardDesign): PatternResult {
       strips.push({
         x: col * squareSize,
         y: 0,
-        z: row * squareSize,
+        z: row * rowDepth,
         width: squareSize,
         height: thickness,
-        depth: squareSize,
+        depth: rowDepth,
         species: species[speciesIndex],
         rotation: 0,
       });

@@ -1,3 +1,4 @@
+import { calculateRequiredParts } from './lib/lumberPlanner';
 import { useState } from 'react';
 import './App.css';
 import { BoardDesign } from './types';
@@ -24,22 +25,14 @@ function App() {
       return;
     }
 
-    const generator = new PdfGenerator(design);
-    
-    // Generate sample cut list
-    const cutList = [
-      {
-        part: 'Board strips',
-        quantity: 20,
-        width: 25.4,
-        thickness: 38.1,
-        length: 406.4,
-        species: 'Walnut',
-      },
-    ];
-
-    const pdf = generator.generateCutSheet(cutList);
-    pdf.save(`chopchop-${design.style}-${Date.now()}.pdf`);
+    try {
+      const generator = new PdfGenerator(design);
+      const pdf = generator.generateCutSheet(calculateRequiredParts(design));
+      pdf.save(`chopchop-${design.style}-${Date.now()}.pdf`);
+    } catch (error) {
+      console.error('PDF export failed:', error);
+      alert(`PDF export failed: ${error instanceof Error ? error.message : String(error)}`);
+    }
   };
 
   return (

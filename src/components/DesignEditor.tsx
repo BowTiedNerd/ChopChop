@@ -1,6 +1,6 @@
 import { BoardDesign, BoardStyle } from '../types';
 import { STYLE_NAMES, WOOD_SPECIES } from '../lib/defaults';
-import { inchText, metricText, mmToInches } from '../utils/format';
+import { inchText, metricText, mmToInches, inchesToMm } from '../utils/format';
 import { CustomDesigner } from './CustomDesigner';
 import { CustomDesign } from '../lib/customDesigner';
 
@@ -53,6 +53,12 @@ export function DesignEditor({ design, onChange }: DesignEditorProps) {
       },
     });
   };
+
+  // Inputs show the sheet's units: inches in Imperial, mm in Metric (stored value is always mm)
+  const toInput = (mm: number): number =>
+    design.unitSystem === 'metric' ? Math.round(mm * 10) / 10 : Math.round(mmToInches(mm) * 10000) / 10000;
+  const fromInput = (v: string): number =>
+    design.unitSystem === 'metric' ? parseFloat(v) : inchesToMm(parseFloat(v));
 
   const formatDimDisplay = (mm: number): string => {
     if (design.unitSystem === 'metric') {
@@ -109,9 +115,9 @@ export function DesignEditor({ design, onChange }: DesignEditorProps) {
         <input
           id="width"
           type="number"
-          value={design.dimensions.width}
-          onChange={(e) => updateDimensions('width', parseFloat(e.target.value))}
-          step="0.1"
+          value={toInput(design.dimensions.width)}
+          onChange={(e) => updateDimensions('width', fromInput(e.target.value))}
+          step={design.unitSystem === 'metric' ? '0.1' : '0.0625'}
           min="0"
         />
       </div>
@@ -123,9 +129,9 @@ export function DesignEditor({ design, onChange }: DesignEditorProps) {
         <input
           id="length"
           type="number"
-          value={design.dimensions.length}
-          onChange={(e) => updateDimensions('length', parseFloat(e.target.value))}
-          step="0.1"
+          value={toInput(design.dimensions.length)}
+          onChange={(e) => updateDimensions('length', fromInput(e.target.value))}
+          step={design.unitSystem === 'metric' ? '0.1' : '0.0625'}
           min="0"
         />
       </div>
@@ -137,9 +143,9 @@ export function DesignEditor({ design, onChange }: DesignEditorProps) {
         <input
           id="thickness"
           type="number"
-          value={design.dimensions.thickness}
-          onChange={(e) => updateDimensions('thickness', parseFloat(e.target.value))}
-          step="0.1"
+          value={toInput(design.dimensions.thickness)}
+          onChange={(e) => updateDimensions('thickness', fromInput(e.target.value))}
+          step={design.unitSystem === 'metric' ? '0.1' : '0.0625'}
           min="0"
         />
       </div>

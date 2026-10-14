@@ -67,6 +67,9 @@ h1 {
 
 .form-group input,
 .form-group select {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
   padding: 0.5rem;
   border: 1px solid #ccc;
   border-radius: 4px;
