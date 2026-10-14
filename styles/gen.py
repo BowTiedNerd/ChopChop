@@ -1,5 +1,5 @@
 import json
-DRAFT="NEW DRAFT 3.0-draft2 by Board Master, rebuilt from standard shop practice after the 2026-10-13 data loss. NOT 2.5.3.2. Values marked shopDefault:true are my defaults, not recovered values."
+DRAFT="NEW DRAFT 3.0-draft3 by Board Master, rebuilt from standard shop practice after the 2026-10-13 data loss. NOT 2.5.3.2. Values marked shopDefault:true are my defaults, not recovered values."
 # shared pieces
 ALLOW_LONG={"kerf_mm":3.175,"kerf_text":"1/8\" (3.2 mm) full-kerf blade","roughToFinalOversize_mm":{"thickness":3.0,"width":6.0,"length":50.0},"planerMinimum_mm":{"length":305.0,"thickness":6.5},"jointerMinimum_mm":{"length":305.0},"minPieceLength_mm":{"planerJointer":305.0,"tableSawFreehand":152.0,"sledHoldDownMax":152.0},"flatteningAllowance_mm":1.5,"sandingLoss_mm":0.5,"shopDefault":True}
 ALLOW_END=dict(ALLOW_LONG,flatteningAllowance_mm=5.0)
@@ -27,8 +27,14 @@ FINISH_LONG=[step(90,"Flatten and sand","Scrape glue, then plane or sand flat. S
  step(91,"Edge profile","Rout the edge profile, default: 1/8\" (3 mm) roundover. Optional finger grips: core box / round-nose bit 3/8–1/2\" (9.5–12.7 mm).",{"Bit":"1/8\" (3 mm) roundover"},["router"],"router","outline"),
  step(92,"Finish","Raise the grain with a damp cloth, sand 180 again, then flood with food-safe mineral oil and top with board butter.",{},["food"],None,None)]
 FINISH_END=[step(90,"Flatten and sand","Flatten with a router sled or drum sander, never the thickness planer. Sand 80, 120, 180 grit. Break edges (180 grit).",{"Grits":"80 / 120 / 180"},["endplaner"],"router-sled","top-view")]+FINISH_LONG[1:]
+import re
 def renum(steps):
-    for i,s in enumerate(steps,1): s["stepNumber"]=i
+    seen={}
+    for i,s in enumerate(steps,1):
+        s["stepNumber"]=i
+        base=re.sub(r"[^a-z0-9]+","-",s["title"].lower()).strip("-")
+        seen[base]=seen.get(base,0)+1
+        s["stepId"]=base if seen[base]==1 else f"{base}-{seen[base]}"
     return steps
 S={}
 S["face-grain"]=("Face Grain","Wide boards glued edge to edge, wide face up.",None,MILL+[rip(2,"boards to width"),glue(3,"Glue boards edge to edge, alternating growth rings."),step(4,"Trim to length","Square both ends on a crosscut sled.",{},["crosscut"],"crosscut-sled","crosscut")]+FINISH_LONG,ALLOW_LONG)

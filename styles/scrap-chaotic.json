@@ -1,0 +1,146 @@
+{
+  "style": "scrap-chaotic",
+  "draft": "NEW DRAFT 3.0-draft3 by Board Master, rebuilt from standard shop practice after the 2026-10-13 data loss. NOT 2.5.3.2. Values marked shopDefault:true are my defaults, not recovered values.",
+  "displayName": "Scrap Chaotic (End Grain)",
+  "description": "Random offcuts milled to one thickness and glued end grain up.",
+  "angles": null,
+  "steps": [
+    {
+      "stepNumber": 1,
+      "title": "Mill rough stock",
+      "description": "Joint one face and one edge on the jointer, then plane to final thickness plus 1/8\" (3 mm). Rest overnight, then plane to final thickness. Take ~1/64\" (0.4 mm) passes for the last two passes.",
+      "settings": {
+        "Final pass depth": "~1/64\" (0.4 mm)"
+      },
+      "safetyBanners": [
+        "WARNING: Use push blocks on the jointer. Never joint stock shorter than 12\" (305 mm) or thinner than 1/2\" (12.5 mm).",
+        "WARNING: Keep hands clear of the infeed and outfeed. Feed only boards at least 12\" (305 mm) long."
+      ],
+      "machineSetup": "jointer",
+      "figureType": "mill",
+      "stepId": "mill-rough-stock"
+    },
+    {
+      "stepNumber": 2,
+      "title": "Sort offcuts",
+      "description": "Discard pieces with checks, knots or softwood. Only pieces at least 12\" (305 mm) long go through the jointer and planer; glue shorter offcuts onto a 305 mm carrier panel first or sand them to thickness. Cut pieces of 6\" (152 mm) or less only on a sled with a hold-down.",
+      "settings": {},
+      "safetyBanners": [
+        "NOTE: Use closed-grain, non-toxic hardwoods only. Avoid spalted, softwood or oily/sensitising exotics on cutting surfaces.",
+        "WARNING: Use push blocks on the jointer. Never joint stock shorter than 12\" (305 mm) or thinner than 1/2\" (12.5 mm).",
+        "WARNING: Do not cut pieces shorter than 6\" (152 mm) free-hand on the table saw. Use a sled with a hold-down."
+      ],
+      "machineSetup": null,
+      "figureType": null,
+      "stepId": "sort-offcuts"
+    },
+    {
+      "stepNumber": 3,
+      "title": "Glue up",
+      "description": "Glue offcuts into rough panels. Alternate clamps above and below the panel and check for flat with a straightedge.",
+      "settings": {
+        "Clamp spacing": "about 8\" (200 mm)"
+      },
+      "safetyBanners": [
+        "NOTE: Use a waterproof PVA glue rated for indirect food contact. Clamp until squeeze-out turns rubbery, then scrape."
+      ],
+      "machineSetup": null,
+      "figureType": "glue-up",
+      "stepId": "glue-up"
+    },
+    {
+      "stepNumber": 4,
+      "title": "Crosscut slices",
+      "description": "Crosscut slices on a crosscut sled with a stop block.",
+      "settings": {},
+      "safetyBanners": [
+        "DANGER: Never use the rip fence as a length stop for crosscuts. Use a crosscut sled with a stop block set before the blade, so the offcut is never trapped between blade and fence.",
+        "WARNING: Do not cut pieces shorter than 6\" (152 mm) free-hand on the table saw. Use a sled with a hold-down."
+      ],
+      "machineSetup": "crosscut-sled",
+      "figureType": "crosscut",
+      "stepId": "crosscut-slices"
+    },
+    {
+      "stepNumber": 5,
+      "title": "Glue up",
+      "description": "Glue slices end grain up in random order. Alternate clamps above and below the panel and check for flat with a straightedge.",
+      "settings": {
+        "Clamp spacing": "about 8\" (200 mm)"
+      },
+      "safetyBanners": [
+        "NOTE: Use a waterproof PVA glue rated for indirect food contact. Clamp until squeeze-out turns rubbery, then scrape."
+      ],
+      "machineSetup": null,
+      "figureType": "glue-up",
+      "stepId": "glue-up-2"
+    },
+    {
+      "stepNumber": 6,
+      "title": "Flatten and sand",
+      "description": "Flatten with a router sled or drum sander, never the thickness planer. Sand 80, 120, 180 grit. Break edges (180 grit).",
+      "settings": {
+        "Grits": "80 / 120 / 180"
+      },
+      "safetyBanners": [
+        "DANGER: Never run an end-grain glue-up through the thickness planer. It can blow apart. Flatten with a router sled or drum sander."
+      ],
+      "machineSetup": "router-sled",
+      "figureType": "top-view",
+      "stepId": "flatten-and-sand"
+    },
+    {
+      "stepNumber": 7,
+      "title": "Edge profile",
+      "description": "Rout the edge profile, default: 1/8\" (3 mm) roundover. Optional finger grips: core box / round-nose bit 3/8\u20131/2\" (9.5\u201312.7 mm).",
+      "settings": {
+        "Bit": "1/8\" (3 mm) roundover"
+      },
+      "safetyBanners": [
+        "WARNING: Climb cuts can grab. Feed the router against the bit rotation and take shallow passes."
+      ],
+      "machineSetup": "router",
+      "figureType": "outline",
+      "stepId": "edge-profile"
+    },
+    {
+      "stepNumber": 8,
+      "title": "Finish",
+      "description": "Raise the grain with a damp cloth, sand 180 again, then flood with food-safe mineral oil and top with board butter.",
+      "settings": {},
+      "safetyBanners": [
+        "NOTE: Use closed-grain, non-toxic hardwoods only. Avoid spalted, softwood or oily/sensitising exotics on cutting surfaces."
+      ],
+      "machineSetup": null,
+      "figureType": null,
+      "stepId": "finish"
+    }
+  ],
+  "cutListAllowances": {
+    "kerf_mm": 3.175,
+    "kerf_text": "1/8\" (3.2 mm) full-kerf blade",
+    "roughToFinalOversize_mm": {
+      "thickness": 3.0,
+      "width": 6.0,
+      "length": 50.0
+    },
+    "planerMinimum_mm": {
+      "length": 305.0,
+      "thickness": 6.5
+    },
+    "jointerMinimum_mm": {
+      "length": 305.0
+    },
+    "minPieceLength_mm": {
+      "planerJointer": 305.0,
+      "tableSawFreehand": 152.0,
+      "sledHoldDownMax": 152.0
+    },
+    "flatteningAllowance_mm": 5.0,
+    "sandingLoss_mm": 0.5,
+    "shopDefault": true
+  },
+  "sizes": null,
+  "pricePerBF": null,
+  "notes": "Take ~1/64\" (0.4 mm) passes for final surfacing."
+}
