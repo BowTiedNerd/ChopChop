@@ -58,14 +58,36 @@ describe('PR1-REVIEW #3: No [Step Diagram] placeholders in PDFs', () => {
 });
 
 describe('PR1-REVIEW #4: Banner tests', () => {
-  it('should never truncate safety banners', () => {
+  it('should never truncate safety banners', async () => {
     // Safety banners must appear in full, no ellipsis or truncation
-    const banner = 'WARNING: Use push blocks on the jointer. Never joint stock shorter than 12" (305 mm) or thinner than 1/2" (12.7 mm).';
+    // This test generates a PDF and checks it's the expected size
+    // Truncated banners produce smaller PDFs
+    const design = createDefaultBoard();
+    const { calculateRequiredParts } = await import('./lumberPlanner');
+    const cutList = calculateRequiredParts(design);
+    const { loadStyleCatalog } = await import('./catalogLoader');
+    const catalog = loadStyleCatalog(design.style);
     
-    // Banner should not be truncated
-    expect(banner.length).toBeGreaterThan(50);
-    expect(banner).not.toContain('...');
-    expect(banner).not.toContain('…');
+    // Count total banner characters
+    let totalBannerChars = 0;
+    for (const step of catalog.steps) {
+      for (const banner of step.safetyBanners) {
+        totalBannerChars += banner.length;
+      }
+    }
+    
+    // Generate PDF
+    const generator = new PdfGenerator(design);
+    const doc = generator.generateCutSheet(cutList);
+    const pdfBuffer = Buffer.from(doc.output('arraybuffer'));
+    
+    // PDF should be reasonably sized (not truncated)
+    // With 20-char truncation, PDF is ~17.6KB
+    // With full banners, PDF is ~18.8KB
+    expect(pdfBuffer.length).toBeGreaterThan(18000);
+    
+    // Verify we have substantial banner content
+    expect(totalBannerChars).toBeGreaterThan(500);
   });
 
   it('should print all safety banners, not just first', () => {
