@@ -164,16 +164,20 @@ AssertionError: expected 1 to be +0 // Object.is equality
 **Change:** Disable panel width routing in lumberPlanner.ts (lines 240-252)
 **Test:** Panel width routing test with wide boards (8-10 species)
 **Command:** `npm test -- cutListWidth`
-**Result:** ✅ FAILS - 1 test fails with 3 violations:
+**Result:** ✅ FAILS - 1 test with 9 violations (3 wide panels):
 ```
 FAIL src/lib/cutListWidthSafety.test.ts > should route wide strip-set panels correctly (N7 test)
 Error: Panel width routing violations:
-  - checkerboard (wide): Walnut/Maple/Cherry/Oak/Ash/Mahogany/Birch/Beech/Hickory/Teak strip-set panel: g has width 454mm (> 305mm) without routing
-  - chevron (wide): Walnut/Maple/Cherry/Oak/Ash/Mahogany/Birch/Beech/Hickory/Teak strip-set panel: g has width 395mm (> 305mm) without routing
+  - checkerboard (wide): Panel 454mm says "Plane flat" - must use router sled or split sub-panels
+  - checkerboard (wide): Panel 454mm lacks router sled or split sub-panels method
+  - checkerboard (wide): Panel 454mm lacks width routing note
+  - chevron (wide): Panel 395mm says "Plane flat" - must use router sled or split sub-panels
+  - chevron (wide): Panel 395mm lacks router sled or split sub-panels method
+  - chevron (wide): Panel 395mm lacks width routing note
 
-All panels over 305mm must be routed to router sled or split into sub-panels ≤305mm.
+Wide panels (> 305mm) must use router sled or split sub-panels, NOT planer.
 ```
-**Note:** Test uses boards with 10 species to force panels > 305mm. Enforced by width checks in lumberPlanner.ts strip-set panel logic.
+**Note:** Test verifies wide panels have NO "Plane flat" method, MUST have router sled or split sub-panels. Test uses 10-species boards to force 454mm panels. When routing disabled, panels incorrectly sent to planer instead of sled/split.
 **Restore:** `git checkout -- src/lib/lumberPlanner.ts`
 
 ## Test Implementation Status

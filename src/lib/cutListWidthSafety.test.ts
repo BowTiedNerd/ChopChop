@@ -138,27 +138,33 @@ describe('Cut List Width Safety - widthRule enforcement', () => {
         
         const parts = calculateRequiredParts(design);
         
-        // Debug: log wide parts
-        const wideParts = parts.filter(p => p.width > panelMaxWidth);
-        if (wideParts.length > 0 && testCase.width === 406) {
-          debug.push(`${style} (${testCase.width}mm): Found ${wideParts.length} parts > ${panelMaxWidth}mm`);
-          wideParts.forEach(p => {
-            debug.push(`  - ${p.width.toFixed(0)}mm: ${p.part.substring(0, 100)}`);
-          });
-        }
-        
-        // Check strip-set panels
+        // Check wide panels have correct routing (NO planer, must use sled or split)
         for (const part of parts) {
-          // Check ANY part over max width without routing note
-          const hasRoutingNote = part.part.includes('[Width exceeds') || 
-                                part.part.includes('[Panel') ||
-                                part.part.includes('router sled') ||
-                                part.part.includes('sub-panels');
-          
-          if (!hasRoutingNote && part.width > panelMaxWidth) {
-            violations.push(
-              `${style} (${testCase.desc}): ${part.part.substring(0, 80)} has width ${part.width.toFixed(0)}mm (> ${panelMaxWidth}mm) without routing`
-            );
+          if (part.width > panelMaxWidth) {
+            // Wide panel must NOT have "Plane flat" method
+            if (part.part.includes('Plane flat')) {
+              violations.push(
+                `${style} (${testCase.desc}): Panel ${part.width.toFixed(0)}mm says "Plane flat" - must use router sled or split sub-panels`
+              );
+            }
+            
+            // Wide panel MUST have either router sled or split sub-panels method
+            const hasRouterSled = part.part.includes('Router sled') || part.part.includes('drum sander');
+            const hasSplitMethod = part.part.includes('Split into sub-panels');
+            
+            if (!hasRouterSled && !hasSplitMethod) {
+              violations.push(
+                `${style} (${testCase.desc}): Panel ${part.width.toFixed(0)}mm lacks router sled or split sub-panels method`
+              );
+            }
+            
+            // Verify routing note is present
+            const hasRoutingNote = part.part.includes('[Panel') && part.part.includes('mm wide');
+            if (!hasRoutingNote) {
+              violations.push(
+                `${style} (${testCase.desc}): Panel ${part.width.toFixed(0)}mm lacks width routing note`
+              );
+            }
           }
         }
       }
@@ -167,7 +173,7 @@ describe('Cut List Width Safety - widthRule enforcement', () => {
     if (violations.length > 0) {
       throw new Error(
         `Panel width routing violations:\n  - ${violations.join('\n  - ')}\n\n` +
-        `All panels over ${PLANER_MAX_WIDTH_MM}mm must be routed to router sled or split into sub-panels ≤${PLANER_MAX_WIDTH_MM}mm.`
+        `Wide panels (> ${PLANER_MAX_WIDTH_MM}mm) must use router sled or split sub-panels, NOT planer.`
       );
     }
     
