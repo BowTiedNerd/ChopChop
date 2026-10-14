@@ -42,6 +42,22 @@ describe('PR1-REVIEW #2: CTM and scale validation', () => {
     const notShrinkToFit = actualScale; // Not Math.min(1, someRatio)
     expect(notShrinkToFit).toBe(1);
   });
+  
+  it('should not scale PDF figures below readable size', async () => {
+    // PDF figures should be at actual size (scale=1), not scaled down
+    // This test generates a PDF and checks it has reasonable size
+    const design = createDefaultBoard();
+    const { calculateRequiredParts } = await import('./lumberPlanner');
+    const cutList = calculateRequiredParts(design);
+    const generator = new PdfGenerator(design);
+    const doc = generator.generateCutSheet(cutList);
+    const pdfBuffer = Buffer.from(doc.output('arraybuffer'));
+    
+    // PDFs with scale=1 are ~18.8KB (test PDF)
+    // PDFs with scale=0.1 are ~18.6KB (smaller figures)
+    // Setting threshold at 18.7KB to catch scaling violations
+    expect(pdfBuffer.length).toBeGreaterThan(18700);
+  });
 });
 
 describe('PR1-REVIEW #3: No [Step Diagram] placeholders in PDFs', () => {

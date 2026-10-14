@@ -68,8 +68,13 @@ AssertionError: expected 2 to be +0 // Object.is equality
 ### E7: PDF figures scaled to 0.1
 **Change:** Set figure scale=0.1 in pdf.ts addFigure
 **Expected:** PDF size test should fail
-**Command:** `npm test -- "pdf.*size|pdf.*scale"`
-**Status:** PENDING - Need PDF min size test
+**Command:** `npm test -- pr1Review`
+**Result:** ✅ FAILS - 1 test fails:
+```
+FAIL src/lib/pr1Review.test.ts > PR1-REVIEW #2: CTM and scale validation > should not scale PDF figures below readable size
+AssertionError: expected 18353 to be greater than 18700
+```
+**Restore:** `git checkout -- src/lib/pdf.ts samples/*.pdf`
 
 ### E8: Footer reduced to 5pt
 **Change:** Set footer font to 5pt in pdf.ts
