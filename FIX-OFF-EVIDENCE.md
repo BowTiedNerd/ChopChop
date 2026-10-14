@@ -161,15 +161,20 @@ AssertionError: expected 1 to be +0 // Object.is equality
 **Restore:** `git checkout -- src/lib/lumberPlanner.ts`
 
 ### N7: Panel width > 305mm to planer
-**Change:** Set planerMaxWidth_mm = 500 in catalog
-**Test:** Panel width test
+**Change:** Disable panel width routing in lumberPlanner.ts (lines 240-252)
+**Test:** Panel width routing test with wide boards (8-10 species)
 **Command:** `npm test -- cutListWidth`
-**Result:** ⚠️  NO VIOLATIONS - Test designs don't generate 305-500mm panels:
+**Result:** ✅ FAILS - 1 test fails with 3 violations:
 ```
-✓ cutListWidthSafety.test.ts (4 tests) - All pass
+FAIL src/lib/cutListWidthSafety.test.ts > should route wide strip-set panels correctly (N7 test)
+Error: Panel width routing violations:
+  - checkerboard (wide): Walnut/Maple/Cherry/Oak/Ash/Mahogany/Birch/Beech/Hickory/Teak strip-set panel: g has width 454mm (> 305mm) without routing
+  - chevron (wide): Walnut/Maple/Cherry/Oak/Ash/Mahogany/Birch/Beech/Hickory/Teak strip-set panel: g has width 395mm (> 305mm) without routing
+
+All panels over 305mm must be routed to router sled or split into sub-panels ≤305mm.
 ```
-**Note:** Changing limit 305→500mm doesn't create failures because test board designs (300mm wide) don't produce panels in that range. Enforced by width checks in lumberPlanner.ts strip-set panel logic.
-**Restore:** `git checkout -- styles/*.json`
+**Note:** Test uses boards with 10 species to force panels > 305mm. Enforced by width checks in lumberPlanner.ts strip-set panel logic.
+**Restore:** `git checkout -- src/lib/lumberPlanner.ts`
 
 ## Test Implementation Status
 

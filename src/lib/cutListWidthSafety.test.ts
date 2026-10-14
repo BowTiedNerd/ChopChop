@@ -78,6 +78,102 @@ describe('Cut List Width Safety - widthRule enforcement', () => {
     expect(violations.length).toBe(0);
   });
 
+  it('should route wide strip-set panels correctly (N7 test)', () => {
+    const violations: string[] = [];
+    
+    // Test with various board widths to produce panels from narrow to wide
+    const testWidths = [
+      { width: 300, desc: 'narrow' },     // Should produce panels ~305mm or less
+      { width: 406, desc: '16x24' },      // Should produce panels ~406mm (needs routing)
+      { width: 500, desc: 'wide' },       // Should produce panels ~500mm+ (needs routing)
+    ];
+    
+    for (const style of BOARD_STYLES) {
+      let catalog;
+      try {
+        catalog = loadStyleCatalog(style);
+      } catch {
+        continue;
+      }
+      
+      // Skip styles without strip-set panel rules
+      if (!catalog.cutListAllowances.blankRule?.blankUnit || 
+          catalog.cutListAllowances.blankRule.blankUnit !== 'stripSetPanel') {
+        continue;
+      }
+      
+      const panelMaxWidth = catalog.cutListAllowances.blankRule.panelMaxPlanerWidth_mm || 305;
+      
+      for (const testCase of testWidths) {
+        // Use many species for wider test cases to force wider panels  
+        // Need 8+ species to get panels > 305mm
+        const speciesCount = testCase.width >= 500 ? 10 : testCase.width >= 406 ? 8 : 3;
+        const species = [
+          { name: 'Walnut', color: '#654321' },
+          { name: 'Maple', color: '#F5E6D3' },
+          { name: 'Cherry', color: '#C04000' },
+          { name: 'Oak', color: '#D2B48C' },
+          { name: 'Ash', color: '#E8D7C3' },
+          { name: 'Mahogany', color: '#C04000' },
+          { name: 'Birch', color: '#F3E5D8' },
+          { name: 'Beech', color: '#F5DEB3' },
+          { name: 'Hickory', color: '#E5C9A3' },
+          { name: 'Teak', color: '#8B7355' },
+        ].slice(0, speciesCount);
+        
+        const design: BoardDesign = {
+          style: style,
+          dimensions: {
+            width: testCase.width,
+            length: 450,
+            thickness: 38,
+          },
+          species,
+          angle: style === 'chevron' || style === 'herringbone' ? 45 : undefined,
+          juiceGroove: { enabled: false, width: 0, depth: 0, fromEdge: 0, cornerRadius: 0 },
+          handles: { enabled: false, type: 'handle' },
+          rubberFeet: { enabled: false, diameter: 0, height: 0, inset: 0 },
+          unitSystem: 'metric',
+        };
+        
+        const parts = calculateRequiredParts(design);
+        
+        // Debug: log wide parts
+        const wideParts = parts.filter(p => p.width > panelMaxWidth);
+        if (wideParts.length > 0 && testCase.width === 406) {
+          debug.push(`${style} (${testCase.width}mm): Found ${wideParts.length} parts > ${panelMaxWidth}mm`);
+          wideParts.forEach(p => {
+            debug.push(`  - ${p.width.toFixed(0)}mm: ${p.part.substring(0, 100)}`);
+          });
+        }
+        
+        // Check strip-set panels
+        for (const part of parts) {
+          // Check ANY part over max width without routing note
+          const hasRoutingNote = part.part.includes('[Width exceeds') || 
+                                part.part.includes('[Panel') ||
+                                part.part.includes('router sled') ||
+                                part.part.includes('sub-panels');
+          
+          if (!hasRoutingNote && part.width > panelMaxWidth) {
+            violations.push(
+              `${style} (${testCase.desc}): ${part.part.substring(0, 80)} has width ${part.width.toFixed(0)}mm (> ${panelMaxWidth}mm) without routing`
+            );
+          }
+        }
+      }
+    }
+    
+    if (violations.length > 0) {
+      throw new Error(
+        `Panel width routing violations:\n  - ${violations.join('\n  - ')}\n\n` +
+        `All panels over ${PLANER_MAX_WIDTH_MM}mm must be routed to router sled or split into sub-panels ≤${PLANER_MAX_WIDTH_MM}mm.`
+      );
+    }
+    
+    expect(violations.length).toBe(0);
+  });
+
   it('should never generate cut list items over 152mm wide for jointer operations without routing note', () => {
     const violations: string[] = [];
     
