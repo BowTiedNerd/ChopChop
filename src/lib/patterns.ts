@@ -35,7 +35,7 @@ export function generatePattern(design: BoardDesign): PatternResult {
     case 'brick-basketweave':
       return generateBrickBasketweave(design);
     case 'chevron':
-      return generateChevron(design);
+      return generateChevron(design, design.angle || 45);
     case 'edge-grain':
       return generateEdgeGrain(design);
     case 'end-grain':
@@ -43,7 +43,7 @@ export function generatePattern(design: BoardDesign): PatternResult {
     case 'face-grain':
       return generateFaceGrain(design);
     case 'herringbone':
-      return generateHerringbone(design);
+      return generateHerringbone(design, design.angle || 45);
     case 'scrap-chaotic':
       return generateScrapChaotic(design);
     case 'stripe-inlay':
