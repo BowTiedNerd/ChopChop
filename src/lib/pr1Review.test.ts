@@ -1,4 +1,4 @@
-import { pdfShownText } from './pdfTestText';
+import { pdfShownText, pdfContent } from './pdfTestText';
 /**
  * PR1-REVIEW Missing Tests
  * Tests from the Board QA PR1 review that were identified as missing
@@ -37,7 +37,7 @@ describe('PR1-REVIEW #1: PDF minimum text size', () => {
     
     // Parse PDF as text to find font size directives
     // PDF format: /F<n> <size> Tf sets font, followed by text
-    const pdfText = pdfBuffer.toString('latin1');
+    const pdfText = pdfContent(pdfBuffer.toString('latin1'));
     
     // Look for footer text and extract font size before it
     // PDF text operators: "Tf" sets font, "Tj" or "TJ" outputs text

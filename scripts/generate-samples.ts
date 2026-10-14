@@ -17,6 +17,8 @@
  */
 
 import '../src/lib/rasterNode';
+// Samples are committed and byte-compared in CI: fixed timestamp/ID unless the caller sets one
+process.env.SOURCE_DATE_EPOCH ??= '1767225600';
 import { writeFileSync, mkdirSync, existsSync } from 'fs';
 import { join } from 'path';
 import { PdfGenerator, generateMillPlan } from '../src/lib/pdf';

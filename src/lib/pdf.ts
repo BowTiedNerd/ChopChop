@@ -28,7 +28,13 @@ export function setSvgRasterizer(r: SvgRasterizer | null): void {
 export const FIGURE_DPI = 300;
 
 function newDoc(): jsPDF {
-  const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'letter' });
+  const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'letter', compress: true });
+  // Reproducible output (CI byte-compares regenerated samples): honour SOURCE_DATE_EPOCH
+  const epoch = typeof process !== 'undefined' ? process.env?.SOURCE_DATE_EPOCH : undefined;
+  if (epoch) {
+    doc.setCreationDate(new Date(Number(epoch) * 1000));
+    doc.setFileId('00000000000000000000000000000000');
+  }
   const origText = doc.text.bind(doc);
   const origSplit = doc.splitTextToSize.bind(doc);
   const clean = (t: unknown): unknown => (typeof t === 'string' ? pdfSafe(t) : Array.isArray(t) ? t.map(clean) : t);
@@ -548,7 +554,7 @@ export class PdfGenerator {
       let bin = '';
       for (let i = 0; i < png.length; i++) bin += String.fromCharCode(png[i]);
       const pngUri = 'data:image/png;base64,' + btoa(bin);
-      this.doc.addImage(pngUri, 'PNG', this.margin, this.yPosition, displayWidth, displayHeight);
+      this.doc.addImage(pngUri, 'PNG', this.margin, this.yPosition, displayWidth, displayHeight, undefined, 'FAST');
       this.yPosition += displayHeight + 5;
     } else {
       throw new Error(`Malformed step figure SVG (no width/height/viewBox): ${svg.slice(0, 160)}`);
