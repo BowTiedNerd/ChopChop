@@ -1,6 +1,6 @@
 {
   "style": "scrap-chaotic",
-  "draft": "NEW DRAFT 3.0-draft5i by Board Master, rebuilt from standard shop practice after the 2026-10-13 data loss. NOT 2.5.3.2. Values marked shopDefault:true are my defaults, not recovered values.",
+  "draft": "NEW DRAFT 3.0-draft5l by Board Master, rebuilt from standard shop practice after the 2026-10-13 data loss. NOT 2.5.3.2. Values marked shopDefault:true are my defaults, not recovered values.",
   "displayName": "Scrap Chaotic (End Grain)",
   "description": "Random offcuts milled to one thickness and glued end grain up.",
   "angles": null,
@@ -23,7 +23,7 @@
     {
       "stepNumber": 2,
       "title": "Sort offcuts",
-      "description": "Discard pieces with checks, knots or softwood. Only pieces at least 12\" (305 mm) long go through the jointer and planer; glue shorter offcuts onto a 305 mm carrier panel first or sand them to thickness. Cut pieces of 6\" (152 mm) or less only on a sled with a hold-down.",
+      "description": "Discard pieces with checks, knots or softwood. Only pieces at least 12\" (305 mm) long go through the jointer and planer; never put shorter offcuts through either machine, even on a carrier. Sand or hand-plane short pieces to a common thickness, or glue them edge to edge into the panel first and flatten the panel on the router sled or drum sander once it is at least 12\" (305 mm) long. Cut pieces of 6\" (152 mm) or less only on a sled with a hold-down.",
       "settings": {},
       "safetyBanners": [
         "NOTE: Use closed-grain, non-toxic hardwoods only. Avoid spalted, softwood or oily/sensitising exotics on cutting surfaces.",
@@ -131,11 +131,16 @@
     "jointerMinimum_mm": {
       "length": 305.0
     },
+    "stripRipRule": {
+      "ripOver_mm": 1.6,
+      "then": "jointEdgeToFinalWidth"
+    },
     "endGrainGridRule": {
+      "panelThicknessEqualsCourseHeight": "brick-basketweave",
       "panelThicknessEqualsSquareSize": true,
       "stripMillThicknessOver_mm": 1.6,
       "rowsAlongLength": "boardLength/squareSize",
-      "sliceThickness": "boardThickness+flatteningAllowance_mm.endGrain",
+      "sliceThickness": "boardThickness+flatteningAllowance_mm",
       "printSliceThicknessOn": [
         "cutList",
         "crosscutStep"
@@ -149,7 +154,17 @@
       "alternatingSeamCheck": "lastStrip(k)!=firstStrip(k+1)"
     },
     "planerTextRule": {
-      "allowedIf": "longGrain and width<=planerMaxWidth_mm and length>=planerMinimum_mm.length",
+      "allowedIf": "straightParallelLongGrain and width<=planerMaxWidth_mm-planerMargin_mm and length>=planerMinimum_mm.length",
+      "planerMargin_mm": 6.0,
+      "neverForMixedGrain": [
+        "chevron",
+        "herringbone",
+        "scrap-chaotic",
+        "tumbling-block-3d",
+        "brick-basketweave"
+      ],
+      "mixedGrainRoute": "routerSledOrDrumSander",
+      "faceTooWideForJointerText": "Too wide for the jointer ({jointerMax}): flatten one face on a planer sled first, then plane the other face parallel",
       "neverFor": "endGrain",
       "template": "Planer OK: {width} wide, long grain"
     },

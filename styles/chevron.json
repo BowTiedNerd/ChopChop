@@ -1,6 +1,6 @@
 {
   "style": "chevron",
-  "draft": "NEW DRAFT 3.0-draft5i by Board Master, rebuilt from standard shop practice after the 2026-10-13 data loss. NOT 2.5.3.2. Values marked shopDefault:true are my defaults, not recovered values.",
+  "draft": "NEW DRAFT 3.0-draft5l by Board Master, rebuilt from standard shop practice after the 2026-10-13 data loss. NOT 2.5.3.2. Values marked shopDefault:true are my defaults, not recovered values.",
   "displayName": "Chevron",
   "description": "Strip panel cut at an angle; alternate pieces flipped to meet in a V.",
   "angles": {
@@ -160,11 +160,16 @@
     "jointerMinimum_mm": {
       "length": 305.0
     },
+    "stripRipRule": {
+      "ripOver_mm": 1.6,
+      "then": "jointEdgeToFinalWidth"
+    },
     "endGrainGridRule": {
+      "panelThicknessEqualsCourseHeight": "brick-basketweave",
       "panelThicknessEqualsSquareSize": true,
       "stripMillThicknessOver_mm": 1.6,
       "rowsAlongLength": "boardLength/squareSize",
-      "sliceThickness": "boardThickness+flatteningAllowance_mm.endGrain",
+      "sliceThickness": "boardThickness+flatteningAllowance_mm",
       "printSliceThicknessOn": [
         "cutList",
         "crosscutStep"
@@ -178,7 +183,17 @@
       "alternatingSeamCheck": "lastStrip(k)!=firstStrip(k+1)"
     },
     "planerTextRule": {
-      "allowedIf": "longGrain and width<=planerMaxWidth_mm and length>=planerMinimum_mm.length",
+      "allowedIf": "straightParallelLongGrain and width<=planerMaxWidth_mm-planerMargin_mm and length>=planerMinimum_mm.length",
+      "planerMargin_mm": 6.0,
+      "neverForMixedGrain": [
+        "chevron",
+        "herringbone",
+        "scrap-chaotic",
+        "tumbling-block-3d",
+        "brick-basketweave"
+      ],
+      "mixedGrainRoute": "routerSledOrDrumSander",
+      "faceTooWideForJointerText": "Too wide for the jointer ({jointerMax}): flatten one face on a planer sled first, then plane the other face parallel",
       "neverFor": "endGrain",
       "template": "Planer OK: {width} wide, long grain"
     },

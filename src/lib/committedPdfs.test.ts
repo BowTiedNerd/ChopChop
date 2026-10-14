@@ -1,6 +1,7 @@
 /** Reads the COMMITTED sample PDFs with pdftotext (what a woodworker actually sees). */
 import { describe, it, expect } from 'vitest';
 import { execFileSync } from 'child_process';
+import { readFileSync } from 'fs';
 
 const text = (name: string) => execFileSync('pdftotext', ['-layout', `samples/${name}.pdf`, '-'], { encoding: 'utf-8' });
 const flat = (name: string) => text(name).replace(/\s+/g, ' ');
@@ -11,8 +12,9 @@ describe('Committed PDFs: crosscut step prints the computed slice size (draft5h)
       expect(flat(n), n).toContain('Slice size: 1-11/16" (43 mm)');
     }
   });
-  it('metric: sheet units first, 40 mm + 5 mm = 45 mm (1-3/4")', () => {
-    expect(flat('metric')).toContain('Slice size: 45 mm (1-3/4")');
+  it('metric: sheet units first, 40 mm + 5 mm = 45 mm (1-25/32"), never "45.0 mm"', () => {
+    expect(flat('metric')).toContain('Slice size: 45 mm (1-25/32")');
+    expect(flat('metric')).not.toContain('45.0 mm');
   });
 });
 
@@ -31,9 +33,9 @@ const partColumn = (name: string) => {
 };
 
 describe('Board Master 2: every final/assembled flatten step prints its real width and route', () => {
-  it('chevron Step 8 prints the glue-up width and the planer template', () => {
+  it('chevron Step 8 prints the glue-up width and the router sled / drum sander, then sanding', () => {
     expect(step('chevron', 'Flatten and sand').replace(/\s+/g, ' ')).toContain(
-      'Flatten the final glue-up, 12.0" (305 mm) wide x 18.0" (457 mm) long: Planer OK: 12.0" (305 mm) wide, long grain.');
+      'Flatten the final glue-up, 12.0" (305 mm) wide: mixed grain: router sled or drum sander, never the planer. Then sand: 80, 120, 180 grit.');
   });
   it('no sample prints the generic planer sentence in Flatten and sand', () => {
     for (const n of SAMPLES) {
@@ -66,11 +68,11 @@ describe('Board Master 3 / Shop Tester D: length split and width split are label
 describe('Shop Tester A: end-grain square geometry', () => {
   it('checkerboard: strips 1" wide, milled 1.6 mm over, panel planed to the 1" square, 18 rows', () => {
     const f = partColumn('checkerboard-default');
-    expect(f).toContain('strips 1" (25 mm) wide, milled 1-1/16" (27 mm) thick; plane the glued panel to the 1" (25 mm) square size');
-    expect(f).toContain('18 slices × 43.1 mm');
+    expect(f).toContain('rip each strip 1-1/16" (27 mm), then joint to 1" (25 mm) wide; strips milled 1-1/16" (27 mm) thick; plane the glued panel to the square size 1" (25 mm)');
+    expect(f).toContain('18 slices; slice 1-11/16" (43 mm)');
   });
   it('slice size is printed on the cut list and the crosscut step', () => {
-    expect(partColumn('end-grain')).toContain('1-11/16" (43 mm) thick');
+    expect(partColumn('end-grain')).toContain('slice 1-11/16" (43 mm)');
     expect(step('end-grain', 'Crosscut slices')).toContain('Slice size: 1-11/16" (43 mm)');
   });
   it('metric board: 2 sub-panels', () => {
@@ -105,7 +107,7 @@ describe('Shop Tester E: every sub-panel prints its strip width', () => {
       const c = partColumn(n);
       const rows = (c.match(/sub-panel \d\/\d:/g) ?? []).length;
       expect(rows, n).toBeGreaterThan(0);
-      expect((c.match(/strips \S+ \(\d+ mm\) wide|strips \d+ mm \(\S+\) wide/g) ?? []).length, n).toBe(rows);
+      expect((c.match(/joint to \S+ \(\d+ mm\) wide|joint to \d+ mm \(\S+\) wide/g) ?? []).length, n).toBe(rows);
     }
   });
 });
@@ -146,5 +148,57 @@ describe('Board QA minor 1: mill-plan.pdf is text only, by decision', () => {
     const f = flat('mill-plan');
     expect(f).toContain('Flatten Panel A, sub-panel 1/2, 6.2" (158 mm) wide: Planer OK: 6.2" (158 mm) wide, long grain.');
     expect(f).not.toContain('plane flat if the panel is no wider than');
+  });
+});
+
+describe('draft5k/5l rules', () => {
+  it('(1) brick: slice = board thickness + 5 mm on cut list and step 5, no face sizes; panel planed to the 1" (25 mm) course', () => {
+    const c = partColumn('brick');
+    expect(c).toContain('slice 1-11/16" (43 mm)');
+    expect(c).toContain('plane to the course height 1" (25 mm)');
+    expect(c).not.toMatch(/25\.4 mm|76\.2 mm|1\.835"/);
+    expect(cutList('brick')).not.toContain('1.835"');
+    expect(step('brick', 'Crosscut slices')).toContain('Slice size: 1-11/16" (43 mm).');
+  });
+  it('(2) Planer OK never over 299 mm (planerMaxWidth_mm - planerMargin_mm)', () => {
+    for (const n of [...SAMPLES, 'tumbling-block']) {
+      for (const m of text(n).matchAll(/Planer OK: (?:\S+ \((\d+) mm\)|(\d+) mm)/g)) expect(Number(m[1] ?? m[2]), n).toBeLessThanOrEqual(299);
+    }
+  });
+  it('(3) mixed-grain styles: final flatten on the router sled or drum sander, then sanding, never Planer OK', () => {
+    for (const n of ['chevron', 'herringbone', 'scrap-chaotic', 'tumbling-block', 'brick']) {
+      const s = step(n, 'Flatten and sand').replace(/\s+/g, ' ');
+      expect(s, n).toContain('router sled or drum sander, never the planer. Then sand:');
+      expect(s, n).not.toContain('Planer OK');
+    }
+  });
+  it('(4) stripRipRule: 16x24 strips ripped 1.6 mm over, then jointed to final width', () => {
+    expect(partColumn('checkerboard-16x24')).toContain('rip each strip 1-13/32" (35 mm), then joint to 1-11/32" (34 mm) wide');
+  });
+  it('(5) faceTooWideForJointerText replaces the old jointer line', () => {
+    const f = flat('checkerboard-default');
+    expect(f).toContain('Too wide for the jointer (6.0" (152 mm)): flatten one face on a planer sled first, then plane the other face parallel');
+    expect(f).not.toContain('Width exceeds jointer');
+  });
+  it('(6) one value per line, square labelled 1-11/32" (34 mm)', () => {
+    expect(partColumn('checkerboard-16x24')).toContain('plane the glued panel to the square size 1-11/32" (34 mm)');
+    const s = step('end-grain', 'Crosscut slices');
+    for (const l of s.split('\n').filter(x => /^(Slice size|Final thickness|End-grain allowance):/.test(x))) {
+      expect((l.match(/\d+ mm/g) ?? []).length, l).toBe(1);
+    }
+    expect(cutList('checkerboard-default')).not.toMatch(/\d\.\d{3}"/);
+  });
+  it('(7) tumbling-block sample PDF and JSON exist with panel ids on sub-panel rows', () => {
+    expect(flat('tumbling-block')).toContain('Style: tumbling-block-3d');
+    const j = JSON.parse(readFileSync('samples/tumbling-block.json', 'utf-8'));
+    const subs = j.cutList.filter((r: { subPanel?: unknown }) => r.subPanel);
+    expect(subs.length).toBe(2);
+    for (const r of subs) expect(r.panelId).toBe('A');
+  });
+  it('(draft5l) scrap sheet never advises a carrier panel; "carrier" only in the never-warning', () => {
+    const lines = flat('scrap-chaotic').split(/(?<=[.;])\s/).filter(l => /carrier/i.test(l));
+    expect(lines.length).toBeGreaterThan(0);
+    for (const l of lines) expect(l).toMatch(/never/i);
+    expect(flat('scrap-chaotic')).not.toMatch(/glue[^.]*carrier/i);
   });
 });

@@ -104,6 +104,9 @@ export function buildExportDoc(design: BoardDesign, meta: { exportedAt: string; 
       thickness: f(item.thickness),
       length: f(item.length),
       species: item.species,
+      // sub-panel rows of one panel share panelId (A, B, ...); subPanel = { index, count }
+      ...(item.panelId ? { panelId: item.panelId } : {}),
+      ...(item.subPanel ? { subPanel: item.subPanel } : {}),
     })),
   };
   

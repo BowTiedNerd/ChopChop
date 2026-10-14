@@ -52,7 +52,7 @@ describe('Cut List Width Safety - widthRule enforcement', () => {
       // Check each part for width violations (only if marked for planer)
       for (const part of parts) {
         // Parts with width notes are already routed to alternative methods
-        const hasWidthNote = part.part.includes('[Width exceeds');
+        const hasWidthNote = /\[Width exceeds|Too wide for the jointer|too wide for the planer|router sled/.test(part.part);
         
         // If no width note and width exceeds planer max, that's a violation
         if (!hasWidthNote && part.width > maxWidth) {
@@ -209,7 +209,7 @@ describe('Cut List Width Safety - widthRule enforcement', () => {
       // Check each part for jointer width violations
       for (const part of parts) {
         // Parts with width notes are already routed to alternative methods
-        const hasWidthNote = part.part.includes('[Width exceeds');
+        const hasWidthNote = /\[Width exceeds|Too wide for the jointer|too wide for the planer|router sled/.test(part.part);
         
         // If no width note and width exceeds jointer max, that's a violation
         if (!hasWidthNote && part.width > maxWidth) {

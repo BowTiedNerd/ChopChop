@@ -151,7 +151,7 @@
   },
   "cutList": [
     {
-      "part": "Maple blank (mill & rip, then crosscut 1 × 51.4 mm slices)",
+      "part": "Maple blank: crosscut 1 slices; slice 1-11/16\" (43 mm)",
       "quantity": 1,
       "width": "3.957\" (≈3 61/64\")",
       "thickness": "1.835\" (≈1 53/64\")",
@@ -159,7 +159,7 @@
       "species": "Maple"
     },
     {
-      "part": "Walnut blank (mill & rip, then crosscut 1 × 76.5 mm slices)",
+      "part": "Walnut blank: crosscut 1 slices; slice 1-11/16\" (43 mm)",
       "quantity": 1,
       "width": "3.197\" (≈3 13/64\")",
       "thickness": "1.835\" (≈1 53/64\")",
@@ -167,7 +167,7 @@
       "species": "Walnut"
     },
     {
-      "part": "Walnut blank (mill & rip, then crosscut 1 × 51.4 mm slices)",
+      "part": "Walnut blank: crosscut 1 slices; slice 1-11/16\" (43 mm)",
       "quantity": 1,
       "width": "5.165\" (≈5 11/64\")",
       "thickness": "1.835\" (≈1 53/64\")",
@@ -175,7 +175,7 @@
       "species": "Walnut"
     },
     {
-      "part": "Walnut blank (mill & rip, then crosscut 1 × 117.7 mm slices)",
+      "part": "Walnut blank: crosscut 1 slices; slice 1-11/16\" (43 mm)",
       "quantity": 1,
       "width": "1.122\" (≈1 1/8\")",
       "thickness": "1.835\" (≈1 53/64\")",
@@ -183,7 +183,7 @@
       "species": "Walnut"
     },
     {
-      "part": "Maple blank (mill & rip, then crosscut 1 × 74.7 mm slices)",
+      "part": "Maple blank: crosscut 1 slices; slice 1-11/16\" (43 mm)",
       "quantity": 1,
       "width": "4.972\" (≈4 31/32\")",
       "thickness": "1.835\" (≈1 53/64\")",
@@ -191,7 +191,7 @@
       "species": "Maple"
     },
     {
-      "part": "Cherry blank (mill & rip, then crosscut 1 × 97.9 mm slices)",
+      "part": "Cherry blank: crosscut 1 slices; slice 1-11/16\" (43 mm)",
       "quantity": 1,
       "width": "3.957\" (≈3 61/64\")",
       "thickness": "1.835\" (≈1 53/64\")",
@@ -199,7 +199,7 @@
       "species": "Cherry"
     },
     {
-      "part": "Walnut blank (mill & rip, then crosscut 1 × 84.8 mm slices)",
+      "part": "Walnut blank: crosscut 1 slices; slice 1-11/16\" (43 mm)",
       "quantity": 1,
       "width": "3.591\" (≈3 19/32\")",
       "thickness": "1.835\" (≈1 53/64\")",
@@ -207,7 +207,7 @@
       "species": "Walnut"
     },
     {
-      "part": "Maple blank (mill & rip, then crosscut 1 × 77.0 mm slices)",
+      "part": "Maple blank: crosscut 1 slices; slice 1-11/16\" (43 mm)",
       "quantity": 1,
       "width": "0.921\" (≈59/64\")",
       "thickness": "1.835\" (≈1 53/64\")",
@@ -215,7 +215,7 @@
       "species": "Maple"
     },
     {
-      "part": "Walnut blank (mill & rip, then crosscut 1 × 109.8 mm slices)",
+      "part": "Walnut blank: crosscut 1 slices; slice 1-11/16\" (43 mm)",
       "quantity": 1,
       "width": "4.933\" (≈4 15/16\")",
       "thickness": "1.835\" (≈1 53/64\")",
@@ -223,7 +223,7 @@
       "species": "Walnut"
     },
     {
-      "part": "Cherry blank (mill & rip, then crosscut 1 × 113.5 mm slices) [Width exceeds jointer: use planer sled or hand flatten]",
+      "part": "Cherry blank: crosscut 1 slices; slice 1-11/16\" (43 mm); Too wide for the jointer (6.0\" (152 mm)): flatten one face on a planer sled first, then plane the other face parallel",
       "quantity": 1,
       "width": "6.028\" (≈6 1/32\")",
       "thickness": "1.835\" (≈1 53/64\")",
@@ -231,7 +231,7 @@
       "species": "Cherry"
     },
     {
-      "part": "Cherry blank (mill & rip, then crosscut 1 × 61.4 mm slices)",
+      "part": "Cherry blank: crosscut 1 slices; slice 1-11/16\" (43 mm)",
       "quantity": 1,
       "width": "2.122\" (≈2 1/8\")",
       "thickness": "1.835\" (≈1 53/64\")",
@@ -239,7 +239,7 @@
       "species": "Cherry"
     },
     {
-      "part": "Walnut blank (mill & rip, then crosscut 1 × 104.3 mm slices)",
+      "part": "Walnut blank: crosscut 1 slices; slice 1-11/16\" (43 mm)",
       "quantity": 1,
       "width": "4.106\" (≈4 7/64\")",
       "thickness": "1.835\" (≈1 53/64\")",
@@ -247,7 +247,7 @@
       "species": "Walnut"
     },
     {
-      "part": "Walnut blank (mill & rip, then crosscut 1 × 76.6 mm slices)",
+      "part": "Walnut blank: crosscut 1 slices; slice 1-11/16\" (43 mm)",
       "quantity": 1,
       "width": "2.583\" (≈2 37/64\")",
       "thickness": "1.835\" (≈1 53/64\")",
@@ -255,7 +255,7 @@
       "species": "Walnut"
     },
     {
-      "part": "Walnut blank (mill & rip, then crosscut 1 × 98.7 mm slices)",
+      "part": "Walnut blank: crosscut 1 slices; slice 1-11/16\" (43 mm)",
       "quantity": 1,
       "width": "3.783\" (≈3 25/32\")",
       "thickness": "1.835\" (≈1 53/64\")",
@@ -263,7 +263,7 @@
       "species": "Walnut"
     },
     {
-      "part": "Maple blank (mill & rip, then crosscut 1 × 112.3 mm slices)",
+      "part": "Maple blank: crosscut 1 slices; slice 1-11/16\" (43 mm)",
       "quantity": 1,
       "width": "2.969\" (≈2 31/32\")",
       "thickness": "1.835\" (≈1 53/64\")",
@@ -271,7 +271,7 @@
       "species": "Maple"
     },
     {
-      "part": "Maple blank (mill & rip, then crosscut 1 × 27.1 mm slices)",
+      "part": "Maple blank: crosscut 1 slices; slice 1-11/16\" (43 mm)",
       "quantity": 1,
       "width": "2.681\" (≈2 11/16\")",
       "thickness": "1.835\" (≈1 53/64\")",
@@ -279,7 +279,7 @@
       "species": "Maple"
     },
     {
-      "part": "Cherry blank (mill & rip, then crosscut 1 × 27.1 mm slices)",
+      "part": "Cherry blank: crosscut 1 slices; slice 1-11/16\" (43 mm)",
       "quantity": 1,
       "width": "3.524\" (≈3 17/32\")",
       "thickness": "1.835\" (≈1 53/64\")",
@@ -287,7 +287,7 @@
       "species": "Cherry"
     },
     {
-      "part": "Cherry blank (mill & rip, then crosscut 1 × 27.1 mm slices)",
+      "part": "Cherry blank: crosscut 1 slices; slice 1-11/16\" (43 mm)",
       "quantity": 1,
       "width": "5.016\" (≈5 1/64\")",
       "thickness": "1.835\" (≈1 53/64\")",
@@ -295,7 +295,7 @@
       "species": "Cherry"
     },
     {
-      "part": "Walnut blank (mill & rip, then crosscut 1 × 27.1 mm slices)",
+      "part": "Walnut blank: crosscut 1 slices; slice 1-11/16\" (43 mm)",
       "quantity": 1,
       "width": "2.224\" (≈2 7/32\")",
       "thickness": "1.835\" (≈1 53/64\")",

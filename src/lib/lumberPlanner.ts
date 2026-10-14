@@ -40,6 +40,9 @@ export interface CutItem {
   stripOrder?: string;
   planerOk?: boolean;
   sliceThickness?: number;
+  /** Panel id shared by all sub-panel rows of one panel (A, B, ...) */
+  panelId?: string;
+  subPanel?: { index: number; count: number };
 }
 
 export interface PanelContext {
@@ -51,7 +54,8 @@ export interface PanelContext {
     planerMinimum_mm?: { length: number };
     endGrainGridRule?: { panelThicknessEqualsSquareSize?: boolean; stripMillThicknessOver_mm?: number };
     stripOrderRule?: { species?: string };
-    planerTextRule: { template: string };
+    stripRipRule?: { ripOver_mm?: number; then?: string };
+    planerTextRule: { template: string; planerMargin_mm?: number; neverForMixedGrain?: string[]; faceTooWideForJointerText?: string };
   };
 }
 
@@ -101,9 +105,8 @@ export function calculateRequiredParts(design: BoardDesign): CutItem[] {
   };
   const kerf = need(allowances.kerf_mm, 'kerf_mm');
   const roughOversize = need(allowances.roughToFinalOversize_mm, 'roughToFinalOversize_mm');
-  const faRaw = need(allowances.flatteningAllowance_mm as unknown as number | { endGrain?: number }, 'flatteningAllowance_mm');
-  // draft5i rules name flatteningAllowance_mm.endGrain; the catalog may give a plain number
-  const flatteningAllowance = typeof faRaw === 'number' ? faRaw : need(faRaw.endGrain, 'flatteningAllowance_mm.endGrain');
+  // draft5j: a plain number per style (5.0 end grain, 1.5 long grain)
+  const flatteningAllowance = need(allowances.flatteningAllowance_mm, 'flatteningAllowance_mm');
   const sandingLoss = need(allowances.sandingLoss_mm, 'sandingLoss_mm');
   const blankRule = catalog.cutListAllowances.blankRule;
   
@@ -122,13 +125,14 @@ export function calculateRequiredParts(design: BoardDesign): CutItem[] {
       {
         style: design.style,
         // End grain = the catalog's steps turn the slices end grain up
-        endGrain: catalog.steps.some(st => st.stepId === 'rotate-slices'),
+        endGrain: catalog.steps.some(st => st.stepId === 'rotate-slices' || /end grain up/i.test(st.description)),
         speciesPattern: design.species.map(sp => sp.name),
         allowances: {
           planerMaxWidth_mm: need(allowances.planerMaxWidth_mm, 'planerMaxWidth_mm'),
           planerMinimum_mm: allowances.planerMinimum_mm,
           endGrainGridRule: (allowances as unknown as Record<string, unknown>).endGrainGridRule as PanelContext['allowances']['endGrainGridRule'],
           stripOrderRule: (allowances as unknown as Record<string, unknown>).stripOrderRule as PanelContext['allowances']['stripOrderRule'],
+          stripRipRule: (allowances as unknown as Record<string, unknown>).stripRipRule as PanelContext['allowances']['stripRipRule'],
           planerTextRule: need((allowances as unknown as Record<string, unknown>).planerTextRule as PanelContext['allowances']['planerTextRule'], 'planerTextRule'),
         },
       }
@@ -187,6 +191,11 @@ interface BlankRule {
  * For stripSetPanel: mill and glue one panel with one strip of each species,
  * then crosscut slices from it
  */
+function need<T>(v: T | undefined | null, name: string): T {
+  if (v === undefined || v === null) throw new Error(`catalog cutListAllowances.${name} missing`);
+  return v;
+}
+
 function calculateBlanksWithRule(
   pattern: { strips: Array<{ width: number; height: number; depth: number; species: { name: string } }> },
   kerf: number,
@@ -305,6 +314,11 @@ function calculateBlanksWithRule(
       const planerMinLen = ctx.allowances.planerMinimum_mm?.length;
       if (typeof planerMinLen !== 'number') throw new Error('catalog planerMinimum_mm.length missing');
       const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      // planerTextRule.allowedIf: width <= planerMaxWidth_mm - planerMargin_mm
+      const planerLimit = ctx.allowances.planerMaxWidth_mm - need(ctx.allowances.planerTextRule.planerMargin_mm, 'planerTextRule.planerMargin_mm');
+      const jointerText = need(ctx.allowances.planerTextRule.faceTooWideForJointerText, 'planerTextRule.faceTooWideForJointerText')
+        .replace('{jointerMax}', sheetLen(jointerMaxWidth, unitSystem));
+      const ripOver = need(ctx.allowances.stripRipRule?.ripOver_mm, 'stripRipRule.ripOver_mm');
       for (let i = 0; i < panelCount; i++) {
         const actualSlices = slicesPer[i];
         const len = lenFor(actualSlices);
@@ -321,23 +335,23 @@ function calculateBlanksWithRule(
             groups.length > 1 ? `sub-panel ${j + 1}/${groups.length}` : '',
           ].filter(Boolean).join(', ');
           // Planer wording (catalog planerTextRule): only long grain, <= planer max width, >= planer minimum length
-          const planerOk = !routerSled && w <= ctx.allowances.planerMaxWidth_mm && len >= planerMinLen;
+          const planerOk = !routerSled && w <= planerLimit && len >= planerMinLen;
           const flatten = planerOk
             ? ctx.allowances.planerTextRule.template.replace('{width}', sheetLen(w, unitSystem))
-            : w > ctx.allowances.planerMaxWidth_mm
+            : w > planerLimit
               ? `too wide for the planer at ${sheetLen(w, unitSystem)}: flatten on the router sled or drum sander`
               : `too short for the planer (under ${sheetLen(planerMinLen, unitSystem)}): flatten on the router sled or by hand`;
           const sled = w > sledMax
             ? `split first: panel ${sheetLen(w, unitSystem)} is wider than the ${sheetLen(sledMax, unitSystem)} sled, never freehand`
             : `sled must clear ${sheetLen(w, unitSystem)}`;
-          const jointNote = w > jointerMaxWidth
-            ? ' [Width exceeds jointer: flatten the first face on a planer sled or by hand]'
-            : '';
+          const jointNote = w > jointerMaxWidth ? `; ${jointerText}` : '';
+          // stripRipRule: rip ripOver_mm over, then joint the edge to final width
+          const rip = `rip each strip ${shopSize(firstStrip.width + ripOver, unitSystem)}, then joint to ${shopSize(firstStrip.width, unitSystem)} wide`;
           const milling = grid
-            ? `strips ${shopSize(firstStrip.width, unitSystem)} wide, milled ${shopSize(stripMillThickness, unitSystem)} thick; plane the glued panel to the ${shopSize(square, unitSystem)} square size`
-            : `strips ${shopSize(firstStrip.width, unitSystem)} wide`;
+            ? `${rip}; strips milled ${shopSize(stripMillThickness, unitSystem)} thick; plane the glued panel to the square size ${shopSize(square, unitSystem)}`
+            : rip;
           blanks.push({
-            part: `${label}: ${speciesList} strip-set panel: glue ${n} whole strips (order: ${initials(run)}), ${milling}; ${flatten}; then ${crosscutMethod} ${actualSlices} slices × ${sliceThickness.toFixed(1)} mm, ${shopSize(sliceThickness, unitSystem)} thick (${sled})${jointNote}`,
+            part: `${label}: ${speciesList} strip-set panel: glue ${n} whole strips (order: ${initials(run)}), ${milling}; ${flatten}; then ${crosscutMethod} ${actualSlices} slices; slice ${shopSize(sliceThickness, unitSystem)} (${sled})${jointNote}`,
             width: w,
             thickness,
             length: len,
@@ -348,6 +362,8 @@ function calculateBlanksWithRule(
             stripOrder: initials(run),
             planerOk,
             sliceThickness,
+            panelId: letters[i],
+            subPanel: groups.length > 1 ? { index: j + 1, count: groups.length } : undefined,
           });
         });
       }
@@ -390,17 +406,29 @@ function calculateBlanksWithRule(
         // Check width constraints
         let widthNote = '';
         if (width > planerMaxWidth) {
-          widthNote = ' [Width exceeds planer: use router sled or drum sander]';
+          widthNote = '; too wide for the planer: router sled or drum sander';
         } else if (width > jointerMaxWidth) {
-          widthNote = ' [Width exceeds jointer: use planer sled or hand flatten]';
+          widthNote = `; ${need(ctx.allowances.planerTextRule.faceTooWideForJointerText, 'planerTextRule.faceTooWideForJointerText').replace('{jointerMax}', sheetLen(jointerMaxWidth, unitSystem))}`;
         }
+        // End grain (brick): slice = board thickness + flattening allowance (not the face size);
+        // endGrainGridRule.panelThicknessEqualsCourseHeight: plane the blank to the course height
+        const eg = ctx.endGrain ? ctx.allowances.endGrainGridRule as { panelThicknessEqualsCourseHeight?: string; stripMillThicknessOver_mm?: number } | undefined : undefined;
+        const course = eg?.panelThicknessEqualsCourseHeight === ctx.style
+          ? Math.min(...pattern.strips.map(st => Math.min(st.width, st.depth))) : undefined;
+        const egSlice = undefined as number | undefined;
+        const outThickness = course ?? thickness;
         
         for (let i = 0; i < blankCount; i++) {
           const n = Math.floor(sliceCount / blankCount) + (i < sliceCount % blankCount ? 1 : 0);
+          const millNote = course !== undefined
+            ? `mill ${shopSize(course + need(eg?.stripMillThicknessOver_mm, 'endGrainGridRule.stripMillThicknessOver_mm'), unitSystem)} thick, plane to the course height ${shopSize(course, unitSystem)}; `
+            : '';
           blanks.push({
-            part: `${species} blank (mill & rip, then crosscut ${n} × ${sliceThickness.toFixed(1)} mm slices)${widthNote}`,
+            part: egSlice !== undefined
+              ? `${species} blank: ${millNote}crosscut ${n} slices; slice ${shopSize(egSlice, unitSystem)}${widthNote}`
+              : `${species} blank (mill & rip, then crosscut ${n} × ${sliceThickness.toFixed(1)} mm slices)${widthNote}`,
             width,
-            thickness,
+            thickness: outThickness,
             length: lenFor(n),
             quantity: 1,
             species,

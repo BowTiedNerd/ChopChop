@@ -11,6 +11,7 @@
  * - herringbone.pdf
  * - metric.pdf
  * - hand-hole.pdf
+ * - tumbling-block.pdf / tumbling-block.json
  * - scrap-chaotic.pdf
  * - features-combined.pdf (juice groove + feet + finger grip)
  * - mill-plan.pdf
@@ -89,6 +90,12 @@ generateSample('chevron', chevronBoard);
 const brickBoard = createDefaultBoard();
 brickBoard.style = 'brick-basketweave';
 generateSample('brick', brickBoard);
+
+// Tumbling block
+const tumblingBoard = createDefaultBoard();
+tumblingBoard.style = 'tumbling-block-3d';
+generateSample('tumbling-block', tumblingBoard);
+generateSampleJson('tumbling-block', tumblingBoard);
 
 // Metric board
 const metricBoard = createMetricBoard();

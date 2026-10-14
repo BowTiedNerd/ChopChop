@@ -130,11 +130,11 @@ export class PdfGenerator {
             description = this.finalFlattenDescription(description, catalog);
           }
           if (step.stepId === 'crosscut-slices') {
-            const faRaw = catalog.cutListAllowances.flatteningAllowance_mm as unknown as number | { endGrain?: number };
-            const allowance = typeof faRaw === 'number' ? faRaw : faRaw?.endGrain;
+            const allowance = catalog.cutListAllowances.flatteningAllowance_mm;
             if (typeof allowance !== 'number') throw new Error(`${this.design.style}: catalog flatteningAllowance_mm missing`);
             const slice = this.design.dimensions.thickness + allowance;
-            description = `${description}\nSlice size: ${shopSize(slice, this.design.unitSystem)} (final thickness ${shopSize(this.design.dimensions.thickness, this.design.unitSystem)} + ${allowance} mm end-grain allowance).`;
+            const u = this.design.unitSystem;
+            description = `${description}\nSlice size: ${shopSize(slice, u)}.\nFinal thickness: ${shopSize(this.design.dimensions.thickness, u)}.\nEnd-grain allowance: ${allowance} mm.`;
           }
           if (/crosscut|angled-cuts/.test(step.stepId)) {
             const sled = this.crosscutSledLines(catalog, step.stepId);
@@ -160,10 +160,10 @@ export class PdfGenerator {
   private resolveSettings(settings: Record<string, string> | undefined, catalog: StyleCatalog): Record<string, string> | undefined {
     if (!settings || this.cutList.length === 0) return settings;
     const unit = this.design.unitSystem;
-    const strip = /strips ([^,;]+?) wide/.exec(this.cutList.map(i => i.part).join('\n'))?.[1]
+    const strip = /rip each strip ([^,;]+?),/.exec(this.cutList.map(i => i.part).join('\n'))?.[1]
       ?? shopSize(Math.min(...this.cutList.map(i => i.width)), unit);
-    const faRaw = catalog.cutListAllowances.flatteningAllowance_mm as unknown as number | { endGrain?: number };
-    const fa = typeof faRaw === 'number' ? faRaw : faRaw?.endGrain ?? 0;
+    const fa = catalog.cutListAllowances.flatteningAllowance_mm;
+    if (typeof fa !== 'number') throw new Error(`${this.design.style}: catalog flatteningAllowance_mm missing`);
     const out: Record<string, string> = {};
     for (const [k, v] of Object.entries(settings)) {
       if (!/from (the )?cut list/.test(v)) { out[k] = v; continue; }
@@ -181,14 +181,16 @@ export class PdfGenerator {
   private planerRoute(width: number, length: number, endGrain: boolean, catalog: StyleCatalog): string {
     const a = catalog.cutListAllowances as unknown as {
       planerMaxWidth_mm?: number; planerMinimum_mm?: { length?: number };
-      planerTextRule?: { template?: string };
+      planerTextRule?: { template?: string; planerMargin_mm?: number };
     };
     const unit = this.design.unitSystem;
     const max = a.planerMaxWidth_mm, min = a.planerMinimum_mm?.length, tpl = a.planerTextRule?.template;
     if (max === undefined || min === undefined || !tpl) throw new Error(`${this.design.style}: catalog planer rule missing`);
+    const margin = a.planerTextRule?.planerMargin_mm;
+    if (margin === undefined) throw new Error(`${this.design.style}: catalog planerTextRule.planerMargin_mm missing`);
     const w = sheetLen(width, unit);
     if (endGrain) return `end grain: router sled or drum sander, never the planer`;
-    if (width > max) return `too wide for the planer at ${w}: router sled or drum sander`;
+    if (width > max - margin) return `too wide for the planer at ${w}: router sled or drum sander`;
     if (length < min) return `too short for the planer at ${sheetLen(length, unit)} long: router sled or drum sander`;
     return tpl.replace('{width}', w);
   }
@@ -219,9 +221,15 @@ export class PdfGenerator {
   private finalFlattenDescription(generic: string, catalog: StyleCatalog): string {
     const d = this.design.dimensions;
     const unit = this.design.unitSystem;
-    const route = this.planerRoute(d.width, d.length, this.isEndGrain(catalog), catalog);
+    // planerTextRule.neverForMixedGrain: mixed grain directions in the final glue-up never go through the planer
+    const mixed = (catalog.cutListAllowances as unknown as { planerTextRule?: { neverForMixedGrain?: string[] } })
+      .planerTextRule?.neverForMixedGrain;
+    if (!mixed) throw new Error(`${this.design.style}: catalog planerTextRule.neverForMixedGrain missing`);
+    const route = mixed.includes(this.design.style)
+      ? 'mixed grain: router sled or drum sander, never the planer'
+      : this.planerRoute(d.width, d.length, this.isEndGrain(catalog), catalog);
     const rest = generic.slice(Math.max(0, generic.indexOf('Sand ')));
-    return `Flatten the final glue-up, ${sheetLen(d.width, unit)} wide x ${sheetLen(d.length, unit)} long:\n${route}.\n${rest}`.trim();
+    return `Flatten the final glue-up, ${sheetLen(d.width, unit)} wide:\n${route}.\nThen sand: ${rest.replace(/^Sand /, '')}`.trim();
   }
 
   /** Sled width each crosscut needs; over catalog sledMaxWidth_mm, split first. */
@@ -361,9 +369,9 @@ export class PdfGenerator {
       const row = [
         item.part,
         item.quantity.toString(),
-        this.formatDim(item.width, unit),
-        this.formatDim(item.thickness, unit),
-        this.formatDim(item.length, unit),
+        shopSize(item.width, unit),
+        shopSize(item.thickness, unit),
+        shopSize(item.length, unit),
         item.species,
       ];
       // part text wraps per '; ' clause so a clause such as the planer line stays on one line when it fits
