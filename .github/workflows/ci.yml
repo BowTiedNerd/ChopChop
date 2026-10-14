@@ -49,8 +49,12 @@ jobs:
     
     - name: Run boardviz tests
       run: |
-        if [ -f visuals/test_boardviz.py ]; then
-          cd visuals && python3 -m unittest test_boardviz -v
+        if [ -f visuals/requirements.txt ]; then
+          echo "Installing Python dependencies..."
+          cd visuals && pip install -r requirements.txt
+          python3 -m unittest test_boardviz -v
+        elif [ -f visuals/test_boardviz.py ]; then
+          echo "Skipping boardviz tests (requirements.txt not found)"
         else
           echo "Skipping boardviz tests (test_boardviz.py not found)"
         fi
