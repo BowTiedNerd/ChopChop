@@ -64,6 +64,9 @@ export interface CutListAllowances {
     panelWideOption?: string[];  // ['routerSled', 'splitSubPanels']
     panelCrosscut?: string;  // 'crosscutSledWithStopBlock'
     panelWidthText?: string;
+    panelStrips?: string;  // 'allStripsAcrossWidth' = panel is all strips across width
+    sliceCount?: string;  // 'rowsAlongLength' = slice count is rows along length
+    overLength?: string;  // 'splitPanels' = split into multiple panels if over max
     text: string;
   };
   shopDefault: boolean;  // New flag
