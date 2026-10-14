@@ -1,12 +1,12 @@
 {
  "ok": true,
- "labelsChecked": 60,
+ "labelsChecked": 64,
  "issues": [],
- "exportSha256": "650668a42513bbde9dc3ae23b61186fe6dbc6850b7a82247e815b1fd90347e43",
+ "exportSha256": "15b1075e6b023285433f10260e010049fca04ac77b6e706c1e50bd89b99c8ae4",
  "freshExportIdentical": true,
  "preset": "tumbling-block-3d",
  "sets": [],
- "catalogDraft": "NEW DRAFT 3.0-draft3 by Board Master, re",
+ "catalogDraft": "NEW DRAFT 3.0-draft5 by Board Master, re",
  "exportVsCatalog": [
   "cutList.0 (Walnut strip): length 119.2 mm is under the 305 mm planer/jointer minimum; export gives no longer blank to mill first",
   "cutList.1 (Maple strip): length 119.2 mm is under the 305 mm planer/jointer minimum; export gives no longer blank to mill first"

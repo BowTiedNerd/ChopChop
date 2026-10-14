@@ -1,14 +1,23 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="545" height="512" viewBox="0 0 545 512" data-figure="handle">
-<rect data-bg="1" x="0" y="0" width="545" height="512" fill="#FFFFFF"/>
-<text x="20.00" y="30.00" font-family="DejaVu Sans" font-size="16" fill="#222222" font-weight="bold"><tspan x="20.00" y="30.00">Face Grain: handle overlay</tspan></text>
-<rect x="146.72" y="70.00" width="243.84" height="365.76" rx="0.00" fill="#E6D3B3" stroke="#222222" stroke-width="1.5"/>
-<rect x="219.87" y="40.00" width="97.54" height="30.00" rx="10.00" fill="#E6D3B3" stroke="#222222" stroke-width="1.5"/>
-<line x1="146.72" y1="70.00" x2="118.72" y2="70.00" stroke="#555" stroke-width="0.8" stroke-dasharray="4,3" data-dim="1"/>
-<line x1="146.72" y1="435.76" x2="118.72" y2="435.76" stroke="#555" stroke-width="0.8" stroke-dasharray="4,3" data-dim="1"/>
-<line x1="122.72" y1="70.00" x2="122.72" y2="435.76" stroke="#555" stroke-width="1" data-dim="1"/>
-<line x1="118.72" y1="70.00" x2="126.72" y2="70.00" stroke="#555" stroke-width="1" data-dim="1"/>
-<line x1="118.72" y1="435.76" x2="126.72" y2="435.76" stroke="#555" stroke-width="1" data-dim="1"/>
-<rect data-patch="1" x="38.00" y="243.88" width="78.72" height="18.30" fill="#FFFFFF"/>
-<text x="114.72" y="256.88" font-family="DejaVu Sans" font-size="11" fill="#222222" text-anchor="end" data-dim="1" data-src="text.length"><tspan x="114.72" y="256.88">18.000&quot; (18&quot;)</tspan></text>
-<text x="20.00" y="469.76" font-family="DejaVu Sans" font-size="11" fill="#222222"><tspan x="20.00" y="469.76">Handle and hand-hole sizes are not in the app export or the catalog yet; the overlay shows</tspan><tspan x="20.00" y="484.06">position only.</tspan></text>
+<svg xmlns="http://www.w3.org/2000/svg" width="593" height="665" viewBox="0 0 593 665" data-figure="handle">
+<rect data-bg="1" x="0" y="0" width="593" height="665" fill="#FFFFFF"/>
+<text x="20.00" y="30.00" font-family="DejaVu Sans" font-size="16" fill="#222222" font-weight="bold"><tspan x="20.00" y="30.00">Face Grain: finger grips (both ends)</tspan></text>
+<rect x="132.64" y="110.00" width="304.80" height="457.20" rx="0.00" fill="#E6D3B3" stroke="#222222" stroke-width="1.5"/>
+<rect x="235.04" y="110.00" width="100.00" height="9.50" rx="4.75" fill="#B8956A" stroke="#222222" stroke-width="1"/>
+<rect x="235.04" y="557.70" width="100.00" height="9.50" rx="4.75" fill="#B8956A" stroke="#222222" stroke-width="1"/>
+<line x1="235.04" y1="110.00" x2="235.04" y2="76.00" stroke="#555" stroke-width="0.8" stroke-dasharray="4,3" data-dim="1"/>
+<line x1="335.04" y1="110.00" x2="335.04" y2="76.00" stroke="#555" stroke-width="0.8" stroke-dasharray="4,3" data-dim="1"/>
+<line x1="235.04" y1="80.00" x2="335.04" y2="80.00" stroke="#555" stroke-width="1" data-dim="1"/>
+<line x1="235.04" y1="76.00" x2="235.04" y2="84.00" stroke="#555" stroke-width="1" data-dim="1"/>
+<line x1="335.04" y1="76.00" x2="335.04" y2="84.00" stroke="#555" stroke-width="1" data-dim="1"/>
+<rect data-patch="1" x="230.47" y="62.00" width="109.14" height="18.30" fill="#FFFFFF"/>
+<text x="285.04" y="75.00" font-family="DejaVu Sans" font-size="11" fill="#222222" text-anchor="middle" data-dim="1" data-src="features.fingerGrip.text_fmt.length"><tspan x="285.04" y="75.00">3.937&quot; (≈3 15/16&quot;)</tspan></text>
+<line x1="132.64" y1="110.00" x2="114.64" y2="110.00" stroke="#555" stroke-width="0.8" stroke-dasharray="4,3" data-dim="2"/>
+<line x1="132.64" y1="119.50" x2="114.64" y2="119.50" stroke="#555" stroke-width="0.8" stroke-dasharray="4,3" data-dim="2"/>
+<line x1="118.64" y1="110.00" x2="118.64" y2="119.50" stroke="#555" stroke-width="1" data-dim="2"/>
+<line x1="114.64" y1="110.00" x2="122.64" y2="110.00" stroke="#555" stroke-width="1" data-dim="2"/>
+<line x1="114.64" y1="119.50" x2="122.64" y2="119.50" stroke="#555" stroke-width="1" data-dim="2"/>
+<rect data-patch="2" x="28.00" y="105.75" width="84.64" height="18.30" fill="#FFFFFF"/>
+<text x="110.64" y="118.75" font-family="DejaVu Sans" font-size="11" fill="#222222" text-anchor="end" data-dim="2" data-src="features.fingerGrip.text_fmt.depth"><tspan x="110.64" y="118.75">0.374&quot; (≈3/8&quot;)</tspan></text>
+<text x="20.00" y="601.20" font-family="DejaVu Sans" font-size="11" fill="#222222" data-src="features.fingerGrip.text"><tspan x="20.00" y="601.20">Finger grips 4&quot; (100 mm) long, routed into the end grain of each end with a core box bit, centred on</tspan><tspan x="20.00" y="615.50">the width.</tspan></text>
+<text x="20.00" y="636.80" font-family="DejaVu Sans" font-size="11" fill="#222222" data-src="label.gripBit"><tspan x="20.00" y="636.80">Bit: core box / round-nose bit 3/8–1/2&quot; (9.5–12.7 mm)</tspan></text>
 </svg>

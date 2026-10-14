@@ -1,8 +1,8 @@
 {
  "ok": true,
- "labelsChecked": 63,
+ "labelsChecked": 71,
  "issues": [],
- "exportSha256": "1efec47223b4e2ae6c806668a4ed4734ff354ef8168ae1afd102bb5dd57534a2",
+ "exportSha256": "9d36e05032ac4242b32ff63bc595755212514e8845b55c408ee44dba963237ce",
  "freshExportIdentical": true,
  "preset": "end-grain",
  "sets": [
@@ -13,6 +13,6 @@
   "juiceGroove.enabled=true",
   "rubberFeet.enabled=true"
  ],
- "catalogDraft": "NEW DRAFT 3.0-draft3 by Board Master, re",
+ "catalogDraft": "NEW DRAFT 3.0-draft5 by Board Master, re",
  "exportVsCatalog": []
 }

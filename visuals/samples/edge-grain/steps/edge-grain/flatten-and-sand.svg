@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="602" height="689" viewBox="0 0 602 689" data-figure="edge-grain/flatten-and-sand">
-<rect data-bg="1" x="0" y="0" width="602" height="689" fill="#FFFFFF"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="602" height="703" viewBox="0 0 602 703" data-figure="edge-grain/flatten-and-sand">
+<rect data-bg="1" x="0" y="0" width="602" height="703" fill="#FFFFFF"/>
 <text x="20.00" y="30.00" font-family="DejaVu Sans" font-size="16" fill="#222222" font-weight="bold"><tspan x="20.00" y="30.00">Edge Grain: top view</tspan></text>
 <polygon points="126.72,80.00 164.82,80.00 164.82,537.20 126.72,537.20" fill="#5B3A29" stroke="#333" stroke-width="0.5"/>
 <polygon points="164.82,80.00 202.92,80.00 202.92,537.20 164.82,537.20" fill="#F3E7D3" stroke="#333" stroke-width="0.5"/>
@@ -22,7 +22,7 @@
 <rect data-patch="2" x="26.00" y="299.60" width="78.72" height="18.30" fill="#FFFFFF"/>
 <text x="102.72" y="312.60" font-family="DejaVu Sans" font-size="11" fill="#222222" text-anchor="end" data-dim="2" data-src="text.length"><tspan x="102.72" y="312.60">18.000&quot; (18&quot;)</tspan></text>
 <text x="126.72" y="567.20" font-family="DejaVu Sans" font-size="11" fill="#222222" data-src="label.thickness"><tspan x="126.72" y="567.20">Thickness 1.500&quot; (1 1/2&quot;)</tspan></text>
-<text x="20.00" y="604.50" font-family="DejaVu Sans" font-size="11" fill="#222222" data-src="catalog.steps.5.description"><tspan x="20.00" y="604.50">Scrape glue, then plane or sand flat. Sand 80, 120, 180 grit. Break edges (180 grit).</tspan></text>
-<text x="20.00" y="625.80" font-family="DejaVu Sans" font-size="11" fill="#222222" font-weight="bold"><tspan x="20.00" y="625.80">Grits: 80 / 120 / 180</tspan></text>
-<text x="20.00" y="647.10" font-family="DejaVu Sans" font-size="11" fill="#9B1C1C" font-weight="bold" data-src="catalog.steps.5.safetyBanners.0"><tspan x="20.00" y="647.10">WARNING: Keep hands clear of the infeed and outfeed. Feed only boards at least 12&quot; (305</tspan><tspan x="20.00" y="661.40">mm) long.</tspan></text>
+<text x="20.00" y="604.50" font-family="DejaVu Sans" font-size="11" fill="#222222" data-src="catalog.steps.5.description"><tspan x="20.00" y="604.50">Scrape glue, then plane flat if the panel is no wider than 12&quot; (305 mm), otherwise use the router sled</tspan><tspan x="20.00" y="618.80">or drum sander. Sand 80, 120, 180 grit. Break edges (180 grit).</tspan></text>
+<text x="20.00" y="640.10" font-family="DejaVu Sans" font-size="11" fill="#222222" font-weight="bold"><tspan x="20.00" y="640.10">Grits: 80 / 120 / 180</tspan></text>
+<text x="20.00" y="661.40" font-family="DejaVu Sans" font-size="11" fill="#9B1C1C" font-weight="bold" data-src="catalog.steps.5.safetyBanners.0"><tspan x="20.00" y="661.40">WARNING: Keep hands clear of the infeed and outfeed. Feed only boards at least 12&quot; (305</tspan><tspan x="20.00" y="675.70">mm) long.</tspan></text>
 </svg>

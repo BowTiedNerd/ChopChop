@@ -1,6 +1,6 @@
 {
   "style": "stripe-inlay",
-  "draft": "NEW DRAFT 3.0-draft3 by Board Master, rebuilt from standard shop practice after the 2026-10-13 data loss. NOT 2.5.3.2. Values marked shopDefault:true are my defaults, not recovered values.",
+  "draft": "NEW DRAFT 3.0-draft5 by Board Master, rebuilt from standard shop practice after the 2026-10-13 data loss. NOT 2.5.3.2. Values marked shopDefault:true are my defaults, not recovered values.",
   "displayName": "Stripe / Inlay",
   "description": "Long-grain board with thin contrasting stripes.",
   "angles": null,
@@ -64,7 +64,7 @@
     {
       "stepNumber": 5,
       "title": "Flatten and sand",
-      "description": "Scrape glue, then plane or sand flat. Sand 80, 120, 180 grit. Break edges (180 grit).",
+      "description": "Scrape glue, then plane flat if the panel is no wider than 12\" (305 mm), otherwise use the router sled or drum sander. Sand 80, 120, 180 grit. Break edges (180 grit).",
       "settings": {
         "Grits": "80 / 120 / 180"
       },
@@ -117,6 +117,11 @@
     "jointerMinimum_mm": {
       "length": 305.0
     },
+    "planerMaxWidth_mm": 305.0,
+    "jointerMaxWidth_mm": 152.0,
+    "widthRule": {
+      "text": "A panel wider than the planer max width (305 mm) goes to the router sled or drum sander. Face-joint only boards no wider than the jointer max width (152 mm); wider boards get a planer sled or are flattened by hand."
+    },
     "minPieceLength_mm": {
       "planerJointer": 305.0,
       "tableSawFreehand": 152.0,
@@ -124,9 +129,33 @@
     },
     "flatteningAllowance_mm": 1.5,
     "sandingLoss_mm": 0.5,
+    "blankRule": {
+      "millWholeBlanksFirst": true,
+      "blankMinLength_mm": 305.0,
+      "crosscutTrim_mm": 25.0,
+      "text": "Mill and rip whole blanks before any crosscut. Blank length = max(305 mm, slices x (slice + kerf) + 2 x 25 mm trim). Never send a crosscut slice or piece shorter than 305 mm to the jointer or planer."
+    },
     "shopDefault": true
   },
   "sizes": null,
   "pricePerBF": null,
+  "features": {
+    "shopDefault": true,
+    "handHole": {
+      "length_mm": 100.0,
+      "width_mm": 25.4,
+      "endRadius_mm": 12.7,
+      "edgeInset_mm": 38.0,
+      "bit": "1/2\" (12.7 mm) straight or spiral bit",
+      "text": "Hand-hole slot 4\" (100 mm) long x 1\" (25.4 mm) wide, round ends, centred 1-1/2\" (38 mm) in from the end. Rout through with a template and a 1/2\" (12.7 mm) bit in shallow passes."
+    },
+    "fingerGrip": {
+      "length_mm": 100.0,
+      "depth_mm": 9.5,
+      "edgeInset_mm": 0.0,
+      "bit": "core box / round-nose bit 3/8\u20131/2\" (9.5\u201312.7 mm)",
+      "text": "Finger grips 4\" (100 mm) long, routed into the end grain of each end with a core box bit, centred on the width."
+    }
+  },
   "notes": "Take ~1/64\" (0.4 mm) passes for final surfacing."
 }

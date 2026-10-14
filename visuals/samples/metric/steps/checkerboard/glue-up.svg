@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="544" height="337" viewBox="0 0 544 337" data-figure="checkerboard/glue-up">
+<rect data-bg="1" x="0" y="0" width="544" height="337" fill="#FFFFFF"/>
+<text x="20.00" y="30.00" font-family="DejaVu Sans" font-size="16" fill="#222222" font-weight="bold"><tspan x="20.00" y="30.00">Checkerboard (End Grain): glue-up 1, step 3: Glue up</tspan></text>
+<rect x="60.00" y="120.00" width="30.00" height="48.00" rx="0.00" fill="#5B3A29" stroke="#333" stroke-width="0.8"/>
+<rect x="90.00" y="120.00" width="30.00" height="48.00" rx="0.00" fill="#F3E7D3" stroke="#333" stroke-width="0.8"/>
+<rect x="120.00" y="120.00" width="30.00" height="48.00" rx="0.00" fill="#5B3A29" stroke="#333" stroke-width="0.8"/>
+<rect x="150.00" y="120.00" width="30.00" height="48.00" rx="0.00" fill="#F3E7D3" stroke="#333" stroke-width="0.8"/>
+<rect x="180.00" y="120.00" width="30.00" height="48.00" rx="0.00" fill="#5B3A29" stroke="#333" stroke-width="0.8"/>
+<rect x="210.00" y="120.00" width="30.00" height="48.00" rx="0.00" fill="#F3E7D3" stroke="#333" stroke-width="0.8"/>
+<rect x="240.00" y="120.00" width="30.00" height="48.00" rx="0.00" fill="#5B3A29" stroke="#333" stroke-width="0.8"/>
+<rect x="270.00" y="120.00" width="30.00" height="48.00" rx="0.00" fill="#F3E7D3" stroke="#333" stroke-width="0.8"/>
+<rect x="300.00" y="120.00" width="30.00" height="48.00" rx="0.00" fill="#5B3A29" stroke="#333" stroke-width="0.8"/>
+<rect x="330.00" y="120.00" width="30.00" height="48.00" rx="0.00" fill="#F3E7D3" stroke="#333" stroke-width="0.8"/>
+<rect x="360.00" y="120.00" width="30.00" height="48.00" rx="0.00" fill="#5B3A29" stroke="#333" stroke-width="0.8"/>
+<rect x="390.00" y="120.00" width="30.00" height="48.00" rx="0.00" fill="#F3E7D3" stroke="#333" stroke-width="0.8"/>
+<line x1="150.00" y1="78.00" x2="150.00" y2="114.00" stroke="#222222" stroke-width="2"/>
+<polygon points="150.00,114.00 146.50,105.71 153.50,105.71" fill="#222222" stroke="#222222" stroke-width="1"/>
+<line x1="150.00" y1="210.00" x2="150.00" y2="174.00" stroke="#222222" stroke-width="2"/>
+<polygon points="150.00,174.00 153.50,182.29 146.50,182.29" fill="#222222" stroke="#222222" stroke-width="1"/>
+<line x1="330.00" y1="78.00" x2="330.00" y2="114.00" stroke="#222222" stroke-width="2"/>
+<polygon points="330.00,114.00 326.50,105.71 333.50,105.71" fill="#222222" stroke="#222222" stroke-width="1"/>
+<line x1="330.00" y1="210.00" x2="330.00" y2="174.00" stroke="#222222" stroke-width="2"/>
+<polygon points="330.00,174.00 333.50,182.29 326.50,182.29" fill="#222222" stroke="#222222" stroke-width="1"/>
+<line x1="10.00" y1="144.00" x2="54.00" y2="144.00" stroke="#222222" stroke-width="2"/>
+<polygon points="54.00,144.00 45.71,147.50 45.71,140.50" fill="#222222" stroke="#222222" stroke-width="1"/>
+<line x1="470.00" y1="144.00" x2="426.00" y2="144.00" stroke="#222222" stroke-width="2"/>
+<polygon points="426.00,144.00 434.29,140.50 434.29,147.50" fill="#222222" stroke="#222222" stroke-width="1"/>
+<text x="20.00" y="238.00" font-family="DejaVu Sans" font-size="11" fill="#222222" data-src="catalog.steps.2.description"><tspan x="20.00" y="238.00">Glue the first edge-grain panel. Alternate clamps above and below the panel and check for</tspan><tspan x="20.00" y="252.30">flat with a straightedge.</tspan></text>
+<text x="20.00" y="273.60" font-family="DejaVu Sans" font-size="11" fill="#222222" font-weight="bold"><tspan x="20.00" y="273.60">Clamp spacing: about 8&quot; (200 mm)</tspan></text>
+<text x="20.00" y="294.90" font-family="DejaVu Sans" font-size="11" fill="#9B1C1C" font-weight="bold" data-src="catalog.steps.2.safetyBanners.0"><tspan x="20.00" y="294.90">NOTE: Use a waterproof PVA glue rated for indirect food contact. Clamp until</tspan><tspan x="20.00" y="309.20">squeeze-out turns rubbery, then scrape.</tspan></text>
+</svg>

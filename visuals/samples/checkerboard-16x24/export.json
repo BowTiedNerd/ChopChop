@@ -2258,8 +2258,68 @@
    }
   }
  ],
+ "features": {
+  "handHole": {
+   "length_mm": 100,
+   "width_mm": 25.4,
+   "endRadius_mm": 12.7,
+   "edgeInset_mm": 38,
+   "bit": "1/2\" (12.7 mm) straight or spiral bit",
+   "text": "Hand-hole slot 4\" (100 mm) long x 1\" (25.4 mm) wide, round ends, centred 1-1/2\" (38 mm) in from the end. Rout through with a template and a 1/2\" (12.7 mm) bit in shallow passes.",
+   "text_fmt": {
+    "length": "3.937\" (≈3 15/16\")",
+    "width": "1.000\" (1\")",
+    "edgeInset": "1.496\" (≈1 1/2\")"
+   }
+  },
+  "fingerGrip": {
+   "length_mm": 100,
+   "depth_mm": 9.5,
+   "edgeInset_mm": 0,
+   "bit": "core box / round-nose bit 3/8–1/2\" (9.5–12.7 mm)",
+   "text": "Finger grips 4\" (100 mm) long, routed into the end grain of each end with a core box bit, centred on the width.",
+   "text_fmt": {
+    "length": "3.937\" (≈3 15/16\")",
+    "depth": "0.374\" (≈3/8\")"
+   }
+  }
+ },
+ "derivedBlanks": [
+  {
+   "cutListIndex": 0,
+   "slices": 108,
+   "slice_mm": 87.04166666666666,
+   "kerf_mm": 3.175,
+   "length_mm": 9793.399999999998,
+   "width_mm": 43.041666666666664,
+   "thickness_mm": 46.6,
+   "text": {
+    "length": "385.567\" (≈385 9/16\")",
+    "slice": "3.427\" (≈3 27/64\")",
+    "width": "1.695\" (≈1 11/16\")",
+    "thickness": "1.835\" (≈1 53/64\")",
+    "boardWidth": "16.000\" (16\")"
+   }
+  },
+  {
+   "cutListIndex": 1,
+   "slices": 108,
+   "slice_mm": 87.04166666666666,
+   "kerf_mm": 3.175,
+   "length_mm": 9793.399999999998,
+   "width_mm": 43.041666666666664,
+   "thickness_mm": 46.6,
+   "text": {
+    "length": "385.567\" (≈385 9/16\")",
+    "slice": "3.427\" (≈3 27/64\")",
+    "width": "1.695\" (≈1 11/16\")",
+    "thickness": "1.835\" (≈1 53/64\")",
+    "boardWidth": "16.000\" (16\")"
+   }
+  }
+ ],
  "catalog": {
-  "draft": "NEW DRAFT 3.0-draft3 by Board Master, rebuilt from standard shop practice after the 2026-10-13 data loss. NOT 2.5.3.2. Values marked shopDefault:true are my defaults, not recovered values.",
+  "draft": "NEW DRAFT 3.0-draft5 by Board Master, rebuilt from standard shop practice after the 2026-10-13 data loss. NOT 2.5.3.2. Values marked shopDefault:true are my defaults, not recovered values.",
   "displayName": "Checkerboard (End Grain)",
   "angles": null,
   "steps": [
@@ -2310,7 +2370,7 @@
    {
     "stepNumber": 4,
     "title": "Flatten first panel",
-    "description": "Plane or sand the panel flat. It is still long grain, so the planer is allowed here.",
+    "description": "Plane or sand the panel flat. It is still long grain, so the planer is allowed here if the panel is no wider than 12\" (305 mm); a wider panel goes to the router sled or drum sander.",
     "settings": {},
     "safetyBanners": [
      "WARNING: Keep hands clear of the infeed and outfeed. Feed only boards at least 12\" (305 mm) long."
@@ -2424,6 +2484,11 @@
    "jointerMinimum_mm": {
     "length": 305
    },
+   "planerMaxWidth_mm": 305,
+   "jointerMaxWidth_mm": 152,
+   "widthRule": {
+    "text": "A panel wider than the planer max width (305 mm) goes to the router sled or drum sander. Face-joint only boards no wider than the jointer max width (152 mm); wider boards get a planer sled or are flattened by hand."
+   },
    "minPieceLength_mm": {
     "planerJointer": 305,
     "tableSawFreehand": 152,
@@ -2431,6 +2496,12 @@
    },
    "flatteningAllowance_mm": 5,
    "sandingLoss_mm": 0.5,
+   "blankRule": {
+    "millWholeBlanksFirst": true,
+    "blankMinLength_mm": 305,
+    "crosscutTrim_mm": 25,
+    "text": "Mill and rip whole blanks before any crosscut. Blank length = max(305 mm, slices x (slice + kerf) + 2 x 25 mm trim). Never send a crosscut slice or piece shorter than 305 mm to the jointer or planer."
+   },
    "shopDefault": true
   },
   "kerfText": "0.125\" (1/8\")"

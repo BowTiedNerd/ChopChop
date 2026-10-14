@@ -60,6 +60,18 @@ const out = {
           feet: design.rubberFeet.enabled ? { diameter: f(design.rubberFeet.diameter), height: f(design.rubberFeet.height), inset: f(design.rubberFeet.inset) } : null },
   pattern: { bounds: pat.bounds, strips: pat.strips.map(s => ({ x: s.x, z: s.z, w: s.width, d: s.depth, h: s.height, species: s.species.name, color: s.species.color, rotation: s.rotation })) },
   cutList: parts.map(p => ({ ...p, text: { width: f(p.width), thickness: f(p.thickness), length: f(p.length) } })),
+  features: catalog.features ? {
+    handHole: { ...catalog.features.handHole, text_fmt: { length: f(catalog.features.handHole.length_mm), width: f(catalog.features.handHole.width_mm), edgeInset: f(catalog.features.handHole.edgeInset_mm) } },
+    fingerGrip: { ...catalog.features.fingerGrip, text_fmt: { length: f(catalog.features.fingerGrip.length_mm), depth: f(catalog.features.fingerGrip.depth_mm) } },
+  } : null,
+  // NOT app output: catalog blankRule applied by this adapter to the app's own cut-list pieces, for the mill figures only.
+  // The app export does not implement the rule yet (see agreement.json exportVsCatalog).
+  derivedBlanks: catalog.cutListAllowances.blankRule ? parts.map((p: any, i: number) => {
+    const r = catalog.cutListAllowances.blankRule; const k = catalog.cutListAllowances.kerf_mm;
+    const L = Math.max(r.blankMinLength_mm, p.quantity * (p.length + k) + 2 * r.crosscutTrim_mm);
+    return { cutListIndex: i, slices: p.quantity, slice_mm: p.length, kerf_mm: k, length_mm: L, width_mm: p.width, thickness_mm: p.thickness,
+             text: { length: f(L), slice: f(p.length), width: f(p.width), thickness: f(p.thickness), boardWidth: f(design.dimensions.width) } };
+  }) : null,
   catalog: { draft: catalog.draft, displayName: catalog.displayName, angles: catalog.angles, steps: catalog.steps, cutListAllowances: catalog.cutListAllowances, kerfText: f(catalog.cutListAllowances.kerf_mm) },
 };
 process.stdout.write(JSON.stringify(out, null, 1));

@@ -43,6 +43,7 @@ SAMPLES = {
     'stripe-inlay': ('stripe-inlay', []),
     'scrap-chaotic': ('scrap-chaotic', []),
     'tumbling-block-3d': ('tumbling-block-3d', []),
+    'metric': ('metric', ['rubberFeet.enabled=true']),
 }
 
 class ExportError(RuntimeError):
@@ -171,7 +172,7 @@ class Svg:
         self.text(cx, ty, label, anchor='middle', dim=n, src=src)
         return n
 
-    def dim_v(self, x, y1, y2, label, from_x=None, src=None, dash=None):
+    def dim_v(self, x, y1, y2, label, from_x=None, src=None, dash=None, label_dy=0.0):
         """Vertical dimension line at x; label to the LEFT of the line (room = vmargin)."""
         n = self.ndim = self.ndim + 1
         tag = f' data-dim="{n}"'
@@ -182,7 +183,7 @@ class Svg:
         for y in (y1, y2):
             self.line(x - 4, y, x + 4, y, stroke='#555', sw=1, extra=tag)
         w = text_width(label, MIN_FONT_PX)
-        ty = (y1 + y2) / 2 + 4
+        ty = (y1 + y2) / 2 + 4 + label_dy
         box = (x - 8 - w, ty - MIN_FONT_PX, x - 8, ty + MIN_FONT_PX * 0.3)
         self._patch(n, box)
         self.text(x - 8, ty, label, anchor='end', dim=n, src=src)
@@ -358,9 +359,20 @@ def fig_rip_fence(ex, step=None):
     fx = bx - rip['width'] * sc                                              # fence face to near tooth
     svg.rect(fx - 22, ty + 10, 22, th - 20, fill='#6B6B6B', stroke=DARK)     # fence
     svg.rect(fx, ty + 40, rip['width'] * sc, 180, fill=ex['pattern']['strips'][0]['color'], stroke=DARK, sw=0.8)  # stock (strip)
-    svg.text(fx + rip['width'] * sc + 12, ty + 34, 'Stock')   # off the stock, right of it, above blade
+    svg.text(bx + 16, ty + 34, 'Keeper strip')                # off the strip, right of the blade
+    # riving knife behind the blade (outfeed side = top; stock feeds up the page)
+    svg.rect(bx, ty + 22, 3.175 * sc, 30, fill='#4A4A4A', stroke=DARK)
+    svg.text(bx + 16, ty + 58, 'riving knife')
+    # push stick on the strip, trailing end
+    pw = rip['width'] * sc
+    svg.poly([(fx + pw * 0.2, ty + 205), (fx + pw * 0.8, ty + 205), (fx + pw * 0.8, ty + 252), (fx + pw * 0.2, ty + 238)],
+             fill='#E8B04A', stroke=DARK)
+    svg.text(bx + 16, ty + 250, 'push stick')
+    # feed arrow, clear of the stock
+    svg.arrow(bx + 150, ty + 240, bx + 150, ty + 130)
+    svg.text(bx + 162, ty + 190, 'Feed')
     svg.text(fx - 30, ty + 30, 'RIP FENCE', anchor='end', bold=True, fill=DARK)
-    svg.dim_h(fx, bx, ty + th + 30, rip['text']['width'], from_y=ty + 220, src='cutList.0.text.width')
+    svg.dim_h(fx, bx, ty + th + 30, rip['text']['width'], from_y=ty + 256, src='cutList.0.text.width')
     y = ty + th + 64
     y = svg.text(20, y, 'Measure fence face → near side of a tooth', max_w=520) + 18
     y = svg.text(20, y, 'set toward the fence', max_w=520) + 18
@@ -470,21 +482,55 @@ def fig_feet(ex):
     svg.text(20, oy + L + 34, feet_label(ex), max_w=max(W + ox, 520), src='modifier.feet')
     return svg
 
+def hand_hole_problems(k):
+    """A round-end slot's end radius must be exactly half its width."""
+    if abs(k['endRadius_mm'] - k['width_mm'] / 2) > 1e-6:
+        return [f"endRadius_mm {k['endRadius_mm']} != width_mm/2 ({k['width_mm'] / 2})"]
+    return []
+
 def fig_handle(ex):
+    """Hand hole (round-end slot) or finger grips, sized from catalog `features`, numbers formatted by the app."""
     h = ex['design']['handles']['type']
-    svg = Svg(title(ex, 'handle overlay' if h == 'handle' else f'hand hole ({h})'))
-    d = ex['design']['dimensions']; sc = 0.8
-    lab = ex['text']['length']
-    ox = 60 + svg.vmargin(lab); oy = 70
+    F = ex['features']
+    if F is None:
+        raise ValueError('catalog has no features block; handle sizes unavailable')
+    d = ex['design']['dimensions']; sc = 1.0
     W, L = d['width'] * sc, d['length'] * sc
-    svg.rect(ox, oy, W, L, fill='#E6D3B3', stroke=DARK, sw=1.5)
     if h == 'handle':
-        svg.rect(ox + W * 0.3, oy - 30, W * 0.4, 30, fill='#E6D3B3', stroke=DARK, sw=1.5, rx=10)
-    else:
-        # slot overlay: drawing, not background -> untagged
-        svg.rect(ox + W * 0.3, oy + 20, W * 0.4, 24, fill='#FBF8F2', stroke=DARK, sw=1.2, rx=12)
-    svg.dim_v(ox - 24, oy, oy + L, lab, from_x=ox, src='text.length', dash='4,3')
-    svg.text(20, oy + L + 34, 'Handle and hand-hole sizes are not in the app export or the catalog yet; the overlay shows position only.', max_w=max(W + ox, 520))
+        g = F['fingerGrip']; T = g['text_fmt']
+        svg = Svg(title(ex, 'finger grips (both ends)'))
+        ox = 40 + svg.vmargin(T['depth']); oy = 110
+        svg.rect(ox, oy, W, L, fill='#E6D3B3', stroke=DARK, sw=1.5)
+        gl, gd = g['length_mm'] * sc, g['depth_mm'] * sc
+        gx = ox + (W - gl) / 2
+        for y in (oy, oy + L - gd):
+            svg.rect(gx, y, gl, gd, fill='#B8956A', stroke=DARK, sw=1, rx=min(gd, gl) / 2)   # grip recess (drawing)
+        svg.dim_h(gx, gx + gl, oy - 30, T['length'], from_y=oy, src='features.fingerGrip.text_fmt.length', dash='4,3')
+        svg.dim_v(ox - 14, oy, oy + gd, T['depth'], from_x=ox, src='features.fingerGrip.text_fmt.depth', dash='4,3')
+        y = oy + L + 34
+        y = svg.text(20, y, g['text'], max_w=max(W + ox, 560), src='features.fingerGrip.text') + 18
+        svg.text(20, y, 'Bit: ' + g['bit'], max_w=max(W + ox, 560), src='label.gripBit')
+        return svg
+    k = F['handHole']; T = k['text_fmt']
+    bad = hand_hole_problems(k)
+    if bad:
+        raise ValueError('catalog handHole inconsistent: ' + '; '.join(bad))
+    svg = Svg(title(ex, f'hand hole ({h})'))
+    ox = 40 + svg.vmargin(T['edgeInset']) + 30 + svg.vmargin(T['width']); oy = 110
+    svg.rect(ox, oy, W, L, fill='#E6D3B3', stroke=DARK, sw=1.5)
+    sl, sw_ = k['length_mm'] * sc, k['width_mm'] * sc
+    cy = oy + k['edgeInset_mm'] * sc
+    sx = ox + (W - sl) / 2
+    # slot overlay: drawing, not background -> untagged
+    svg.rect(sx, cy - sw_ / 2, sl, sw_, fill='#FBF8F2', stroke=DARK, sw=1.2, rx=k['endRadius_mm'] * sc)
+    svg.dim_h(sx, sx + sl, oy - 30, T['length'], from_y=cy - sw_ / 2, src='features.handHole.text_fmt.length', dash='4,3')
+    # inset label lifted so its patch clears the slot-width extension line at the slot's top edge
+    svg.dim_v(ox - 14, oy, cy, T['edgeInset'], from_x=ox, src='features.handHole.text_fmt.edgeInset', dash='4,3',
+              label_dy=-max(0.0, ((oy + cy) / 2 + 4 + MIN_FONT_PX * 0.3 + 2) - (cy - sw_ / 2) + 3))
+    svg.dim_v(ox - 30 - svg.vmargin(T['edgeInset']), cy - sw_ / 2, cy + sw_ / 2, T['width'], from_x=sx, src='features.handHole.text_fmt.width', dash='4,3')
+    y = oy + L + 34
+    y = svg.text(20, y, k['text'], max_w=max(W + ox, 560), src='features.handHole.text') + 18
+    svg.text(20, y, 'Bit: ' + k['bit'] + ', with a template', max_w=max(W + ox, 560), src='label.holeBit')
     return svg
 
 def fig_inlay(ex):
@@ -500,6 +546,49 @@ def fig_inlay(ex):
         y = svg.text(40, y, f"{k + 1}. {s['species']}") + 16
     return svg
 
+MILL_MACHINES = ('jointer', 'planer')
+
+def fig_mill(ex, step):
+    """Whole blanks are milled first; slices are crosscut afterwards. Pieces on the jointer/planer are tagged
+    data-machine + data-length-mm (+ data-width-mm) so tests can prove nothing under the minimum is shown."""
+    svg = Svg(title(ex, f"step {step['stepNumber']}: {step['title']}"))
+    m = step.get('machineSetup')
+    i = step['stepNumber'] - 1
+    y = 64
+    if m in MILL_MACHINES:
+        B = ex.get('derivedBlanks')
+        if not B:
+            raise ValueError('catalog has no blankRule; cannot draw a milled blank')
+        b = min(B, key=lambda x: x['length_mm'])
+        bi = B.index(b)
+        panel = 'flatten' in step.get('stepId', '') or 'panel' in step['title'].lower()
+        A = ex['catalog']['cutListAllowances']
+        width_mm = ex['design']['dimensions']['width'] if panel else b['width_mm']
+        rerouted = None
+        if m == 'planer' and width_mm > A['planerMaxWidth_mm']:
+            m = rerouted = 'router-sled'          # wider than the planer: router sled or drum sander
+        if m == 'jointer' and width_mm > A['jointerMaxWidth_mm']:
+            m = rerouted = 'planer-sled'          # too wide to face-joint: planer sled or hand flattening
+        x0, y0 = 60, 120
+        pw = 520                                     # schematic (not to scale): blank drawn at fixed length
+        ph = 60 if panel else 30
+        svg.rect(x0 - 20, y0 + ph, pw + 40, 12, fill='#7A7A7A', stroke=DARK)      # bed / table
+        extra = f' data-machine="{m}" data-length-mm="{b["length_mm"]:.3f}" data-width-mm="{width_mm:.3f}"'
+        svg.rect(x0, y0, pw, ph, fill=ex['pattern']['strips'][0]['color'], stroke=DARK, extra=extra)
+        where = {'router-sled': 'router sled or drum sander', 'planer-sled': 'planer sled or hand flattening'}.get(m, m)
+        svg.text(x0 - 20, 84, ('Panel' if panel else 'Whole blank') + f' on the {where} (schematic, not to scale)', bold=True)
+        svg.dim_h(x0, x0 + pw, y0 + ph + 44, b['text']['length'], from_y=y0 + ph + 12, src=f'derivedBlanks.{bi}.text.length')
+        y = y0 + ph + 80
+        y = svg.text(20, y, ex['catalog']['cutListAllowances']['blankRule']['text'], max_w=600, src='catalog.cutListAllowances.blankRule.text') + 18
+        if rerouted:
+            y = svg.text(20, y, A['widthRule']['text'], max_w=600, fill=WARN, bold=True, src='catalog.cutListAllowances.widthRule.text') + 18
+        for k, bb in enumerate(B):
+            part = ex['cutList'][bb['cutListIndex']]['part']
+            y = svg.text(20, y, f"{part}: blank {bb['text']['length']} long, {bb['slices']} slices of {bb['text']['slice']} crosscut after milling.",
+                         max_w=600, src=f'label.blank.{k}') + 16
+        y = svg.text(20, y + 4, 'Blank lengths: catalog blankRule applied to the app cut list by boardviz; the app export does not apply the rule yet.', max_w=600) + 22
+    return step_text(svg, ex, step, 20, y, 600)
+
 def fig_text_step(ex, step):
     svg = Svg(title(ex, f"step {step['stepNumber']}: {step['title']}"))
     return step_text(svg, ex, step, 20, 64, 560)
@@ -511,7 +600,8 @@ def fig_for_step(ex, step, glue_idx=1):
     if t == 'crosscut': return fig_crosscut(ex, step)
     if t == 'strip-sequence': return fig_strip_seq(ex, step)
     if t == 'outline': return fig_outline(ex, step)
-    if t in ('mill', 'top-view'): return fig_text_step(ex, step) if t == 'mill' else add_step(fig_top_view(ex), ex, step)
+    if t == 'mill': return fig_mill(ex, step)
+    if t == 'top-view': return add_step(fig_top_view(ex), ex, step)
     raise ValueError(f'no figure for figureType {t!r}')
 
 def add_step(svg, ex, step):
@@ -551,6 +641,9 @@ def step_figures(ex):
 # ------------------------------------------------------------------ agreement
 def source_strings(ex):
     m = {'label.thickness': f"Thickness {ex['text']['thickness']}",
+         'label.gripBit': ('Bit: ' + ex['features']['fingerGrip']['bit']) if ex.get('features') else None,
+         'label.holeBit': ('Bit: ' + ex['features']['handHole']['bit'] + ', with a template') if ex.get('features') else None,
+         **{f'label.blank.{k}': f"{ex['cutList'][bb['cutListIndex']]['part']}: blank {bb['text']['length']} long, {bb['slices']} slices of {bb['text']['slice']} crosscut after milling." for k, bb in enumerate(ex.get('derivedBlanks') or [])},
          'label.planed': f"planed: {ex['text']['thickness']}",
          'modifier.groove': groove_label(ex) if ex['text']['groove'] else None,
          'modifier.feet': feet_label(ex) if ex['text']['feet'] else None}
@@ -673,6 +766,15 @@ def write_sample(name, preset, sets, out, do_png=False):
         for p in written: png(p)
     return folder, ag
 
+def strict_failures(out):
+    """CI strict mode: every exportVsCatalog entry in every sample's agreement.json is a failure."""
+    res = []
+    for name in SAMPLES:
+        f = os.path.join(out, name, 'agreement.json')
+        if not os.path.exists(f): res.append(f'{name}: agreement.json missing'); continue
+        res += [f'{name}: {m}' for m in json.load(open(f, encoding='utf8'))['exportVsCatalog']]
+    return res
+
 def write_index(out):
     parts = ['<!doctype html><meta charset="utf-8"><title>boardviz samples</title><body style="font-family:DejaVu Sans">']
     for name in SAMPLES:
@@ -690,6 +792,7 @@ def main(argv=None):
     ap.add_argument('--set', action='append', default=[])
     ap.add_argument('--out')
     ap.add_argument('--png', action='store_true')
+    ap.add_argument('--strict', action='store_true', help='fail if any agreement.json exportVsCatalog is non-empty')
     a = ap.parse_args(argv)
     out = check_out(a.out)
     try:
@@ -700,6 +803,10 @@ def main(argv=None):
                 print(f"{name}: agreement ok={ag['ok']} labels={ag['labelsChecked']} catalog-mismatches={len(ag['exportVsCatalog'])}")
                 bad += not ag['ok']
             write_index(out)
+            if a.strict:
+                sf = strict_failures(out)
+                for x in sf: print('STRICT', x, file=sys.stderr)
+                if sf: return 3
             return 1 if bad else 0
         if a.target == 'steps':
             for st in STYLES:

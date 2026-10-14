@@ -133,7 +133,7 @@ class Export(unittest.TestCase):
         for name in bv.SAMPLES:
             a = json.load(open(os.path.join(SAMPLES_DIR, name, 'agreement.json')))
             self.assertTrue(a['ok'], (name, a['issues'][:3])); self.assertTrue(a['freshExportIdentical']); n += 1
-        self.assertEqual(n, 11)
+        self.assertEqual(n, len(bv.SAMPLES)); self.assertEqual(n, 12)
 
     def test_relative_or_undefined_out_refused(self):
         for out in (None, 'samples', './x', 'undefined', ''):
@@ -224,7 +224,7 @@ def _gen_test(name):
         files = set(os.listdir(d))
         for need in ('top-view.svg', 'cut-list.svg', 'glue-up-1.svg', 'rip-fence-setup.svg', 'agreement.json', 'export.json'):
             self.assertIn(need, files, name)
-        extra = {'edge-grain': ['cross-section.svg', 'hand-hole.svg'], 'face-grain': ['handle.svg'],
+        extra = {'metric': ['feet-overlay.svg'], 'edge-grain': ['cross-section.svg', 'hand-hole.svg'], 'face-grain': ['handle.svg'],
                  'end-grain': ['modifiers.svg', 'feet-overlay.svg'], 'checkerboard-16x24': ['modifiers.svg'],
                  'stripe-inlay': ['inlay-detail.svg'], 'checkerboard': ['strip-seq.svg', 'crosscut.svg', 'outline.svg']}
         for need in extra.get(name, []): self.assertIn(need, files, name)
@@ -250,6 +250,112 @@ class Labels(unittest.TestCase):
         self.assertGreater(float(ht.group(1)), float(head.group(1)) + float(head.group(2)))
         bed = re.search(r'<rect x="[\d.]+" y="([\d.]+)" width="440.00" height="14.00"', t); pl = re.search(r'<tspan x="[\d.]+" y="([\d.]+)">planed: ', t)
         self.assertGreater(float(pl.group(1)), float(bed.group(1)) + 14)
+
+def machine_pieces(roots):
+    out = []
+    for r in roots:
+        for f in svgs(r):
+            for m in re.finditer(r'data-machine="([^"]+)" data-length-mm="([\d.]+)" data-width-mm="([\d.]+)"', open(f).read()):
+                out.append((f, m.group(1), float(m.group(2)), float(m.group(3))))
+    return out
+
+class Milling(unittest.TestCase):
+    def setUp(self):
+        self.A = bv.load_catalogs()['checkerboard']['cutListAllowances']
+
+    def test_no_jointer_or_planer_piece_under_minimum(self):
+        P = machine_pieces([SAMPLES_DIR, STEPS_ROOT])
+        self.assertTrue(any(m in ('jointer', 'planer') for _, m, _, _ in P))
+        for f, m, L, W in P:
+            if m in ('jointer', 'planer'):
+                self.assertGreaterEqual(L, self.A['blankRule']['blankMinLength_mm'], (f, m, L))
+
+    def test_planer_never_gets_panel_wider_than_max(self):
+        P = machine_pieces([SAMPLES_DIR, STEPS_ROOT])
+        for f, m, L, W in P:
+            if m == 'planer': self.assertLessEqual(W, self.A['planerMaxWidth_mm'], (f, W))
+        t = open(os.path.join(SAMPLES_DIR, 'checkerboard-16x24', 'steps', 'checkerboard', 'flatten-first-panel.svg')).read()
+        self.assertIn('data-machine="router-sled"', t); self.assertNotIn('data-machine="planer"', t)
+        self.assertIn('data-src="catalog.cutListAllowances.widthRule.text"', t)  # content verified by agreement.json
+
+    def test_jointer_never_face_joints_wider_than_max(self):
+        P = machine_pieces([SAMPLES_DIR, STEPS_ROOT])
+        for f, m, L, W in P:
+            if m == 'jointer': self.assertLessEqual(W, self.A['jointerMaxWidth_mm'], (f, W))
+        ex, _ = bv.run_export('face-grain', [])
+        for b in ex['derivedBlanks']: b['width_mm'] = 200.0
+        step = next(s for s in ex['catalog']['steps'] if s['machineSetup'] == 'jointer')
+        t = bv.fig_mill(ex, step).render('t')
+        self.assertIn('data-machine="planer-sled"', t); self.assertNotIn('data-machine="jointer"', t)
+
+    def test_blank_rule_reported_until_export_implements_it(self):
+        ex = json.load(open(os.path.join(SAMPLES_DIR, 'checkerboard', 'export.json')))
+        a = json.load(open(os.path.join(SAMPLES_DIR, 'checkerboard', 'agreement.json')))
+        short = [c for c in ex['cutList'] if c['length'] < 305]
+        if short: self.assertTrue(a['exportVsCatalog'])
+        # cut-list table still prints the app's own numbers (never replaced by boardviz)
+        t = open(os.path.join(SAMPLES_DIR, 'checkerboard', 'cut-list.svg')).read()
+        self.assertIn(bv.html.escape(ex['cutList'][0]['text']['length']), t)
+
+class HandHole(unittest.TestCase):
+    def test_end_radius_is_half_width_and_mismatch_flagged(self):
+        for st, cat in bv.load_catalogs().items():
+            k = cat['features']['handHole']
+            self.assertAlmostEqual(k['endRadius_mm'], k['width_mm'] / 2, places=6, msg=st)
+            self.assertEqual(bv.hand_hole_problems(k), [])
+        ex, _ = bv.run_export('edge-grain', ['handles.enabled=true', 'handles.type=hand-hole-slot'])
+        ex['features']['handHole']['endRadius_mm'] = 12.5
+        self.assertTrue(bv.hand_hole_problems(ex['features']['handHole']))
+        with self.assertRaisesRegex(ValueError, 'endRadius_mm'):
+            bv.fig_handle(ex)
+
+class Strict(unittest.TestCase):
+    def test_strict_mode_flags_every_mismatch(self):
+        sf = bv.strict_failures(SAMPLES_DIR)
+        total = sum(len(json.load(open(os.path.join(SAMPLES_DIR, n, 'agreement.json')))['exportVsCatalog']) for n in bv.SAMPLES)
+        self.assertEqual(len(sf), total)
+        d = os.path.join(PL(), 'strict'); shutil.copytree(SAMPLES_DIR, d)
+        f = os.path.join(d, 'face-grain', 'agreement.json'); a = json.load(open(f)); a['exportVsCatalog'] = ['planted']
+        json.dump(a, open(f, 'w'))
+        self.assertIn('face-grain: planted', bv.strict_failures(d))
+
+    def test_strict_is_on_by_default(self):
+        """The strict test must run (never skip) without the opt-out, and fail iff mismatches exist."""
+        env = {k: v for k, v in os.environ.items() if k != 'BOARDVIZ_ALLOW_MISMATCH'}
+        r = subprocess.run([sys.executable, '-m', 'unittest', '-v', 'test_boardviz.Strict.test_ci_strict_no_export_vs_catalog_mismatches'],
+                           cwd=HERE, env=env, capture_output=True, text=True)
+        out = r.stdout + r.stderr
+        self.assertNotIn('skipped', out)
+        expect_fail = bool(bv.strict_failures(SAMPLES_DIR))
+        self.assertEqual(r.returncode != 0, expect_fail, out[-600:])
+
+    def test_ci_strict_no_export_vs_catalog_mismatches(self):
+        """Runs by default and fails on any exportVsCatalog entry. Opt out with BOARDVIZ_ALLOW_MISMATCH=1
+        (the test is then skipped, reporting the count)."""
+        sf = bv.strict_failures(SAMPLES_DIR)
+        if os.environ.get('BOARDVIZ_ALLOW_MISMATCH') == '1':
+            self.skipTest(f'BOARDVIZ_ALLOW_MISMATCH=1: {len(sf)} export-vs-catalog mismatches allowed')
+        self.assertEqual(sf, [], f'{len(sf)} export-vs-catalog mismatches (app-side fixes; opt out with BOARDVIZ_ALLOW_MISMATCH=1)')
+
+class Features(unittest.TestCase):
+    def test_rip_fence_has_knife_push_stick_feed(self):
+        t = open(os.path.join(SAMPLES_DIR, 'checkerboard', 'rip-fence-setup.svg')).read()
+        for lab in ('riving knife', 'push stick', 'Feed', 'Keeper strip', 'RIP FENCE'): self.assertIn('>' + lab + '<', t)
+        self.assertIn('<polygon', t)
+
+    def test_handle_overlays_use_catalog_features(self):
+        ex = json.load(open(os.path.join(SAMPLES_DIR, 'edge-grain', 'export.json')))
+        t = open(os.path.join(SAMPLES_DIR, 'edge-grain', 'hand-hole.svg')).read()
+        for k in ('length', 'width', 'edgeInset'): self.assertIn(bv.html.escape(ex['features']['handHole']['text_fmt'][k]), t)
+        hh = ex['features']['handHole']
+        self.assertIn(f'width="{hh["length_mm"]:.2f}" height="{hh["width_mm"]:.2f}" rx="{hh["endRadius_mm"]:.2f}"', t)
+        self.assertIn('width="100.00" height="25.40" rx="12.70"', t)
+        self.assertIn('template', t)
+        ex = json.load(open(os.path.join(SAMPLES_DIR, 'face-grain', 'export.json')))
+        t = open(os.path.join(SAMPLES_DIR, 'face-grain', 'handle.svg')).read()
+        for k in ('length', 'depth'): self.assertIn(bv.html.escape(ex['features']['fingerGrip']['text_fmt'][k]), t)
+        self.assertEqual(t.count('width="100.00" height="9.50"'), 2)
+        self.assertIn(bv.html.escape(ex['features']['fingerGrip']['bit']), t)
 
 if __name__ == '__main__':
     unittest.main()

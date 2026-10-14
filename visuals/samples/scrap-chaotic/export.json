@@ -502,8 +502,340 @@
    }
   }
  ],
+ "features": {
+  "handHole": {
+   "length_mm": 100,
+   "width_mm": 25.4,
+   "endRadius_mm": 12.7,
+   "edgeInset_mm": 38,
+   "bit": "1/2\" (12.7 mm) straight or spiral bit",
+   "text": "Hand-hole slot 4\" (100 mm) long x 1\" (25.4 mm) wide, round ends, centred 1-1/2\" (38 mm) in from the end. Rout through with a template and a 1/2\" (12.7 mm) bit in shallow passes.",
+   "text_fmt": {
+    "length": "3.937\" (≈3 15/16\")",
+    "width": "1.000\" (1\")",
+    "edgeInset": "1.496\" (≈1 1/2\")"
+   }
+  },
+  "fingerGrip": {
+   "length_mm": 100,
+   "depth_mm": 9.5,
+   "edgeInset_mm": 0,
+   "bit": "core box / round-nose bit 3/8–1/2\" (9.5–12.7 mm)",
+   "text": "Finger grips 4\" (100 mm) long, routed into the end grain of each end with a core box bit, centred on the width.",
+   "text_fmt": {
+    "length": "3.937\" (≈3 15/16\")",
+    "depth": "0.374\" (≈3/8\")"
+   }
+  }
+ },
+ "derivedBlanks": [
+  {
+   "cutListIndex": 0,
+   "slices": 1,
+   "slice_mm": 104.56346021947874,
+   "kerf_mm": 3.175,
+   "length_mm": 305,
+   "width_mm": 100.49101508916324,
+   "thickness_mm": 46.6,
+   "text": {
+    "length": "12.008\" (≈12 1/64\")",
+    "slice": "4.117\" (≈4 7/64\")",
+    "width": "3.956\" (≈3 61/64\")",
+    "thickness": "1.835\" (≈1 53/64\")",
+    "boardWidth": "12.000\" (12\")"
+   }
+  },
+  {
+   "cutListIndex": 1,
+   "slices": 1,
+   "slice_mm": 129.68820301783265,
+   "kerf_mm": 3.175,
+   "length_mm": 305,
+   "width_mm": 81.24847393689986,
+   "thickness_mm": 46.6,
+   "text": {
+    "length": "12.008\" (≈12 1/64\")",
+    "slice": "5.106\" (≈5 7/64\")",
+    "width": "3.199\" (≈3 13/64\")",
+    "thickness": "1.835\" (≈1 53/64\")",
+    "boardWidth": "12.000\" (12\")"
+   }
+  },
+  {
+   "cutListIndex": 2,
+   "slices": 1,
+   "slice_mm": 104.58146433470507,
+   "kerf_mm": 3.175,
+   "length_mm": 305,
+   "width_mm": 131.21889574759945,
+   "thickness_mm": 46.6,
+   "text": {
+    "length": "12.008\" (≈12 1/64\")",
+    "slice": "4.117\" (≈4 1/8\")",
+    "width": "5.166\" (≈5 11/64\")",
+    "thickness": "1.835\" (≈1 53/64\")",
+    "boardWidth": "12.000\" (12\")"
+   }
+  },
+  {
+   "cutListIndex": 3,
+   "slices": 1,
+   "slice_mm": 170.90991083676266,
+   "kerf_mm": 3.175,
+   "length_mm": 305,
+   "width_mm": 28.541615226337445,
+   "thickness_mm": 46.6,
+   "text": {
+    "length": "12.008\" (≈12 1/64\")",
+    "slice": "6.729\" (≈6 47/64\")",
+    "width": "1.124\" (≈1 1/8\")",
+    "thickness": "1.835\" (≈1 53/64\")",
+    "boardWidth": "12.000\" (12\")"
+   }
+  },
+  {
+   "cutListIndex": 4,
+   "slices": 1,
+   "slice_mm": 127.91779835390946,
+   "kerf_mm": 3.175,
+   "length_mm": 305,
+   "width_mm": 126.34020919067214,
+   "thickness_mm": 46.6,
+   "text": {
+    "length": "12.008\" (≈12 1/64\")",
+    "slice": "5.036\" (≈5 1/32\")",
+    "width": "4.974\" (≈4 31/32\")",
+    "thickness": "1.835\" (≈1 53/64\")",
+    "boardWidth": "12.000\" (12\")"
+   }
+  },
+  {
+   "cutListIndex": 5,
+   "slices": 1,
+   "slice_mm": 151.11352880658438,
+   "kerf_mm": 3.175,
+   "length_mm": 305,
+   "width_mm": 100.53902606310014,
+   "thickness_mm": 46.6,
+   "text": {
+    "length": "12.008\" (≈12 1/64\")",
+    "slice": "5.949\" (≈5 61/64\")",
+    "width": "3.958\" (≈3 61/64\")",
+    "thickness": "1.835\" (≈1 53/64\")",
+    "boardWidth": "12.000\" (12\")"
+   }
+  },
+  {
+   "cutListIndex": 6,
+   "slices": 1,
+   "slice_mm": 137.96666666666664,
+   "kerf_mm": 3.175,
+   "length_mm": 305,
+   "width_mm": 91.17302812071331,
+   "thickness_mm": 46.6,
+   "text": {
+    "length": "12.008\" (≈12 1/64\")",
+    "slice": "5.432\" (≈5 7/16\")",
+    "width": "3.589\" (≈3 19/32\")",
+    "thickness": "1.835\" (≈1 53/64\")",
+    "boardWidth": "12.000\" (12\")"
+   }
+  },
+  {
+   "cutListIndex": 7,
+   "slices": 1,
+   "slice_mm": 130.14387860082303,
+   "kerf_mm": 3.175,
+   "length_mm": 305,
+   "width_mm": 23.44773662551437,
+   "thickness_mm": 46.6,
+   "text": {
+    "length": "12.008\" (≈12 1/64\")",
+    "slice": "5.124\" (≈5 1/8\")",
+    "width": "0.923\" (≈59/64\")",
+    "thickness": "1.835\" (≈1 53/64\")",
+    "boardWidth": "12.000\" (12\")"
+   }
+  },
+  {
+   "cutListIndex": 8,
+   "slices": 1,
+   "slice_mm": 162.97481138545953,
+   "kerf_mm": 3.175,
+   "length_mm": 305,
+   "width_mm": 125.31183127572017,
+   "thickness_mm": 46.6,
+   "text": {
+    "length": "12.008\" (≈12 1/64\")",
+    "slice": "6.416\" (≈6 27/64\")",
+    "width": "4.934\" (≈4 15/16\")",
+    "thickness": "1.835\" (≈1 53/64\")",
+    "boardWidth": "12.000\" (12\")"
+   }
+  },
+  {
+   "cutListIndex": 9,
+   "slices": 1,
+   "slice_mm": 166.6489368998628,
+   "kerf_mm": 3.175,
+   "length_mm": 305,
+   "width_mm": 153.13719135802472,
+   "thickness_mm": 46.6,
+   "text": {
+    "length": "12.008\" (≈12 1/64\")",
+    "slice": "6.561\" (≈6 9/16\")",
+    "width": "6.029\" (≈6 1/32\")",
+    "thickness": "1.835\" (≈1 53/64\")",
+    "boardWidth": "12.000\" (12\")"
+   }
+  },
+  {
+   "cutListIndex": 10,
+   "slices": 1,
+   "slice_mm": 114.53602537722908,
+   "kerf_mm": 3.175,
+   "length_mm": 305,
+   "width_mm": 53.87597736625513,
+   "thickness_mm": 46.6,
+   "text": {
+    "length": "12.008\" (≈12 1/64\")",
+    "slice": "4.509\" (≈4 33/64\")",
+    "width": "2.121\" (≈2 1/8\")",
+    "thickness": "1.835\" (≈1 53/64\")",
+    "boardWidth": "12.000\" (12\")"
+   }
+  },
+  {
+   "cutListIndex": 11,
+   "slices": 1,
+   "slice_mm": 157.44926268861454,
+   "kerf_mm": 3.175,
+   "length_mm": 305,
+   "width_mm": 104.30274348422496,
+   "thickness_mm": 46.6,
+   "text": {
+    "length": "12.008\" (≈12 1/64\")",
+    "slice": "6.199\" (≈6 13/64\")",
+    "width": "4.106\" (≈4 7/64\")",
+    "thickness": "1.835\" (≈1 53/64\")",
+    "boardWidth": "12.000\" (12\")"
+   }
+  },
+  {
+   "cutListIndex": 12,
+   "slices": 1,
+   "slice_mm": 129.79622770919065,
+   "kerf_mm": 3.175,
+   "length_mm": 305,
+   "width_mm": 65.61575788751715,
+   "thickness_mm": 46.6,
+   "text": {
+    "length": "12.008\" (≈12 1/64\")",
+    "slice": "5.110\" (≈5 7/64\")",
+    "width": "2.583\" (≈2 37/64\")",
+    "thickness": "1.835\" (≈1 53/64\")",
+    "boardWidth": "12.000\" (12\")"
+   }
+  },
+  {
+   "cutListIndex": 13,
+   "slices": 1,
+   "slice_mm": 151.91171124828531,
+   "kerf_mm": 3.175,
+   "length_mm": 305,
+   "width_mm": 96.1417352537723,
+   "thickness_mm": 46.6,
+   "text": {
+    "length": "12.008\" (≈12 1/64\")",
+    "slice": "5.981\" (≈5 63/64\")",
+    "width": "3.785\" (≈3 25/32\")",
+    "thickness": "1.835\" (≈1 53/64\")",
+    "boardWidth": "12.000\" (12\")"
+   }
+  },
+  {
+   "cutListIndex": 14,
+   "slices": 1,
+   "slice_mm": 165.46237997256515,
+   "kerf_mm": 3.175,
+   "length_mm": 305,
+   "width_mm": 75.4397633744856,
+   "thickness_mm": 46.6,
+   "text": {
+    "length": "12.008\" (≈12 1/64\")",
+    "slice": "6.514\" (≈6 33/64\")",
+    "width": "2.970\" (≈2 31/32\")",
+    "thickness": "1.835\" (≈1 53/64\")",
+    "boardWidth": "12.000\" (12\")"
+   }
+  },
+  {
+   "cutListIndex": 15,
+   "slices": 1,
+   "slice_mm": 80.27040466392314,
+   "kerf_mm": 3.175,
+   "length_mm": 305,
+   "width_mm": 68.11490054869685,
+   "thickness_mm": 46.6,
+   "text": {
+    "length": "12.008\" (≈12 1/64\")",
+    "slice": "3.160\" (≈3 5/32\")",
+    "width": "2.682\" (≈2 11/16\")",
+    "thickness": "1.835\" (≈1 53/64\")",
+    "boardWidth": "12.000\" (12\")"
+   }
+  },
+  {
+   "cutListIndex": 16,
+   "slices": 1,
+   "slice_mm": 80.27040466392314,
+   "kerf_mm": 3.175,
+   "length_mm": 305,
+   "width_mm": 89.53593964334705,
+   "thickness_mm": 46.6,
+   "text": {
+    "length": "12.008\" (≈12 1/64\")",
+    "slice": "3.160\" (≈3 5/32\")",
+    "width": "3.525\" (≈3 17/32\")",
+    "thickness": "1.835\" (≈1 53/64\")",
+    "boardWidth": "12.000\" (12\")"
+   }
+  },
+  {
+   "cutListIndex": 17,
+   "slices": 1,
+   "slice_mm": 80.27040466392314,
+   "kerf_mm": 3.175,
+   "length_mm": 305,
+   "width_mm": 127.39216392318244,
+   "thickness_mm": 46.6,
+   "text": {
+    "length": "12.008\" (≈12 1/64\")",
+    "slice": "3.160\" (≈3 5/32\")",
+    "width": "5.015\" (≈5 1/64\")",
+    "thickness": "1.835\" (≈1 53/64\")",
+    "boardWidth": "12.000\" (12\")"
+   }
+  },
+  {
+   "cutListIndex": 18,
+   "slices": 1,
+   "slice_mm": 80.27040466392314,
+   "kerf_mm": 3.175,
+   "length_mm": 305,
+   "width_mm": 56.45699588477366,
+   "thickness_mm": 46.6,
+   "text": {
+    "length": "12.008\" (≈12 1/64\")",
+    "slice": "3.160\" (≈3 5/32\")",
+    "width": "2.223\" (≈2 7/32\")",
+    "thickness": "1.835\" (≈1 53/64\")",
+    "boardWidth": "12.000\" (12\")"
+   }
+  }
+ ],
  "catalog": {
-  "draft": "NEW DRAFT 3.0-draft3 by Board Master, rebuilt from standard shop practice after the 2026-10-13 data loss. NOT 2.5.3.2. Values marked shopDefault:true are my defaults, not recovered values.",
+  "draft": "NEW DRAFT 3.0-draft5 by Board Master, rebuilt from standard shop practice after the 2026-10-13 data loss. NOT 2.5.3.2. Values marked shopDefault:true are my defaults, not recovered values.",
   "displayName": "Scrap Chaotic (End Grain)",
   "angles": null,
   "steps": [
@@ -633,6 +965,11 @@
    "jointerMinimum_mm": {
     "length": 305
    },
+   "planerMaxWidth_mm": 305,
+   "jointerMaxWidth_mm": 152,
+   "widthRule": {
+    "text": "A panel wider than the planer max width (305 mm) goes to the router sled or drum sander. Face-joint only boards no wider than the jointer max width (152 mm); wider boards get a planer sled or are flattened by hand."
+   },
    "minPieceLength_mm": {
     "planerJointer": 305,
     "tableSawFreehand": 152,
@@ -640,6 +977,12 @@
    },
    "flatteningAllowance_mm": 5,
    "sandingLoss_mm": 0.5,
+   "blankRule": {
+    "millWholeBlanksFirst": true,
+    "blankMinLength_mm": 305,
+    "crosscutTrim_mm": 25,
+    "text": "Mill and rip whole blanks before any crosscut. Blank length = max(305 mm, slices x (slice + kerf) + 2 x 25 mm trim). Never send a crosscut slice or piece shorter than 305 mm to the jointer or planer."
+   },
    "shopDefault": true
   },
   "kerfText": "0.125\" (1/8\")"

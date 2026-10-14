@@ -1,14 +1,14 @@
 {
  "ok": true,
- "labelsChecked": 51,
+ "labelsChecked": 58,
  "issues": [],
- "exportSha256": "c61b41e0efec1e978f7f70c48d7f8215146a87fdb8755f9b84987d2d8c40ca32",
+ "exportSha256": "6bc04f75a98a9305f4be69bf297c74eff53991bbc6222acca96a7cabf6f5d406",
  "freshExportIdentical": true,
  "preset": "face-grain",
  "sets": [
   "handles.enabled=true",
   "handles.type=handle"
  ],
- "catalogDraft": "NEW DRAFT 3.0-draft3 by Board Master, re",
+ "catalogDraft": "NEW DRAFT 3.0-draft5 by Board Master, re",
  "exportVsCatalog": []
 }

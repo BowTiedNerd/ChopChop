@@ -31,6 +31,21 @@ CASES = [
  ('strips never capped', 'boardviz.py', "return sorted(strips, key=lambda s: s['x'])", "return sorted(strips, key=lambda s: s['x'])[:8]", T + 'Strips.test_high_strip_count_never_capped'),
  ('fit helper handles rotation', 'test_fit_helper.py', "        if r:\n", "        if False:\n", T + 'TextSize.test_fit_helper_any_attribute_order_and_rotation'),
  ('fit helper fails on any line', 'test_fit_helper.py', "return 1 if report[0] or report[1] else 0", "return 0", T + 'TextSize.test_fit_helper_any_attribute_order_and_rotation'),
+ ('NEW mill figures: no jointer/planer piece < 305 mm (blankRule)', 'boardviz.py', 'data-length-mm="{b["length_mm"]:.3f}"', 'data-length-mm="{b["slice_mm"]:.3f}"', T + 'Milling.test_no_jointer_or_planer_piece_under_minimum'),
+ ('NEW planer: panel wider than planerMaxWidth_mm goes to router sled', 'boardviz.py', "if m == 'planer' and width_mm > A['planerMaxWidth_mm']:", "if False:", T + 'Milling.test_planer_never_gets_panel_wider_than_max'),
+ ('NEW jointer: no face-joint wider than jointerMaxWidth_mm', 'boardviz.py', "if m == 'jointer' and width_mm > A['jointerMaxWidth_mm']:", "if False:", T + 'Milling.test_jointer_never_face_joints_wider_than_max'),
+ ('NEW strict mode flags exportVsCatalog', 'boardviz.py', "res += [f'{name}: {m}' for m in json.load(open(f, encoding='utf8'))['exportVsCatalog']]", "pass", T + 'Strict.test_strict_mode_flags_every_mismatch'),
+ ('NEW strict test runs by default (opt-out only)', 'test_boardviz.py', "        if os.environ.get('BOARDVIZ_ALLOW_MISMATCH') == '1':", "        if True:", T + 'Strict.test_strict_is_on_by_default'),
+ ('NEW hand hole sized from catalog features', 'boardviz.py', "sl, sw_ = k['length_mm'] * sc, k['width_mm'] * sc", "sl, sw_ = 80.0, 20.0", T + 'Features.test_handle_overlays_use_catalog_features'),
+ ('NEW finger grip sized from catalog features', 'boardviz.py', "gl, gd = g['length_mm'] * sc, g['depth_mm'] * sc", "gl, gd = 120.0, 12.0", T + 'Features.test_handle_overlays_use_catalog_features'),
+ ('NEW rip fence: push stick drawn and labelled', 'boardviz.py', "svg.text(bx + 16, ty + 250, 'push stick')", "pass", T + 'Features.test_rip_fence_has_knife_push_stick_feed'),
+ ('NEW rip fence: riving knife drawn and labelled', 'boardviz.py', "svg.text(bx + 16, ty + 58, 'riving knife')", "pass", T + 'Features.test_rip_fence_has_knife_push_stick_feed'),
+ ('NEW rip fence: Feed label off the arrow', 'boardviz.py', "svg.text(bx + 162, ty + 190, 'Feed')", "svg.text(bx + 140, ty + 190, 'Feed')", T + 'Overlap.test_no_label_covers_drawing'),
+ ('NEW rip fence: push-stick label off the push stick', 'boardviz.py', "svg.text(bx + 16, ty + 250, 'push stick')", "svg.text(fx + 4, ty + 230, 'push stick')", T + 'Overlap.test_no_label_covers_drawing'),
+ ('NEW metric is the 12th sample folder', 'boardviz.py', "    'metric': ('metric', ['rubberFeet.enabled=true']),\n", "", T + 'Export.test_every_agreement_ok'),
+ ('NEW hand hole end radius == width/2 flagged', 'boardviz.py', "if abs(k['endRadius_mm'] - k['width_mm'] / 2) > 1e-6:", "if False:", T + 'HandHole.test_end_radius_is_half_width_and_mismatch_flagged'),
+ ('NEW hand hole drawn with catalog endRadius_mm', 'boardviz.py', "rx=k['endRadius_mm'] * sc)", "rx=12.5)", T + 'Features.test_handle_overlays_use_catalog_features'),
+ ('NEW hand-hole inset label clears the slot-width extension line', 'boardviz.py', "              label_dy=-max(", "              label_dy=0*-max(", T + 'Overlap.test_no_label_covers_drawing'),
 ]
 
 def copy_scratch():
@@ -59,19 +74,21 @@ def main():
         details.append(f"### {name}\nScratch `{d}`, `{f}`:\n```diff\n- {old}\n+ {new}\n```\n`$ {cmd}` → exit {r.returncode}\n```\n{tail[-1600:]}\n```\n")
         shutil.rmtree(d)
         print(name, r.returncode, rows[-1][3], flush=True)
-    base = subprocess.run('python3 -m unittest test_boardviz', shell=True, cwd=HERE, capture_output=True, text=True, timeout=900)
+    base = subprocess.run('BOARDVIZ_ALLOW_MISMATCH=1 python3 -m unittest test_boardviz', shell=True, cwd=HERE, capture_output=True, text=True, timeout=900)
+    strict = subprocess.run('python3 -m unittest test_boardviz.Strict.test_ci_strict_no_export_vs_catalog_mismatches', shell=True, cwd=HERE, capture_output=True, text=True, timeout=900)
     after = {f: hashlib.sha256(open(os.path.join(HERE, f), 'rb').read()).hexdigest() for f in SRC}
     md = ['# FIX-OFF evidence (real runs by fixoff.py)\n',
           'Each rule: copy sources to a scratch dir, break the fix there, run its guarding test, discard the copy. Originals untouched.\n',
           '| # | Rule | File broken | Exit | Result | Failing test(s) |', '|---|---|---|---|---|---|']
     for i, (n, f, rc, s, ft) in enumerate(rows, 1):
         md.append(f'| {i} | {n} | {f} | {rc} | {s} | {ft} |')
-    md.append(f"\n**Restored baseline** `python3 -m unittest test_boardviz` → exit {base.returncode}, {summarize(base.stdout + base.stderr)}. Source sha256 unchanged before/after: {before == after}.\n")
+    md.append(f"\n**Restored baseline** `BOARDVIZ_ALLOW_MISMATCH=1 python3 -m unittest test_boardviz` → exit {base.returncode}, {summarize(base.stdout + base.stderr)}. Source sha256 unchanged before/after: {before == after}.\n")
+    md.append(f"**Default strict test** (no opt-out) `python3 -m unittest test_boardviz.Strict.test_ci_strict_no_export_vs_catalog_mismatches` → exit {strict.returncode}, {summarize(strict.stdout + strict.stderr)}: expected to fail until the app implements the catalog blank rule.\n")
     md += details
     open(os.path.join(HERE, 'FIX-OFF.md'), 'w').write('\n'.join(md))
     bad = [r for r in rows if r[2] == 0]
     print('cases', len(rows), 'that did NOT fail:', [r[0] for r in bad])
-    return 1 if bad or base.returncode else 0
+    return 1 if bad or base.returncode or strict.returncode == 0 else 0
 
 if __name__ == '__main__':
     sys.exit(main())

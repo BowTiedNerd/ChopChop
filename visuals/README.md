@@ -7,7 +7,7 @@ Python SVG generator for the cutting-board app. Every figure is drawn from the *
 |---|---|
 | `boardviz.py` | generator + `Svg` builder (rules below) |
 | `exporter/export_design.ts` | export adapter: imports the real app (`$CHOPCHOP_DIR`, default `/workspace/chopchop-ref`, a clone of PR #1) — `validateBoard`/`validateAngle`, `generatePattern`, `calculateRequiredParts`, `formatDimension`/`inchText` — and prints one JSON document. Refusal → exit 2. The app has no export CLI yet; this adapter is the stand-in until it does. |
-| `exporter/catalog/*.json` | Board Master catalog **3.0-draft3** (styleId, stepId, figureType, steps, banners, allowances). Copied from `/workspace/catalog-draft-3.0/`; PR #1 `styles/` still holds older drafts. |
+| `exporter/catalog/*.json` | Board Master catalog **3.0-draft5** (styleId, stepId, figureType, steps, banners, allowances). Copied from `/workspace/catalog-draft-3.0/`; PR #1 `styles/` still holds older drafts. |
 | `chromecheck.py` | headless-Chrome harness (inline SVGs at 1:1, `--dump-dom`) |
 | `measure_labels.py` | drawn size, text-vs-text, text-vs-frame; prints count, must be `0` |
 | `check_overlap.py` | label/patch vs geometry sampling; prints count, must be `0` |
@@ -25,6 +25,9 @@ python3 boardviz.py steps --out /ABS/steps [--set k=v] # per-step SVGs for the P
 python3 boardviz.py chevron --set angle=45 --set dimensions.width=350 --out /ABS/dir [--png]
 python3 measure_labels.py samples steps ; python3 check_overlap.py samples steps ; python3 test_fit_helper.py samples steps
 python3 -m unittest -v test_boardviz ; python3 fixoff.py
+python3 boardviz.py all --out /ABS/samples --strict   # CI: exit 3 if any exportVsCatalog entry
+python3 -m unittest test_boardviz                     # strict test runs by default; fails on any exportVsCatalog entry
+BOARDVIZ_ALLOW_MISMATCH=1 python3 -m unittest test_boardviz   # opt-out: strict test is skipped
 ```
 `--out` must be absolute; relative, empty or `undefined` exits non-zero. `--set` keys are design paths (`dimensions.width`, `unitSystem`, `juiceGroove.enabled`, `handles.type`, …) plus `angle`. An export error or a refused design (e.g. chevron `angle=19`) is fatal: exit 2, no files.
 
@@ -34,7 +37,7 @@ python3 -m unittest -v test_boardviz ; python3 fixoff.py
 Figure by `figureType`: `rip-fence` → fence setup (+ planer panel for edge-grain), `glue-up` → section with clamps, `crosscut` → sled/stop, `strip-sequence` → strip order, `outline` → outline + dims, `top-view` → pattern top view, `mill` → text card with banners.
 
 ## Sample folders
-`face-grain` (handle), `edge-grain` (hand-hole slot, planer panel), `end-grain` (metric 300×450×40, groove + feet), `checkerboard`, `checkerboard-16x24` (groove), `brick-basketweave`, `chevron`, `herringbone`, `stripe-inlay` (inlay detail), `scrap-chaotic`, `tumbling-block-3d`. Each has top-view, cut-list, glue-up-N, rip-fence-setup, plus strip-seq / cross-section / crosscut / outline / modifiers / feet-overlay / handle / hand-hole / inlay-detail where they apply, `export.json`, and `agreement.json`.
+`face-grain` (handle), `edge-grain` (hand-hole slot, planer panel), `end-grain` (metric 300×450×40, groove + feet), `checkerboard`, `checkerboard-16x24` (groove), `brick-basketweave`, `chevron`, `herringbone`, `stripe-inlay` (inlay detail), `scrap-chaotic`, `tumbling-block-3d`, `metric` (300×450×40 mm end-grain checkerboard with feet, metric units). Each has top-view, cut-list, glue-up-N, rip-fence-setup, plus strip-seq / cross-section / crosscut / outline / modifiers / feet-overlay / handle / hand-hole / inlay-detail where they apply, `export.json`, and `agreement.json`.
 
 `agreement.json`: every label tagged `data-src` must equal its export string exactly (wrapped lines rejoined), top-view strip count must equal the export, and a fresh re-export must be byte-identical. `exportVsCatalog` lists where the app's cut list disagrees with the catalog allowances. These are reported, not drawn around.
 
@@ -47,5 +50,13 @@ Figure by `figureType`: `rip-fence` → fence setup (+ planer panel for edge-gra
 - **Format:** every inch or metric string comes from the app's `formatDimension`/`inchText`, so ≈ appears only when the value is inexact.
 - **Strips:** every strip is drawn. There is no cap, and the figure grows to fit.
 
+## Draft4/5 rules
+- **Rip fence (schematic):** the keeper strip sits between the fence and the blade, with a riving knife behind the blade, a push stick on the strip and a feed arrow. Every label is placed off the drawing.
+- **Handles:** the hand-hole slot and finger grips are sized from catalog `features`. Every number goes through the app's `formatDimension` in the export (`features.*.text_fmt`), and the full dimension lines carry dashed extensions.
+- **Mill figures (`figureType: mill`):** each one shows a whole blank milled first, with slices crosscut afterwards. Blank lengths are `derivedBlanks` in the export adapter. This is the catalog `blankRule` applied to the app's cut-list pieces, and it is labelled on the figure as not coming from the app. The cut-list table still prints the app's own numbers. Until the app implements the rule, `agreement.json exportVsCatalog` keeps reporting it. Every machine piece is tagged `data-machine`, `data-length-mm` and `data-width-mm`.
+- **Width limits (`planerMaxWidth_mm`, `jointerMaxWidth_mm`):** a planer panel wider than the max goes to `router-sled` (router sled or drum sander). A jointer face-joint wider than the max goes to `planer-sled` (planer sled or hand flattening). In both cases `widthRule.text` prints on the figure.
+- **Strict mode:** this is on by default. `test_ci_strict_no_export_vs_catalog_mismatches` and `--strict` fail on any export-vs-catalog mismatch. Setting `BOARDVIZ_ALLOW_MISMATCH=1` skips the test.
+- **Hand hole:** drawn from catalog `width_mm` and `endRadius_mm`. A radius that isn't width÷2 is flagged and raises an error, with no fallback.
+
 ## Known gaps
-Handle and hand-hole sizes are in neither the export nor the catalog, so those overlays show position only. The app design has no `angle` field, so `--set angle` is validated through `validateAngle` but does not change the pattern. 3D renders are deferred.
+The app design has no `angle` field, so `--set angle` is validated through `validateAngle` but does not change the pattern. 3D renders are deferred.
