@@ -2,20 +2,22 @@
 /**
  * Export command for ChopChop designs
  * Contract:
- * - Run validation (validateBoard/validateAngle)
+ * - Run validation (validateBoard/validateAngle/validateStyle/validateOutputFolder)
  * - Exit 2 and write no files on refusal
  * - Record the commit SHA in export
- * - Export design to JSON
+ * - Export design to JSON and PDF
  */
 
-import { readFileSync } from 'fs';
+import { readFileSync, existsSync, mkdirSync } from 'fs';
 import { writeFileSync } from 'fs';
 import { execSync } from 'child_process';
+import { dirname } from 'path';
 import { BoardDesign } from '../src/types';
-import { validateBoard } from '../src/lib/validation';
+import { validateBoard, validateAngle, validateOutputFolder } from '../src/lib/validation';
 import { calculateRequiredParts } from '../src/lib/lumberPlanner';
 import { generatePattern } from '../src/lib/patterns';
 import { inchText } from '../src/utils/format';
+import { PdfGenerator } from '../src/lib/pdf';
 
 interface ExportOptions {
   designFile?: string;
@@ -45,6 +47,16 @@ function exportDesign(options: ExportOptions): void {
     process.exit(2);
   }
   
+  // Validate output folder if writing to file
+  if (options.outputFile) {
+    try {
+      validateOutputFolder(options.outputFile);
+    } catch (error) {
+      console.error('Error:', error instanceof Error ? error.message : String(error));
+      process.exit(2);
+    }
+  }
+  
   // Validate design
   const validation = validateBoard(design);
   if (!validation.valid) {
@@ -53,6 +65,18 @@ function exportDesign(options: ExportOptions): void {
       console.error(`  - ${error}`);
     }
     process.exit(2);
+  }
+  
+  // Validate angle if specified
+  if (design.angle !== undefined) {
+    const angleValidation = validateAngle(design.style, design.angle);
+    if (!angleValidation.valid) {
+      console.error('Angle validation failed:');
+      for (const error of angleValidation.errors) {
+        console.error(`  - ${error}`);
+      }
+      process.exit(2);
+    }
   }
   
   // Generate pattern and cut list
@@ -123,14 +147,33 @@ function exportDesign(options: ExportOptions): void {
     })),
   };
   
-  // Write output
-  const output = JSON.stringify(exportDoc, null, 2);
+  // Write JSON output
+  const jsonOutput = JSON.stringify(exportDoc, null, 2);
   
   if (options.outputFile) {
-    writeFileSync(options.outputFile, output, 'utf-8');
+    // Ensure output directory exists
+    const outputDir = dirname(options.outputFile);
+    if (!existsSync(outputDir)) {
+      mkdirSync(outputDir, { recursive: true });
+    }
+    
+    // Write JSON
+    writeFileSync(options.outputFile, jsonOutput, 'utf-8');
     console.log(`Export written to ${options.outputFile}`);
+    
+    // Generate and write PDF
+    const pdfPath = options.outputFile.replace(/\.json$/, '.pdf');
+    try {
+      const pdfGenerator = new PdfGenerator(design);
+      const doc = pdfGenerator.generateCutSheet(cutList);
+      const pdfBuffer = Buffer.from(doc.output('arraybuffer'));
+      writeFileSync(pdfPath, pdfBuffer);
+      console.log(`PDF written to ${pdfPath}`);
+    } catch (error) {
+      console.error('Warning: Could not generate PDF:', error);
+    }
   } else {
-    console.log(output);
+    console.log(jsonOutput);
   }
 }
 

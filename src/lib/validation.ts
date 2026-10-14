@@ -65,10 +65,16 @@ function validateStyle(design: BoardDesign): string[] {
   const style = design.style;
   
   // Check angle constraints for chevron and herringbone
-  if (style in ANGLE_CONSTRAINTS) {
-    // Angle would be specified in design options (not in current type)
-    // This is a placeholder for angle validation
-    // In actual implementation, angle would be part of style-specific options
+  if (style in ANGLE_CONSTRAINTS && design.angle !== undefined) {
+    const { min, max } = ANGLE_CONSTRAINTS[style];
+    if (design.angle < min || design.angle > max) {
+      errors.push(`${style} angle must be between ${min}° and ${max}° (got ${design.angle}°)`);
+    }
+  }
+  
+  // Chevron with gap is not supported
+  if (style === 'chevron' && (design as any).gap) {
+    errors.push('Chevron with gap is not supported');
   }
   
   return errors;
