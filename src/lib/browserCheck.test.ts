@@ -2,14 +2,15 @@
  * Browser check integration test
  * Runs puppeteer checks at 1280x800, 768x1024, 390x844
  * 
- * Note: This test requires the dev server to be running
- * Run with: npm run dev (in another terminal), then npm test
+ * This test starts its own dev server and will FAIL if server cannot start
  */
 
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import puppeteer, { Browser, Page } from 'puppeteer';
+import { spawn, ChildProcess } from 'child_process';
 
 const TEST_URL = process.env.TEST_URL || 'http://localhost:5173';
+let devServer: ChildProcess | null = null;
 
 const VIEWPORTS = [
   { width: 1280, height: 800, name: 'desktop' },
@@ -20,10 +21,44 @@ const VIEWPORTS = [
 const MIN_DRAWN_SIZE_PX = 10.67;
 const SAMPLE_INTERVAL = 1.5;
 
-describe('Browser Check (requires dev server)', () => {
+/**
+ * Wait for server to become available
+ */
+async function waitForServer(url: string, timeoutMs: number): Promise<boolean> {
+  const startTime = Date.now();
+  while (Date.now() - startTime < timeoutMs) {
+    try {
+      const response = await fetch(url);
+      if (response.ok) {
+        return true;
+      }
+    } catch {
+      // Server not ready yet
+    }
+    await new Promise(resolve => setTimeout(resolve, 500));
+  }
+  return false;
+}
+
+describe('Browser Check (starts own dev server)', () => {
   let browser: Browser;
 
   beforeAll(async () => {
+    // Start dev server
+    console.log('Starting dev server for browser checks...');
+    devServer = spawn('npm', ['run', 'dev'], {
+      cwd: process.cwd(),
+      stdio: ['ignore', 'pipe', 'pipe'],
+      shell: true,
+    });
+
+    // Wait for server to be ready
+    const serverReady = await waitForServer(TEST_URL, 30000);
+    if (!serverReady) {
+      throw new Error(`Dev server failed to start at ${TEST_URL} within 30 seconds. Browser checks CANNOT run without a dev server.`);
+    }
+    console.log('Dev server ready at', TEST_URL);
+
     browser = await puppeteer.launch({
       headless: true,
       args: ['--no-sandbox', '--disable-setuid-sandbox'],
@@ -33,6 +68,14 @@ describe('Browser Check (requires dev server)', () => {
   afterAll(async () => {
     if (browser) {
       await browser.close();
+    }
+    
+    // Kill dev server
+    if (devServer) {
+      console.log('Stopping dev server...');
+      devServer.kill('SIGTERM');
+      // Give it a moment to cleanup
+      await new Promise(resolve => setTimeout(resolve, 1000));
     }
   });
 
@@ -48,16 +91,12 @@ describe('Browser Check (requires dev server)', () => {
           deviceScaleFactor: 1,
         });
 
-        try {
-          await page.goto(TEST_URL, { 
-            waitUntil: 'networkidle2', 
-            timeout: 10000 
-          });
-          await new Promise(resolve => setTimeout(resolve, 500));
-        } catch (error) {
-          // Dev server not running - skip these tests
-          console.warn('Dev server not running at', TEST_URL, '- skipping browser checks');
-        }
+        // Load page - MUST succeed or test fails
+        await page.goto(TEST_URL, { 
+          waitUntil: 'networkidle2', 
+          timeout: 10000 
+        });
+        await new Promise(resolve => setTimeout(resolve, 500));
       });
 
       afterAll(async () => {
@@ -67,15 +106,6 @@ describe('Browser Check (requires dev server)', () => {
       });
 
       it('should render text at minimum size (10.67px)', async () => {
-        const isLoaded = await page.evaluate(() => {
-          return document.querySelector('#root') !== null;
-        });
-
-        if (!isLoaded) {
-          console.warn('Page not loaded - skipping test');
-          return;
-        }
-
         const violations = await checkTextSizes(page);
         
         if (violations.length > 0) {
@@ -86,15 +116,6 @@ describe('Browser Check (requires dev server)', () => {
       });
 
       it('should show scroll cue only when needed', async () => {
-        const isLoaded = await page.evaluate(() => {
-          return document.querySelector('#root') !== null;
-        });
-
-        if (!isLoaded) {
-          console.warn('Page not loaded - skipping test');
-          return;
-        }
-
         const violations = await checkScrollCue(page);
         
         if (violations.length > 0) {
@@ -105,15 +126,6 @@ describe('Browser Check (requires dev server)', () => {
       });
 
       it('should not overlap labels with geometry', async () => {
-        const isLoaded = await page.evaluate(() => {
-          return document.querySelector('#root') !== null;
-        });
-
-        if (!isLoaded) {
-          console.warn('Page not loaded - skipping test');
-          return;
-        }
-
         const violations = await checkLabelOverlaps(page);
         
         // Allow some violations in initial implementation

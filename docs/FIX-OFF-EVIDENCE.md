@@ -12,7 +12,7 @@ Each rule has corresponding tests in `src/lib/acceptance.test.ts` that verify th
 - `src/lib/svg.ts`: MIN_FONT_SIZE constant enforces minimum
 - SvgBuilder.text() throws error if fontSize < 11
 
-**Test:** `should enforce minimum SVG font size of 11 units`
+**Test:** `should enforce minimum font size`
 ```typescript
 expect(() => {
   builder.text(10, 10, 'Test', 10);
@@ -20,6 +20,52 @@ expect(() => {
 ```
 
 **Fix-off proof:** If MIN_FONT_SIZE check is removed from svg.ts, this test fails.
+
+### Real Fix-Off Run Output
+
+**STEP 1: Breaking the fix**
+```bash
+# Change: if (fontSize < MIN_FONT_SIZE) → if (fontSize < 0)
+sed -i 's/if (fontSize < MIN_FONT_SIZE)/if (fontSize < 0)/' src/lib/svg.ts
+```
+
+**STEP 2: Test FAILS (as expected)**
+```
+ FAIL  src/lib/svg.test.ts > SvgBuilder > should enforce minimum font size
+AssertionError: expected [Function] to throw an error
+
+- Expected: 
+null
+
++ Received: 
+undefined
+
+ ❯ src/lib/svg.test.ts:21:8
+     19|     expect(() => {
+     20|       builder.text(10, 10, 'Test', 10);
+     21|     }).toThrow('Font size 10 is below minimum 11');
+       |        ^
+     22|   });
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 7 skipped (8)
+```
+
+**STEP 3: Restore fix**
+```bash
+# Restore: if (fontSize < MIN_FONT_SIZE)
+mv src/lib/svg.ts.backup src/lib/svg.ts
+```
+
+**STEP 4: Test PASSES**
+```
+ ✓ src/lib/svg.test.ts (8 tests | 7 skipped) 2ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed | 7 skipped (8)
+```
+
+**Conclusion:** The test actively enforces Rule 1. When the fix is broken, the test fails with a clear error message. When the fix is present, the test passes.
 
 ## Rule 2: No Truncation
 

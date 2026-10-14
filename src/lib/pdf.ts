@@ -306,6 +306,7 @@ export class PdfGenerator {
 
   /**
    * Generate appropriate figure for step based on figureType from catalog
+   * Checks for external SVG at styles/<styleId>/<stepId>.svg first
    */
   private generateStepFigure(step: StepInstruction): string | null {
     const unit = this.design.unitSystem;
@@ -313,6 +314,12 @@ export class PdfGenerator {
     
     if (!figureType) {
       return null;
+    }
+    
+    // Check for external SVG file first (clean seam for custom figures)
+    const externalSvg = this.loadExternalStepFigure(step.stepNumber);
+    if (externalSvg) {
+      return externalSvg;
     }
     
     // Generate figure based on catalog figureType
@@ -367,6 +374,37 @@ export class PdfGenerator {
       return parseFloat(match[0]);
     }
     return 25.4; // Default fallback
+  }
+
+  /**
+   * Load external step figure SVG if it exists
+   * Looks for styles/<styleId>/<stepNumber>.svg
+   * Returns null if file doesn't exist or not in Node.js environment
+   */
+  private loadExternalStepFigure(stepNumber: number): string | null {
+    // Only attempt to load external figures in Node.js (not browser)
+    if (typeof process === 'undefined' || !process.versions || !process.versions.node) {
+      return null;
+    }
+
+    try {
+      // Dynamic import for Node.js-only modules
+      const fs = require('fs');
+      const path = require('path');
+      
+      const styleId = this.design.style;
+      const figureDir = path.join(process.cwd(), 'styles', styleId);
+      const figurePath = path.join(figureDir, `${stepNumber}.svg`);
+      
+      if (fs.existsSync(figurePath)) {
+        const svgContent = fs.readFileSync(figurePath, 'utf-8');
+        console.log(`Loaded external figure: ${figurePath}`);
+        return svgContent;
+      }
+    } catch (error) {
+      // File doesn't exist or can't be read - fall back to generated figure
+    }
+    return null;
   }
 
   /**
