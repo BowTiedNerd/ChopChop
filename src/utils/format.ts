@@ -101,9 +101,15 @@ export function roundToHalfMm(mm: number): number {
 
 /**
  * Format metric measurement
+ * No trailing .0 for whole numbers (32 mm, not 32.0 mm)
  */
 export function metricText(mm: number, decimals: number = 1): string {
-  return `${mm.toFixed(decimals)} mm`;
+  const rounded = Number(mm.toFixed(decimals));
+  // Remove trailing .0 by converting to number and back
+  if (Math.floor(rounded) === rounded) {
+    return `${Math.floor(rounded)} mm`;
+  }
+  return `${rounded.toFixed(decimals)} mm`;
 }
 
 /**

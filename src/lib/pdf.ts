@@ -324,14 +324,14 @@ export class PdfGenerator {
       return externalSvg;
     }
     
-    // Gate for RC1: visuals/ doesn't exist yet, so allow fallback
-    // TODO: When visuals/ lands, enable REQUIRE_EXTERNAL_FIGURES and remove fallback
-    const REQUIRE_EXTERNAL_FIGURES = process.env.REQUIRE_EXTERNAL_FIGURES === 'true';
-    if (REQUIRE_EXTERNAL_FIGURES) {
-      throw new Error(`Missing required figure: visuals/${this.design.style}/${step.stepId}.svg (figureType: ${figureType})`);
+    // Require external figures by default (boardviz generates them)
+    // Set ALLOW_FALLBACK_FIGURES=true to generate figures inline (dev/test only)
+    const ALLOW_FALLBACK = process.env.ALLOW_FALLBACK_FIGURES === 'true';
+    if (!ALLOW_FALLBACK) {
+      throw new Error(`Missing required figure: visuals/steps/${this.design.style}/${step.stepId}.svg (figureType: ${figureType})`);
     }
     
-    // Generate figure based on catalog figureType
+    // Fallback: generate figure based on catalog figureType (dev/test only)
     switch (figureType) {
       case 'rip-fence': {
         // Get fence distance from settings or use strip width
@@ -404,7 +404,8 @@ export class PdfGenerator {
       const path = require('path');
       
       const styleId = this.design.style;
-      const figureDir = path.join(process.cwd(), 'visuals', styleId);
+      // Path matches boardviz output: visuals/steps/<styleId>/<stepId>.svg
+      const figureDir = path.join(process.cwd(), 'visuals', 'steps', styleId);
       const figurePath = path.join(figureDir, `${stepId}.svg`);
       
       if (fs.existsSync(figurePath)) {

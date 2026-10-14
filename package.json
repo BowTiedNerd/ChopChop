@@ -12,7 +12,8 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "check-browser": "node scripts/check-svg-text.mjs",
-    "generate-samples": "tsx scripts/generate-samples.ts"
+    "generate-samples": "tsx scripts/generate-samples.ts",
+    "export": "tsx scripts/export.ts"
   },
   "dependencies": {
     "jspdf": "^2.5.2",

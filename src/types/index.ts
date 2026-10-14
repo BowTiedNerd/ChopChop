@@ -55,6 +55,7 @@ export interface BoardDesign {
   style: BoardStyle;
   dimensions: BoardDimensions;
   species: WoodSpecies[];
+  angle?: number;     // degrees, for chevron/herringbone
   juiceGroove: JuiceGroove;
   handles: Handles;
   rubberFeet: RubberFeet;

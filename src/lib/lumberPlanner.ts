@@ -80,7 +80,6 @@ function getAllowances(style: string) {
  */
 export function calculateRequiredParts(design: BoardDesign): CutItem[] {
   const pattern = generatePattern(design);
-  const parts: Map<string, CutItem> = new Map();
   
   // Load catalog for allowances
   let catalog;
@@ -95,8 +94,16 @@ export function calculateRequiredParts(design: BoardDesign): CutItem[] {
   const roughOversize = catalog?.cutListAllowances?.roughToFinalOversize_mm || { thickness: 3, width: 6, length: 50 };
   const flatteningAllowance = catalog?.cutListAllowances?.flatteningAllowance_mm || 1.5;
   const sandingLoss = catalog?.cutListAllowances?.sandingLoss_mm || 0.5;
+  const blankRule = catalog?.cutListAllowances?.blankRule;
   
-  // Group strips by dimensions and species, adding allowances
+  // Check if blankRule is enabled
+  if (blankRule?.millWholeBlanksFirst) {
+    return calculateBlanksWithRule(pattern, kerf, roughOversize, flatteningAllowance, sandingLoss, blankRule);
+  }
+  
+  // Legacy behavior: individual strips
+  const parts: Map<string, CutItem> = new Map();
+  
   for (const strip of pattern.strips) {
     // Add allowances to strip dimensions
     const width = strip.width + kerf + roughOversize.width;
@@ -121,6 +128,70 @@ export function calculateRequiredParts(design: BoardDesign): CutItem[] {
   }
   
   return Array.from(parts.values());
+}
+
+interface BlankRule {
+  millWholeBlanksFirst: boolean;
+  blankMinLength_mm: number;
+  crosscutTrim_mm: number;
+  text: string;
+}
+
+/**
+ * Calculate blanks according to blankRule
+ * Mill and rip whole blanks first, then crosscut slices
+ */
+function calculateBlanksWithRule(
+  pattern: { strips: Array<{ width: number; height: number; depth: number; species: { name: string } }> },
+  kerf: number,
+  roughOversize: { thickness: number; width: number; length: number },
+  flatteningAllowance: number,
+  sandingLoss: number,
+  blankRule: BlankRule
+): CutItem[] {
+  const blanks: Map<string, CutItem> = new Map();
+  
+  // Group strips by species, width, and thickness (these determine the blank)
+  // The slice thickness becomes the crosscut dimension
+  const stripGroups: Map<string, { strips: typeof pattern.strips; sliceThickness: number }> = new Map();
+  
+  for (const strip of pattern.strips) {
+    const width = strip.width + kerf + roughOversize.width;
+    const thickness = strip.height + roughOversize.thickness + flatteningAllowance + sandingLoss;
+    const sliceThickness = strip.depth; // This is what we'll crosscut
+    
+    const key = `${strip.species.name}-${width.toFixed(1)}-${thickness.toFixed(1)}-${sliceThickness.toFixed(1)}`;
+    
+    if (!stripGroups.has(key)) {
+      stripGroups.set(key, { strips: [], sliceThickness });
+    }
+    stripGroups.get(key)!.strips.push(strip);
+  }
+  
+  // For each group, calculate blank length
+  for (const [key, group] of stripGroups.entries()) {
+    const parts = key.split('-');
+    const species = parts.slice(0, -3).join('-');
+    const width = parseFloat(parts[parts.length - 3]);
+    const thickness = parseFloat(parts[parts.length - 2]);
+    const sliceThickness = group.sliceThickness;
+    const sliceCount = group.strips.length;
+    
+    // Blank length = max(305 mm, slices * (slice + kerf) + 2 * 25 mm trim)
+    const minBlankLength = sliceCount * (sliceThickness + kerf) + 2 * blankRule.crosscutTrim_mm;
+    const blankLength = Math.max(blankRule.blankMinLength_mm, minBlankLength);
+    
+    blanks.set(key, {
+      part: `${species} blank (mill & rip, then crosscut ${sliceCount} × ${sliceThickness.toFixed(1)} mm slices)`,
+      width,
+      thickness,
+      length: blankLength,
+      quantity: 1,
+      species,
+    });
+  }
+  
+  return Array.from(blanks.values());
 }
 
 /**
