@@ -38,68 +38,83 @@ jobs:
     
     - name: Run tests
       run: npm test -- --run --reporter=verbose
-      env:
-        ALLOW_FALLBACK_FIGURES: true
-        SKIP_BROWSER_TESTS: true
     
     - name: Generate samples
       run: npm run generate-samples
-      env:
-        ALLOW_FALLBACK_FIGURES: true
     
-    - name: Run boardviz tests
+    - name: Run boardviz strict tests
       run: |
-        if [ -f visuals/requirements.txt ]; then
-          echo "Installing Python dependencies..."
-          cd visuals && pip install -r requirements.txt
-          python3 -m unittest test_boardviz -v
-        elif [ -f visuals/test_boardviz.py ]; then
-          echo "Skipping boardviz tests (requirements.txt not found)"
-        else
-          echo "Skipping boardviz tests (test_boardviz.py not found)"
-        fi
-    
-    - name: Run boardviz strict mode
-      run: |
+        # Install Python dependencies
         python3 -m pip install --user Pillow
-        cd visuals && CHOPCHOP_DIR=/home/runner/work/ChopChop/ChopChop python3 boardviz.py all --out /tmp/boardviz-test --strict
-    
-    - name: Verify metric sample export
-      run: |
-        if [ -f visuals/samples/metric/agreement.json ]; then
-          echo "Checking metric sample agreement..."
-          cd visuals/samples/metric
-          if ! python3 -c "import json; d=json.load(open('agreement.json')); exit(0 if d.get('ok') and d.get('freshExportIdentical') and len(d.get('exportVsCatalog',[]))==0 else 1)"; then
-            echo "FAIL: Metric sample has issues"
-            cat agreement.json
-            exit 1
-          fi
-          echo "Metric sample verified"
-        fi
-    
-    - name: Check agreement.json (all samples must agree with export)
-      run: |
+        
+        # Install exporter dependencies
+        cd visuals/exporter && npm ci && cd ../..
+        
+        # Run boardviz unit tests
         cd visuals
+        export CHOPCHOP_DIR=$GITHUB_WORKSPACE
+        unset BOARDVIZ_ALLOW_MISMATCH
+        python3 -m unittest test_boardviz -v
+        
+        # Check all agreement.json files
+        echo "Checking all agreement.json files..."
         VIOLATIONS=0
         for sample in samples/*/agreement.json; do
           if [ -f "$sample" ]; then
             echo "Checking $sample..."
-            # Check ok and freshExportIdentical
-            if ! python3 -c "import json; d=json.load(open('$sample')); exit(0 if d.get('ok') and d.get('freshExportIdentical') else 1)"; then
+            if ! python3 -c "import json; d=json.load(open('$sample')); exit(0 if d.get('ok') and len(d.get('exportVsCatalog',[]))==0 else 1)"; then
               echo "FAIL: $sample has issues"
               cat "$sample"
               VIOLATIONS=$((VIOLATIONS + 1))
             fi
-            # Check exportVsCatalog (warn only until visuals-draft2 with blankRule-compliant exports)
-            if ! python3 -c "import json; d=json.load(open('$sample')); evs=d.get('exportVsCatalog',[]); exit(0 if len(evs)==0 else 1)"; then
-              echo "WARNING: $sample has exportVsCatalog discrepancies (will be fixed in visuals-draft2):"
-              python3 -c "import json; d=json.load(open('$sample')); print('\\n'.join(d.get('exportVsCatalog',[])))"
-              # Uncomment when visuals-draft2 arrives: VIOLATIONS=$((VIOLATIONS + 1))
-            fi
           fi
         done
+        
         if [ $VIOLATIONS -gt 0 ]; then
           echo "Total violations: $VIOLATIONS"
           exit 1
         fi
-        echo "All agreement.json checks passed (exportVsCatalog warnings expected until visuals-draft2)"
+        
+        # Run boardviz strict mode and compare outputs
+        echo "Running boardviz.py all --strict..."
+        python3 boardviz.py all --out /tmp/boardviz-test --strict
+        
+        # Compare generated samples SVGs with committed ones
+        echo "Comparing sample SVGs..."
+        for svg in /tmp/boardviz-test/*/[!steps]*.svg; do
+          if [ -f "$svg" ]; then
+            rel_path=$(realpath --relative-to=/tmp/boardviz-test "$svg")
+            if [ -f "samples/$rel_path" ]; then
+              if ! cmp -s "$svg" "samples/$rel_path"; then
+                echo "DIFF: samples/$rel_path differs from regenerated version"
+                VIOLATIONS=$((VIOLATIONS + 1))
+              fi
+            fi
+          fi
+        done
+        
+        # Run boardviz steps generation
+        echo "Running boardviz.py steps..."
+        python3 boardviz.py steps --out /tmp/boardviz-steps
+        
+        # Compare steps SVGs
+        echo "Comparing steps SVGs..."
+        for svg in /tmp/boardviz-steps/*/*.svg; do
+          if [ -f "$svg" ]; then
+            rel_path=$(realpath --relative-to=/tmp/boardviz-steps "$svg")
+            if [ -f "steps/$rel_path" ]; then
+              if ! cmp -s "$svg" "steps/$rel_path"; then
+                echo "DIFF: steps/$rel_path differs from regenerated version"
+                VIOLATIONS=$((VIOLATIONS + 1))
+              fi
+            fi
+          fi
+        done
+        
+        if [ $VIOLATIONS -gt 0 ]; then
+          echo "Total SVG differences: $VIOLATIONS"
+          exit 1
+        fi
+        
+        echo "All boardviz checks passed"
+        cd ..
