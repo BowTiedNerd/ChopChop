@@ -4,7 +4,6 @@
  * Creates: 300x450x40 mm end-grain checkerboard with rubber feet
  */
 
-import { writeFileSync } from 'fs';
 import { BoardDesign } from '../src/types';
 import { exportDesign } from './export';
 
