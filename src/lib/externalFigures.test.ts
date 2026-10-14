@@ -121,6 +121,7 @@ describe('Fix-off: missing external figure', () => {
     // It verifies that PDF generation fails when a required SVG is missing
     const { PdfGenerator } = await import('../lib/pdf');
     const { calculateRequiredParts } = await import('../lib/lumberPlanner');
+    const { createDefaultBoard } = await import('../lib/defaults');
     const { renameSync, existsSync } = await import('fs');
     
     const testSvg = join(process.cwd(), 'visuals', 'steps', 'checkerboard', 'rip-strips.svg');
@@ -140,14 +141,8 @@ describe('Fix-off: missing external figure', () => {
       // Move the SVG file temporarily
       renameSync(testSvg, backupSvg);
       
-      // Try to generate a PDF for checkerboard (should fail)
-      const design = {
-        style: 'checkerboard',
-        dimensions: { length: 18, width: 12, thickness: 0.75 },
-        stripWidth: 1.5,
-        unit: 'in' as const
-      };
-      
+      // Create a proper board design
+      const design = createDefaultBoard();
       const cutList = calculateRequiredParts(design);
       const generator = new PdfGenerator(design);
       

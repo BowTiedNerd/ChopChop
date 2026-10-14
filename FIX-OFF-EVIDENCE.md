@@ -66,8 +66,13 @@ AssertionError: expected 204 to be +0
 ### N2: Missing SVG check removed
 **Change:** Remove REQUIRE_EXTERNAL_FIGURES enforcement in pdf.ts
 **Test:** External figures test
-**Result:** Test exists, enforcement verified in externalFigures.test.ts
+**Result:** ✅ FAILS - 1 test fails:
+```
+FAIL src/lib/externalFigures.test.ts > Fix-off: missing external figure > should throw error when required SVG is missing and ALLOW_FALLBACK is false
+AssertionError: expected [Function] to throw an error
+```
 **Note:** Removal would allow fallback to inline figures when external missing
+**Restore:** `git checkout -- src/lib/pdf.ts`
 
 ### N3: Duplicate stepId in catalog
 **Change:** Duplicate a stepId in checkerboard.json
