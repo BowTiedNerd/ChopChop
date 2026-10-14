@@ -12,6 +12,7 @@ export interface StyleCatalog {
   cutListAllowances: CutListAllowances;
   sizes?: string[];
   pricePerBF: number | null;  // May be null per spec
+  features?: Features;
   notes?: string;
 }
 
@@ -48,7 +49,32 @@ export interface CutListAllowances {
   };
   flatteningAllowance_mm: number;
   sandingLoss_mm: number;
+  blankRule?: {
+    millWholeBlanksFirst: boolean;
+    blankMinLength_mm: number;
+    crosscutTrim_mm: number;
+    text: string;
+  };
   shopDefault: boolean;  // New flag
+}
+
+export interface Features {
+  shopDefault: boolean;
+  handHole?: {
+    length_mm: number;
+    width_mm: number;
+    endRadius_mm: number;
+    edgeInset_mm: number;
+    bit: string;
+    text: string;
+  };
+  fingerGrip?: {
+    length_mm: number;
+    depth_mm: number;
+    edgeInset_mm: number;
+    bit: string;
+    text: string;
+  };
 }
 
 /**

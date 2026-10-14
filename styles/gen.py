@@ -1,7 +1,7 @@
 import json
-DRAFT="NEW DRAFT 3.0-draft3 by Board Master, rebuilt from standard shop practice after the 2026-10-13 data loss. NOT 2.5.3.2. Values marked shopDefault:true are my defaults, not recovered values."
+DRAFT="NEW DRAFT 3.0-draft4 by Board Master, rebuilt from standard shop practice after the 2026-10-13 data loss. NOT 2.5.3.2. Values marked shopDefault:true are my defaults, not recovered values."
 # shared pieces
-ALLOW_LONG={"kerf_mm":3.175,"kerf_text":"1/8\" (3.2 mm) full-kerf blade","roughToFinalOversize_mm":{"thickness":3.0,"width":6.0,"length":50.0},"planerMinimum_mm":{"length":305.0,"thickness":6.5},"jointerMinimum_mm":{"length":305.0},"minPieceLength_mm":{"planerJointer":305.0,"tableSawFreehand":152.0,"sledHoldDownMax":152.0},"flatteningAllowance_mm":1.5,"sandingLoss_mm":0.5,"shopDefault":True}
+ALLOW_LONG={"kerf_mm":3.175,"kerf_text":"1/8\" (3.2 mm) full-kerf blade","roughToFinalOversize_mm":{"thickness":3.0,"width":6.0,"length":50.0},"planerMinimum_mm":{"length":305.0,"thickness":6.5},"jointerMinimum_mm":{"length":305.0},"minPieceLength_mm":{"planerJointer":305.0,"tableSawFreehand":152.0,"sledHoldDownMax":152.0},"flatteningAllowance_mm":1.5,"sandingLoss_mm":0.5,"blankRule":{"millWholeBlanksFirst":True,"blankMinLength_mm":305.0,"crosscutTrim_mm":25.0,"text":"Mill and rip whole blanks before any crosscut. Blank length = max(305 mm, slices x (slice + kerf) + 2 x 25 mm trim). Never send a crosscut slice or piece shorter than 305 mm to the jointer or planer."},"shopDefault":True}
 ALLOW_END=dict(ALLOW_LONG,flatteningAllowance_mm=5.0)
 B={
 "push":"WARNING: Use a push stick for any rip narrower than 6\" (152 mm). Never reach over or behind the blade.",
@@ -28,6 +28,7 @@ FINISH_LONG=[step(90,"Flatten and sand","Scrape glue, then plane or sand flat. S
  step(92,"Finish","Raise the grain with a damp cloth, sand 180 again, then flood with food-safe mineral oil and top with board butter.",{},["food"],None,None)]
 FINISH_END=[step(90,"Flatten and sand","Flatten with a router sled or drum sander, never the thickness planer. Sand 80, 120, 180 grit. Break edges (180 grit).",{"Grits":"80 / 120 / 180"},["endplaner"],"router-sled","top-view")]+FINISH_LONG[1:]
 import re
+FEATURES={"shopDefault":True,"handHole":{"length_mm":100.0,"width_mm":25.0,"endRadius_mm":12.7,"edgeInset_mm":38.0,"bit":"1/2\" (12.7 mm) straight or spiral bit","text":"Hand-hole slot 4\" (100 mm) long x 1\" (25 mm) wide, round ends, centred 1-1/2\" (38 mm) in from the end. Rout through with a template and a 1/2\" (12.7 mm) bit in shallow passes."},"fingerGrip":{"length_mm":100.0,"depth_mm":9.5,"edgeInset_mm":0.0,"bit":"core box / round-nose bit 3/8\u20131/2\" (9.5\u201312.7 mm)","text":"Finger grips 4\" (100 mm) long, routed into the end grain of each end with a core box bit, centred on the width."}}
 def renum(steps):
     seen={}
     for i,s in enumerate(steps,1):
@@ -49,5 +50,5 @@ S["scrap-chaotic"]=("Scrap Chaotic (End Grain)","Random offcuts milled to one th
 S["tumbling-block-3d"]=("3D Tumbling Block (End Grain)","Three tones of 60° diamonds forming cubes.",{"bevel_deg":30},MILL+[rip(2,"three species to equal width"),step(3,"Bevel strips","Rip a 30° bevel on both edges to make 60° diamonds in section. Use a hold-down; the offcut side must be the outside of the blade.",{"Blade tilt":"30°"},["guard","push","angle"],"table-saw","rip-fence"),glue(4,"Glue the diamonds into hexagon logs, one of each tone."),step(5,"Crosscut slices","Crosscut the logs into slices on a crosscut sled with a stop block.",{},["crosscut","smallparts"],"crosscut-sled","crosscut"),glue(6,"Glue hexagon slices into the final panel, then trim the zig-zag edges square.")]+FINISH_END,ALLOW_END)
 for k,(name,desc,ang,steps,allow) in S.items():
     steps=[dict(s,safetyBanners=list(s["safetyBanners"])) for s in steps]
-    json.dump({"style":k,"draft":DRAFT,"displayName":name,"description":desc,"angles":ang,"steps":renum(steps),"cutListAllowances":allow,"sizes":(["12x12","16x24"] if k=="checkerboard" else None),"pricePerBF":None,"notes":"Take ~1/64\" (0.4 mm) passes for final surfacing."},open(k+".json","w"),indent=2)
+    json.dump({"style":k,"draft":DRAFT,"displayName":name,"description":desc,"angles":ang,"steps":renum(steps),"cutListAllowances":allow,"sizes":(["12x12","16x24"] if k=="checkerboard" else None),"pricePerBF":None,"features":FEATURES,"notes":"Take ~1/64\" (0.4 mm) passes for final surfacing."},open(k+".json","w"),indent=2)
 print(len(S))
