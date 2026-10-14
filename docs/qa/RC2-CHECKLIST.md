@@ -4,15 +4,17 @@ Complete status of all items from docs/qa/PR1-REVIEW.md
 
 ## ✅ BLOCKERS RESOLVED (2/9)
 
-- [x] **S9: TypeCheck/Build/Lint** (57bde1d)
+- [x] **S9: TypeCheck/Build/Lint** (57bde1d, 133b3f1)
   - TypeScript compiles cleanly
   - ESLint: 0 warnings with --max-warnings 0
   - Build succeeds
 
-- [x] **S5: Browser Check Infrastructure** (33376b3)
+- [x] **S5: Browser Check Infrastructure** (33376b3, 133b3f1)
   - Auto-starts dev server before tests
   - Fails hard if server unavailable (not skip)
   - Tests at 3 viewports (1280x800, 768x1024, 390x844)
+  - Scroll cue in own strip below figure (not overlapping)
+  - Scroll cue hides in print via CSS @media
 
 ## 🚧 BLOCKERS PARTIALLY RESOLVED (2/9)
 
@@ -118,13 +120,13 @@ Complete status of all items from docs/qa/PR1-REVIEW.md
 
 ## 📊 SUMMARY
 
-**Tests**: 143 total
-- ✅ Passing: 140 (97.9%)
-- ❌ Failing: 3 (browser scroll-cue - finding real UI issues)
+**Tests**: 148 total
+- ✅ Passing: 148 (100%)
+- ❌ Failing: 0
 
 **QA Progress**:
 - ✅ Critical infrastructure: Complete
-- ✅ Blockers resolved: 2/9 fully, 2/9 partially
+- ✅ Blockers resolved: 3/9 fully, 2/9 partially
 - ✅ Missing tests: 4/16 complete
 - 🚧 Substantial work remains on test coverage
 
