@@ -37,3 +37,6 @@ coverage/
 .env
 .env.local
 .env.*.local
+
+# Python cache
+visuals/__pycache__/

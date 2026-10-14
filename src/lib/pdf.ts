@@ -11,6 +11,8 @@ import {
 } from './stepFigures';
 import { loadStyleCatalog } from './catalogLoader';
 import { CatalogStyleName } from '../types/catalog';
+import * as fs from 'fs';
+import * as path from 'path';
 
 const BANNER_FONT = 11;
 const BANNER_LINE = 14;
@@ -387,8 +389,9 @@ export class PdfGenerator {
 
   /**
    * Load external step figure SVG if it exists
-   * Looks for visuals/<styleId>/<stepId>.svg
-   * Returns null if file doesn't exist or not in Node.js environment
+   * Looks for visuals/steps/<styleId>/<stepId>.svg
+   * Returns null if file doesn't exist
+   * Throws on any read error (permissions, encoding, etc.)
    */
   private loadExternalStepFigure(stepId: string): string | null {
     // Only attempt to load external figures in Node.js (not browser)
@@ -396,27 +399,24 @@ export class PdfGenerator {
       return null;
     }
 
-    try {
-      // Dynamic import for Node.js-only modules
-      // eslint-disable-next-line @typescript-eslint/no-require-imports
-      const fs = require('fs');
-      // eslint-disable-next-line @typescript-eslint/no-require-imports
-      const path = require('path');
-      
-      const styleId = this.design.style;
-      // Path matches boardviz output: visuals/steps/<styleId>/<stepId>.svg
-      const figureDir = path.join(process.cwd(), 'visuals', 'steps', styleId);
-      const figurePath = path.join(figureDir, `${stepId}.svg`);
-      
-      if (fs.existsSync(figurePath)) {
-        const svgContent = fs.readFileSync(figurePath, 'utf-8');
-        console.log(`Loaded external figure: ${figurePath}`);
-        return svgContent;
-      }
-    } catch {
-      // File doesn't exist or can't be read - fall back to generated figure
+    const styleId = this.design.style;
+    // Path matches boardviz output: visuals/steps/<styleId>/<stepId>.svg
+    const figureDir = path.join(process.cwd(), 'visuals', 'steps', styleId);
+    const figurePath = path.join(figureDir, `${stepId}.svg`);
+    
+    // Check if file exists
+    if (!fs.existsSync(figurePath)) {
+      return null;
     }
-    return null;
+
+    // File exists - any read error should fail the export
+    try {
+      const svgContent = fs.readFileSync(figurePath, 'utf-8');
+      console.log(`Loaded external figure: ${figurePath}`);
+      return svgContent;
+    } catch (error) {
+      throw new Error(`Failed to read figure ${figurePath}: ${error instanceof Error ? error.message : String(error)}`);
+    }
   }
 
   /**
