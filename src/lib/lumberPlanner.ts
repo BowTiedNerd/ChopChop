@@ -142,13 +142,20 @@ export function calculateRequiredParts(design: BoardDesign): CutItem[] {
 interface BlankRule {
   millWholeBlanksFirst: boolean;
   blankMinLength_mm: number;
+  blankMaxLength_mm?: number;
   crosscutTrim_mm: number;
+  blankUnit?: string;
+  panelMaxPlanerWidth_mm?: number;
+  panelWideOption?: string[];
+  panelCrosscut?: string;
+  panelWidthText?: string;
   text: string;
 }
 
 /**
  * Calculate blanks according to blankRule
- * Mill and rip whole blanks first, then crosscut slices
+ * For stripSetPanel: mill and glue one panel with one strip of each species,
+ * then crosscut slices from it
  */
 function calculateBlanksWithRule(
   pattern: { strips: Array<{ width: number; height: number; depth: number; species: { name: string } }> },
@@ -160,57 +167,184 @@ function calculateBlanksWithRule(
   planerMaxWidth?: number,
   jointerMaxWidth?: number
 ): CutItem[] {
-  const blanks: Map<string, CutItem> = new Map();
+  const blanks: CutItem[] = [];
   
-  // Group strips by species, width, and thickness (these determine the blank)
-  // The slice thickness becomes the crosscut dimension
-  const stripGroups: Map<string, { strips: typeof pattern.strips; sliceThickness: number }> = new Map();
-  
-  for (const strip of pattern.strips) {
-    const width = strip.width + kerf + roughOversize.width;
-    const thickness = strip.height + roughOversize.thickness + flatteningAllowance + sandingLoss;
-    const sliceThickness = strip.depth; // This is what we'll crosscut
+  if (blankRule.blankUnit === 'stripSetPanel') {
+    // Strip-set panel: one panel = one strip of each species in pattern order
+    // Panel width = sum of all strip widths
+    // Panel is glued, then crosscut into slices
     
-    const key = `${strip.species.name}-${width.toFixed(1)}-${thickness.toFixed(1)}-${sliceThickness.toFixed(1)}`;
+    // Find unique strip combinations (by species, width, thickness)
+    // In most patterns, all strips have the same dimensions, just different species
+    const stripKey = (strip: typeof pattern.strips[0]) => {
+      const width = strip.width;
+      const thickness = strip.height + roughOversize.thickness + flatteningAllowance + sandingLoss;
+      const sliceThickness = strip.depth;
+      return `${width.toFixed(1)}-${thickness.toFixed(1)}-${sliceThickness.toFixed(1)}`;
+    };
     
-    if (!stripGroups.has(key)) {
-      stripGroups.set(key, { strips: [], sliceThickness });
+    // For checkerboard/brick etc: all strips have same dims, different species
+    // Count how many slices we need and group them
+    const firstStrip = pattern.strips[0];
+    const baseKey = stripKey(firstStrip);
+    const allSamePattern = pattern.strips.every(s => stripKey(s) === baseKey);
+    
+    if (allSamePattern) {
+      // All strips same dimensions - calculate panel from unique species in pattern
+      const uniqueSpecies = Array.from(new Set(pattern.strips.map(s => s.species.name)));
+      const sliceCount = pattern.strips.length / uniqueSpecies.length;
+      const thickness = firstStrip.height + roughOversize.thickness + flatteningAllowance + sandingLoss;
+      const sliceThickness = firstStrip.depth;
+      
+      // Panel width = sum of one strip of each species
+      const panelWidth = uniqueSpecies.length * (firstStrip.width + kerf) + roughOversize.width;
+      
+      // Calculate panel length with splitting if needed
+      const minPanelLength = sliceCount * (sliceThickness + kerf) + 2 * blankRule.crosscutTrim_mm;
+      const idealLength = Math.max(blankRule.blankMinLength_mm, minPanelLength);
+      const maxLength = blankRule.blankMaxLength_mm || 915;
+      
+      let panelCount = 1;
+      let panelLength = idealLength;
+      let slicesPerPanel = sliceCount;
+      
+      // Split if over max length
+      if (idealLength > maxLength) {
+        panelCount = Math.ceil(idealLength / maxLength);
+        slicesPerPanel = Math.ceil(sliceCount / panelCount);
+        panelLength = Math.max(
+          blankRule.blankMinLength_mm,
+          slicesPerPanel * (sliceThickness + kerf) + 2 * blankRule.crosscutTrim_mm
+        );
+      }
+      
+      // Check panel width constraints
+      const panelMaxWidth = blankRule.panelMaxPlanerWidth_mm || 305;
+      let widthNote = '';
+      let flatteningMethod = 'Plane flat';
+      
+      if (panelWidth > panelMaxWidth) {
+        const options = blankRule.panelWideOption || ['routerSled'];
+        if (options.includes('splitSubPanels')) {
+          // Calculate sub-panels
+          const stripsPerSubPanel = Math.floor(panelMaxWidth / (firstStrip.width + kerf));
+          const subPanelCount = Math.ceil(uniqueSpecies.length / stripsPerSubPanel);
+          widthNote = ` [Panel ${panelWidth.toFixed(0)}mm wide: split into ${subPanelCount} sub-panels ≤${panelMaxWidth}mm, plane each, then glue together]`;
+          flatteningMethod = 'Split into sub-panels, plane each';
+        } else {
+          widthNote = ` [Panel ${panelWidth.toFixed(0)}mm wide: use router sled or drum sander]`;
+          flatteningMethod = 'Router sled or drum sander';
+        }
+      }
+      
+      // Crosscut method
+      const crosscutMethod = blankRule.panelCrosscut === 'crosscutSledWithStopBlock' 
+        ? 'crosscut sled with stop block (never fence)'
+        : 'crosscut sled';
+      
+      // Add panel(s) to cut list
+      const speciesList = uniqueSpecies.join('/');
+      for (let i = 0; i < panelCount; i++) {
+        const actualSlices = i === panelCount - 1 
+          ? sliceCount - (panelCount - 1) * slicesPerPanel 
+          : slicesPerPanel;
+        
+        blanks.push({
+          part: `${speciesList} strip-set panel: glue ${uniqueSpecies.length} strips (one per species), ${flatteningMethod}, then ${crosscutMethod} ${actualSlices} slices × ${sliceThickness.toFixed(1)}mm${widthNote}`,
+          width: panelWidth,
+          thickness,
+          length: panelLength,
+          quantity: 1,
+          species: speciesList,
+        });
+      }
+    } else {
+      // Different strip dimensions - more complex grouping
+      // Fall back to per-strip blanks with width checks
+      const stripGroups: Map<string, { strips: typeof pattern.strips; sliceThickness: number }> = new Map();
+      
+      for (const strip of pattern.strips) {
+        const width = strip.width + kerf + roughOversize.width;
+        const thickness = strip.height + roughOversize.thickness + flatteningAllowance + sandingLoss;
+        const sliceThickness = strip.depth;
+        
+        const key = `${strip.species.name}-${width.toFixed(1)}-${thickness.toFixed(1)}-${sliceThickness.toFixed(1)}`;
+        
+        if (!stripGroups.has(key)) {
+          stripGroups.set(key, { strips: [], sliceThickness });
+        }
+        stripGroups.get(key)!.strips.push(strip);
+      }
+      
+      for (const [key, group] of stripGroups.entries()) {
+        const parts = key.split('-');
+        const species = parts.slice(0, -3).join('-');
+        const width = parseFloat(parts[parts.length - 3]);
+        const thickness = parseFloat(parts[parts.length - 2]);
+        const sliceThickness = group.sliceThickness;
+        const sliceCount = group.strips.length;
+        
+        const minBlankLength = sliceCount * (sliceThickness + kerf) + 2 * blankRule.crosscutTrim_mm;
+        const blankLength = Math.max(blankRule.blankMinLength_mm, minBlankLength);
+        
+        // Check width constraints
+        let widthNote = '';
+        if (width > planerMaxWidth!) {
+          widthNote = ' [Width exceeds planer: use router sled or drum sander]';
+        } else if (width > jointerMaxWidth!) {
+          widthNote = ' [Width exceeds jointer: use planer sled or hand flatten]';
+        }
+        
+        blanks.push({
+          part: `${species} blank (mill & rip, then crosscut ${sliceCount} × ${sliceThickness.toFixed(1)} mm slices)${widthNote}`,
+          width,
+          thickness,
+          length: blankLength,
+          quantity: 1,
+          species,
+        });
+      }
     }
-    stripGroups.get(key)!.strips.push(strip);
+  } else {
+    // Legacy single-strip blanks
+    const stripGroups: Map<string, { strips: typeof pattern.strips; sliceThickness: number }> = new Map();
+    
+    for (const strip of pattern.strips) {
+      const width = strip.width + kerf + roughOversize.width;
+      const thickness = strip.height + roughOversize.thickness + flatteningAllowance + sandingLoss;
+      const sliceThickness = strip.depth;
+      
+      const key = `${strip.species.name}-${width.toFixed(1)}-${thickness.toFixed(1)}-${sliceThickness.toFixed(1)}`;
+      
+      if (!stripGroups.has(key)) {
+        stripGroups.set(key, { strips: [], sliceThickness });
+      }
+      stripGroups.get(key)!.strips.push(strip);
+    }
+    
+    for (const [key, group] of stripGroups.entries()) {
+      const parts = key.split('-');
+      const species = parts.slice(0, -3).join('-');
+      const width = parseFloat(parts[parts.length - 3]);
+      const thickness = parseFloat(parts[parts.length - 2]);
+      const sliceThickness = group.sliceThickness;
+      const sliceCount = group.strips.length;
+      
+      const minBlankLength = sliceCount * (sliceThickness + kerf) + 2 * blankRule.crosscutTrim_mm;
+      const blankLength = Math.max(blankRule.blankMinLength_mm, minBlankLength);
+      
+      blanks.push({
+        part: `${species} blank (mill & rip, then crosscut ${sliceCount} × ${sliceThickness.toFixed(1)} mm slices)`,
+        width,
+        thickness,
+        length: blankLength,
+        quantity: 1,
+        species,
+      });
+    }
   }
   
-  // For each group, calculate blank length and check width constraints
-  for (const [key, group] of stripGroups.entries()) {
-    const parts = key.split('-');
-    const species = parts.slice(0, -3).join('-');
-    const width = parseFloat(parts[parts.length - 3]);
-    const thickness = parseFloat(parts[parts.length - 2]);
-    const sliceThickness = group.sliceThickness;
-    const sliceCount = group.strips.length;
-    
-    // Blank length = max(305 mm, slices * (slice + kerf) + 2 * 25 mm trim)
-    const minBlankLength = sliceCount * (sliceThickness + kerf) + 2 * blankRule.crosscutTrim_mm;
-    const blankLength = Math.max(blankRule.blankMinLength_mm, minBlankLength);
-    
-    // Check width constraints and add routing notes
-    let widthNote = '';
-    if (planerMaxWidth && width > planerMaxWidth) {
-      widthNote = ' [Width exceeds planer: use router sled or drum sander]';
-    } else if (jointerMaxWidth && width > jointerMaxWidth) {
-      widthNote = ' [Width exceeds jointer: use planer sled or hand flatten]';
-    }
-    
-    blanks.set(key, {
-      part: `${species} blank (mill & rip, then crosscut ${sliceCount} × ${sliceThickness.toFixed(1)} mm slices)${widthNote}`,
-      width,
-      thickness,
-      length: blankLength,
-      quantity: 1,
-      species,
-    });
-  }
-  
-  return Array.from(blanks.values());
+  return blanks;
 }
 
 /**
