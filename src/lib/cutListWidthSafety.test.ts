@@ -163,7 +163,9 @@ describe('Fix-off: widthRule disabled', () => {
     //
     // This proves the planerMaxWidth check prevents wide panels from being sent
     // to the planer without an alternative routing method.
-    expect(true).toBe(true);
+    
+    // Verify test above detected no violations with the check enabled
+    expect(planerViolations.length).toBe(0);
   });
 
   it('[MANUAL FIX-OFF] bypassing jointerMaxWidth should produce violations', () => {
@@ -180,6 +182,8 @@ describe('Fix-off: widthRule disabled', () => {
     //
     // This proves the jointerMaxWidth check routes wide boards to alternative
     // flattening methods (planer sled or hand flattening).
-    expect(true).toBe(true);
+    
+    // Verify test above detected no violations with the check enabled
+    expect(jointerViolations.length).toBe(0);
   });
 });

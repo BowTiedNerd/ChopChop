@@ -10,7 +10,7 @@
 endobj
 4 0 obj
 <<
-/Length 4184
+/Length 4280
 >>
 stream
 0.5670000000000001 w
@@ -41,7 +41,7 @@ BT
 11.5 TL
 0 g
 70.8661417322834666 672.9448818897637921 Td
-(Dimensions: 300.0 mm × 450.0 mm × 40.0 mm) Tj
+(Dimensions: 300 mm × 450 mm × 40 mm) Tj
 ET
 BT
 /F1 10 Tf
@@ -127,14 +127,14 @@ BT
 11.5 TL
 0. g
 56.6929133858267775 466.0157480314960026 Td
-(Walnut strip) Tj
+(Walnut blank \(mill & rip, then crosscut 108 × 25.0 mm slices\)) Tj
 ET
 BT
 /F1 10 Tf
 11.5 TL
 0. g
 170.0787401574803255 466.0157480314960026 Td
-(108) Tj
+(1) Tj
 ET
 BT
 /F1 10 Tf
@@ -148,14 +148,14 @@ BT
 11.5 TL
 0. g
 297.6377952755905767 466.0157480314960026 Td
-(46.5 mm) Tj
+(48.5 mm) Tj
 ET
 BT
 /F1 10 Tf
 11.5 TL
 0. g
 382.6771653543307252 466.0157480314960026 Td
-(78.2 mm) Tj
+(3092.9 mm) Tj
 ET
 BT
 /F1 10 Tf
@@ -169,14 +169,14 @@ BT
 11.5 TL
 0. g
 56.6929133858267775 451.842519685039349 Td
-(Maple strip) Tj
+(Maple blank \(mill & rip, then crosscut 108 × 25.0 mm slices\)) Tj
 ET
 BT
 /F1 10 Tf
 11.5 TL
 0. g
 170.0787401574803255 451.842519685039349 Td
-(108) Tj
+(1) Tj
 ET
 BT
 /F1 10 Tf
@@ -190,14 +190,14 @@ BT
 11.5 TL
 0. g
 297.6377952755905767 451.842519685039349 Td
-(46.5 mm) Tj
+(48.5 mm) Tj
 ET
 BT
 /F1 10 Tf
 11.5 TL
 0. g
 382.6771653543307252 451.842519685039349 Td
-(78.2 mm) Tj
+(3092.9 mm) Tj
 ET
 BT
 /F1 10 Tf
@@ -283,7 +283,7 @@ endobj
 endobj
 6 0 obj
 <<
-/Length 2886
+/Length 2993
 >>
 stream
 0.5670000000000001 w
@@ -411,16 +411,17 @@ BT
 11.5 TL
 0. g
 56.6929133858267775 162.7086614173227872 Td
-(Plane or sand the panel flat. It is still long grain, so the planer is allowed here.) Tj
+(Plane or sand the panel flat. It is still long grain, so the planer is allowed here if the panel is no wider than 12") Tj
+T* (\(305 mm\); a wider panel goes to the router sled or drum sander.) Tj
 ET
 1. 0.78 0.78 rg
-56.6929133858267775 151.3700787401574246 481.8897637795275841 -22.677165354330711 re
+56.6929133858267775 137.1968503937007426 481.8897637795275841 -22.677165354330711 re
 f
 BT
 /F2 11 Tf
 12.6499999999999986 TL
 0. g
-70.8661417322834666 140.0314960629920051 Td
+70.8661417322834666 125.8582677165353516 Td
 (WARNING: Keep hands clear of the infeed and outfeed. Feed only boards at least 12" \(305) Tj
 T* (mm\) long.) Tj
 ET
@@ -436,7 +437,7 @@ endobj
 endobj
 8 0 obj
 <<
-/Length 2926
+/Length 2163
 >>
 stream
 0.5670000000000001 w
@@ -520,64 +521,31 @@ BT
 (Turn each slice end grain up.) Tj
 ET
 BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.502 g
+56.6929133858267775 358.2992125984251288 Td
+([Step Diagram]) Tj
+ET
+BT
 /F2 12 Tf
 13.7999999999999989 TL
 0. g
-56.6929133858267775 344.1259842519684753 Td
+56.6929133858267775 273.2598425196849803 Td
 (Step 7: Flip alternate slices) Tj
 ET
 BT
 /F1 10 Tf
 11.5 TL
 0. g
-56.6929133858267775 324.2834645669290694 Td
+56.6929133858267775 253.4173228346455744 Td
 (Flip every other slice end for end so the colours alternate into squares.) Tj
-ET
-BT
-/F2 12 Tf
-13.7999999999999989 TL
-0. g
-56.6929133858267775 281.7637795275589951 Td
-(Step 8: Glue up) Tj
-ET
-BT
-/F1 10 Tf
-11.5 TL
-0. g
-56.6929133858267775 261.9212598425195893 Td
-(Glue slices into the final panel, aligning the squares at every joint. Alternate clamps above and below the) Tj
-T* (panel and check for flat with a straightedge.) Tj
-ET
-BT
-/F2 10 Tf
-11.5 TL
-0. g
-56.6929133858267775 225.0708661417322674 Td
-(Settings:) Tj
-ET
-BT
-/F1 10 Tf
-11.5 TL
-0. g
-56.6929133858267775 210.8976377952755001 Td
-(  Clamp spacing: about 8" \(200 mm\)) Tj
-ET
-1. 0.78 0.78 rg
-56.6929133858267775 199.5590551181101944 481.8897637795275841 -22.677165354330711 re
-f
-BT
-/F2 11 Tf
-12.6499999999999986 TL
-0. g
-70.8661417322834666 188.2204724409448318 Td
-(NOTE: Use a waterproof PVA glue rated for indirect food contact. Clamp until squeeze-out) Tj
-T* (turns rubbery, then scrape.) Tj
 ET
 BT
 /F1 9 Tf
 10.3499999999999996 TL
 0.502 g
-56.6929133858267775 145.7007874015747575 Td
+56.6929133858267775 225.0708661417322674 Td
 ([Step Diagram]) Tj
 ET
 endstream
@@ -592,7 +560,7 @@ endobj
 endobj
 10 0 obj
 <<
-/Length 2692
+/Length 2779
 >>
 stream
 0.5670000000000001 w
@@ -602,15 +570,15 @@ BT
 13.7999999999999989 TL
 0. g
 56.6929133858267775 735.3070866141732722 Td
-(Step 9: Flatten and sand) Tj
+(Step 8: Glue up) Tj
 ET
 BT
 /F1 10 Tf
 11.5 TL
 0. g
 56.6929133858267775 715.4645669291338663 Td
-(Flatten with a router sled or drum sander, never the thickness planer. Sand 80, 120, 180 grit. Break edges) Tj
-T* (\(180 grit\).) Tj
+(Glue slices into the final panel, aligning the squares at every joint. Alternate clamps above and below the) Tj
+T* (panel and check for flat with a straightedge.) Tj
 ET
 BT
 /F2 10 Tf
@@ -624,7 +592,7 @@ BT
 11.5 TL
 0. g
 56.6929133858267775 664.4409448818897772 Td
-(  Grits: 80 / 120 / 180) Tj
+(  Clamp spacing: about 8" \(200 mm\)) Tj
 ET
 1. 0.78 0.78 rg
 56.6929133858267775 653.1023622047243862 481.8897637795275841 -22.677165354330711 re
@@ -634,8 +602,8 @@ BT
 12.6499999999999986 TL
 0. g
 70.8661417322834666 641.7637795275591088 Td
-(DANGER: Never run an end-grain glue-up through the thickness planer. It can blow apart.) Tj
-T* (Flatten with a router sled or drum sander.) Tj
+(NOTE: Use a waterproof PVA glue rated for indirect food contact. Clamp until squeeze-out) Tj
+T* (turns rubbery, then scrape.) Tj
 ET
 BT
 /F1 9 Tf
@@ -649,15 +617,15 @@ BT
 13.7999999999999989 TL
 0. g
 56.6929133858267775 514.2047244094487723 Td
-(Step 10: Edge profile) Tj
+(Step 9: Flatten and sand) Tj
 ET
 BT
 /F1 10 Tf
 11.5 TL
 0. g
 56.6929133858267775 494.3622047244094233 Td
-(Rout the edge profile, default: 1/8" \(3 mm\) roundover. Optional finger grips: core box / round-nose bit 3/8–1/2") Tj
-T* (\(10–12 mm\).) Tj
+(Flatten with a router sled or drum sander, never the thickness planer. Sand 80, 120, 180 grit. Break edges) Tj
+T* (\(180 grit\).) Tj
 ET
 BT
 /F2 10 Tf
@@ -671,7 +639,7 @@ BT
 11.5 TL
 0. g
 56.6929133858267775 443.3385826771653342 Td
-(  Bit: 1/8" \(3 mm\) roundover) Tj
+(  Grits: 80 / 120 / 180) Tj
 ET
 1. 0.78 0.78 rg
 56.6929133858267775 432. 481.8897637795275841 -22.677165354330711 re
@@ -681,32 +649,103 @@ BT
 12.6499999999999986 TL
 0. g
 70.8661417322834666 420.661417322834609 Td
-(WARNING: Climb cuts can grab. Feed the router against the bit rotation and take shallow) Tj
-T* (passes.) Tj
+(DANGER: Never run an end-grain glue-up through the thickness planer. It can blow apart.) Tj
+T* (Flatten with a router sled or drum sander.) Tj
+ET
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.502 g
+56.6929133858267775 378.1417322834645347 Td
+([Step Diagram]) Tj
 ET
 BT
 /F2 12 Tf
 13.7999999999999989 TL
 0. g
-56.6929133858267775 363.9685039370078243 Td
+56.6929133858267775 293.1023622047243862 Td
+(Step 10: Edge profile) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0. g
+56.6929133858267775 273.2598425196849803 Td
+(Rout the edge profile, default: 1/8" \(3 mm\) roundover. Optional finger grips: core box / round-nose bit 3/8–1/2") Tj
+T* (\(9.5–12.7 mm\).) Tj
+ET
+BT
+/F2 10 Tf
+11.5 TL
+0. g
+56.6929133858267775 236.4094488188975447 Td
+(Settings:) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0. g
+56.6929133858267775 222.2362204724408912 Td
+(  Bit: 1/8" \(3 mm\) roundover) Tj
+ET
+1. 0.78 0.78 rg
+56.6929133858267775 210.897637795275557 481.8897637795275841 -22.677165354330711 re
+f
+BT
+/F2 11 Tf
+12.6499999999999986 TL
+0. g
+70.8661417322834666 199.5590551181102228 Td
+(WARNING: Climb cuts can grab. Feed the router against the bit rotation and take shallow) Tj
+T* (passes.) Tj
+ET
+endstream
+endobj
+11 0 obj
+<</Type /Page
+/Parent 1 0 R
+/Resources 2 0 R
+/MediaBox [0 0 612. 792.]
+/Contents 12 0 R
+>>
+endobj
+12 0 obj
+<<
+/Length 1030
+>>
+stream
+0.5670000000000001 w
+0 G
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.502 g
+56.6929133858267775 735.3070866141732722 Td
+([Step Diagram]) Tj
+ET
+BT
+/F2 12 Tf
+13.7999999999999989 TL
+0. g
+56.6929133858267775 650.26771653543301 Td
 (Step 11: Finish) Tj
 ET
 BT
 /F1 10 Tf
 11.5 TL
 0. g
-56.6929133858267775 344.1259842519684753 Td
+56.6929133858267775 630.4251968503937178 Td
 (Raise the grain with a damp cloth, sand 180 again, then flood with food-safe mineral oil and top with board) Tj
 T* (butter.) Tj
 ET
 1. 0.78 0.78 rg
-56.6929133858267775 318.6141732283464307 481.8897637795275841 -22.677165354330711 re
+56.6929133858267775 604.9133858267716732 481.8897637795275841 -22.677165354330711 re
 f
 BT
 /F2 11 Tf
 12.6499999999999986 TL
 0. g
-70.8661417322834666 307.2755905511810397 Td
+70.8661417322834666 593.5748031496062822 Td
 (NOTE: Use closed-grain, non-toxic hardwoods only. Avoid spalted, softwood or) Tj
 T* (oily/sensitising exotics on cutting surfaces.) Tj
 ET
@@ -728,11 +767,11 @@ endstream
 endobj
 1 0 obj
 <</Type /Pages
-/Kids [3 0 R 5 0 R 7 0 R 9 0 R ]
-/Count 4
+/Kids [3 0 R 5 0 R 7 0 R 9 0 R 11 0 R ]
+/Count 5
 >>
 endobj
-11 0 obj
+13 0 obj
 <<
 /Type /Font
 /BaseFont /Helvetica
@@ -742,7 +781,7 @@ endobj
 /LastChar 255
 >>
 endobj
-12 0 obj
+14 0 obj
 <<
 /Type /Font
 /BaseFont /Helvetica-Bold
@@ -752,7 +791,7 @@ endobj
 /LastChar 255
 >>
 endobj
-13 0 obj
+15 0 obj
 <<
 /Type /Font
 /BaseFont /Helvetica-Oblique
@@ -762,7 +801,7 @@ endobj
 /LastChar 255
 >>
 endobj
-14 0 obj
+16 0 obj
 <<
 /Type /Font
 /BaseFont /Helvetica-BoldOblique
@@ -772,7 +811,7 @@ endobj
 /LastChar 255
 >>
 endobj
-15 0 obj
+17 0 obj
 <<
 /Type /Font
 /BaseFont /Courier
@@ -782,7 +821,7 @@ endobj
 /LastChar 255
 >>
 endobj
-16 0 obj
+18 0 obj
 <<
 /Type /Font
 /BaseFont /Courier-Bold
@@ -792,7 +831,7 @@ endobj
 /LastChar 255
 >>
 endobj
-17 0 obj
+19 0 obj
 <<
 /Type /Font
 /BaseFont /Courier-Oblique
@@ -802,7 +841,7 @@ endobj
 /LastChar 255
 >>
 endobj
-18 0 obj
+20 0 obj
 <<
 /Type /Font
 /BaseFont /Courier-BoldOblique
@@ -812,7 +851,7 @@ endobj
 /LastChar 255
 >>
 endobj
-19 0 obj
+21 0 obj
 <<
 /Type /Font
 /BaseFont /Times-Roman
@@ -822,7 +861,7 @@ endobj
 /LastChar 255
 >>
 endobj
-20 0 obj
+22 0 obj
 <<
 /Type /Font
 /BaseFont /Times-Bold
@@ -832,7 +871,7 @@ endobj
 /LastChar 255
 >>
 endobj
-21 0 obj
+23 0 obj
 <<
 /Type /Font
 /BaseFont /Times-Italic
@@ -842,7 +881,7 @@ endobj
 /LastChar 255
 >>
 endobj
-22 0 obj
+24 0 obj
 <<
 /Type /Font
 /BaseFont /Times-BoldItalic
@@ -852,7 +891,7 @@ endobj
 /LastChar 255
 >>
 endobj
-23 0 obj
+25 0 obj
 <<
 /Type /Font
 /BaseFont /ZapfDingbats
@@ -861,7 +900,7 @@ endobj
 /LastChar 255
 >>
 endobj
-24 0 obj
+26 0 obj
 <<
 /Type /Font
 /BaseFont /Symbol
@@ -874,32 +913,32 @@ endobj
 <<
 /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]
 /Font <<
-/F1 11 0 R
-/F2 12 0 R
-/F3 13 0 R
-/F4 14 0 R
-/F5 15 0 R
-/F6 16 0 R
-/F7 17 0 R
-/F8 18 0 R
-/F9 19 0 R
-/F10 20 0 R
-/F11 21 0 R
-/F12 22 0 R
-/F13 23 0 R
-/F14 24 0 R
+/F1 13 0 R
+/F2 14 0 R
+/F3 15 0 R
+/F4 16 0 R
+/F5 17 0 R
+/F6 18 0 R
+/F7 19 0 R
+/F8 20 0 R
+/F9 21 0 R
+/F10 22 0 R
+/F11 23 0 R
+/F12 24 0 R
+/F13 25 0 R
+/F14 26 0 R
 >>
 /XObject <<
 >>
 >>
 endobj
-25 0 obj
+27 0 obj
 <<
 /Producer (jsPDF 2.5.2)
-/CreationDate (D:20261013234237-00'00')
+/CreationDate (D:20261014124714-00'00')
 >>
 endobj
-26 0 obj
+28 0 obj
 <<
 /Type /Catalog
 /Pages 1 0 R
@@ -908,41 +947,43 @@ endobj
 >>
 endobj
 xref
-0 27
+0 29
 0000000000 65535 f 
-0000013333 00000 n 
-0000015173 00000 n 
+0000014050 00000 n 
+0000015897 00000 n 
 0000000015 00000 n 
 0000000120 00000 n 
-0000004356 00000 n 
-0000004461 00000 n 
-0000007399 00000 n 
-0000007504 00000 n 
-0000010482 00000 n 
-0000010588 00000 n 
-0000013408 00000 n 
-0000013534 00000 n 
-0000013665 00000 n 
-0000013799 00000 n 
-0000013937 00000 n 
-0000014061 00000 n 
-0000014190 00000 n 
-0000014322 00000 n 
-0000014458 00000 n 
-0000014586 00000 n 
-0000014713 00000 n 
-0000014842 00000 n 
-0000014975 00000 n 
-0000015077 00000 n 
-0000015426 00000 n 
-0000015512 00000 n 
+0000004452 00000 n 
+0000004557 00000 n 
+0000007602 00000 n 
+0000007707 00000 n 
+0000009922 00000 n 
+0000010028 00000 n 
+0000012860 00000 n 
+0000012967 00000 n 
+0000014132 00000 n 
+0000014258 00000 n 
+0000014389 00000 n 
+0000014523 00000 n 
+0000014661 00000 n 
+0000014785 00000 n 
+0000014914 00000 n 
+0000015046 00000 n 
+0000015182 00000 n 
+0000015310 00000 n 
+0000015437 00000 n 
+0000015566 00000 n 
+0000015699 00000 n 
+0000015801 00000 n 
+0000016150 00000 n 
+0000016236 00000 n 
 trailer
 <<
-/Size 27
-/Root 26 0 R
-/Info 25 0 R
-/ID [ <612523ECFC0FE6E015A40D92A971A412> <612523ECFC0FE6E015A40D92A971A412> ]
+/Size 29
+/Root 28 0 R
+/Info 27 0 R
+/ID [ <9D3B21D5D82F1AD493288A21F6DE3C8F> <9D3B21D5D82F1AD493288A21F6DE3C8F> ]
 >>
 startxref
-15616
+16340
 %%EOF
