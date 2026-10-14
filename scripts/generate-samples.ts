@@ -29,12 +29,22 @@ import {
 } from '../src/lib/defaults';
 import { BoardDesign } from '../src/types';
 import { calculateRequiredParts } from '../src/lib/lumberPlanner';
+import { buildExportDoc } from './export';
 
 const SAMPLES_DIR = 'samples';
 
 // Ensure samples directory exists
 if (!existsSync(SAMPLES_DIR)) {
   mkdirSync(SAMPLES_DIR, { recursive: true });
+}
+
+/** JSON export alongside the PDF; fixed metadata so CI can byte-compare it */
+function generateSampleJson(name: string, design: BoardDesign): void {
+  const exportedAt = new Date(Number(process.env.SOURCE_DATE_EPOCH) * 1000).toISOString();
+  const { exportDoc } = buildExportDoc(design, { exportedAt, commitSha: 'sample' });
+  const filePath = join(SAMPLES_DIR, `${name}.json`);
+  writeFileSync(filePath, JSON.stringify(exportDoc, null, 2) + '\n', 'utf-8');
+  console.log(`  ✓ Generated: ${filePath}`);
 }
 
 function generateSample(name: string, design: BoardDesign): void {
@@ -94,6 +104,7 @@ handHoleBoard.handles = {
   type: 'hand-hole',
 };
 generateSample('hand-hole', handHoleBoard);
+generateSampleJson('hand-hole', handHoleBoard);
 
 // Scrap chaotic
 const scrapBoard = createDefaultBoard();
@@ -104,6 +115,7 @@ scrapBoard.species = [
   { name: 'Cherry', color: '#C04000' },
 ];
 generateSample('scrap-chaotic', scrapBoard);
+generateSampleJson('scrap-chaotic', scrapBoard);
 
 // Features combined: juice groove + rubber feet + finger grip
 const featuresBoard = createDefaultBoard();

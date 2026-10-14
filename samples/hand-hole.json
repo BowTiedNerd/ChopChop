@@ -1,25 +1,30 @@
 {
   "version": "1.0.0",
-  "exportedAt": "2026-10-14T13:32:13.089Z",
-  "commitSha": "835a8c19a0453803c75bd4c6be9e57f87f89f31e",
+  "exportedAt": "2026-01-01T00:00:00.000Z",
+  "commitSha": "sample",
   "design": {
-    "style": "end-grain",
+    "style": "checkerboard",
     "dimensions": {
-      "width": "12.008\" (≈12 1/64\")",
-      "length": "15.984\" (≈15 63/64\")",
-      "thickness": "1.496\" (≈1 1/2\")"
+      "width": "12.000\" (12\")",
+      "length": "18.000\" (18\")",
+      "thickness": "1.500\" (1 1/2\")"
     },
     "species": [
       "Walnut",
       "Maple"
     ],
     "modifiers": {
-      "juiceGroove": null,
+      "juiceGroove": {
+        "width": "0.492\" (≈31/64\")",
+        "depth": "0.197\" (≈13/64\")",
+        "fromEdge": "0.748\" (≈3/4\")",
+        "cornerRadius": "1.004\" (≈1\")"
+      },
       "handles": {
         "type": "hand-hole"
       },
       "feet": {
-        "diameter": "1.000\" (1\")",
+        "diameter": "1.004\" (≈1\")",
         "height": "0.374\" (≈3/8\")",
         "inset": "1.260\" (≈1 17/64\")"
       }
@@ -27,105 +32,1321 @@
     "unitSystem": "imperial"
   },
   "pattern": {
-    "stripCount": 12,
+    "stripCount": 216,
     "strips": [
       {
         "species": "Walnut",
-        "width": "1.001\" (≈1\")",
-        "height": "1.496\" (≈1 1/2\")",
-        "depth": "15.984\" (≈15 63/64\")"
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
       },
       {
         "species": "Maple",
-        "width": "1.001\" (≈1\")",
-        "height": "1.496\" (≈1 1/2\")",
-        "depth": "15.984\" (≈15 63/64\")"
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
       },
       {
         "species": "Walnut",
-        "width": "1.001\" (≈1\")",
-        "height": "1.496\" (≈1 1/2\")",
-        "depth": "15.984\" (≈15 63/64\")"
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
       },
       {
         "species": "Maple",
-        "width": "1.001\" (≈1\")",
-        "height": "1.496\" (≈1 1/2\")",
-        "depth": "15.984\" (≈15 63/64\")"
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
       },
       {
         "species": "Walnut",
-        "width": "1.001\" (≈1\")",
-        "height": "1.496\" (≈1 1/2\")",
-        "depth": "15.984\" (≈15 63/64\")"
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
       },
       {
         "species": "Maple",
-        "width": "1.001\" (≈1\")",
-        "height": "1.496\" (≈1 1/2\")",
-        "depth": "15.984\" (≈15 63/64\")"
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
       },
       {
         "species": "Walnut",
-        "width": "1.001\" (≈1\")",
-        "height": "1.496\" (≈1 1/2\")",
-        "depth": "15.984\" (≈15 63/64\")"
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
       },
       {
         "species": "Maple",
-        "width": "1.001\" (≈1\")",
-        "height": "1.496\" (≈1 1/2\")",
-        "depth": "15.984\" (≈15 63/64\")"
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
       },
       {
         "species": "Walnut",
-        "width": "1.001\" (≈1\")",
-        "height": "1.496\" (≈1 1/2\")",
-        "depth": "15.984\" (≈15 63/64\")"
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
       },
       {
         "species": "Maple",
-        "width": "1.001\" (≈1\")",
-        "height": "1.496\" (≈1 1/2\")",
-        "depth": "15.984\" (≈15 63/64\")"
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
       },
       {
         "species": "Walnut",
-        "width": "1.001\" (≈1\")",
-        "height": "1.496\" (≈1 1/2\")",
-        "depth": "15.984\" (≈15 63/64\")"
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
       },
       {
         "species": "Maple",
-        "width": "1.001\" (≈1\")",
-        "height": "1.496\" (≈1 1/2\")",
-        "depth": "15.984\" (≈15 63/64\")"
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.000\" (1\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.000\" (1\")"
       }
     ]
   },
   "cutList": [
     {
-      "part": "Walnut/Maple strip-set panel: glue 2 strips (one per species), Plane flat, then crosscut sled with stop block (never fence) 2 slices × 406.0mm",
+      "part": "Walnut/Maple strip-set panel sub-panel 1/2: glue 6 whole strips across (alternating species), plane flat at 6.2\" (158 mm), then crosscut sled with stop block (never fence) 18 slices × 43.1mm (sled must clear 6.2\" (158 mm)) [Width exceeds jointer: flatten the first face on a planer sled or by hand]",
       "quantity": 1,
-      "width": "2.488\" (≈2 31/64\")",
-      "thickness": "1.831\" (≈1 53/64\")",
-      "length": "34.187\" (≈34 3/16\")",
+      "width": "6.236\" (≈6 15/64\")",
+      "thickness": "1.835\" (≈1 53/64\")",
+      "length": "34.762\" (≈34 49/64\")",
       "species": "Walnut/Maple"
     },
     {
-      "part": "Walnut/Maple strip-set panel: glue 2 strips (one per species), Plane flat, then crosscut sled with stop block (never fence) 2 slices × 406.0mm",
+      "part": "Walnut/Maple strip-set panel sub-panel 2/2: glue 6 whole strips across (alternating species), plane flat at 6.2\" (158 mm), then crosscut sled with stop block (never fence) 18 slices × 43.1mm (sled must clear 6.2\" (158 mm)) [Width exceeds jointer: flatten the first face on a planer sled or by hand]",
       "quantity": 1,
-      "width": "2.488\" (≈2 31/64\")",
-      "thickness": "1.831\" (≈1 53/64\")",
-      "length": "34.187\" (≈34 3/16\")",
-      "species": "Walnut/Maple"
-    },
-    {
-      "part": "Walnut/Maple strip-set panel: glue 2 strips (one per species), Plane flat, then crosscut sled with stop block (never fence) 2 slices × 406.0mm",
-      "quantity": 1,
-      "width": "2.488\" (≈2 31/64\")",
-      "thickness": "1.831\" (≈1 53/64\")",
-      "length": "34.187\" (≈34 3/16\")",
+      "width": "6.236\" (≈6 15/64\")",
+      "thickness": "1.835\" (≈1 53/64\")",
+      "length": "34.762\" (≈34 49/64\")",
       "species": "Walnut/Maple"
     }
   ]

@@ -37,6 +37,79 @@ function getCommitSha(): string {
   }
 }
 
+/** Build the export document (shared by the CLI and generate-samples). */
+export function buildExportDoc(design: BoardDesign, meta: { exportedAt: string; commitSha: string }) {
+  // Generate pattern and cut list
+  const pattern = generatePattern(design);
+  const cutList = calculateRequiredParts(design);
+  
+  // Format dimensions for export
+  const f = (mm: number) => {
+    if (design.unitSystem === 'metric') {
+      const rounded = Number(mm.toFixed(1));
+      if (Math.floor(rounded) === rounded) {
+        return `${Math.floor(rounded)} mm`;
+      }
+      return `${rounded.toFixed(1)} mm`;
+    } else {
+      return inchText(mm / 25.4);
+    }
+  };
+  
+  // Create export document
+  const exportDoc = {
+    version: '1.0.0',
+    exportedAt: meta.exportedAt,
+    commitSha: meta.commitSha,
+    design: {
+      style: design.style,
+      dimensions: {
+        width: f(design.dimensions.width),
+        length: f(design.dimensions.length),
+        thickness: f(design.dimensions.thickness),
+      },
+      species: design.species.map(s => s.name),
+      angle: design.angle,
+      modifiers: {
+        juiceGroove: design.juiceGroove.enabled ? {
+          width: f(design.juiceGroove.width),
+          depth: f(design.juiceGroove.depth),
+          fromEdge: f(design.juiceGroove.fromEdge),
+          cornerRadius: f(design.juiceGroove.cornerRadius),
+        } : null,
+        handles: design.handles.enabled ? {
+          type: design.handles.type,
+        } : null,
+        feet: design.rubberFeet.enabled ? {
+          diameter: f(design.rubberFeet.diameter),
+          height: f(design.rubberFeet.height),
+          inset: f(design.rubberFeet.inset),
+        } : null,
+      },
+      unitSystem: design.unitSystem,
+    },
+    pattern: {
+      stripCount: pattern.strips.length,
+      strips: pattern.strips.map(s => ({
+        species: s.species.name,
+        width: f(s.width),
+        height: f(s.height),
+        depth: f(s.depth),
+      })),
+    },
+    cutList: cutList.map(item => ({
+      part: item.part,
+      quantity: item.quantity,
+      width: f(item.width),
+      thickness: f(item.thickness),
+      length: f(item.length),
+      species: item.species,
+    })),
+  };
+  
+  return { exportDoc, cutList };
+}
+
 function exportDesign(options: ExportOptions): void {
   let design: BoardDesign;
   
@@ -83,73 +156,7 @@ function exportDesign(options: ExportOptions): void {
     }
   }
   
-  // Generate pattern and cut list
-  const pattern = generatePattern(design);
-  const cutList = calculateRequiredParts(design);
-  
-  // Format dimensions for export
-  const f = (mm: number) => {
-    if (design.unitSystem === 'metric') {
-      const rounded = Number(mm.toFixed(1));
-      if (Math.floor(rounded) === rounded) {
-        return `${Math.floor(rounded)} mm`;
-      }
-      return `${rounded.toFixed(1)} mm`;
-    } else {
-      return inchText(mm / 25.4);
-    }
-  };
-  
-  // Create export document
-  const exportDoc = {
-    version: '1.0.0',
-    exportedAt: new Date().toISOString(),
-    commitSha: getCommitSha(),
-    design: {
-      style: design.style,
-      dimensions: {
-        width: f(design.dimensions.width),
-        length: f(design.dimensions.length),
-        thickness: f(design.dimensions.thickness),
-      },
-      species: design.species.map(s => s.name),
-      angle: design.angle,
-      modifiers: {
-        juiceGroove: design.juiceGroove.enabled ? {
-          width: f(design.juiceGroove.width),
-          depth: f(design.juiceGroove.depth),
-          fromEdge: f(design.juiceGroove.fromEdge),
-          cornerRadius: f(design.juiceGroove.cornerRadius),
-        } : null,
-        handles: design.handles.enabled ? {
-          type: design.handles.type,
-        } : null,
-        feet: design.rubberFeet.enabled ? {
-          diameter: f(design.rubberFeet.diameter),
-          height: f(design.rubberFeet.height),
-          inset: f(design.rubberFeet.inset),
-        } : null,
-      },
-      unitSystem: design.unitSystem,
-    },
-    pattern: {
-      stripCount: pattern.strips.length,
-      strips: pattern.strips.map(s => ({
-        species: s.species.name,
-        width: f(s.width),
-        height: f(s.height),
-        depth: f(s.depth),
-      })),
-    },
-    cutList: cutList.map(item => ({
-      part: item.part,
-      quantity: item.quantity,
-      width: f(item.width),
-      thickness: f(item.thickness),
-      length: f(item.length),
-      species: item.species,
-    })),
-  };
+  const { exportDoc, cutList } = buildExportDoc(design, { exportedAt: new Date().toISOString(), commitSha: getCommitSha() });
   
   // Write JSON output
   const jsonOutput = JSON.stringify(exportDoc, null, 2);
