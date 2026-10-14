@@ -181,9 +181,93 @@ expect(inchText(0.750)).not.toContain('≈');
 
 **Fix-off proof:** If approximation tolerance is too loose, 0.750 gets ≈ prefix incorrectly.
 
+## Rule 10: stepId Validation (unique and stable identifiers)
+
+**Implementation:**
+- `src/lib/stepId.test.ts`: Validates stepIds for all styles
+- Every stepId must be unique within its style
+- stepIds must be non-empty strings
+- stepIds must follow kebab-case convention
+- stepNumber is display order only, stepId is stable identifier
+
+**Tests:**
+- `should have unique stepIds within the style` (per style)
+- `should have non-empty stepIds for all steps`
+- `should have stepIds matching kebab-case convention`
+- `should maintain stepNumber sequence`
+- `should have matching stepIds between catalog and loaded steps`
+- `should have unique stepIds across all styles for export disambiguation`
+
+**Fix-off proof:** Three experiments prove enforcement.
+
+### Real Fix-Off Run Output
+
+**Experiment 1: Duplicate stepId**
+```bash
+# Change step 2's stepId to duplicate step 1's in checkerboard
+sed -i '/"stepId": "rip-strips"/c\      "stepId": "mill-rough-stock"' styles/checkerboard.json
+```
+
+**Test FAILS:**
+```
+FAIL  src/lib/stepId.test.ts > checkerboard catalog > should have unique stepIds
+Error: Duplicate stepIds found in checkerboard: mill-rough-stock
+
+ ❯ src/lib/stepId.test.ts:20:17
+     18|         if (stepIds.length !== uniqueStepIds.size) {
+     19|           const duplicates = stepIds.filter((id, index) => ...
+     20|           throw new Error(`Duplicate stepIds found in ${style}: ...
+       |                 ^
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 50 skipped (51)
+```
+
+**Experiment 2: Empty stepId**
+```bash
+# Change first stepId to empty string in chevron
+sed -i '0,/"stepId":/s/"stepId": "[^"]*"/"stepId": ""/' styles/chevron.json
+```
+
+**Test FAILS:**
+```
+FAIL  src/lib/stepId.test.ts > chevron catalog > should have non-empty stepIds
+Expected: true
+Received: ""
+
+ ❯ src/lib/stepId.test.ts:30:31
+     30|           expect(step.stepId).toBeTruthy();
+       |                               ^
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 50 skipped (51)
+```
+
+**Experiment 3: Invalid format (camelCase not kebab-case)**
+```bash
+# Change stepId to camelCase in edge-grain
+sed -i '0,/"stepId":/s/"stepId": "[^"]*"/"stepId": "millRoughStock"/' styles/edge-grain.json
+```
+
+**Test FAILS:**
+```
+FAIL  src/lib/stepId.test.ts > edge-grain catalog > should have stepIds matching kebab-case
+Expected pattern: /^[a-z0-9]+(-[a-z0-9]+)*$/
+Received: "millRoughStock"
+
+ ❯ src/lib/stepId.test.ts:41:31
+     41|           expect(step.stepId).toMatch(kebabCasePattern);
+       |                               ^
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 50 skipped (51)
+```
+
+**Conclusion:** All three validation rules are actively enforced. Duplicate, empty, or incorrectly formatted stepIds cause immediate test failures.
+
 ## Summary
 
-All 92 tests pass (`npm test`):
+All tests pass (`npm test`):
 - 24 tests in acceptance.test.ts verify ACCEPTANCE rules
 - 26 tests in catalogLoader.test.ts verify catalog schema
 - 17 tests in validation.test.ts verify input checks
