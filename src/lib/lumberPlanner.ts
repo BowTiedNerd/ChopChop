@@ -1,3 +1,4 @@
+import { sheetLen } from '../utils/format';
 /**
  * Lumber planner and milling/cutting optimizer
  * Calculates optimal cutting from user's available stock
@@ -106,7 +107,8 @@ export function calculateRequiredParts(design: BoardDesign): CutItem[] {
       sandingLoss,
       blankRule,
       catalog?.cutListAllowances?.planerMaxWidth_mm,
-      catalog?.cutListAllowances?.jointerMaxWidth_mm
+      catalog?.cutListAllowances?.jointerMaxWidth_mm,
+      design.unitSystem
     );
   }
   
@@ -149,6 +151,11 @@ interface BlankRule {
   panelWideOption?: string[];
   panelCrosscut?: string;
   panelWidthText?: string;
+  panelStrips?: string;
+  sliceCount?: string;
+  overLength?: string;
+  panelSplitOn?: string;
+  sledMaxWidth_mm?: number;
   text: string;
 }
 
@@ -165,7 +172,8 @@ function calculateBlanksWithRule(
   sandingLoss: number,
   blankRule: BlankRule,
   planerMaxWidth?: number,
-  jointerMaxWidth?: number
+  jointerMaxWidth?: number,
+  unitSystem: 'imperial' | 'metric' = 'imperial'
 ): CutItem[] {
   const blanks: CutItem[] = [];
   
@@ -190,86 +198,85 @@ function calculateBlanksWithRule(
     const allSamePattern = pattern.strips.every(s => stripKey(s) === baseKey);
     
     if (allSamePattern) {
-      // All strips same dimensions - calculate panel from unique species in pattern
+      // Panel = ALL strips across the board width (catalog panelStrips: allStripsAcrossWidth),
+      // slices = rows along the length (catalog sliceCount: rowsAlongLength).
+      if (blankRule.panelStrips !== 'allStripsAcrossWidth' || blankRule.sliceCount !== 'rowsAlongLength') {
+        throw new Error(`Unsupported blankRule panelStrips/sliceCount: ${blankRule.panelStrips}/${blankRule.sliceCount}`);
+      }
       const uniqueSpecies = Array.from(new Set(pattern.strips.map(s => s.species.name)));
-      const sliceCount = pattern.strips.length / uniqueSpecies.length;
+      const xs = Array.from(new Set(pattern.strips.map(s => (s as { x?: number }).x ?? 0).map(v => v.toFixed(3))));
+      const zs = Array.from(new Set(pattern.strips.map(s => (s as { z?: number }).z ?? 0).map(v => v.toFixed(3))));
+      const stripsAcross = xs.length;
+      const sliceCount = zs.length;
       const thickness = firstStrip.height + roughOversize.thickness + flatteningAllowance + sandingLoss;
-      const sliceThickness = firstStrip.depth;
-      
-      // Panel width = sum of one strip of each species
-      const panelWidth = uniqueSpecies.length * (firstStrip.width + kerf) + roughOversize.width;
-      
-      // Calculate panel length with splitting if needed
-      const minPanelLength = sliceCount * (sliceThickness + kerf) + 2 * blankRule.crosscutTrim_mm;
-      const idealLength = Math.max(blankRule.blankMinLength_mm, minPanelLength);
-      const maxLength = blankRule.blankMaxLength_mm || 915;
-      
+      // Slice thickness = finished board thickness + flattening allowance (5 mm in catalog)
+      const sliceThickness = firstStrip.height + flatteningAllowance;
+      const panelWidth = stripsAcross * firstStrip.width + roughOversize.width;
+
+      const minLen = blankRule.blankMinLength_mm;
+      const maxLength = blankRule.blankMaxLength_mm;
+      if (maxLength === undefined) throw new Error('catalog blankRule.blankMaxLength_mm missing');
+      const lenFor = (n: number) => Math.max(minLen, n * (sliceThickness + kerf) + 2 * blankRule.crosscutTrim_mm);
       let panelCount = 1;
-      let panelLength = idealLength;
-      let slicesPerPanel = sliceCount;
-      
-      // Split if over max length
-      if (idealLength > maxLength) {
-        // Calculate how many panels we need to stay under maxLength
-        panelCount = Math.ceil(idealLength / maxLength);
-        slicesPerPanel = Math.ceil(sliceCount / panelCount);
-        
-        // Recalculate actual panel length based on slicesPerPanel
-        panelLength = Math.max(
-          blankRule.blankMinLength_mm,
-          slicesPerPanel * (sliceThickness + kerf) + 2 * blankRule.crosscutTrim_mm
-        );
-        
-        // Ensure it's within bounds
-        if (panelLength > maxLength) {
-          // Need more panels
-          panelCount = Math.ceil(sliceCount / Math.floor((maxLength - 2 * blankRule.crosscutTrim_mm) / (sliceThickness + kerf)));
-          slicesPerPanel = Math.ceil(sliceCount / panelCount);
-          panelLength = Math.max(
-            blankRule.blankMinLength_mm,
-            slicesPerPanel * (sliceThickness + kerf) + 2 * blankRule.crosscutTrim_mm
-          );
+      if (lenFor(sliceCount) > maxLength) {
+        if (blankRule.overLength !== 'splitPanels') throw new Error(`Unsupported overLength: ${blankRule.overLength}`);
+        while (lenFor(Math.ceil(sliceCount / panelCount)) > maxLength) {
+          panelCount++;
+          if (panelCount > sliceCount) throw new Error('Slice thicker than max panel length');
         }
       }
-      
-      // Check panel width constraints
-      const panelMaxWidth = blankRule.panelMaxPlanerWidth_mm || 305;
-      let widthNote = '';
-      let flatteningMethod = 'Plane flat';
-      
-      if (panelWidth > panelMaxWidth) {
-        const options = blankRule.panelWideOption || ['routerSled'];
-        if (options.includes('splitSubPanels')) {
-          // Calculate sub-panels
-          const stripsPerSubPanel = Math.floor(panelMaxWidth / (firstStrip.width + kerf));
-          const subPanelCount = Math.ceil(uniqueSpecies.length / stripsPerSubPanel);
-          widthNote = ` [Panel ${panelWidth.toFixed(0)}mm wide: split into ${subPanelCount} sub-panels ≤${panelMaxWidth}mm, plane each, then glue together]`;
-          flatteningMethod = 'Split into sub-panels, plane each';
-        } else {
-          widthNote = ` [Panel ${panelWidth.toFixed(0)}mm wide: use router sled or drum sander]`;
-          flatteningMethod = 'Router sled or drum sander';
-        }
+      const base = Math.floor(sliceCount / panelCount);
+      const extra = sliceCount % panelCount;
+      const slicesPer = Array.from({ length: panelCount }, (_, i) => base + (i < extra ? 1 : 0));
+
+      // Width rules (all from catalog): no planer step on a panel wider than panelMaxPlanerWidth_mm.
+      const panelMaxWidth = blankRule.panelMaxPlanerWidth_mm;
+      const sledMax = blankRule.sledMaxWidth_mm;
+      if (panelMaxWidth === undefined || sledMax === undefined) {
+        throw new Error('catalog blankRule.panelMaxPlanerWidth_mm / sledMaxWidth_mm missing');
       }
-      
-      // Crosscut method
-      const crosscutMethod = blankRule.panelCrosscut === 'crosscutSledWithStopBlock' 
+      const crosscutMethod = blankRule.panelCrosscut === 'crosscutSledWithStopBlock'
         ? 'crosscut sled with stop block (never fence)'
         : 'crosscut sled';
-      
-      // Add panel(s) to cut list
       const speciesList = uniqueSpecies.join('/');
+      const options = blankRule.panelWideOption ?? [];
+
+      // Group strips into (sub-)panels of whole strips
+      let groups: number[] = [stripsAcross];
+      let flatten = 'plane flat';
+      if (panelWidth > panelMaxWidth) {
+        if (options.includes('splitSubPanels') && blankRule.panelSplitOn === 'wholeStrips') {
+          const perSub = Math.floor((panelMaxWidth - roughOversize.width) / firstStrip.width);
+          if (perSub < 1) throw new Error('A single strip is wider than the planer max width');
+          const subCount = Math.ceil(stripsAcross / perSub);
+          groups = Array.from({ length: subCount }, (_, i) =>
+            Math.floor(stripsAcross / subCount) + (i < stripsAcross % subCount ? 1 : 0));
+        } else if (options.includes('routerSled')) {
+          flatten = 'flatten on router sled or drum sander (too wide for the planer)';
+        } else {
+          throw new Error(`Panel ${panelWidth.toFixed(0)}mm exceeds planer max and catalog gives no wide-panel option`);
+        }
+      }
+
       for (let i = 0; i < panelCount; i++) {
-        const actualSlices = i === panelCount - 1 
-          ? sliceCount - (panelCount - 1) * slicesPerPanel 
-          : slicesPerPanel;
-        
-        blanks.push({
-          part: `${speciesList} strip-set panel: glue ${uniqueSpecies.length} strips (one per species), ${flatteningMethod}, then ${crosscutMethod} ${actualSlices} slices × ${sliceThickness.toFixed(1)}mm${widthNote}`,
-          width: panelWidth,
-          thickness,
-          length: panelLength,
-          quantity: 1,
-          species: speciesList,
+        const actualSlices = slicesPer[i];
+        groups.forEach((n, j) => {
+          const w = n * firstStrip.width + roughOversize.width;
+          const sub = groups.length > 1 ? ` sub-panel ${j + 1}/${groups.length}` : '';
+          const sled = w > sledMax
+            ? `split first: panel ${sheetLen(w, unitSystem)} is wider than the ${sheetLen(sledMax, unitSystem)} sled, never freehand`
+            : `sled must clear ${sheetLen(w, unitSystem)}`;
+          const jointNote = jointerMaxWidth !== undefined && w > jointerMaxWidth
+            ? ' [Width exceeds jointer: flatten the first face on a planer sled or by hand]'
+            : '';
+          blanks.push({
+            part: `${speciesList} strip-set panel${sub}: glue ${n} whole strips across (alternating species), ${flatten} at ${sheetLen(w, unitSystem)}, then ${crosscutMethod} ${actualSlices} slices × ${sliceThickness.toFixed(1)}mm (${sled})${jointNote}`,
+            width: w,
+            thickness,
+            length: lenFor(actualSlices),
+            quantity: 1,
+            species: speciesList,
+          });
         });
       }
     } else {
@@ -298,16 +305,16 @@ function calculateBlanksWithRule(
         const sliceThickness = group.sliceThickness;
         const sliceCount = group.strips.length;
         
-        const minBlankLength = sliceCount * (sliceThickness + kerf) + 2 * blankRule.crosscutTrim_mm;
-        let blankLength = Math.max(blankRule.blankMinLength_mm, minBlankLength);
-        const maxLength = blankRule.blankMaxLength_mm || 915;
-        
-        // Ensure blank doesn't exceed max length
-        if (blankLength > maxLength) {
-          // This shouldn't happen with proper catalog config, but cap it
-          blankLength = maxLength;
+        const maxLength = blankRule.blankMaxLength_mm;
+        if (maxLength === undefined) throw new Error('catalog blankRule.blankMaxLength_mm missing');
+        const lenFor = (n: number) => Math.max(blankRule.blankMinLength_mm, n * (sliceThickness + kerf) + 2 * blankRule.crosscutTrim_mm);
+        // Over max length: split slices across the fewest panels that fit; never cap and drop slices
+        let blankCount = 1;
+        while (lenFor(Math.ceil(sliceCount / blankCount)) > maxLength) {
+          blankCount++;
+          if (blankCount > sliceCount) throw new Error(`${species}: one slice exceeds ${maxLength}mm`);
         }
-        
+
         // Check width constraints
         let widthNote = '';
         if (width > planerMaxWidth!) {
@@ -316,14 +323,17 @@ function calculateBlanksWithRule(
           widthNote = ' [Width exceeds jointer: use planer sled or hand flatten]';
         }
         
-        blanks.push({
-          part: `${species} blank (mill & rip, then crosscut ${sliceCount} × ${sliceThickness.toFixed(1)} mm slices)${widthNote}`,
-          width,
-          thickness,
-          length: blankLength,
-          quantity: 1,
-          species,
-        });
+        for (let i = 0; i < blankCount; i++) {
+          const n = Math.floor(sliceCount / blankCount) + (i < sliceCount % blankCount ? 1 : 0);
+          blanks.push({
+            part: `${species} blank (mill & rip, then crosscut ${n} × ${sliceThickness.toFixed(1)} mm slices)${widthNote}`,
+            width,
+            thickness,
+            length: lenFor(n),
+            quantity: 1,
+            species,
+          });
+        }
       }
     }
   } else {

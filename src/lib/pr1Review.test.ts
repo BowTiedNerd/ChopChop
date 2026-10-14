@@ -83,10 +83,9 @@ describe('PR1-REVIEW #2: CTM and scale validation', () => {
     const doc = generator.generateCutSheet(cutList);
     const pdfBuffer = Buffer.from(doc.output('arraybuffer'));
     
-    // PDFs with scale=1 are ~18.8KB (test PDF)
-    // PDFs with scale=0.1 are ~18.6KB (smaller figures)
-    // Setting threshold at 18.7KB to catch scaling violations
-    expect(pdfBuffer.length).toBeGreaterThan(18700);
+    // Byte-size heuristic removed (QA major: unrelated changes tripped it).
+    // Figure scale is asserted on embedded images in the figure-embedding tests.
+    expect(pdfBuffer.length).toBeGreaterThan(0);
   });
 });
 
@@ -163,10 +162,18 @@ describe('PR1-REVIEW #4: Banner tests', () => {
     const doc = generator.generateCutSheet(cutList);
     const pdfBuffer = Buffer.from(doc.output('arraybuffer'));
     
-    // PDF should be reasonably sized (not truncated)
-    // With 20-char truncation, PDF is ~17.6KB
-    // With full banners, PDF is ~18.8KB
-    expect(pdfBuffer.length).toBeGreaterThan(18000);
+    // Every banner must appear in full in the PDF text (wrapped lines rejoined)
+    const raw = pdfBuffer.toString('latin1');
+    const shown = Array.from(raw.matchAll(/\(((?:\\.|[^\\)])*)\)\s*Tj/g))
+      .map(m => m[1].replace(/\\(.)/g, '$1')).join(' ').replace(/\s+/g, ' ');
+    const norm = (t: string) => t.replace(/\s+/g, ' ').trim();
+    for (const step of catalog.steps) {
+      for (const banner of step.safetyBanners) {
+        const words = norm(banner).split(' ');
+        expect(shown, `banner missing tail: ${banner}`).toContain(words.slice(-3).join(' '));
+        expect(shown).not.toContain('…');
+      }
+    }
     
     // Verify we have substantial banner content
     expect(totalBannerChars).toBeGreaterThan(500);

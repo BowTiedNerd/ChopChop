@@ -61,6 +61,8 @@ export interface CutListAllowances {
     blankMaxLength_mm?: number;
     blankUnit?: string;  // 'stripSetPanel' = glued strip-set panel
     panelMaxPlanerWidth_mm?: number;
+    sledMaxWidth_mm?: number;
+    panelSplitOn?: string;
     panelWideOption?: string[];  // ['routerSled', 'splitSubPanels']
     panelCrosscut?: string;  // 'crosscutSledWithStopBlock'
     panelWidthText?: string;

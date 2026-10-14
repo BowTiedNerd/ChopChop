@@ -1,6 +1,6 @@
 import { jsPDF } from 'jspdf';
 import { BoardDesign, StepInstruction, CutListItem } from '../types';
-import { inchText, metricText } from '../utils/format';
+import { inchText, metricText, sheetLen } from '../utils/format';
 import { 
   generateTopViewFigure, 
   generateRipFenceFigure,
@@ -13,6 +13,23 @@ import { loadStyleCatalog } from './catalogLoader';
 import { CatalogStyleName, StyleCatalog } from '../types/catalog';
 import * as fs from 'fs';
 import * as path from 'path';
+
+/** The standard PDF fonts are WinAnsi; characters outside it (e.g. ≈) print as garbage like "H. */
+export function pdfSafe(t: string): string {
+  return t.replace(/≈/g, '~').replace(/[″]/g, '"').replace(/[–—]/g, '-');
+}
+
+function newDoc(): jsPDF {
+  const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'letter' });
+  const origText = doc.text.bind(doc);
+  const origSplit = doc.splitTextToSize.bind(doc);
+  const clean = (t: unknown): unknown => (typeof t === 'string' ? pdfSafe(t) : Array.isArray(t) ? t.map(clean) : t);
+  (doc as unknown as { text: (...a: unknown[]) => jsPDF }).text = (t: unknown, ...rest: unknown[]) =>
+    (origText as unknown as (...a: unknown[]) => jsPDF)(clean(t), ...rest);
+  (doc as unknown as { splitTextToSize: (...a: unknown[]) => unknown }).splitTextToSize = (t: unknown, ...rest: unknown[]) =>
+    (origSplit as unknown as (...a: unknown[]) => unknown)(clean(t), ...rest);
+  return doc;
+}
 
 const BANNER_FONT = 11;
 const BANNER_LINE = 14;
@@ -44,11 +61,7 @@ export class PdfGenerator {
   private margin: number = 20;
 
   constructor(design: BoardDesign) {
-    this.doc = new jsPDF({
-      orientation: 'portrait',
-      unit: 'mm',
-      format: 'letter',
-    });
+    this.doc = newDoc();
     this.design = design;
   }
 
@@ -96,8 +109,16 @@ export class PdfGenerator {
         let description = step.description;
         
         // Customize flatten-first-panel step based on actual panel widths
-        if (step.stepId === 'flatten-first-panel' && this.cutList.length > 0) {
-          description = this.customizeFlattenDescription(step.description, catalog);
+        const hasFlattenStep = catalog.steps.some(st => st.stepId === 'flatten-first-panel');
+        if (this.cutList.length > 0) {
+          if (step.stepId === 'flatten-first-panel' || (!hasFlattenStep && step.stepId === 'glue-up')) {
+            const lines = this.customizeFlattenDescription('', catalog);
+            description = step.stepId === 'glue-up' && lines ? `${description}\n${lines}` : (lines || description);
+          }
+          if (/crosscut|angled-cuts/.test(step.stepId)) {
+            const sled = this.crosscutSledLines(catalog);
+            if (sled) description = `${description}\n${sled}`;
+          }
         }
         
         return {
@@ -117,65 +138,42 @@ export class PdfGenerator {
     }
   }
 
+  /** Strip-set panel items in the cut list */
+  private panelItems() {
+    return this.cutList.filter(item => item.part.includes('strip-set panel'));
+  }
+
   /**
-   * Customize flatten step description based on actual panel widths
+   * One flatten line per panel, sheet units first, e.g. Panel 1/2: 16.0" (406 mm) wide.
+   * No planer for panels wider than catalog panelMaxPlanerWidth_mm.
    */
   private customizeFlattenDescription(genericDescription: string, catalog: StyleCatalog): string {
     const blankRule = catalog.cutListAllowances?.blankRule;
-    if (!blankRule) return genericDescription;
-    
-    const panelMaxWidth = blankRule.panelMaxPlanerWidth_mm || 305;
-    const options = blankRule.panelWideOption || ['routerSled'];
-    
-    // Find all strip-set panels in cut list
-    const panels = this.cutList.filter(item => 
-      item.part.includes('strip-set panel')
-    );
-    
-    if (panels.length === 0) return genericDescription;
-    
-    // Build panel-specific descriptions
-    const descriptions: string[] = [];
-    
-    for (const panel of panels) {
-      const panelWidth = panel.width;
-      const unit = this.design.unitSystem;
-      
-      if (panelWidth <= panelMaxWidth) {
-        // Narrow panel - plane it
-        const widthText = unit === 'metric' 
-          ? `${Math.round(panelWidth)} mm`
-          : `${inchText(panelWidth / 25.4)}`;
-        descriptions.push(
-          `Plane or sand the ${widthText}-wide panel flat (still long grain, planer allowed).`
-        );
-      } else {
-        // Wide panel - use router sled or split
-        const widthText = unit === 'metric'
-          ? `${Math.round(panelWidth)} mm`
-          : `${inchText(panelWidth / 25.4)}`;
-        
-        if (options.includes('splitSubPanels')) {
-          // Calculate sub-panels from the actual cut list part description
-          const splitMatch = panel.part.match(/split into (\d+) sub-panels/);
-          if (splitMatch) {
-            descriptions.push(
-              `Flatten this ${widthText} panel: split into ${splitMatch[1]} sub-panels of at most ${panelMaxWidth} mm each, plane each sub-panel, then glue them together.`
-            );
-          } else {
-            descriptions.push(
-              `Flatten this ${widthText} panel on the router sled or drum sander.`
-            );
-          }
-        } else {
-          descriptions.push(
-            `Flatten this ${widthText} panel on the router sled or drum sander.`
-          );
-        }
-      }
-    }
-    
-    return descriptions.join(' ');
+    const panels = this.panelItems();
+    if (!blankRule || panels.length === 0) return genericDescription;
+    const max = blankRule.panelMaxPlanerWidth_mm;
+    if (max === undefined) throw new Error(`${this.design.style}: catalog panelMaxPlanerWidth_mm missing`);
+    const unit = this.design.unitSystem;
+    return panels.map((p, i) => {
+      const w = sheetLen(p.width, unit);
+      const how = p.width <= max
+        ? 'plane flat (within planer capacity)'
+        : 'too wide for the planer: flatten on the router sled or drum sander';
+      return `Flatten panel ${i + 1}/${panels.length}, ${w} wide: ${how}.`;
+    }).join('\n');
+  }
+
+  /** Sled width each crosscut needs; over catalog sledMaxWidth_mm, split first. */
+  private crosscutSledLines(catalog: StyleCatalog): string {
+    const blankRule = catalog.cutListAllowances?.blankRule;
+    const panels = this.panelItems();
+    if (!blankRule || panels.length === 0) return '';
+    const sledMax = blankRule.sledMaxWidth_mm;
+    if (sledMax === undefined) throw new Error(`${this.design.style}: catalog sledMaxWidth_mm missing`);
+    const unit = this.design.unitSystem;
+    return panels.map((p, i) => p.width > sledMax
+      ? `Panel ${i + 1}/${panels.length}: ${sheetLen(p.width, unit)} is wider than the ${sheetLen(sledMax, unit)} sled. Split it first into sub-panels of whole strips; never crosscut freehand.`
+      : `Panel ${i + 1}/${panels.length}: sled must clear ${sheetLen(p.width, unit)}.`).join('\n');
   }
 
   /**
@@ -623,11 +621,7 @@ export class PdfGenerator {
  * Generate mill plan PDF
  */
 export function generateMillPlan(design: BoardDesign): jsPDF {
-  const doc = new jsPDF({
-    orientation: 'portrait',
-    unit: 'mm',
-    format: 'letter',
-  });
+  const doc = newDoc();
 
   let yPos = 20;
   const margin = 20;

@@ -130,3 +130,11 @@ export function formatDimension(mm: number, unit: 'imperial' | 'metric'): string
 export function formatHardware(nominalInch: string, exactMm: number): string {
   return `${nominalInch} (${exactMm} mm)`;
 }
+
+/** Length in sheet units first, e.g. 16.0" (406 mm) or 406 mm (16.0") */
+export function sheetLen(mm: number, unit: 'imperial' | 'metric'): string {
+  const inch = `${(mm / 25.4).toFixed(1)}"`;
+  const metric = `${Math.round(mm)} mm`;
+  return unit === 'metric' ? `${metric} (${inch})` : `${inch} (${metric})`;
+}
+

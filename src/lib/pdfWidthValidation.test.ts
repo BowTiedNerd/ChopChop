@@ -102,63 +102,27 @@ describe('PDF Flatten Step Text for Wide Panels (N7)', () => {
       const design = createWidePanelDesign(testCase.style, testCase.width, testCase.speciesCount);
       const cutList = calculateRequiredParts(design);
       
-      // Find wide panels in cut list
-      const widePanels = cutList.filter(item => 
-        item.part.includes('strip-set panel') && item.width > PANEL_MAX_WIDTH_MM
-      );
-      
-      if (widePanels.length === 0) {
-        violations.push(
-          `${testCase.style}: No wide panels generated (expected panels > ${PANEL_MAX_WIDTH_MM}mm)`
-        );
-        continue;
+      const panels = cutList.filter(item => item.part.includes('strip-set panel'));
+      // No panel wider than the planer max may be planed
+      for (const p of panels) {
+        if (p.width > PANEL_MAX_WIDTH_MM && !/router sled/.test(p.part)) {
+          violations.push(`${testCase.style}: ${p.width.toFixed(0)}mm panel not split and not on router sled`);
+        }
+        if (p.width > PANEL_MAX_WIDTH_MM && /plane flat/.test(p.part)) {
+          violations.push(`${testCase.style}: ${p.width.toFixed(0)}mm panel has a planer step`);
+        }
       }
-      
-      // Generate PDF
       const generator = new PdfGenerator(design);
       const pdf = generator.generateCutSheet(cutList);
-      const pdfBuffer = Buffer.from(pdf.output('arraybuffer'));
-      
-      // Extract flatten step text
-      const flattenText = extractFlattenStepText(pdfBuffer);
-      
-      // Check for violations
-      if (flattenText.toLowerCase().includes('planer is allowed')) {
-        violations.push(
-          `${testCase.style}: PDF contains generic "planer is allowed" text for ${widePanels[0].width.toFixed(0)}mm panel`
-        );
+      const raw = Buffer.from(pdf.output('arraybuffer')).toString('latin1');
+      const shown = Array.from(raw.matchAll(/\(((?:\\.|[^\\)])*)\)\s*Tj/g)).map(m => m[1]).join(' ');
+      const lines = shown.match(/Flatten panel \d+\/\d+/g) ?? [];
+      if (lines.length !== panels.length) {
+        violations.push(`${testCase.style}: ${lines.length} flatten lines for ${panels.length} panels`);
       }
-      
-      // Check that wide panel's specific width appears
-      for (const panel of widePanels) {
-        const widthMm = Math.round(panel.width);
-        const widthInches = (panel.width / 25.4);
-        
-        // Panel text should mention a width close to the actual width
-        // Look for any numeric width mention (could be in mm or inches with spaces between digits)
-        const hasWidthPattern = /(\d+\.?\d*)\s*"/.test(flattenText) ||  // Inches format
-                                /(\d+)\s+mm/.test(flattenText);          // MM format
-        
-        if (!hasWidthPattern) {
-          violations.push(
-            `${testCase.style}: PDF flatten step doesn't mention panel width (expected ~${widthMm}mm or ~${widthInches.toFixed(1)}")`
-          );
-        }
-        
-        // Should mention router sled or split method (not planer)
-        const hasRouterSled = flattenText.toLowerCase().includes('router') || 
-                               flattenText.toLowerCase().includes('drum sander');
-        const hasSplitMethod = flattenText.toLowerCase().includes('split') || 
-                                flattenText.toLowerCase().includes('sub-panel');
-        
-        if (!hasRouterSled && !hasSplitMethod) {
-          violations.push(
-            `${testCase.style}: PDF flatten step doesn't mention router sled or split method for ${widthMm}mm panel`
-          );
-        }
-      }
+      if (/planer is allowed/i.test(shown)) violations.push(`${testCase.style}: generic "planer is allowed"`);
     }
-    
+
     if (violations.length > 0) {
       throw new Error(
         `PDF flatten step text violations:\n  - ${violations.join('\n  - ')}\n\n` +
