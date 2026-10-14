@@ -19,6 +19,14 @@ export function pdfSafe(t: string): string {
   return t.replace(/≈/g, '~').replace(/[″]/g, '"').replace(/[–—]/g, '-');
 }
 
+/** SVG -> PNG bytes at the given pixel width. Registered by src/lib/rasterNode.ts (Node) or the app (browser). */
+export type SvgRasterizer = (svg: string, widthPx: number) => Uint8Array;
+let svgRasterizer: SvgRasterizer | null = null;
+export function setSvgRasterizer(r: SvgRasterizer | null): void {
+  svgRasterizer = r;
+}
+export const FIGURE_DPI = 300;
+
 function newDoc(): jsPDF {
   const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'letter' });
   const origText = doc.text.bind(doc);
@@ -516,8 +524,10 @@ export class PdfGenerator {
     this.yPosition += 5;
     
     // Parse SVG to get dimensions
-    const widthMatch = svg.match(/width="(\d+)"/);
-    const heightMatch = svg.match(/height="(\d+)"/);
+    const root = svg.match(/<svg\b[^>]*>/)?.[0] ?? '';
+    const vb = root.match(/viewBox="[\d.\s-]+?\s([\d.]+)\s+([\d.]+)"/);
+    const widthMatch = root.match(/\bwidth="([\d.]+)(?:px)?"/) ?? (vb ? [vb[0], vb[1]] : null);
+    const heightMatch = root.match(/\bheight="([\d.]+)(?:px)?"/) ?? (vb ? [vb[0], vb[2]] : null);
     
     if (widthMatch && heightMatch) {
       const svgWidth = parseFloat(widthMatch[1]);
@@ -533,36 +543,18 @@ export class PdfGenerator {
         this.addPageBreak();
       }
       
-      // Create data URI for SVG
-      const svgDataUri = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svg)));
-      
-      try {
-        // Add SVG as image to PDF
-        this.doc.addImage(
-          svgDataUri,
-          'SVG',
-          this.margin,
-          this.yPosition,
-          displayWidth,
-          displayHeight
-        );
-        
-        this.yPosition += displayHeight + 5;
-      } catch {
-        // Fallback if SVG rendering fails
-        this.doc.setFontSize(9);
-        this.doc.setTextColor(128, 128, 128);
-        this.doc.text('[Step Diagram]', this.margin, this.yPosition);
-        this.doc.setTextColor(0, 0, 0);
-        this.yPosition += 20;
+      if (!svgRasterizer) {
+        throw new Error('No SVG rasterizer registered: import src/lib/rasterNode (Node) before generating PDFs');
       }
+      // 300 dpi PNG (svg px are 96 dpi)
+      const png = svgRasterizer(svg, (svgWidth * FIGURE_DPI) / 96);
+      let bin = '';
+      for (let i = 0; i < png.length; i++) bin += String.fromCharCode(png[i]);
+      const pngUri = 'data:image/png;base64,' + btoa(bin);
+      this.doc.addImage(pngUri, 'PNG', this.margin, this.yPosition, displayWidth, displayHeight);
+      this.yPosition += displayHeight + 5;
     } else {
-      // Fallback for malformed SVG
-      this.doc.setFontSize(9);
-      this.doc.setTextColor(128, 128, 128);
-      this.doc.text('[Step Diagram]', this.margin, this.yPosition);
-      this.doc.setTextColor(0, 0, 0);
-      this.yPosition += 20;
+      throw new Error(`Malformed step figure SVG (no width/height/viewBox): ${svg.slice(0, 160)}`);
     }
   }
 

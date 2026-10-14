@@ -10,5 +10,6 @@ export default defineConfig({
     fileParallelism: false,
     globals: true,
     environment: 'jsdom',
+    setupFiles: ['./src/lib/rasterNode.ts'],
   },
 })

@@ -1,3 +1,4 @@
+import { pdfShownText } from './pdfTestText';
 /**
  * PR1-REVIEW Missing Tests
  * Tests from the Board QA PR1 review that were identified as missing
@@ -164,8 +165,7 @@ describe('PR1-REVIEW #4: Banner tests', () => {
     
     // Every banner must appear in full in the PDF text (wrapped lines rejoined)
     const raw = pdfBuffer.toString('latin1');
-    const shown = Array.from(raw.matchAll(/\(((?:\\.|[^\\)])*)\)\s*Tj/g))
-      .map(m => m[1].replace(/\\(.)/g, '$1')).join(' ').replace(/\s+/g, ' ');
+    const shown = pdfShownText(raw);
     const norm = (t: string) => t.replace(/\s+/g, ' ').trim();
     for (const step of catalog.steps) {
       for (const banner of step.safetyBanners) {

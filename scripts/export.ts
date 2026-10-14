@@ -8,6 +8,7 @@
  * - Export design to JSON and PDF
  */
 
+import '../src/lib/rasterNode';
 import { readFileSync, existsSync, mkdirSync } from 'fs';
 import { writeFileSync } from 'fs';
 import { execSync } from 'child_process';

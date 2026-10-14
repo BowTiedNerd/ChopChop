@@ -1,3 +1,4 @@
+import { pdfShownText } from './pdfTestText';
 import { describe, it, expect } from 'vitest';
 import { PdfGenerator, pdfSafe } from './pdf';
 import { createDefaultBoard, create16x24Board } from './defaults';
@@ -11,7 +12,7 @@ describe('PDF text encoding', () => {
     it(`${name}: no stray "H or ≈ in PDF text`, () => {
       const d = make();
       const raw = Buffer.from(new PdfGenerator(d).generateCutSheet(calculateRequiredParts(d)).output('arraybuffer')).toString('latin1');
-      const shown = Array.from(raw.matchAll(/\(((?:\\.|[^\\)])*)\)\s*Tj/g)).map(m => m[1].replace(/\\(.)/g, '$1')).join(' ');
+      const shown = pdfShownText(raw);
       expect(shown.length).toBeGreaterThan(100);
       expect(shown).not.toMatch(/"H|\(H|≈/);
       expect(shown).toMatch(/Flatten panel 1\/\d+, [\d.]+" \(\d+ mm\) wide/);

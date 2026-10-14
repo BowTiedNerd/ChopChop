@@ -1,3 +1,4 @@
+import { pdfShownText } from './pdfTestText';
 /**
  * PDF Text Validation for Wide Panels
  * Ensures flatten step text is panel-specific and contains no generic "planer is allowed" text
@@ -115,7 +116,7 @@ describe('PDF Flatten Step Text for Wide Panels (N7)', () => {
       const generator = new PdfGenerator(design);
       const pdf = generator.generateCutSheet(cutList);
       const raw = Buffer.from(pdf.output('arraybuffer')).toString('latin1');
-      const shown = Array.from(raw.matchAll(/\(((?:\\.|[^\\)])*)\)\s*Tj/g)).map(m => m[1]).join(' ');
+      const shown = pdfShownText(raw);
       const lines = shown.match(/Flatten panel \d+\/\d+/g) ?? [];
       if (lines.length !== panels.length) {
         violations.push(`${testCase.style}: ${lines.length} flatten lines for ${panels.length} panels`);

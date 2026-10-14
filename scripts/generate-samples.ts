@@ -16,6 +16,7 @@
  * - mill-plan.pdf
  */
 
+import '../src/lib/rasterNode';
 import { writeFileSync, mkdirSync, existsSync } from 'fs';
 import { join } from 'path';
 import { PdfGenerator, generateMillPlan } from '../src/lib/pdf';
