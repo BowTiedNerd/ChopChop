@@ -73,6 +73,24 @@ describe('PR1-REVIEW #3: No [Step Diagram] placeholders in PDFs', () => {
       expect(fontSize).toBeGreaterThanOrEqual(11);
     }
   });
+  
+  it('should not place labels on blade geometry', async () => {
+    // Labels must not overlap with blade at x=200
+    // This test verifies RIP FENCE label is positioned away from blade
+    const { generateRipFenceFigure } = await import('./stepFigures');
+    
+    const figure = generateRipFenceFigure(25.4, 20, 'mm');
+    expect(figure).toBeDefined();
+    
+    // Find the label position in the SVG
+    // Labels are text elements with content "RIP FENCE"
+    const labelMatch = figure.svg.match(/<text[^>]*x="([^"]+)"[^>]*>RIP FENCE</);
+    if (labelMatch) {
+      const labelX = parseFloat(labelMatch[1]);
+      // Blade is at x=200, label should not be there (allow 10px tolerance)
+      expect(Math.abs(labelX - 200)).toBeGreaterThan(10);
+    }
+  });
 });
 
 describe('PR1-REVIEW #4: Banner tests', () => {

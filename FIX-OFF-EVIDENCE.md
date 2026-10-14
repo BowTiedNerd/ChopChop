@@ -40,8 +40,13 @@ Error: Font size 10 is below minimum 11
 ### E4: Label positioned on blade
 **Change:** Place RIP FENCE label at x=200 (on blade) in stepFigures.ts
 **Expected:** Label collision test should fail
-**Command:** `npm test -- collision`
-**Status:** PENDING - Need blade collision test
+**Command:** `npm test -- pr1Review`
+**Result:** ✅ FAILS - 1 test fails:
+```
+FAIL src/lib/pr1Review.test.ts > PR1-REVIEW #3: No [Step Diagram] placeholders in PDFs > should not place labels on blade geometry
+AssertionError: expected 0 to be greater than 10
+```
+**Restore:** `git checkout -- src/lib/stepFigures.ts`
 
 ### E5: Dimension label scaled to 0.5
 **Change:** Add scale(0.5) to dimension label in svg.ts
