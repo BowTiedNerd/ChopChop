@@ -65,18 +65,24 @@ describe('UI bug regressions (own dev server, random port)', () => {
     expect(rows).toBeGreaterThan(0);
   });
 
-  it('Custom Designer final dimensions are fully visible', async () => {
-    await clickButton(page, 'Open Custom Designer');
-    await page.waitForFunction(() => document.body.innerText.includes('Final Dimensions'), { timeout: 10000 });
-    const clipped = await page.evaluate(() => {
-      const h = Array.from(document.querySelectorAll('h3')).find(x => x.textContent?.includes('Final Dimensions'))!;
-      const section = h.parentElement!;
-      const sr = section.getBoundingClientRect();
-      return Array.from(section.querySelectorAll('input')).filter(i => {
-        const r = i.getBoundingClientRect();
-        return r.right > sr.right + 1 || r.left < sr.left - 1 || r.width < 40;
-      }).length;
-    });
-    expect(clipped).toBe(0);
+  it('Custom Designer final dimensions fit inside the dialog at 390 px (no horizontal clipping)', async () => {
+    const p = await browser.newPage();
+    await p.setViewport({ width: 390, height: 844 });
+    await p.goto(server.url, { waitUntil: 'networkidle0', timeout: 60000 });
+    await clickButton(p, 'Open Custom Designer');
+    await p.waitForFunction(() => document.body.innerText.includes('Final Dimensions'), { timeout: 10000 });
+    const m = await p.evaluate(`(() => {
+      const h = Array.from(document.querySelectorAll('h3')).find(x => x.textContent.includes('Final Dimensions'));
+      let dlg = h.parentElement;
+      while (dlg && getComputedStyle(dlg).overflowY !== 'auto') dlg = dlg.parentElement;
+      const d = dlg.getBoundingClientRect();
+      const inputs = Array.from(h.parentElement.querySelectorAll('input')).map(i => i.getBoundingClientRect());
+      return { overflowX: dlg.scrollWidth - dlg.clientWidth, outside: inputs.filter(r => r.right > d.right || r.left < d.left).length, n: inputs.length };
+    })()`) as { overflowX: number; outside: number; n: number };
+    await p.close();
+    expect(m.n).toBe(3);
+    expect(m.outside).toBe(0);
+    expect(m.overflowX).toBeLessThanOrEqual(0);
   });
+
 });
