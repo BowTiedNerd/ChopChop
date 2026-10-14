@@ -10,7 +10,7 @@ import {
   generatePlanerFigure
 } from './stepFigures';
 import { loadStyleCatalog } from './catalogLoader';
-import { CatalogStyleName } from '../types/catalog';
+import { CatalogStyleName, StyleCatalog } from '../types/catalog';
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -120,7 +120,7 @@ export class PdfGenerator {
   /**
    * Customize flatten step description based on actual panel widths
    */
-  private customizeFlattenDescription(genericDescription: string, catalog: any): string {
+  private customizeFlattenDescription(genericDescription: string, catalog: StyleCatalog): string {
     const blankRule = catalog.cutListAllowances?.blankRule;
     if (!blankRule) return genericDescription;
     

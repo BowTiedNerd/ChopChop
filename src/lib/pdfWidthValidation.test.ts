@@ -5,9 +5,10 @@
 
 import { describe, it, expect } from 'vitest';
 import { PdfGenerator } from './pdf';
-import { BoardDesign } from '../types';
+import { BoardDesign, BoardStyle } from '../types';
 import { calculateRequiredParts } from './lumberPlanner';
 import { loadStyleCatalog } from './catalogLoader';
+import { CatalogStyleName } from '../types/catalog';
 import { readFileSync } from 'fs';
 
 const PANEL_MAX_WIDTH_MM = 305;
@@ -62,7 +63,7 @@ function createWidePanelDesign(style: string, width: number, speciesCount: numbe
   ].slice(0, speciesCount);
   
   return {
-    style,
+    style: style as BoardStyle,
     dimensions: { width, length: 450, thickness: 38 },
     species,
     angle: style === 'chevron' || style === 'herringbone' ? 45 : undefined,
@@ -86,7 +87,7 @@ describe('PDF Flatten Step Text for Wide Panels (N7)', () => {
     for (const testCase of testCases) {
       let catalog;
       try {
-        catalog = loadStyleCatalog(testCase.style as any);
+        catalog = loadStyleCatalog(testCase.style as CatalogStyleName);
       } catch {
         continue;
       }

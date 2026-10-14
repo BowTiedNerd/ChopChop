@@ -88,11 +88,7 @@ generateSample('herringbone', herringboneBoard);
 const handHoleBoard = createDefaultBoard();
 handHoleBoard.handles = {
   enabled: true,
-  type: 'handle',
-  width: 100,
-  length: 25.4,
-  cornerRadius: 12.7,
-  fromEdge: 25.4
+  type: 'hand-hole',
 };
 generateSample('hand-hole', handHoleBoard);
 
@@ -129,11 +125,7 @@ featuresBoard.rubberFeet = {
 };
 featuresBoard.handles = {
   enabled: true,
-  type: 'finger-grip',
-  width: 75,
-  length: 10,  // Bit diameter 3/8-1/2" (9.5-12.7 mm)
-  cornerRadius: 5,
-  fromEdge: 25.4
+  type: 'handle',
 };
 featuresBoard.unitSystem = 'metric';
 generateSample('features-combined', featuresBoard);

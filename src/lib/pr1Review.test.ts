@@ -108,7 +108,7 @@ describe('PR1-REVIEW #3: No [Step Diagram] placeholders in PDFs', () => {
     const { generateRipFenceFigure } = await import('./stepFigures');
     
     // Generating a rip fence figure should work (uses 11pt)
-    const figure = generateRipFenceFigure(25.4, 20, 'mm');
+    const figure = generateRipFenceFigure(25.4, 20, 'metric');
     expect(figure).toBeDefined();
     expect(figure.svg).toContain('RIP FENCE');
     
@@ -125,7 +125,7 @@ describe('PR1-REVIEW #3: No [Step Diagram] placeholders in PDFs', () => {
     // This test verifies RIP FENCE label is positioned away from blade
     const { generateRipFenceFigure } = await import('./stepFigures');
     
-    const figure = generateRipFenceFigure(25.4, 20, 'mm');
+    const figure = generateRipFenceFigure(25.4, 20, 'metric');
     expect(figure).toBeDefined();
     
     // Find the label position in the SVG
