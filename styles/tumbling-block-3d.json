@@ -1,6 +1,6 @@
 {
   "style": "tumbling-block-3d",
-  "draft": "NEW DRAFT 3.0-draft4 by Board Master, rebuilt from standard shop practice after the 2026-10-13 data loss. NOT 2.5.3.2. Values marked shopDefault:true are my defaults, not recovered values.",
+  "draft": "NEW DRAFT 3.0-draft5 by Board Master, rebuilt from standard shop practice after the 2026-10-13 data loss. NOT 2.5.3.2. Values marked shopDefault:true are my defaults, not recovered values.",
   "displayName": "3D Tumbling Block (End Grain)",
   "description": "Three tones of 60\u00b0 diamonds forming cubes.",
   "angles": {
@@ -149,6 +149,11 @@
     },
     "jointerMinimum_mm": {
       "length": 305.0
+    },
+    "planerMaxWidth_mm": 305.0,
+    "jointerMaxWidth_mm": 152.0,
+    "widthRule": {
+      "text": "A panel wider than the planer max width (305 mm) goes to the router sled or drum sander. Face-joint only boards no wider than the jointer max width (152 mm); wider boards get a planer sled or are flattened by hand."
     },
     "minPieceLength_mm": {
       "planerJointer": 305.0,

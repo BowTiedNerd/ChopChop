@@ -42,6 +42,11 @@ export interface CutListAllowances {
   jointerMinimum_mm: {
     length: number;
   };
+  planerMaxWidth_mm?: number;
+  jointerMaxWidth_mm?: number;
+  widthRule?: {
+    text: string;
+  };
   minPieceLength_mm: {
     planerJointer: number;
     tableSawFreehand: number;

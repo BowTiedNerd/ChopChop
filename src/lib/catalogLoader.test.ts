@@ -179,10 +179,10 @@ describe('Catalog Loader', () => {
   });
 
   describe('Draft Information', () => {
-    it('should indicate NEW DRAFT 3.0-draft4 for all styles', () => {
+    it('should indicate NEW DRAFT 3.0-draft5 for all styles', () => {
       for (const style of BOARD_STYLES) {
         const catalog = loadStyleCatalog(style);
-        expect(catalog.draft).toContain('3.0-draft4');
+        expect(catalog.draft).toContain('3.0-draft5');
         expect(catalog.draft).toContain('Board Master');
       }
     });

@@ -98,7 +98,16 @@ export function calculateRequiredParts(design: BoardDesign): CutItem[] {
   
   // Check if blankRule is enabled
   if (blankRule?.millWholeBlanksFirst) {
-    return calculateBlanksWithRule(pattern, kerf, roughOversize, flatteningAllowance, sandingLoss, blankRule);
+    return calculateBlanksWithRule(
+      pattern,
+      kerf,
+      roughOversize,
+      flatteningAllowance,
+      sandingLoss,
+      blankRule,
+      catalog?.cutListAllowances?.planerMaxWidth_mm,
+      catalog?.cutListAllowances?.jointerMaxWidth_mm
+    );
   }
   
   // Legacy behavior: individual strips
@@ -147,7 +156,9 @@ function calculateBlanksWithRule(
   roughOversize: { thickness: number; width: number; length: number },
   flatteningAllowance: number,
   sandingLoss: number,
-  blankRule: BlankRule
+  blankRule: BlankRule,
+  planerMaxWidth?: number,
+  jointerMaxWidth?: number
 ): CutItem[] {
   const blanks: Map<string, CutItem> = new Map();
   
@@ -168,7 +179,7 @@ function calculateBlanksWithRule(
     stripGroups.get(key)!.strips.push(strip);
   }
   
-  // For each group, calculate blank length
+  // For each group, calculate blank length and check width constraints
   for (const [key, group] of stripGroups.entries()) {
     const parts = key.split('-');
     const species = parts.slice(0, -3).join('-');
@@ -181,8 +192,16 @@ function calculateBlanksWithRule(
     const minBlankLength = sliceCount * (sliceThickness + kerf) + 2 * blankRule.crosscutTrim_mm;
     const blankLength = Math.max(blankRule.blankMinLength_mm, minBlankLength);
     
+    // Check width constraints and add routing notes
+    let widthNote = '';
+    if (planerMaxWidth && width > planerMaxWidth) {
+      widthNote = ' [Width exceeds planer: use router sled or drum sander]';
+    } else if (jointerMaxWidth && width > jointerMaxWidth) {
+      widthNote = ' [Width exceeds jointer: use planer sled or hand flatten]';
+    }
+    
     blanks.set(key, {
-      part: `${species} blank (mill & rip, then crosscut ${sliceCount} × ${sliceThickness.toFixed(1)} mm slices)`,
+      part: `${species} blank (mill & rip, then crosscut ${sliceCount} × ${sliceThickness.toFixed(1)} mm slices)${widthNote}`,
       width,
       thickness,
       length: blankLength,

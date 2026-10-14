@@ -1,6 +1,6 @@
 {
   "style": "checkerboard",
-  "draft": "NEW DRAFT 3.0-draft4 by Board Master, rebuilt from standard shop practice after the 2026-10-13 data loss. NOT 2.5.3.2. Values marked shopDefault:true are my defaults, not recovered values.",
+  "draft": "NEW DRAFT 3.0-draft5 by Board Master, rebuilt from standard shop practice after the 2026-10-13 data loss. NOT 2.5.3.2. Values marked shopDefault:true are my defaults, not recovered values.",
   "displayName": "Checkerboard (End Grain)",
   "description": "Two contrasting species; every other slice is flipped end for end to make squares.",
   "angles": null,
@@ -52,7 +52,7 @@
     {
       "stepNumber": 4,
       "title": "Flatten first panel",
-      "description": "Plane or sand the panel flat. It is still long grain, so the planer is allowed here.",
+      "description": "Plane or sand the panel flat. It is still long grain, so the planer is allowed here if the panel is no wider than 12\" (305 mm); a wider panel goes to the router sled or drum sander.",
       "settings": {},
       "safetyBanners": [
         "WARNING: Keep hands clear of the infeed and outfeed. Feed only boards at least 12\" (305 mm) long."
@@ -165,6 +165,11 @@
     },
     "jointerMinimum_mm": {
       "length": 305.0
+    },
+    "planerMaxWidth_mm": 305.0,
+    "jointerMaxWidth_mm": 152.0,
+    "widthRule": {
+      "text": "A panel wider than the planer max width (305 mm) goes to the router sled or drum sander. Face-joint only boards no wider than the jointer max width (152 mm); wider boards get a planer sled or are flattened by hand."
     },
     "minPieceLength_mm": {
       "planerJointer": 305.0,
