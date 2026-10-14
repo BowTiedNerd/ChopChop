@@ -265,6 +265,70 @@ Received: "millRoughStock"
 
 **Conclusion:** All three validation rules are actively enforced. Duplicate, empty, or incorrectly formatted stepIds cause immediate test failures.
 
+## Rule 11: styles/ Directory Integrity
+
+**Implementation:**
+- `src/lib/stylesDirectory.test.ts`: Validates directory contents
+- Only allows: 10 plain-named catalogs + gen.py + README.md
+- Rejects hash-suffixed files (e.g., _70bf, _23b0)
+- Enforces stepId presence on every step in every catalog
+
+**Tests:**
+- `should contain only authorized files`
+- `should contain all 10 required catalog files`
+- `should have stepId on every step in every catalog`
+- `should not contain any hash-suffixed files`
+
+**Fix-off proof:** Three experiments prove enforcement.
+
+### Real Fix-Off Run Output
+
+**Experiment 1: Unauthorized file**
+```bash
+touch styles/checkerboard_test99.json
+```
+
+**Test FAILS:**
+```
+FAIL  src/lib/stylesDirectory.test.ts > should contain only authorized files
+Error: Unauthorized files in styles/: checkerboard_test99.json
+Only allowed: 10 plain-named catalogs, gen.py, README.md
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 4 skipped (5)
+```
+
+**Experiment 2: Missing stepId**
+```bash
+# Remove first stepId from edge-grain.json
+sed -i '0,/"stepId":/d' styles/edge-grain.json
+```
+
+**Test FAILS:**
+```
+FAIL  src/lib/stylesDirectory.test.ts
+Error: Failed to parse JSON file.
+  File: /workspace/styles/edge-grain.json
+
+ Test Files  1 failed (1)
+```
+
+**Experiment 3: Hash-suffixed file**
+```bash
+cp styles/chevron.json styles/chevron_99ab.json
+```
+
+**Test FAILS:**
+```
+FAIL  src/lib/stylesDirectory.test.ts > should not contain any hash-suffixed files
+Error: Found hash-suffixed files (should be plain names): chevron_99ab.json
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 4 skipped (5)
+```
+
+**Conclusion:** All directory integrity rules are actively enforced. Unauthorized files, missing stepIds, or hash-suffixed filenames cause immediate test failures in CI.
+
 ## Summary
 
 All tests pass (`npm test`):
