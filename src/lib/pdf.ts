@@ -74,7 +74,10 @@ export class PdfGenerator {
   private pageHeight: number = 280;
   private margin: number = 20;
 
-  constructor(design: BoardDesign) {
+  private preloadedFigures?: Record<string, string>;
+
+  constructor(design: BoardDesign, preloadedFigures?: Record<string, string>) {
+    this.preloadedFigures = preloadedFigures;
     this.doc = newDoc();
     this.design = design;
   }
@@ -476,9 +479,12 @@ export class PdfGenerator {
    * Throws on any read error (permissions, encoding, etc.)
    */
   private loadExternalStepFigure(stepId: string): string | null {
-    // Only attempt to load external figures in Node.js (not browser)
+    // Browser: figures are preloaded with fetch (see browserPdf.ts) and handed in
+    if (this.preloadedFigures) {
+      return this.preloadedFigures[stepId] ?? null;
+    }
     if (typeof process === 'undefined' || !process.versions || !process.versions.node) {
-      return null;
+      throw new Error('No figures preloaded: in the browser use buildPdfInBrowser()');
     }
 
     const styleId = this.design.style;

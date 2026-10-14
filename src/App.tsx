@@ -1,4 +1,4 @@
-import { calculateRequiredParts } from './lib/lumberPlanner';
+import { buildPdfInBrowser } from './lib/browserPdf';
 import { useState } from 'react';
 import './App.css';
 import { BoardDesign } from './types';
@@ -7,7 +7,6 @@ import { validateBoard } from './lib/validation';
 import { DesignEditor } from './components/DesignEditor';
 import { PreviewPanel } from './components/PreviewPanel';
 import { LumberPlanner } from './components/LumberPlanner';
-import { PdfGenerator } from './lib/pdf';
 
 function App() {
   const [design, setDesign] = useState<BoardDesign>(createDefaultBoard());
@@ -25,14 +24,12 @@ function App() {
       return;
     }
 
-    try {
-      const generator = new PdfGenerator(design);
-      const pdf = generator.generateCutSheet(calculateRequiredParts(design));
+    buildPdfInBrowser(design).then(pdf => {
       pdf.save(`chopchop-${design.style}-${Date.now()}.pdf`);
-    } catch (error) {
+    }).catch((error: unknown) => {
       console.error('PDF export failed:', error);
       alert(`PDF export failed: ${error instanceof Error ? error.message : String(error)}`);
-    }
+    });
   };
 
   return (
