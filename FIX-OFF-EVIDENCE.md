@@ -99,8 +99,16 @@ AssertionError: expected 2 to be +0
 ### N6: Blank max length > 915mm  
 **Change:** Comment out panel splitting logic in lumberPlanner.ts (lines 210-228)
 **Expected:** Blank maximum length test fails
-**Test:** `npm test -- "915mm"`
-**Note:** Test will fail with 20+ violations when splitting is disabled
+**Test:** `npm test -- cutListSafety`
+**Result:** ✅ FAILS - 2 tests fail:
+```
+FAIL src/lib/cutListSafety.test.ts > Blank Length Constraints > should never generate blanks over 915mm maximum length
+AssertionError: expected 6 to be +0 // Object.is equality
+
+FAIL src/lib/cutListSafety.test.ts > Blank Length Constraints > [MANUAL FIX-OFF] bypassing blankMaxLength should produce over-915mm violations
+AssertionError: expected 1 to be +0 // Object.is equality
+```
+**Restore:** `git checkout -- src/lib/lumberPlanner.ts`
 
 ### N7: Panel width > 305mm to planer
 **Change:** Set panelMaxPlanerWidth_mm = 500 in catalog
