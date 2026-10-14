@@ -16,7 +16,7 @@
         "Final pass depth": "~1/64\" (0.4 mm)"
       },
       "safetyBanners": [
-        "WARNING: Use push blocks on the jointer. Never joint stock shorter than 12\" (305 mm) or thinner than 1/2\" (12.5 mm).",
+        "WARNING: Use push blocks on the jointer. Never joint stock shorter than 12\" (305 mm) or thinner than 1/2\" (12.7 mm).",
         "WARNING: Keep hands clear of the infeed and outfeed. Feed only boards at least 12\" (305 mm) long."
       ],
       "machineSetup": "jointer",
@@ -176,7 +176,9 @@
       "millWholeBlanksFirst": true,
       "blankMinLength_mm": 305.0,
       "crosscutTrim_mm": 25.0,
-      "text": "Mill and rip whole blanks before any crosscut. Blank length = max(305 mm, slices x (slice + kerf) + 2 x 25 mm trim). Never send a crosscut slice or piece shorter than 305 mm to the jointer or planer."
+      "blankMaxLength_mm": 915.0,
+      "blankUnit": "stripSetPanel",
+      "text": "Mill and rip whole blanks before any crosscut. A blank is a glued strip-set panel (one strip of each species in pattern order), not a single strip. Blank length = max(305 mm, slices x (slice + kerf) + 2 x 25 mm trim). If that exceeds 915 mm (36\"), split the slices across the fewest equal panels that each fit 305-915 mm. Never send a crosscut slice or piece shorter than 305 mm to the jointer or planer."
     },
     "shopDefault": true
   },

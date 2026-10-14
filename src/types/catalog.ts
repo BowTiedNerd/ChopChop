@@ -58,6 +58,8 @@ export interface CutListAllowances {
     millWholeBlanksFirst: boolean;
     blankMinLength_mm: number;
     crosscutTrim_mm: number;
+    blankMaxLength_mm?: number;
+    blankUnit?: string;  // 'stripSetPanel' = glued strip-set panel
     text: string;
   };
   shopDefault: boolean;  // New flag
