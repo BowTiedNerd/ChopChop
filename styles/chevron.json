@@ -186,11 +186,11 @@
     "shopDefault": true,
     "handHole": {
       "length_mm": 100.0,
-      "width_mm": 25.0,
+      "width_mm": 25.4,
       "endRadius_mm": 12.7,
       "edgeInset_mm": 38.0,
       "bit": "1/2\" (12.7 mm) straight or spiral bit",
-      "text": "Hand-hole slot 4\" (100 mm) long x 1\" (25 mm) wide, round ends, centred 1-1/2\" (38 mm) in from the end. Rout through with a template and a 1/2\" (12.7 mm) bit in shallow passes."
+      "text": "Hand-hole slot 4\" (100 mm) long x 1\" (25.4 mm) wide, round ends, centred 1-1/2\" (38 mm) in from the end. Rout through with a template and a 1/2\" (12.7 mm) bit in shallow passes."
     },
     "fingerGrip": {
       "length_mm": 100.0,
