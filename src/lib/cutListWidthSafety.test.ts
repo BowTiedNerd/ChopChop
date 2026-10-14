@@ -18,12 +18,7 @@ describe('Cut List Width Safety - widthRule enforcement', () => {
     
     // Test each style with its default design
     for (const style of BOARD_STYLES) {
-      let catalog;
-      try {
-        catalog = loadStyleCatalog(style);
-      } catch {
-        continue;
-      }
+      const catalog = loadStyleCatalog(style);
       
       // Skip if no width limits defined
       if (!catalog.cutListAllowances.planerMaxWidth_mm) {
@@ -89,12 +84,7 @@ describe('Cut List Width Safety - widthRule enforcement', () => {
     ];
     
     for (const style of BOARD_STYLES) {
-      let catalog;
-      try {
-        catalog = loadStyleCatalog(style);
-      } catch {
-        continue;
-      }
+      const catalog = loadStyleCatalog(style);
       
       // Skip styles without strip-set panel rules
       if (!catalog.cutListAllowances.blankRule?.blankUnit || 
@@ -185,12 +175,7 @@ describe('Cut List Width Safety - widthRule enforcement', () => {
     
     // Test each style with its default design
     for (const style of BOARD_STYLES) {
-      let catalog;
-      try {
-        catalog = loadStyleCatalog(style);
-      } catch {
-        continue;
-      }
+      const catalog = loadStyleCatalog(style);
       
       // Skip if no jointer width limit defined
       if (!catalog.cutListAllowances.jointerMaxWidth_mm) {

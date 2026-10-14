@@ -32,8 +32,9 @@ async function waitForServer(url: string, timeoutMs: number): Promise<boolean> {
       if (response.ok) {
         return true;
       }
-    } catch {
-      // Server not ready yet
+    } catch (error) {
+      // Server not ready yet: expected while polling, logged so real failures are visible
+      console.error('waitForServer: not ready yet:', String(error));
     }
     await new Promise(resolve => setTimeout(resolve, 500));
   }
@@ -194,8 +195,8 @@ async function checkTextSizes(page: Page): Promise<string[]> {
             }
           }
         }
-      } catch {
-        // Skip elements that can't be measured
+      } catch (error) {
+        throw new Error(`Could not measure element: ${String(error)}`);
       }
     }
     
@@ -273,8 +274,8 @@ async function checkLabelOverlaps(page: Page): Promise<string[]> {
             }
           }
         }
-      } catch {
-        // Skip elements that can't be checked
+      } catch (error) {
+        throw new Error(`Could not check element: ${String(error)}`);
       }
     }
     

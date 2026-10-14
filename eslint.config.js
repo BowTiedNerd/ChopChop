@@ -25,6 +25,12 @@ export default tseslint.config(
       ],
       '@typescript-eslint/no-explicit-any': 'warn',
       '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+      'no-empty': ['error', { allowEmptyCatch: false }],
+      // No swallowed errors: a catch must rethrow, exit, or at least log the error it caught
+      'no-restricted-syntax': ['error', {
+        selector: 'CatchClause:not(:has(ThrowStatement)):not(:has(CallExpression[callee.object.name="process"][callee.property.name="exit"])):not(:has(CallExpression[callee.object.name="console"][callee.property.name="error"]))',
+        message: 'Do not swallow errors: rethrow, process.exit, or console.error the caught error.',
+      }],
     },
   },
 )

@@ -55,25 +55,15 @@ export interface OptimizationResult {
  * Get allowances for a specific style from catalog
  */
 function getAllowances(style: string) {
-  try {
-    const catalog = loadStyleCatalog(style as CatalogStyleName);
-    return {
-      kerf: catalog.cutListAllowances.kerf_mm,
-      roughOversize: catalog.cutListAllowances.roughToFinalOversize_mm,
-      planerMinimum: catalog.cutListAllowances.planerMinimum_mm,
-      flatteningAllowance: catalog.cutListAllowances.flatteningAllowance_mm,
-      sandingLoss: catalog.cutListAllowances.sandingLoss_mm,
-    };
-  } catch {
-    // Fallback to shop defaults if style not found
-    return {
-      kerf: 3.175,
-      roughOversize: { thickness: 3.0, width: 6.0, length: 50.0 },
-      planerMinimum: { length: 305.0, thickness: 6.5 },
-      flatteningAllowance: 3.0,
-      sandingLoss: 0.5,
-    };
-  }
+  // No fallback: a missing or broken catalog is an error, not hard-coded shop defaults
+  const catalog = loadStyleCatalog(style as CatalogStyleName);
+  return {
+    kerf: catalog.cutListAllowances.kerf_mm,
+    roughOversize: catalog.cutListAllowances.roughToFinalOversize_mm,
+    planerMinimum: catalog.cutListAllowances.planerMinimum_mm,
+    flatteningAllowance: catalog.cutListAllowances.flatteningAllowance_mm,
+    sandingLoss: catalog.cutListAllowances.sandingLoss_mm,
+  };
 }
 
 /**
@@ -83,19 +73,17 @@ export function calculateRequiredParts(design: BoardDesign): CutItem[] {
   const pattern = generatePattern(design);
   
   // Load catalog for allowances
-  let catalog;
-  try {
-    catalog = loadStyleCatalog(design.style as CatalogStyleName);
-  } catch {
-    catalog = null;
-  }
-  
-  // Calculate allowances
-  const kerf = catalog?.cutListAllowances?.kerf_mm || 3.175;
-  const roughOversize = catalog?.cutListAllowances?.roughToFinalOversize_mm || { thickness: 3, width: 6, length: 50 };
-  const flatteningAllowance = catalog?.cutListAllowances?.flatteningAllowance_mm || 1.5;
-  const sandingLoss = catalog?.cutListAllowances?.sandingLoss_mm || 0.5;
-  const blankRule = catalog?.cutListAllowances?.blankRule;
+  const catalog = loadStyleCatalog(design.style as CatalogStyleName);
+  const allowances = catalog.cutListAllowances;
+  const need = <T,>(v: T | undefined, name: string): T => {
+    if (v === undefined || v === null) throw new Error(`${design.style}: catalog cutListAllowances.${name} missing`);
+    return v;
+  };
+  const kerf = need(allowances.kerf_mm, 'kerf_mm');
+  const roughOversize = need(allowances.roughToFinalOversize_mm, 'roughToFinalOversize_mm');
+  const flatteningAllowance = need(allowances.flatteningAllowance_mm, 'flatteningAllowance_mm');
+  const sandingLoss = need(allowances.sandingLoss_mm, 'sandingLoss_mm');
+  const blankRule = catalog.cutListAllowances.blankRule;
   
   // Check if blankRule is enabled
   if (blankRule?.millWholeBlanksFirst) {
@@ -106,8 +94,8 @@ export function calculateRequiredParts(design: BoardDesign): CutItem[] {
       flatteningAllowance,
       sandingLoss,
       blankRule,
-      catalog?.cutListAllowances?.planerMaxWidth_mm,
-      catalog?.cutListAllowances?.jointerMaxWidth_mm,
+      catalog.cutListAllowances.planerMaxWidth_mm,
+      catalog.cutListAllowances.jointerMaxWidth_mm,
       design.unitSystem
     );
   }

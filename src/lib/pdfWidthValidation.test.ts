@@ -86,12 +86,7 @@ describe('PDF Flatten Step Text for Wide Panels (N7)', () => {
     ];
     
     for (const testCase of testCases) {
-      let catalog;
-      try {
-        catalog = loadStyleCatalog(testCase.style as CatalogStyleName);
-      } catch {
-        continue;
-      }
+      const catalog = loadStyleCatalog(testCase.style as CatalogStyleName);
       
       // Skip if not a strip-set panel style
       if (!catalog.cutListAllowances.blankRule?.blankUnit || 
@@ -145,13 +140,7 @@ describe('PDF Flatten Step Text for Wide Panels (N7)', () => {
     ];
     
     for (const filePath of sampleFiles) {
-      let pdfBuffer;
-      try {
-        pdfBuffer = readFileSync(filePath);
-      } catch {
-        // Sample doesn't exist, skip
-        continue;
-      }
+      const pdfBuffer = readFileSync(filePath); // a missing sample is a failure
       
       const flattenText = extractFlattenStepText(pdfBuffer);
       

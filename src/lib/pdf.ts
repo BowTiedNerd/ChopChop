@@ -110,7 +110,7 @@ export class PdfGenerator {
    * Load steps from catalog for current design style
    */
   private loadStepsFromCatalog(): StepInstruction[] {
-    try {
+    {
       const catalog = loadStyleCatalog(this.design.style as CatalogStyleName);
       
       return catalog.steps.map(step => {
@@ -140,9 +140,6 @@ export class PdfGenerator {
           figureType: step.figureType,
         } as StepInstruction;
       });
-    } catch {
-      // Fallback to empty steps if catalog not found
-      return [];
     }
   }
 
@@ -668,12 +665,7 @@ export function generateMillPlan(design: BoardDesign): jsPDF {
     description: string;
     settings: Record<string, string>;
   }> = [];
-  try {
-    const catalog = loadStyleCatalog(design.style as CatalogStyleName);
-    catalogSteps = catalog.steps;
-  } catch {
-    catalogSteps = [];
-  }
+  catalogSteps = loadStyleCatalog(design.style as CatalogStyleName).steps;
 
   if (catalogSteps.length > 0) {
     doc.setFontSize(12);

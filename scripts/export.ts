@@ -29,7 +29,9 @@ interface ExportOptions {
 function getCommitSha(): string {
   try {
     return execSync('git rev-parse HEAD', { encoding: 'utf-8' }).trim();
-  } catch {
+  } catch (error) {
+    // Not a git checkout (e.g. tarball install): report it, don't fail the export
+    console.error('Warning: git rev-parse failed:', error instanceof Error ? error.message : String(error));
     return 'unknown';
   }
 }
@@ -158,21 +160,21 @@ function exportDesign(options: ExportOptions): void {
       mkdirSync(outputDir, { recursive: true });
     }
     
-    // Write JSON
-    writeFileSync(options.outputFile, jsonOutput, 'utf-8');
-    console.log(`Export written to ${options.outputFile}`);
-    
-    // Generate and write PDF
+    // Build the PDF first: if it fails, write nothing and exit non-zero
     const pdfPath = options.outputFile.replace(/\.json$/, '.pdf');
+    let pdfBuffer: Buffer;
     try {
       const pdfGenerator = new PdfGenerator(design);
       const doc = pdfGenerator.generateCutSheet(cutList);
-      const pdfBuffer = Buffer.from(doc.output('arraybuffer'));
-      writeFileSync(pdfPath, pdfBuffer);
-      console.log(`PDF written to ${pdfPath}`);
+      pdfBuffer = Buffer.from(doc.output('arraybuffer'));
     } catch (error) {
-      console.error('Warning: Could not generate PDF:', error);
+      console.error('Error: PDF generation failed:', error instanceof Error ? error.message : String(error));
+      process.exit(1);
     }
+    writeFileSync(options.outputFile, jsonOutput, 'utf-8');
+    console.log(`Export written to ${options.outputFile}`);
+    writeFileSync(pdfPath, pdfBuffer);
+    console.log(`PDF written to ${pdfPath}`);
   } else {
     console.log(jsonOutput);
   }

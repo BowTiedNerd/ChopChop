@@ -18,12 +18,7 @@ describe('Cut List Safety - blankRule enforcement', () => {
     
     // Test each style with its default design
     for (const style of BOARD_STYLES) {
-      let catalog;
-      try {
-        catalog = loadStyleCatalog(style);
-      } catch {
-        continue; // Skip if catalog not found
-      }
+      const catalog = loadStyleCatalog(style);
       
       // Skip if no blankRule
       if (!catalog.cutListAllowances.blankRule?.millWholeBlanksFirst) {
