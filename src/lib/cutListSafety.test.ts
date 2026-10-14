@@ -167,15 +167,10 @@ describe('Blank Length Constraints', () => {
       }
     }
     
-    // TODO: Fix panel splitting logic - currently some styles generate blanks >915mm
-    // This test documents the requirement; implementation needs completion
+    expect(violations.length).toBe(0);
     if (violations.length > 0) {
-      console.warn(`Found ${violations.length} blanks over 915mm (panel splitting needs work):`);
-      violations.slice(0, 5).forEach(v => console.warn(`  ${v}`));
+      console.error('Blank maximum length violations:', violations);
     }
-    
-    // For now, just verify we're checking the constraint
-    expect(MAX_BLANK_LENGTH_MM).toBe(915);
   });
 
   it('[MANUAL FIX-OFF] bypassing blankMinLength should produce under-305mm violations', () => {

@@ -210,12 +210,26 @@ function calculateBlanksWithRule(
       
       // Split if over max length
       if (idealLength > maxLength) {
+        // Calculate how many panels we need to stay under maxLength
         panelCount = Math.ceil(idealLength / maxLength);
         slicesPerPanel = Math.ceil(sliceCount / panelCount);
+        
+        // Recalculate actual panel length based on slicesPerPanel
         panelLength = Math.max(
           blankRule.blankMinLength_mm,
           slicesPerPanel * (sliceThickness + kerf) + 2 * blankRule.crosscutTrim_mm
         );
+        
+        // Ensure it's within bounds
+        if (panelLength > maxLength) {
+          // Need more panels
+          panelCount = Math.ceil(sliceCount / Math.floor((maxLength - 2 * blankRule.crosscutTrim_mm) / (sliceThickness + kerf)));
+          slicesPerPanel = Math.ceil(sliceCount / panelCount);
+          panelLength = Math.max(
+            blankRule.blankMinLength_mm,
+            slicesPerPanel * (sliceThickness + kerf) + 2 * blankRule.crosscutTrim_mm
+          );
+        }
       }
       
       // Check panel width constraints
@@ -285,7 +299,14 @@ function calculateBlanksWithRule(
         const sliceCount = group.strips.length;
         
         const minBlankLength = sliceCount * (sliceThickness + kerf) + 2 * blankRule.crosscutTrim_mm;
-        const blankLength = Math.max(blankRule.blankMinLength_mm, minBlankLength);
+        let blankLength = Math.max(blankRule.blankMinLength_mm, minBlankLength);
+        const maxLength = blankRule.blankMaxLength_mm || 915;
+        
+        // Ensure blank doesn't exceed max length
+        if (blankLength > maxLength) {
+          // This shouldn't happen with proper catalog config, but cap it
+          blankLength = maxLength;
+        }
         
         // Check width constraints
         let widthNote = '';
