@@ -93,7 +93,7 @@ describe('Catalog Loader', () => {
 
     it('should get flattening allowance', () => {
       const allowance = getFlatteningAllowance('checkerboard');
-      expect(allowance).toBe(3.0);
+      expect(allowance).toBe(5.0); // draft3: increased for end-grain
     });
 
     it('should get sanding loss', () => {
@@ -179,10 +179,10 @@ describe('Catalog Loader', () => {
   });
 
   describe('Draft Information', () => {
-    it('should indicate NEW DRAFT 3.0-draft1 for all styles', () => {
+    it('should indicate NEW DRAFT 3.0-draft3 for all styles', () => {
       for (const style of BOARD_STYLES) {
         const catalog = loadStyleCatalog(style);
-        expect(catalog.draft).toContain('3.0-draft1');
+        expect(catalog.draft).toContain('3.0-draft3');
         expect(catalog.draft).toContain('Board Master');
       }
     });
