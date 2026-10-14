@@ -600,11 +600,11 @@
     }
   ],
   "tumblingBlock": {
-    "diamondSide_mm": "1.500\" (1 1/2\")",
-    "stripThickness_mm": "1.299\" (≈1 19/64\")",
+    "diamondSide_mm": 38.1,
+    "stripThickness_mm": 32.996,
     "stripsPerTone": 2,
     "logCount": 2,
-    "logLength_mm": "27.474\" (≈27 15/32\")",
+    "logLength_mm": 697.85,
     "slicesPerLog": 14,
     "tones": {
       "light": "Maple",

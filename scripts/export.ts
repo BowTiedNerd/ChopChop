@@ -113,7 +113,8 @@ export function buildExportDoc(design: BoardDesign, meta: { exportedAt: string; 
     // tumbling block (catalog tumblingBlockMethod): the numbers Board Visuals checks
     ...(cutList.find(i => i.tumbling) ? { tumblingBlock: (() => {
       const t = cutList.find(i => i.tumbling)!.tumbling!;
-      return { ...t, diamondSide_mm: f(t.diamondSide_mm), stripThickness_mm: f(t.stripThickness_mm), logLength_mm: f(t.logLength_mm) };
+      const mm = (v: number) => Math.round(v * 1000) / 1000; // numbers in mm for Board Visuals
+      return { ...t, diamondSide_mm: mm(t.diamondSide_mm), stripThickness_mm: mm(t.stripThickness_mm), logLength_mm: mm(t.logLength_mm) };
     })() } : {}),
   };
   

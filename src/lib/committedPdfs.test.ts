@@ -203,7 +203,8 @@ describe('draft5k/5l rules', () => {
     const logs = j.cutList.filter((r: { part: string }) => /^Log [A-Z]:/.test(r.part));
     expect(logs.map((r: { panelId: string }) => r.panelId)).toEqual(['A', 'B']);
     const t = j.tumblingBlock;
-    for (const k of ['diamondSide_mm', 'stripThickness_mm', 'stripsPerTone', 'logCount', 'logLength_mm', 'slicesPerLog']) expect(t[k], k).toBeDefined();
+    for (const k of ['diamondSide_mm', 'stripThickness_mm', 'stripsPerTone', 'logCount', 'logLength_mm', 'slicesPerLog']) expect(typeof t[k], k).toBe('number');
+    expect(t.stripThickness_mm).toBeCloseTo(t.diamondSide_mm * Math.sin(Math.PI / 3), 2);
     expect(t.tones).toEqual({ light: 'Maple', mid: 'Cherry', dark: 'Walnut' });
     expect(logs.reduce((a: number, r: { slices: number }) => a + r.slices, 0)).toBe(t.logCount * t.slicesPerLog);
   });
