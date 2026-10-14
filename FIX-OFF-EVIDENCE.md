@@ -51,8 +51,13 @@ AssertionError: expected 0 to be greater than 10
 ### E5: Dimension label scaled to 0.5
 **Change:** Add scale(0.5) to dimension label in svg.ts
 **Expected:** Scale test should fail
-**Command:** `npm test -- scale`
-**Status:** PENDING - Need CTM scale test
+**Command:** `npm test -- browserCheck`
+**Result:** ✅ FAILS - 3 tests fail:
+```
+FAIL src/lib/browserCheck.test.ts > Browser Check > should render text at minimum size (10.67px)
+AssertionError: expected 2 to be +0 // Object.is equality
+```
+**Restore:** `git checkout -- src/lib/svg.ts`
 
 ### E6: Remove 11-unit font minimum
 **Change:** Remove MIN_FONT check in svg.ts
