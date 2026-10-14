@@ -57,14 +57,26 @@ jobs:
     - name: Check agreement.json (all samples must agree with export)
       run: |
         cd visuals
+        VIOLATIONS=0
         for sample in samples/*/agreement.json; do
           if [ -f "$sample" ]; then
             echo "Checking $sample..."
+            # Check ok and freshExportIdentical
             if ! python3 -c "import json; d=json.load(open('$sample')); exit(0 if d.get('ok') and d.get('freshExportIdentical') else 1)"; then
               echo "FAIL: $sample has issues"
               cat "$sample"
-              exit 1
+              VIOLATIONS=$((VIOLATIONS + 1))
+            fi
+            # Check exportVsCatalog is empty (no discrepancies between export and catalog)
+            if ! python3 -c "import json; d=json.load(open('$sample')); evs=d.get('exportVsCatalog',[]); exit(0 if len(evs)==0 else 1)"; then
+              echo "FAIL: $sample has exportVsCatalog discrepancies:"
+              python3 -c "import json; d=json.load(open('$sample')); print('\\n'.join(d.get('exportVsCatalog',[])))"
+              VIOLATIONS=$((VIOLATIONS + 1))
             fi
           fi
         done
+        if [ $VIOLATIONS -gt 0 ]; then
+          echo "Total violations: $VIOLATIONS"
+          exit 1
+        fi
         echo "All agreement.json checks passed"

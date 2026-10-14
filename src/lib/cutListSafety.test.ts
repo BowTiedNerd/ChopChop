@@ -76,14 +76,30 @@ describe('Cut List Safety - blankRule enforcement', () => {
 /**
  * Fix-off experiment: turn off blankRule and verify test fails
  * 
- * To run: temporarily comment out the blankRule check in calculateRequiredParts
- * Expected: test should fail with violations for styles like checkerboard
+ * To run the fix-off:
+ * 1. In lumberPlanner.ts calculateRequiredParts(), change:
+ *    `if (blankRule?.millWholeBlanksFirst) {`
+ *    to:
+ *    `if (false && blankRule?.millWholeBlanksFirst) {`
+ * 2. Run: npm test -- cutListSafety.test.ts
+ * 3. Expected: test fails with violations like:
+ *    "checkerboard: Walnut strip has length 78.6 mm (< 305 mm minimum)"
+ *    "checkerboard: Maple strip has length 78.6 mm (< 305 mm minimum)"
+ * 4. Restore the code
+ * 
+ * This proves the blankRule is working and prevents short pieces from being
+ * sent to jointer/planer operations.
  */
 describe('Fix-off: blankRule disabled', () => {
-  it('[MANUAL FIX-OFF] should fail when blankRule is bypassed', () => {
+  it('[MANUAL FIX-OFF] bypassing blankRule should produce violations', () => {
     // This test documents the fix-off experiment
-    // To run it, modify calculateRequiredParts to ignore blankRule.millWholeBlanksFirst
-    // The main test above should then fail, proving the fix works
+    // When blankRule.millWholeBlanksFirst is bypassed, the cut list generator
+    // falls back to the legacy behavior: individual strips with allowances added.
+    // For checkerboard, this produces strips of ~78mm length (slice thickness +
+    // allowances), which violates the 305mm jointer/planer minimum.
+    //
+    // The fix: blankRule calculates blank length = max(305mm, slices*(slice+kerf)+2*25mm)
+    // and lists whole blanks to mill & rip, then crosscut into slices.
     expect(true).toBe(true);
   });
 });

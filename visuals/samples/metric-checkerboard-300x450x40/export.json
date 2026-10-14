@@ -1,0 +1,1346 @@
+{
+  "version": "1.0.0",
+  "exportedAt": "2026-10-14T11:41:21.506Z",
+  "commitSha": "995ed2046b83bd8c70ac75484ded65dbf19fb62a",
+  "design": {
+    "style": "checkerboard",
+    "dimensions": {
+      "width": "300 mm",
+      "length": "450 mm",
+      "thickness": "40 mm"
+    },
+    "species": [
+      "Walnut",
+      "Maple"
+    ],
+    "modifiers": {
+      "juiceGroove": null,
+      "handles": null,
+      "feet": {
+        "diameter": "25.4 mm",
+        "height": "9.5 mm",
+        "inset": "38 mm"
+      }
+    },
+    "unitSystem": "metric"
+  },
+  "pattern": {
+    "stripCount": 216,
+    "strips": [
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "25 mm",
+        "height": "40 mm",
+        "depth": "25 mm"
+      }
+    ]
+  },
+  "cutList": [
+    {
+      "part": "Walnut blank (mill & rip, then crosscut 108 × 25.0 mm slices)",
+      "quantity": 1,
+      "width": "34.2 mm",
+      "thickness": "48.5 mm",
+      "length": "3092.9 mm",
+      "species": "Walnut"
+    },
+    {
+      "part": "Maple blank (mill & rip, then crosscut 108 × 25.0 mm slices)",
+      "quantity": 1,
+      "width": "34.2 mm",
+      "thickness": "48.5 mm",
+      "length": "3092.9 mm",
+      "species": "Maple"
+    }
+  ]
+}
