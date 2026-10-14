@@ -59,6 +59,24 @@ jobs:
           echo "Skipping boardviz tests (test_boardviz.py not found)"
         fi
     
+    - name: Run boardviz strict mode
+      run: |
+        sudo pip3 install Pillow
+        cd visuals && CHOPCHOP_DIR=/home/runner/work/ChopChop/ChopChop python3 boardviz.py all --out /tmp/boardviz-test --strict
+    
+    - name: Verify metric sample export
+      run: |
+        if [ -f visuals/samples/metric/agreement.json ]; then
+          echo "Checking metric sample agreement..."
+          cd visuals/samples/metric
+          if ! python3 -c "import json; d=json.load(open('agreement.json')); exit(0 if d.get('ok') and d.get('freshExportIdentical') and len(d.get('exportVsCatalog',[]))==0 else 1)"; then
+            echo "FAIL: Metric sample has issues"
+            cat agreement.json
+            exit 1
+          fi
+          echo "Metric sample verified"
+        fi
+    
     - name: Check agreement.json (all samples must agree with export)
       run: |
         cd visuals
