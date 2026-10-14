@@ -37,6 +37,7 @@ export interface PdfOptions {
 export class PdfGenerator {
   private doc: jsPDF;
   private design: BoardDesign;
+  private cutList: CutListItem[] = [];
   private currentPage: number = 1;
   private yPosition: number = 20;
   private pageHeight: number = 280;
@@ -55,6 +56,8 @@ export class PdfGenerator {
    * Generate complete cut sheet PDF
    */
   generateCutSheet(cutList: CutListItem[]): jsPDF {
+    this.cutList = cutList; // Store for use in step customization
+    
     this.addTitle('Cut Sheet');
     this.addBoardSummary();
     
@@ -89,20 +92,90 @@ export class PdfGenerator {
     try {
       const catalog = loadStyleCatalog(this.design.style as CatalogStyleName);
       
-      return catalog.steps.map(step => ({
-        stepNumber: step.stepNumber,
-        stepId: step.stepId,
-        title: step.title,
-        description: step.description,
-        settings: step.settings,
-        safetyBanners: step.safetyBanners,
-        figure: undefined, // Will be generated based on figureType
-        figureType: step.figureType,
-      })) as StepInstruction[];
+      return catalog.steps.map(step => {
+        let description = step.description;
+        
+        // Customize flatten-first-panel step based on actual panel widths
+        if (step.stepId === 'flatten-first-panel' && this.cutList.length > 0) {
+          description = this.customizeFlattenDescription(step.description, catalog);
+        }
+        
+        return {
+          stepNumber: step.stepNumber,
+          stepId: step.stepId,
+          title: step.title,
+          description,
+          settings: step.settings,
+          safetyBanners: step.safetyBanners,
+          figure: undefined, // Will be generated based on figureType
+          figureType: step.figureType,
+        } as StepInstruction;
+      });
     } catch {
       // Fallback to empty steps if catalog not found
       return [];
     }
+  }
+
+  /**
+   * Customize flatten step description based on actual panel widths
+   */
+  private customizeFlattenDescription(genericDescription: string, catalog: any): string {
+    const blankRule = catalog.cutListAllowances?.blankRule;
+    if (!blankRule) return genericDescription;
+    
+    const panelMaxWidth = blankRule.panelMaxPlanerWidth_mm || 305;
+    const options = blankRule.panelWideOption || ['routerSled'];
+    
+    // Find all strip-set panels in cut list
+    const panels = this.cutList.filter(item => 
+      item.part.includes('strip-set panel')
+    );
+    
+    if (panels.length === 0) return genericDescription;
+    
+    // Build panel-specific descriptions
+    const descriptions: string[] = [];
+    
+    for (const panel of panels) {
+      const panelWidth = panel.width;
+      const unit = this.design.unitSystem;
+      
+      if (panelWidth <= panelMaxWidth) {
+        // Narrow panel - plane it
+        const widthText = unit === 'metric' 
+          ? `${Math.round(panelWidth)} mm`
+          : `${inchText(panelWidth / 25.4)}`;
+        descriptions.push(
+          `Plane or sand the ${widthText}-wide panel flat (still long grain, planer allowed).`
+        );
+      } else {
+        // Wide panel - use router sled or split
+        const widthText = unit === 'metric'
+          ? `${Math.round(panelWidth)} mm`
+          : `${inchText(panelWidth / 25.4)}`;
+        
+        if (options.includes('splitSubPanels')) {
+          // Calculate sub-panels from the actual cut list part description
+          const splitMatch = panel.part.match(/split into (\d+) sub-panels/);
+          if (splitMatch) {
+            descriptions.push(
+              `Flatten this ${widthText} panel: split into ${splitMatch[1]} sub-panels of at most ${panelMaxWidth} mm each, plane each sub-panel, then glue them together.`
+            );
+          } else {
+            descriptions.push(
+              `Flatten this ${widthText} panel on the router sled or drum sander.`
+            );
+          }
+        } else {
+          descriptions.push(
+            `Flatten this ${widthText} panel on the router sled or drum sander.`
+          );
+        }
+      }
+    }
+    
+    return descriptions.join(' ');
   }
 
   /**

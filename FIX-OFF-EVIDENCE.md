@@ -161,10 +161,12 @@ AssertionError: expected 1 to be +0 // Object.is equality
 **Restore:** `git checkout -- src/lib/lumberPlanner.ts`
 
 ### N7: Panel width > 305mm to planer
-**Change:** Disable panel width routing in lumberPlanner.ts (lines 240-252)
-**Test:** Panel width routing test with wide boards (8-10 species)
-**Command:** `npm test -- cutListWidth`
-**Result:** ✅ FAILS - 1 test with 9 violations (3 wide panels):
+**Change:** Disable panel width routing in lumberPlanner.ts (lines 240-257: comment out width routing)
+**Test:** Panel width routing tests - both cut list data AND PDF text validation
+**Command:** `npm test -- cutListWidth pdfWidth`
+**Result:** ✅ FAILS - 2 tests with comprehensive violations:
+
+**Test 1: Cut List Data (cutListWidthSafety.test.ts)**
 ```
 FAIL src/lib/cutListWidthSafety.test.ts > should route wide strip-set panels correctly (N7 test)
 Error: Panel width routing violations:
@@ -174,10 +176,30 @@ Error: Panel width routing violations:
   - chevron (wide): Panel 395mm says "Plane flat" - must use router sled or split sub-panels
   - chevron (wide): Panel 395mm lacks router sled or split sub-panels method
   - chevron (wide): Panel 395mm lacks width routing note
+  - chevron (wide): Panel 395mm says "Plane flat" - must use router sled or split sub-panels
+  - chevron (wide): Panel 395mm lacks router sled or split sub-panels method
+  - chevron (wide): Panel 395mm lacks width routing note
 
 Wide panels (> 305mm) must use router sled or split sub-panels, NOT planer.
 ```
-**Note:** Test verifies wide panels have NO "Plane flat" method, MUST have router sled or split sub-panels. Test uses 10-species boards to force 454mm panels. When routing disabled, panels incorrectly sent to planer instead of sled/split.
+
+**Test 2: PDF Text Validation (pdfWidthValidation.test.ts)**
+```
+FAIL src/lib/pdfWidthValidation.test.ts > PDF Flatten Step Text for Wide Panels (N7)
+Error: PDF flatten step text violations:
+  - checkerboard: PDF flatten step doesn't mention router sled or split method for 454mm panel
+
+Wide panels must have panel-specific text with width and routing method, not generic "planer is allowed".
+```
+
+**Note:** N7 now validates BOTH internal cut-list data AND exported PDF text. Wide panels (>305mm) must have:
+1. NO "Plane flat" in cut list part description
+2. Router sled OR split sub-panels method in cut list
+3. Width routing note in cut list
+4. Panel-specific flatten text in PDF (e.g., "Flatten this 17.9\" panel: split into 2 sub-panels...")
+5. NO generic "planer is allowed" text in PDF
+
+When routing disabled, checkerboard 454mm and chevron 395mm panels incorrectly sent to planer.
 **Restore:** `git checkout -- src/lib/lumberPlanner.ts`
 
 ## Test Implementation Status
