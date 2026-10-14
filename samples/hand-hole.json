@@ -1,0 +1,132 @@
+{
+  "version": "1.0.0",
+  "exportedAt": "2026-10-14T13:32:13.089Z",
+  "commitSha": "835a8c19a0453803c75bd4c6be9e57f87f89f31e",
+  "design": {
+    "style": "end-grain",
+    "dimensions": {
+      "width": "12.008\" (≈12 1/64\")",
+      "length": "15.984\" (≈15 63/64\")",
+      "thickness": "1.496\" (≈1 1/2\")"
+    },
+    "species": [
+      "Walnut",
+      "Maple"
+    ],
+    "modifiers": {
+      "juiceGroove": null,
+      "handles": {
+        "type": "hand-hole"
+      },
+      "feet": {
+        "diameter": "1.000\" (1\")",
+        "height": "0.374\" (≈3/8\")",
+        "inset": "1.260\" (≈1 17/64\")"
+      }
+    },
+    "unitSystem": "imperial"
+  },
+  "pattern": {
+    "stripCount": 12,
+    "strips": [
+      {
+        "species": "Walnut",
+        "width": "1.001\" (≈1\")",
+        "height": "1.496\" (≈1 1/2\")",
+        "depth": "15.984\" (≈15 63/64\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.001\" (≈1\")",
+        "height": "1.496\" (≈1 1/2\")",
+        "depth": "15.984\" (≈15 63/64\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.001\" (≈1\")",
+        "height": "1.496\" (≈1 1/2\")",
+        "depth": "15.984\" (≈15 63/64\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.001\" (≈1\")",
+        "height": "1.496\" (≈1 1/2\")",
+        "depth": "15.984\" (≈15 63/64\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.001\" (≈1\")",
+        "height": "1.496\" (≈1 1/2\")",
+        "depth": "15.984\" (≈15 63/64\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.001\" (≈1\")",
+        "height": "1.496\" (≈1 1/2\")",
+        "depth": "15.984\" (≈15 63/64\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.001\" (≈1\")",
+        "height": "1.496\" (≈1 1/2\")",
+        "depth": "15.984\" (≈15 63/64\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.001\" (≈1\")",
+        "height": "1.496\" (≈1 1/2\")",
+        "depth": "15.984\" (≈15 63/64\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.001\" (≈1\")",
+        "height": "1.496\" (≈1 1/2\")",
+        "depth": "15.984\" (≈15 63/64\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.001\" (≈1\")",
+        "height": "1.496\" (≈1 1/2\")",
+        "depth": "15.984\" (≈15 63/64\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.001\" (≈1\")",
+        "height": "1.496\" (≈1 1/2\")",
+        "depth": "15.984\" (≈15 63/64\")"
+      },
+      {
+        "species": "Maple",
+        "width": "1.001\" (≈1\")",
+        "height": "1.496\" (≈1 1/2\")",
+        "depth": "15.984\" (≈15 63/64\")"
+      }
+    ]
+  },
+  "cutList": [
+    {
+      "part": "Walnut/Maple strip-set panel: glue 2 strips (one per species), Plane flat, then crosscut sled with stop block (never fence) 2 slices × 406.0mm",
+      "quantity": 1,
+      "width": "2.488\" (≈2 31/64\")",
+      "thickness": "1.831\" (≈1 53/64\")",
+      "length": "34.187\" (≈34 3/16\")",
+      "species": "Walnut/Maple"
+    },
+    {
+      "part": "Walnut/Maple strip-set panel: glue 2 strips (one per species), Plane flat, then crosscut sled with stop block (never fence) 2 slices × 406.0mm",
+      "quantity": 1,
+      "width": "2.488\" (≈2 31/64\")",
+      "thickness": "1.831\" (≈1 53/64\")",
+      "length": "34.187\" (≈34 3/16\")",
+      "species": "Walnut/Maple"
+    },
+    {
+      "part": "Walnut/Maple strip-set panel: glue 2 strips (one per species), Plane flat, then crosscut sled with stop block (never fence) 2 slices × 406.0mm",
+      "quantity": 1,
+      "width": "2.488\" (≈2 31/64\")",
+      "thickness": "1.831\" (≈1 53/64\")",
+      "length": "34.187\" (≈34 3/16\")",
+      "species": "Walnut/Maple"
+    }
+  ]
+}

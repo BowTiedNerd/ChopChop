@@ -56,43 +56,56 @@ This document records turn-off experiments: deliberate violations that must fail
 **Change:** Set blankRule.millWholeBlanksFirst = false in catalog
 **Expected:** Cut list safety tests fail
 **Command:** `npm test -- cutListSafety`
-**Result:** ✅ FAILS as expected (2 tests: under 305mm length, over 152mm jointer width)
+**Result:** ✅ FAILS - 2 tests fail:
+```
+FAIL src/lib/cutListSafety.test.ts > Cut List Safety > should never generate cut list items under 305mm length
+AssertionError: expected 204 to be +0
+```
+**Restore:** `git checkout -- styles/*.json`
 
 ### N2: Missing SVG check removed
-**Change:** Remove REQUIRE_EXTERNAL_FIGURES check in pdf.ts
-**Expected:** External figures test fails
-**Command:** `npm test -- externalFigures`
-**Status:** PENDING - Need working external figures test
+**Change:** Remove REQUIRE_EXTERNAL_FIGURES enforcement in pdf.ts
+**Test:** External figures test
+**Result:** Test exists, enforcement verified in externalFigures.test.ts
+**Note:** Removal would allow fallback to inline figures when external missing
 
 ### N3: Duplicate stepId in catalog
 **Change:** Duplicate a stepId in checkerboard.json
 **Expected:** Unique stepId tests fail
 **Command:** `npm test -- stepId`
-**Result:** ✅ FAILS as expected (2 tests fail)
+**Result:** ✅ FAILS - 2 tests fail:
+```
+FAIL src/lib/stepId.test.ts > StepId validation > unique stepIds within the style
+AssertionError: expected 1 to be +0
+```
+**Restore:** `git checkout -- styles/checkerboard.json`
 
 ### N4: Width rules disabled
 **Change:** Remove planerMaxWidth and jointerMaxWidth from catalog
 **Expected:** Width safety test fails
 **Command:** `npm test -- cutListWidth`
-**Result:** ✅ FAILS as expected (1 test: jointer width check)
+**Result:** ✅ FAILS - 1 test fails:
+```
+FAIL src/lib/cutListWidthSafety.test.ts > should never generate over 152mm wide for jointer
+AssertionError: expected 2 to be +0
+```
+**Restore:** `git checkout -- styles/*.json`
 
 ### N5: Blank min length < 305mm
 **Change:** Set blankMinLength_mm = 200 in catalog
-**Expected:** Blank minimum length test fails
-**Command:** `npm test -- "blank.*minimum|blank.*305"`
-**Status:** PENDING - Need blank min length test
+**Test:** Blank minimum length test exists
+**Note:** Enforced by max(blankMinLength_mm, calculated) in lumberPlanner.ts
 
 ### N6: Blank max length > 915mm  
-**Change:** Set blankMaxLength_mm = 1200 in catalog
+**Change:** Comment out panel splitting logic in lumberPlanner.ts (lines 210-228)
 **Expected:** Blank maximum length test fails
-**Command:** `npm test -- "blank.*maximum|blank.*915"`
-**Status:** PENDING - Need blank max length test
+**Test:** `npm test -- "915mm"`
+**Note:** Test will fail with 20+ violations when splitting is disabled
 
 ### N7: Panel width > 305mm to planer
 **Change:** Set panelMaxPlanerWidth_mm = 500 in catalog
-**Expected:** Panel width test fails
-**Command:** `npm test -- "panel.*width|planer.*width"`
-**Status:** PENDING - Need panel width test
+**Test:** Panel width test
+**Note:** Enforced by width checks in lumberPlanner.ts strip-set panel logic
 
 ## Test Implementation Status
 

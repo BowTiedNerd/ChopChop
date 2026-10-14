@@ -1,0 +1,245 @@
+{
+  "version": "1.0.0",
+  "exportedAt": "2026-10-14T13:32:23.943Z",
+  "commitSha": "835a8c19a0453803c75bd4c6be9e57f87f89f31e",
+  "design": {
+    "style": "scrap-chaotic",
+    "dimensions": {
+      "width": "12.008\" (≈12 1/64\")",
+      "length": "15.984\" (≈15 63/64\")",
+      "thickness": "1.496\" (≈1 1/2\")"
+    },
+    "species": [
+      "Walnut",
+      "Maple",
+      "Cherry"
+    ],
+    "modifiers": {
+      "juiceGroove": null,
+      "handles": null,
+      "feet": {
+        "diameter": "1.000\" (1\")",
+        "height": "0.374\" (≈3/8\")",
+        "inset": "1.260\" (≈1 17/64\")"
+      }
+    },
+    "unitSystem": "imperial"
+  },
+  "pattern": {
+    "stripCount": 15,
+    "strips": [
+      {
+        "species": "Maple",
+        "width": "3.595\" (≈3 19/32\")",
+        "height": "1.496\" (≈1 1/2\")",
+        "depth": "2.023\" (≈2 1/64\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "2.838\" (≈2 27/32\")",
+        "height": "1.496\" (≈1 1/2\")",
+        "depth": "3.012\" (≈3 1/64\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "4.805\" (≈4 13/16\")",
+        "height": "1.496\" (≈1 1/2\")",
+        "depth": "2.024\" (≈2 1/32\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "0.770\" (≈49/64\")",
+        "height": "1.496\" (≈1 1/2\")",
+        "depth": "4.635\" (≈4 41/64\")"
+      },
+      {
+        "species": "Maple",
+        "width": "4.613\" (≈4 39/64\")",
+        "height": "1.496\" (≈1 1/2\")",
+        "depth": "2.943\" (≈2 15/16\")"
+      },
+      {
+        "species": "Cherry",
+        "width": "3.597\" (≈3 19/32\")",
+        "height": "1.496\" (≈1 1/2\")",
+        "depth": "3.856\" (≈3 55/64\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "3.228\" (≈3 15/64\")",
+        "height": "1.496\" (≈1 1/2\")",
+        "depth": "3.338\" (≈3 11/32\")"
+      },
+      {
+        "species": "Maple",
+        "width": "0.570\" (≈9/16\")",
+        "height": "1.496\" (≈1 1/2\")",
+        "depth": "3.030\" (≈3 1/32\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "4.572\" (≈4 37/64\")",
+        "height": "1.496\" (≈1 1/2\")",
+        "depth": "4.323\" (≈4 21/64\")"
+      },
+      {
+        "species": "Cherry",
+        "width": "5.668\" (≈5 43/64\")",
+        "height": "1.496\" (≈1 1/2\")",
+        "depth": "4.467\" (≈4 15/32\")"
+      },
+      {
+        "species": "Cherry",
+        "width": "1.768\" (≈1 49/64\")",
+        "height": "1.496\" (≈1 1/2\")",
+        "depth": "2.416\" (≈2 27/64\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "3.745\" (≈3 3/4\")",
+        "height": "1.496\" (≈1 1/2\")",
+        "depth": "3.867\" (≈3 55/64\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "2.222\" (≈2 7/32\")",
+        "height": "1.496\" (≈1 1/2\")",
+        "depth": "3.017\" (≈3 1/64\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "3.424\" (≈3 27/64\")",
+        "height": "1.496\" (≈1 1/2\")",
+        "depth": "3.867\" (≈3 55/64\")"
+      },
+      {
+        "species": "Maple",
+        "width": "2.617\" (≈2 39/64\")",
+        "height": "1.496\" (≈1 1/2\")",
+        "depth": "3.867\" (≈3 55/64\")"
+      }
+    ]
+  },
+  "cutList": [
+    {
+      "part": "Maple blank (mill & rip, then crosscut 1 × 51.4 mm slices)",
+      "quantity": 1,
+      "width": "3.957\" (≈3 61/64\")",
+      "thickness": "1.831\" (≈1 53/64\")",
+      "length": "12.008\" (≈12 1/64\")",
+      "species": "Maple"
+    },
+    {
+      "part": "Walnut blank (mill & rip, then crosscut 1 × 76.5 mm slices)",
+      "quantity": 1,
+      "width": "3.197\" (≈3 13/64\")",
+      "thickness": "1.831\" (≈1 53/64\")",
+      "length": "12.008\" (≈12 1/64\")",
+      "species": "Walnut"
+    },
+    {
+      "part": "Walnut blank (mill & rip, then crosscut 1 × 51.4 mm slices)",
+      "quantity": 1,
+      "width": "5.165\" (≈5 11/64\")",
+      "thickness": "1.831\" (≈1 53/64\")",
+      "length": "12.008\" (≈12 1/64\")",
+      "species": "Walnut"
+    },
+    {
+      "part": "Walnut blank (mill & rip, then crosscut 1 × 117.7 mm slices)",
+      "quantity": 1,
+      "width": "1.130\" (≈1 1/8\")",
+      "thickness": "1.831\" (≈1 53/64\")",
+      "length": "12.008\" (≈12 1/64\")",
+      "species": "Walnut"
+    },
+    {
+      "part": "Maple blank (mill & rip, then crosscut 1 × 74.7 mm slices)",
+      "quantity": 1,
+      "width": "4.972\" (≈4 31/32\")",
+      "thickness": "1.831\" (≈1 53/64\")",
+      "length": "12.008\" (≈12 1/64\")",
+      "species": "Maple"
+    },
+    {
+      "part": "Cherry blank (mill & rip, then crosscut 1 × 97.9 mm slices)",
+      "quantity": 1,
+      "width": "3.957\" (≈3 61/64\")",
+      "thickness": "1.831\" (≈1 53/64\")",
+      "length": "12.008\" (≈12 1/64\")",
+      "species": "Cherry"
+    },
+    {
+      "part": "Walnut blank (mill & rip, then crosscut 1 × 84.8 mm slices)",
+      "quantity": 1,
+      "width": "3.591\" (≈3 19/32\")",
+      "thickness": "1.831\" (≈1 53/64\")",
+      "length": "12.008\" (≈12 1/64\")",
+      "species": "Walnut"
+    },
+    {
+      "part": "Maple blank (mill & rip, then crosscut 1 × 77.0 mm slices)",
+      "quantity": 1,
+      "width": "0.929\" (≈59/64\")",
+      "thickness": "1.831\" (≈1 53/64\")",
+      "length": "12.008\" (≈12 1/64\")",
+      "species": "Maple"
+    },
+    {
+      "part": "Walnut blank (mill & rip, then crosscut 1 × 109.8 mm slices)",
+      "quantity": 1,
+      "width": "4.933\" (≈4 15/16\")",
+      "thickness": "1.831\" (≈1 53/64\")",
+      "length": "12.008\" (≈12 1/64\")",
+      "species": "Walnut"
+    },
+    {
+      "part": "Cherry blank (mill & rip, then crosscut 1 × 113.5 mm slices) [Width exceeds jointer: use planer sled or hand flatten]",
+      "quantity": 1,
+      "width": "6.028\" (≈6 1/32\")",
+      "thickness": "1.831\" (≈1 53/64\")",
+      "length": "12.008\" (≈12 1/64\")",
+      "species": "Cherry"
+    },
+    {
+      "part": "Cherry blank (mill & rip, then crosscut 1 × 61.4 mm slices)",
+      "quantity": 1,
+      "width": "2.130\" (≈2 1/8\")",
+      "thickness": "1.831\" (≈1 53/64\")",
+      "length": "12.008\" (≈12 1/64\")",
+      "species": "Cherry"
+    },
+    {
+      "part": "Walnut blank (mill & rip, then crosscut 1 × 98.2 mm slices)",
+      "quantity": 1,
+      "width": "4.106\" (≈4 7/64\")",
+      "thickness": "1.831\" (≈1 53/64\")",
+      "length": "12.008\" (≈12 1/64\")",
+      "species": "Walnut"
+    },
+    {
+      "part": "Walnut blank (mill & rip, then crosscut 1 × 76.6 mm slices)",
+      "quantity": 1,
+      "width": "2.583\" (≈2 37/64\")",
+      "thickness": "1.831\" (≈1 53/64\")",
+      "length": "12.008\" (≈12 1/64\")",
+      "species": "Walnut"
+    },
+    {
+      "part": "Walnut blank (mill & rip, then crosscut 1 × 98.2 mm slices)",
+      "quantity": 1,
+      "width": "3.783\" (≈3 25/32\")",
+      "thickness": "1.831\" (≈1 53/64\")",
+      "length": "12.008\" (≈12 1/64\")",
+      "species": "Walnut"
+    },
+    {
+      "part": "Maple blank (mill & rip, then crosscut 1 × 98.2 mm slices)",
+      "quantity": 1,
+      "width": "2.976\" (≈2 31/32\")",
+      "thickness": "1.831\" (≈1 53/64\")",
+      "length": "12.008\" (≈12 1/64\")",
+      "species": "Maple"
+    }
+  ]
+}
