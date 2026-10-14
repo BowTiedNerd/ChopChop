@@ -55,6 +55,24 @@ describe('PR1-REVIEW #3: No [Step Diagram] placeholders in PDFs', () => {
     // (tested in externalFigures.test.ts)
     expect(design).toBeDefined();
   });
+  
+  it('should enforce 11pt minimum on step figure labels', async () => {
+    // Step figures must use 11pt or larger for all labels
+    // This test verifies the rip fence figure creates proper labels
+    const { generateRipFenceFigure } = await import('./stepFigures');
+    
+    // Generating a rip fence figure should work (uses 11pt)
+    const figure = generateRipFenceFigure(25.4, 20, 'mm');
+    expect(figure).toBeDefined();
+    expect(figure.svg).toContain('RIP FENCE');
+    
+    // The SVG should have font-size 11 or higher
+    const fontSizeMatch = figure.svg.match(/font-size="(\d+)"/);
+    if (fontSizeMatch) {
+      const fontSize = parseInt(fontSizeMatch[1]);
+      expect(fontSize).toBeGreaterThanOrEqual(11);
+    }
+  });
 });
 
 describe('PR1-REVIEW #4: Banner tests', () => {

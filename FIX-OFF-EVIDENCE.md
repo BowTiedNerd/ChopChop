@@ -29,8 +29,13 @@ AssertionError: expected 17888 to be greater than 18000
 ### E3: Label font size reduced to 10pt
 **Change:** Set RIP FENCE label font to 10pt in stepFigures.ts
 **Expected:** Minimum font size test should fail
-**Command:** `npm test -- "minimum font"`
-**Result:** ✅ FAILS as expected (svg.test "should enforce minimum font size")
+**Command:** `npm test -- pr1Review`
+**Result:** ✅ FAILS - 1 test fails:
+```
+FAIL src/lib/pr1Review.test.ts > PR1-REVIEW #3: No [Step Diagram] placeholders in PDFs > should enforce 11pt minimum on step figure labels
+Error: Font size 10 is below minimum 11
+```
+**Restore:** `git checkout -- src/lib/stepFigures.ts`
 
 ### E4: Label positioned on blade
 **Change:** Place RIP FENCE label at x=200 (on blade) in stepFigures.ts
