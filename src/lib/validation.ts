@@ -73,7 +73,7 @@ function validateStyle(design: BoardDesign): string[] {
   }
   
   // Chevron with gap is not supported
-  if (style === 'chevron' && (design as any).gap) {
+  if (style === 'chevron' && (design as { gap?: number }).gap) {
     errors.push('Chevron with gap is not supported');
   }
   

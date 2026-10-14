@@ -3,6 +3,7 @@ import { SvgBuilder } from './svg';
 import { inchText, roundToHalfMm } from '../utils/format';
 import { validateBoard, validateAngle, validateOutputFolder } from './validation';
 import { createDefaultBoard, create16x24Board, createMetricBoard } from './defaults';
+import { existsSync, readFileSync } from 'fs';
 
 /**
  * Acceptance tests for ACCEPTANCE.md requirements
@@ -158,11 +159,10 @@ describe('ACCEPTANCE Rule 5: Viewports & Cue', () => {
     // This verifies that the cue CSS uses visibility (not display) and appears in mobile viewport
     
     // We verify the browser check test file exists and has the viewport tests
-    const fs = require('fs');
     const browserCheckPath = __dirname + '/browserCheck.test.ts';
-    expect(fs.existsSync(browserCheckPath)).toBe(true);
+    expect(existsSync(browserCheckPath)).toBe(true);
     
-    const content = fs.readFileSync(browserCheckPath, 'utf-8');
+    const content = readFileSync(browserCheckPath, 'utf-8');
     expect(content).toContain('1280'); // Desktop width
     expect(content).toContain('768');  // Tablet width
     expect(content).toContain('390');  // Mobile width
@@ -226,15 +226,14 @@ describe('ACCEPTANCE Rule 8: Diagrams Match App', () => {
     // agreement.json files validate that exports match catalog
     // This is enforced by CI running: python3 boardviz.py all --strict
     
-    const fs = require('fs');
     const boardvizPath = __dirname + '/../../visuals/boardviz.py';
-    expect(fs.existsSync(boardvizPath)).toBe(true);
+    expect(existsSync(boardvizPath)).toBe(true);
     
     // Verify at least one agreement.json exists
     const agreementPath = __dirname + '/../../visuals/samples/checkerboard/agreement.json';
-    expect(fs.existsSync(agreementPath)).toBe(true);
+    expect(existsSync(agreementPath)).toBe(true);
     
-    const agreement = JSON.parse(fs.readFileSync(agreementPath, 'utf-8'));
+    const agreement = JSON.parse(readFileSync(agreementPath, 'utf-8'));
     expect(agreement).toHaveProperty('ok');
     expect(agreement).toHaveProperty('exportVsCatalog');
   });
@@ -244,22 +243,20 @@ describe('ACCEPTANCE Rule 9: Proof', () => {
   it('should provide fix-off evidence via this test suite', () => {
     // Fix-off evidence is recorded in FIX-OFF-EVIDENCE.md
     // Each rule has a test that fails when the fix is disabled
-    const fs = require('fs');
     const evidencePath = __dirname + '/../../FIX-OFF-EVIDENCE.md';
-    expect(fs.existsSync(evidencePath)).toBe(true);
+    expect(existsSync(evidencePath)).toBe(true);
     
-    const content = fs.readFileSync(evidencePath, 'utf-8');
+    const content = readFileSync(evidencePath, 'utf-8');
     expect(content).toContain('Fix-Off Evidence');
     expect(content).toContain('Experiment Results');
   });
 
   it('should run all tests with npm test', () => {
     // Verify test infrastructure via package.json
-    const fs = require('fs');
     const pkgPath = __dirname + '/../../package.json';
-    expect(fs.existsSync(pkgPath)).toBe(true);
+    expect(existsSync(pkgPath)).toBe(true);
     
-    const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf-8'));
+    const pkg = JSON.parse(readFileSync(pkgPath, 'utf-8'));
     expect(pkg.scripts).toHaveProperty('test');
     expect(pkg.devDependencies).toHaveProperty('vitest');
   });

@@ -50,7 +50,6 @@ describe('PR1-REVIEW #3: No [Step Diagram] placeholders in PDFs', () => {
     // This is enforced by REQUIRE_EXTERNAL_FIGURES (default on)
     // Test verifies the enforcement exists
     const design = createDefaultBoard();
-    const cutList = [];
     
     // If external figures are missing and fallback is disabled, generation should fail
     // (tested in externalFigures.test.ts)
@@ -162,6 +161,7 @@ describe('PR1-REVIEW #10: Refusal tests', () => {
   it('should refuse gapped chevron', () => {
     const design = createDefaultBoard();
     design.style = 'chevron';
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (design as any).gap = 5; // Add gap field
     
     const validation = validateBoard(design);
