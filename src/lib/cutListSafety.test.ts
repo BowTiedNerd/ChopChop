@@ -9,6 +9,7 @@ import { BoardDesign } from '../types';
 import { loadStyleCatalog } from './catalogLoader';
 import { BOARD_STYLES } from '../types/catalog';
 import { createDefaultBoard } from './defaults';
+import { catalogBlankMax } from './catalogBlankMax';
 
 const PLANER_JOINTER_MINIMUM_MM = 305.0;
 
@@ -145,9 +146,8 @@ describe('Blank Length Constraints', () => {
     }
   });
 
-  it('should never generate blanks over 915mm maximum length', () => {
+  it('should never generate blanks over the catalog blankMaxLength_mm', () => {
     const violations: string[] = [];
-    const MAX_BLANK_LENGTH_MM = 915;
     
     for (const style of BOARD_STYLES) {
       const design = createDefaultBoard();
@@ -156,8 +156,8 @@ describe('Blank Length Constraints', () => {
       const cutList = calculateRequiredParts(design);
       
       for (const part of cutList) {
-        if (part.length > MAX_BLANK_LENGTH_MM) {
-          violations.push(`${style}: ${part.part} has length ${part.length.toFixed(1)} mm (> 915 mm maximum)`);
+        if (part.length > catalogBlankMax(style)) {
+          violations.push(`${style}: ${part.part} has length ${part.length.toFixed(1)} mm (> ${catalogBlankMax(style)} mm maximum)`);
         }
       }
     }
@@ -184,19 +184,19 @@ describe('Blank Length Constraints', () => {
     expect(underMin.length).toBe(0);
   });
 
-  it('[MANUAL FIX-OFF] bypassing blankMaxLength should produce over-915mm violations', () => {
+  it('[MANUAL FIX-OFF] bypassing blankMaxLength should produce over-maximum violations', () => {
     // Fix-off experiment N6:
     // 1. In catalog, set blankMaxLength_mm = 1200 (or remove it)
     // 2. Run: npm test -- "blank.*maximum"
-    // 3. Expected: test fails with blanks over 915mm
-    // 4. Restore blankMaxLength_mm = 915
+    // 3. Expected: test fails with blanks over the catalog maximum
+    // 4. Restore blankMaxLength_mm = 914.4
     //
     // This proves blankMaxLength_mm splits long panels into manageable lengths
     
     // With proper config, no violations
     const design = createDefaultBoard();
     const cutList = calculateRequiredParts(design);
-    const overMax = cutList.filter(p => p.length > 915);
+    const overMax = cutList.filter(p => p.length > catalogBlankMax(design.style));
     expect(overMax.length).toBe(0);
   });
 });

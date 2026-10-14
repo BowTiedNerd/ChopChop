@@ -1,6 +1,6 @@
 {
   "style": "chevron",
-  "draft": "NEW DRAFT 3.0-draft5l by Board Master, rebuilt from standard shop practice after the 2026-10-13 data loss. NOT 2.5.3.2. Values marked shopDefault:true are my defaults, not recovered values.",
+  "draft": "NEW DRAFT 3.0-draft5o by Board Master, rebuilt from standard shop practice after the 2026-10-13 data loss. NOT 2.5.3.2. Values marked shopDefault:true are my defaults, not recovered values.",
   "displayName": "Chevron",
   "description": "Strip panel cut at an angle; alternate pieces flipped to meet in a V.",
   "angles": {
@@ -43,7 +43,7 @@
       "title": "Glue up",
       "description": "Glue the strip panel. Alternate clamps above and below the panel and check for flat with a straightedge.",
       "settings": {
-        "Clamp spacing": "about 8\" (200 mm)"
+        "Clamp spacing": "about 8\" (203 mm)"
       },
       "safetyBanners": [
         "NOTE: Use a waterproof PVA glue rated for indirect food contact. Clamp until squeeze-out turns rubbery, then scrape."
@@ -83,7 +83,7 @@
       "title": "Glue up",
       "description": "Glue pieces, using cauls to stop them sliding on the angle. Alternate clamps above and below the panel and check for flat with a straightedge.",
       "settings": {
-        "Clamp spacing": "about 8\" (200 mm)"
+        "Clamp spacing": "about 8\" (203 mm)"
       },
       "safetyBanners": [
         "NOTE: Use a waterproof PVA glue rated for indirect food contact. Clamp until squeeze-out turns rubbery, then scrape."
@@ -213,7 +213,7 @@
       "millWholeBlanksFirst": true,
       "blankMinLength_mm": 305.0,
       "crosscutTrim_mm": 25.0,
-      "blankMaxLength_mm": 915.0,
+      "blankMaxLength_mm": 914.4,
       "blankUnit": "stripSetPanel",
       "panelStrips": "allStripsAcrossWidth",
       "sliceCount": "rowsAlongLength",
@@ -227,7 +227,7 @@
       "panelCrosscut": "crosscutSledWithStopBlock",
       "sledMaxWidth_mm": 610.0,
       "panelWidthText": "A panel no wider than 12\" (305 mm) is planed. A wider panel is either flattened on the router sled or drum sander, or glued as sub-panels of whole strips each no wider than 305 mm, which are planed and then crosscut separately (end-grain boards line the slices up at the end-grain glue-up; do not re-glue a wide panel just to crosscut it). Splits fall only on strip glue lines, never through a strip. Crosscut every slice on a crosscut sled with a stop block, never against the rip fence. Each crosscut step prints the panel width the sled must clear, sheet units first. If that width is over 24\" (610 mm), split the panel first; never freehand a panel that wide.",
-      "text": "Mill and rip whole blanks before any crosscut. A blank is a glued strip-set panel: every strip across the board width, glued in pattern order (N strips = squares or strips across), not one strip per species. Panel width = sum of strip widths + width oversize. Slice count = rows along the board length (not total pieces). Blank length = max(305 mm, slices x (slice + kerf) + 2 x 25 mm trim). If that exceeds 915 mm (36\"), split the slices across the fewest equal panels that each fit 305-915 mm; never cap a panel and drop slices. Never send a crosscut slice or piece shorter than 305 mm to the jointer or planer."
+      "text": "Mill and rip whole blanks before any crosscut. A blank is a glued strip-set panel: every strip across the board width, glued in pattern order (N strips = squares or strips across), not one strip per species. Panel width = sum of strip widths + width oversize. Slice count = rows along the board length (not total pieces). Blank length = max(305 mm, slices x (slice + kerf) + 2 x 25 mm trim). If that exceeds 36\" (914 mm), split the slices across the fewest equal panels that each fit 12-36\" (305-914 mm); never cap a panel and drop slices. Never send a crosscut slice or piece shorter than 305 mm to the jointer or planer."
     },
     "shopDefault": true
   },
@@ -236,19 +236,19 @@
   "features": {
     "shopDefault": true,
     "handHole": {
-      "length_mm": 100.0,
+      "length_mm": 101.6,
       "width_mm": 25.4,
       "endRadius_mm": 12.7,
       "edgeInset_mm": 38.0,
       "bit": "1/2\" (12.7 mm) straight or spiral bit",
-      "text": "Hand-hole slot 4\" (100 mm) long x 1\" (25.4 mm) wide, round ends, centred 1-1/2\" (38 mm) in from the end. Rout through with a template and a 1/2\" (12.7 mm) bit in shallow passes."
+      "text": "Hand-hole slot 4\" (102 mm) long x 1\" (25 mm) wide, round ends, centred 1-1/2\" (38 mm) in from the end. Rout through with a template and a 1/2\" (12.7 mm) bit in shallow passes."
     },
     "fingerGrip": {
-      "length_mm": 100.0,
+      "length_mm": 101.6,
       "depth_mm": 9.5,
       "edgeInset_mm": 0.0,
       "bit": "core box / round-nose bit 3/8\u20131/2\" (9.5\u201312.7 mm)",
-      "text": "Finger grips 4\" (100 mm) long, routed into the end grain of each end with a core box bit, centred on the width."
+      "text": "Finger grips 4\" (102 mm) long, routed into the end grain of each end with a core box bit, centred on the width."
     }
   },
   "notes": "Take ~1/64\" (0.4 mm) passes for final surfacing."

@@ -1,6 +1,6 @@
 import { jsPDF } from 'jspdf';
 import { BoardDesign, StepInstruction, CutListItem } from '../types';
-import { inchText, metricText, sheetLen, shopSize } from '../utils/format';
+import { sheetLen, shopSize, normalizeQuotedSizes, VERBATIM_CATALOG_KEYS } from '../utils/format';
 import { generateTopViewFigure, generateCutListFigure } from './stepFigures';
 import { loadStyleCatalog } from './catalogLoader';
 import { calculateRequiredParts } from './lumberPlanner';
@@ -117,7 +117,8 @@ export class PdfGenerator {
       const catalog = loadStyleCatalog(this.design.style as CatalogStyleName);
       
       return catalog.steps.map(step => {
-        let description = step.description;
+        const unitSys = this.design.unitSystem;
+        let description = normalizeQuotedSizes(step.description, unitSys);
         
         // Customize flatten-first-panel step based on actual panel widths
         const hasFlattenStep = catalog.steps.some(st => st.stepId === 'flatten-first-panel');
@@ -147,7 +148,8 @@ export class PdfGenerator {
           stepId: step.stepId,
           title: step.title,
           description,
-          settings: this.resolveSettings(step.settings, catalog),
+          settings: Object.fromEntries(Object.entries(this.resolveSettings(step.settings, catalog) ?? {})
+            .map(([k, v]) => [k, (VERBATIM_CATALOG_KEYS as readonly string[]).includes(k) ? v : normalizeQuotedSizes(v, unitSys)])),
           safetyBanners: step.safetyBanners,
           figure: undefined, // Will be generated based on figureType
           figureType: step.figureType,
@@ -317,11 +319,7 @@ export class PdfGenerator {
     const { width, depth, fromEdge, cornerRadius } = this.design.juiceGroove;
     const unit = this.design.unitSystem;
 
-    if (unit === 'metric') {
-      return `Perimeter loop, ${width} mm wide × ${depth} mm deep, ${fromEdge} mm from the edge, corner radius ${cornerRadius} mm, top face.`;
-    } else {
-      return `Perimeter loop, ${inchText(width / 25.4)} wide × ${inchText(depth / 25.4)} deep, ${inchText(fromEdge / 25.4)} from the edge, corner radius ${inchText(cornerRadius / 25.4)}, top face.`;
-    }
+    return `Perimeter loop, ${shopSize(width, unit)} wide × ${shopSize(depth, unit)} deep, ${shopSize(fromEdge, unit)} from the edge, corner radius ${shopSize(cornerRadius, unit)}, top face.`;
   }
 
   /**
@@ -331,12 +329,8 @@ export class PdfGenerator {
     const { inset } = this.design.rubberFeet;
     const unit = this.design.unitSystem;
 
-    // Always use the correct hardware spec: 1" (25.4 mm) × 3/8" (9.5 mm)
-    if (unit === 'metric') {
-      return `4 rubber feet, 1" (25.4 mm) diameter × 3/8" (9.5 mm) high, foot centres ${inset} mm in from the edges (underside).`;
-    } else {
-      return `4 rubber feet, 1" (25.4 mm) diameter × 3/8" (9.5 mm) high, foot centres ${inchText(inset / 25.4)} in from the edges (underside).`;
-    }
+    // Hardware spec: 1" (25.4 mm) diameter × 3/8" (9.5 mm) high, printed in sheet units
+    return `4 rubber feet, ${shopSize(25.4, unit)} diameter × ${shopSize(9.525, unit)} high, foot centres ${shopSize(inset, unit)} in from the edges (underside).`;
   }
 
   /**
@@ -535,7 +529,7 @@ export class PdfGenerator {
     this.doc.setFillColor(255, 200, 200);
     
     this.doc.setFontSize(BANNER_FONT);
-    const lines = this.doc.splitTextToSize(text, 160);
+    const lines = this.doc.splitTextToSize(normalizeQuotedSizes(text, this.design.unitSystem), 160);
     const boxHeight = lines.length * BANNER_LINE / 3.5;
     
     this.doc.rect(this.margin, this.yPosition - 4, 170, boxHeight, 'F');
@@ -615,11 +609,7 @@ export class PdfGenerator {
    * Format dimension based on unit system
    */
   private formatDim(mm: number, unit: string): string {
-    if (unit === 'metric') {
-      return metricText(mm, 1);
-    } else {
-      return inchText(mm / 25.4);
-    }
+    return shopSize(mm, unit as 'imperial' | 'metric');
   }
 
   /** Step texts computed from this cut list (same customization as the cut sheet). */
@@ -673,20 +663,11 @@ export function generateMillPlan(design: BoardDesign): jsPDF {
   const unit = design.unitSystem;
   const { width, length, thickness } = design.dimensions;
   
-  let specs: string[];
-  if (unit === 'metric') {
-    specs = [
-      `Dimensions: ${width} mm × ${length} mm × ${thickness} mm`,
-      `Style: ${design.style}`,
-      `Species: ${design.species.map(s => s.name).join(', ')}`,
-    ];
-  } else {
-    specs = [
-      `Dimensions: ${inchText(width / 25.4)} × ${inchText(length / 25.4)} × ${inchText(thickness / 25.4)}`,
-      `Style: ${design.style}`,
-      `Species: ${design.species.map(s => s.name).join(', ')}`,
-    ];
-  }
+  const specs: string[] = [
+    `Dimensions: ${shopSize(width, unit)} × ${shopSize(length, unit)} × ${shopSize(thickness, unit)}`,
+    `Style: ${design.style}`,
+    `Species: ${design.species.map(s => s.name).join(', ')}`,
+  ];
   
   for (const spec of specs) {
     const lines = doc.splitTextToSize(spec, maxWidth);

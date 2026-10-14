@@ -1,3 +1,4 @@
+import { normalizeQuotedSizes, VERBATIM_CATALOG_KEYS } from '../utils/format';
 import { readFileSync } from 'fs';
 import { pdfShownText, pdfContent } from './pdfTestText';
 /**
@@ -177,7 +178,9 @@ describe('PR1-REVIEW #5: Settings in step text', () => {
         expect(shown).toContain(`${key}: `);
         expect(shown).not.toContain(value);
       } else {
-        expect(shown).toContain(`${key}: ${value}`.slice(0, 30));
+        // quoted sizes are re-printed to the units ruling unless the key is fixed catalog text
+        const printed = (VERBATIM_CATALOG_KEYS as readonly string[]).includes(key) ? value : normalizeQuotedSizes(value, 'imperial');
+        expect(shown).toContain(`${key}: ${printed}`.slice(0, 30));
       }
     }
   });

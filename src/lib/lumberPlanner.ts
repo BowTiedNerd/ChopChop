@@ -42,6 +42,8 @@ export interface CutItem {
   sliceThickness?: number;
   /** Panel id shared by all sub-panel rows of one panel (A, B, ...) */
   panelId?: string;
+  /** Every derived size the part text prints, in mm (true values for unit checks) */
+  dims?: Record<string, number>;
   subPanel?: { index: number; count: number };
 }
 
@@ -363,6 +365,11 @@ function calculateBlanksWithRule(
             planerOk,
             sliceThickness,
             panelId: letters[i],
+            dims: {
+              ripWidth_mm: firstStrip.width + ripOver, stripWidth_mm: firstStrip.width,
+              ...(grid ? { stripMillThickness_mm: stripMillThickness, square_mm: square } : {}),
+              panelWidth_mm: w, sliceThickness_mm: sliceThickness, jointerMaxWidth_mm: jointerMaxWidth,
+            },
             subPanel: groups.length > 1 ? { index: j + 1, count: groups.length } : undefined,
           });
         });
@@ -429,6 +436,11 @@ function calculateBlanksWithRule(
             : '';
           blanks.push({
             part: `${species} blank: ${ripNote}${millNote}crosscut ${n} slices × ${shopSize(egSlice ?? sliceThickness, unitSystem)} each${widthNote}`,
+            dims: {
+              ripWidth_mm: stripW + blankRipOver, stripWidth_mm: stripW, sliceThickness_mm: egSlice ?? sliceThickness,
+              ...(course !== undefined ? { course_mm: course, millThickness_mm: course + (eg?.stripMillThicknessOver_mm ?? 0) } : {}),
+              jointerMaxWidth_mm: jointerMaxWidth,
+            },
             width,
             thickness: outThickness,
             length: lenFor(n),

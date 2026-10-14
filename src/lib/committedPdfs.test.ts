@@ -35,7 +35,7 @@ const partColumn = (name: string) => {
 describe('Board Master 2: every final/assembled flatten step prints its real width and route', () => {
   it('chevron Step 8 prints the glue-up width and the router sled / drum sander, then sanding', () => {
     expect(step('chevron', 'Flatten and sand').replace(/\s+/g, ' ')).toContain(
-      'Flatten the final glue-up, 12" (304.8 mm) wide: mixed grain: router sled or drum sander, never the planer. Then sand: 80, 120, 180 grit.');
+      'Flatten the final glue-up, 12" (305 mm) wide: mixed grain: router sled or drum sander, never the planer. Then sand: 80, 120, 180 grit.');
   });
   it('no sample prints the generic planer sentence in Flatten and sand', () => {
     for (const n of SAMPLES) {
@@ -68,7 +68,7 @@ describe('Board Master 3 / Shop Tester D: length split and width split are label
 describe('Shop Tester A: end-grain square geometry', () => {
   it('checkerboard: strips 1" wide, milled 1.6 mm over, panel planed to the 1" square, 18 rows', () => {
     const f = partColumn('checkerboard-default');
-    expect(f).toContain('rip each strip 1-1/16" (27 mm), then joint to 1" (25.4 mm) wide; strips milled 1-1/16" (27 mm) thick; plane the glued panel to the square size 1" (25.4 mm)');
+    expect(f).toContain('rip each strip 1-1/16" (27 mm), then joint to 1" (25 mm) wide; strips milled 1-1/16" (27 mm) thick; plane the glued panel to the square size 1" (25 mm)');
     expect(f).toContain('18 slices × 1-11/16" (43 mm) each');
   });
   it('slice size is printed on the cut list and the crosscut step', () => {
@@ -134,7 +134,7 @@ describe('Shop Tester F: planer wording only for long grain within limits', () =
 
 describe('Shop Tester G: brick, herringbone and scrap print their sled width', () => {
   it('crosscut / angled-cut steps say "Sled width: sled must clear 12" (305 mm)"', () => {
-    for (const n of ['brick', 'herringbone', 'scrap-chaotic']) expect(flat(n), n).toContain('Sled width: sled must clear 12" (304.8 mm).');
+    for (const n of ['brick', 'herringbone', 'scrap-chaotic']) expect(flat(n), n).toContain('Sled width: sled must clear 12" (305 mm).');
   });
 });
 
@@ -146,7 +146,7 @@ describe('Board QA minor 1: mill-plan.pdf is text only, by decision', () => {
   });
   it('mill plan steps carry the computed text, not the generic catalog sentence', () => {
     const f = flat('mill-plan');
-    expect(f).toContain('Flatten Panel A, sub-panel 1/2, 6-1/4" (158.4 mm) wide: Planer OK: 6-1/4" (158.4 mm) wide, long grain.');
+    expect(f).toContain('Flatten Panel A, sub-panel 1/2, 6-1/4" (158 mm) wide: Planer OK: 6-1/4" (158 mm) wide, long grain.');
     expect(f).not.toContain('plane flat if the panel is no wider than');
   });
 });
@@ -155,7 +155,7 @@ describe('draft5k/5l rules', () => {
   it('(1) brick: slice = board thickness + 5 mm on cut list and step 5, no face sizes; panel planed to the 1" (25 mm) course', () => {
     const c = partColumn('brick');
     expect(c).toContain('slices × 1-11/16" (43 mm) each');
-    expect(c).toContain('plane to the course height 1" (25.4 mm)');
+    expect(c).toContain('plane to the course height 1" (25 mm)');
     expect(c).not.toMatch(/slices × (?:(?!each).)*(25\.4|76\.2)|1\.835"/);
     expect(cutList('brick')).not.toContain('1.835"');
     expect(step('brick', 'Crosscut slices')).toContain('Slice size: 1-11/16" (43 mm).');
@@ -173,7 +173,7 @@ describe('draft5k/5l rules', () => {
     }
   });
   it('(4) stripRipRule: 16x24 strips ripped 1.6 mm over, then jointed to final width', () => {
-    expect(partColumn('checkerboard-16x24')).toContain('rip each strip 1-13/32" (35.5 mm), then joint to 1-11/32" (34 mm) wide');
+    expect(partColumn('checkerboard-16x24')).toContain('rip each strip 1-13/32" (35 mm), then joint to 1-11/32" (34 mm) wide');
   });
   it('(5) faceTooWideForJointerText replaces the old jointer line', () => {
     const f = flat('checkerboard-default');

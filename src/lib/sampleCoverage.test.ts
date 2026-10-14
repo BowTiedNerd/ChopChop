@@ -42,12 +42,12 @@ describe('Sample PDF Coverage', () => {
     const text = (name: string) => pdfShownText(readFileSync(join(SAMPLES_DIR, `${name}.pdf`)).toString('latin1'));
     const expectations: Array<[string, RegExp[]]> = [
       ['checkerboard-default', [/Style: checkerboard/, /Flatten Panel A, sub-panel 1\//]],
-      ['checkerboard-16x24', [/Style: checkerboard/, /16\.000" \(16"\) × 24\.000"/]],
+      ['checkerboard-16x24', [/Style: checkerboard/, /Dimensions: 16" \(406 mm\) × 24" \(610 mm\)/]],
       ['chevron', [/Style: chevron/]],
       ['herringbone', [/Style: herringbone/]],
       ['scrap-chaotic', [/Style: scrap-chaotic/]],
       ['hand-hole', [/Handles: hand hole/]],
-      ['metric', [/Dimensions: \d+ mm × \d+ mm × \d+ mm/]],
+      ['metric', [/Dimensions: \d+ mm \(\d+\.\d\d"\) × \d+ mm \(\d+\.\d\d"\) × \d+ mm \(\d+\.\d\d"\)/]],
       ['features-combined', [/Juice Groove:/, /Rubber Feet:/, /finger grip/i]],
     ];
     const missing: string[] = [];

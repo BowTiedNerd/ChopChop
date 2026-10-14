@@ -1,11 +1,11 @@
-/** Export side, every sample design: no blank/panel over blankMaxLength (915 mm, 36"), and per-blank slice counts add up to the board's slices. */
+/** Export side, every sample design: no blank/panel over blankMaxLength (catalog blankRule.blankMaxLength_mm, 914.4 mm = 36"), and per-blank slice counts add up to the board's slices. */
 import { describe, it, expect } from 'vitest';
 import { buildExportDoc } from '../../scripts/export';
 import { generatePattern } from './patterns';
 import { createDefaultBoard } from './defaults';
 import { BoardDesign } from '../types';
 
-const MAX = 915;
+import { catalogBlankMax } from './catalogBlankMax';
 function designs(): Array<[string, BoardDesign]> {
   const out: Array<[string, BoardDesign]> = [];
   const mk = (name: string, f: (d: BoardDesign) => void) => { const d = createDefaultBoard(); f(d); out.push([name, d]); };
@@ -20,12 +20,12 @@ function designs(): Array<[string, BoardDesign]> {
 /** Slices a row crosscuts: "N slices" (panels) or "crosscut N slices"/"crosscut N ×" (blanks). */
 const slicesOf = (part: string) => Number((/(\d+) slices/.exec(part) ?? /crosscut (\d+) ×/.exec(part) ?? [])[1] ?? NaN);
 
-describe('export: blanks within 915 mm and slice counts add up', () => {
+describe('export: blanks within the catalog blankMaxLength_mm and slice counts add up', () => {
   for (const [name, design] of designs()) {
     it(name, () => {
       const { exportDoc, cutList } = buildExportDoc(design, { exportedAt: '2026-01-01T00:00:00Z', commitSha: 'test' });
       const rows = exportDoc.cutList as Array<{ part: string; length: number | string; panelId?: string; subPanel?: { index: number } }>;
-      rows.forEach((r, i) => expect(cutList[i].length, `${name}: ${r.part}`).toBeLessThanOrEqual(MAX));
+      rows.forEach((r, i) => expect(cutList[i].length, `${name}: ${r.part}`).toBeLessThanOrEqual(catalogBlankMax(design.style)));
       const blankRows = rows.filter(r => /strip-set panel|blank/.test(r.part));
       if (blankRows.length === 0) return; // long-grain styles: no crosscut blanks
       const strips = generatePattern(design).strips as Array<{ z?: number }>;

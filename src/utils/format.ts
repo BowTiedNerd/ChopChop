@@ -150,6 +150,9 @@ export function sixteenthsText(mm: number, base = 16): string {
 /** Rounding steps the shop-size printer uses (tests derive their tolerance from these). */
 export const INCH_FRACTION_DENOMINATOR = 32;   // inch sheets: fractions to 1/32"
 export const METRIC_INCH_DECIMALS = 2;         // metric sheets: inch value as a 2-place decimal
+export const MM_STEP = 1;                      // mm main value / inch-sheet mm from MM_WHOLE_FROM up
+export const MM_WHOLE_FROM = 25;               // inch sheets: whole mm from 25 mm up
+export const MM_SMALL_DECIMALS = 1;            // inch sheets: one decimal mm under 25 mm
 
 /**
  * One shop size, sheet units first (Board Master units ruling). The value in parentheses is a
@@ -158,15 +161,28 @@ export const METRIC_INCH_DECIMALS = 2;         // metric sheets: inch value as a
  */
 export function shopSize(mm: number, unit: 'imperial' | 'metric'): string {
   if (unit === 'metric') {
-    const main = Math.round(mm);
-    return `${main} mm (${(main / 25.4).toFixed(METRIC_INCH_DECIMALS)}")`;
+    const main = Math.round(mm / MM_STEP) * MM_STEP;
+    return `${main} mm (${(mm / 25.4).toFixed(METRIC_INCH_DECIMALS)}")`;
   }
   const n = Math.round((mm / 25.4) * INCH_FRACTION_DENOMINATOR);
   const mainMm = (n / INCH_FRACTION_DENOMINATOR) * 25.4;
-  // mm of the true size: whole mm when within 0.15 mm of it and within half the 1/32" step of the
-  // printed fraction (so it converts back); otherwise one decimal (25.4 mm, 35.5 mm)
-  const tol = 25.4 / INCH_FRACTION_DENOMINATOR / 2;
-  const r = Math.round(mm);
-  const mmText = Math.abs(r - mm) < 0.15 && Math.abs(r - mainMm) <= tol ? `${r}` : mm.toFixed(1);
+  // mm of the true size: whole mm from 25 mm up, one decimal under 25 mm (1/8" (3.2 mm)); never (0 mm)
+  const mmText = mm >= MM_WHOLE_FROM ? `${Math.round(mm / MM_STEP) * MM_STEP}` : mm.toFixed(MM_SMALL_DECIMALS);
   return `${sixteenthsText(mainMm, INCH_FRACTION_DENOMINATOR)} (${mmText} mm)`;
+}
+
+/** Catalog setting keys whose text is fixed and printed verbatim, never re-formatted (draft5o). */
+export const VERBATIM_CATALOG_KEYS = ['Final pass depth'] as const;
+
+/**
+ * Catalog prose quotes sizes inch-first, e.g. 'plus 1/8" (3 mm)'. Re-print every quoted pair with shopSize in the
+ * sheet's units, taking the fraction as the true size (inch sheets get 1/8" (3.2 mm), metric sheets 3 mm (0.13")).
+ * Approximate values ('~1/64" (0.4 mm)') are fixed catalog text and are left as written.
+ */
+export function normalizeQuotedSizes(text: string, unit: 'imperial' | 'metric'): string {
+  return text.replace(/(~?)(?:(\d+)-)?(\d+)(?:\/(\d+))?"\s*\((\d+(?:\.\d+)?) mm\)/g, (all, tilde, w, a, b) => {
+    if (tilde) return all;
+    const inches = b ? Number(w ?? 0) + Number(a) / Number(b) : Number(a);
+    return shopSize(inches * 25.4, unit);
+  });
 }
