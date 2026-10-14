@@ -63,7 +63,7 @@ describe('Browser Check (starts own dev server)', () => {
       headless: true,
       args: ['--no-sandbox', '--disable-setuid-sandbox'],
     });
-  });
+  }, 40000); // 40 second timeout for setup
 
   afterAll(async () => {
     if (browser) {
