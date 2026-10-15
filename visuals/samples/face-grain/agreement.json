@@ -1,0 +1,14 @@
+{
+ "ok": true,
+ "labelsChecked": 58,
+ "issues": [],
+ "exportSha256": "b93fca1f91f879e8b789ba1ca10b18dbf7b42b049a99f9438a9ca327345b5568",
+ "freshExportIdentical": true,
+ "preset": "face-grain",
+ "sets": [
+  "handles.enabled=true",
+  "handles.type=handle"
+ ],
+ "catalogDraft": "NEW DRAFT 3.0-draft5 by Board Master, re",
+ "exportVsCatalog": []
+}

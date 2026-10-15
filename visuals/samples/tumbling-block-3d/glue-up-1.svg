@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="564" height="335" viewBox="0 0 564 335" data-figure="glue-up-1">
+<rect data-bg="1" x="0" y="0" width="564" height="335" fill="#FFFFFF"/>
+<text x="20.00" y="30.00" font-family="DejaVu Sans" font-size="16" fill="#222222" font-weight="bold"><tspan x="20.00" y="30.00">3D Tumbling Block (End Grain): glue-up 1, step 4: Glue up</tspan></text>
+<rect x="60.00" y="120.00" width="30.48" height="45.72" rx="0.00" fill="#5B3A29" stroke="#333" stroke-width="0.8"/>
+<rect x="90.48" y="120.00" width="30.48" height="45.72" rx="0.00" fill="#F3E7D3" stroke="#333" stroke-width="0.8"/>
+<rect x="120.96" y="120.00" width="30.48" height="45.72" rx="0.00" fill="#5B3A29" stroke="#333" stroke-width="0.8"/>
+<rect x="151.44" y="120.00" width="30.48" height="45.72" rx="0.00" fill="#5B3A29" stroke="#333" stroke-width="0.8"/>
+<rect x="181.92" y="120.00" width="30.48" height="45.72" rx="0.00" fill="#F3E7D3" stroke="#333" stroke-width="0.8"/>
+<rect x="212.40" y="120.00" width="30.48" height="45.72" rx="0.00" fill="#5B3A29" stroke="#333" stroke-width="0.8"/>
+<rect x="242.88" y="120.00" width="30.48" height="45.72" rx="0.00" fill="#5B3A29" stroke="#333" stroke-width="0.8"/>
+<rect x="273.36" y="120.00" width="30.48" height="45.72" rx="0.00" fill="#F3E7D3" stroke="#333" stroke-width="0.8"/>
+<rect x="303.84" y="120.00" width="30.48" height="45.72" rx="0.00" fill="#5B3A29" stroke="#333" stroke-width="0.8"/>
+<rect x="334.32" y="120.00" width="30.48" height="45.72" rx="0.00" fill="#5B3A29" stroke="#333" stroke-width="0.8"/>
+<rect x="364.80" y="120.00" width="30.48" height="45.72" rx="0.00" fill="#F3E7D3" stroke="#333" stroke-width="0.8"/>
+<rect x="395.28" y="120.00" width="30.48" height="45.72" rx="0.00" fill="#5B3A29" stroke="#333" stroke-width="0.8"/>
+<line x1="151.44" y1="78.00" x2="151.44" y2="114.00" stroke="#222222" stroke-width="2"/>
+<polygon points="151.44,114.00 147.94,105.71 154.94,105.71" fill="#222222" stroke="#222222" stroke-width="1"/>
+<line x1="151.44" y1="207.72" x2="151.44" y2="171.72" stroke="#222222" stroke-width="2"/>
+<polygon points="151.44,171.72 154.94,180.01 147.94,180.01" fill="#222222" stroke="#222222" stroke-width="1"/>
+<line x1="334.32" y1="78.00" x2="334.32" y2="114.00" stroke="#222222" stroke-width="2"/>
+<polygon points="334.32,114.00 330.82,105.71 337.82,105.71" fill="#222222" stroke="#222222" stroke-width="1"/>
+<line x1="334.32" y1="207.72" x2="334.32" y2="171.72" stroke="#222222" stroke-width="2"/>
+<polygon points="334.32,171.72 337.82,180.01 330.82,180.01" fill="#222222" stroke="#222222" stroke-width="1"/>
+<line x1="10.00" y1="142.86" x2="54.00" y2="142.86" stroke="#222222" stroke-width="2"/>
+<polygon points="54.00,142.86 45.71,146.36 45.71,139.36" fill="#222222" stroke="#222222" stroke-width="1"/>
+<line x1="475.76" y1="142.86" x2="431.76" y2="142.86" stroke="#222222" stroke-width="2"/>
+<polygon points="431.76,142.86 440.05,139.36 440.05,146.36" fill="#222222" stroke="#222222" stroke-width="1"/>
+<text x="20.00" y="235.72" font-family="DejaVu Sans" font-size="11" fill="#222222" data-src="catalog.steps.3.description"><tspan x="20.00" y="235.72">Glue the diamonds into hexagon logs, one of each tone. Alternate clamps above and below</tspan><tspan x="20.00" y="250.02">the panel and check for flat with a straightedge.</tspan></text>
+<text x="20.00" y="271.32" font-family="DejaVu Sans" font-size="11" fill="#222222" font-weight="bold"><tspan x="20.00" y="271.32">Clamp spacing: about 8&quot; (200 mm)</tspan></text>
+<text x="20.00" y="292.62" font-family="DejaVu Sans" font-size="11" fill="#9B1C1C" font-weight="bold" data-src="catalog.steps.3.safetyBanners.0"><tspan x="20.00" y="292.62">NOTE: Use a waterproof PVA glue rated for indirect food contact. Clamp until</tspan><tspan x="20.00" y="306.92">squeeze-out turns rubbery, then scrape.</tspan></text>
+</svg>

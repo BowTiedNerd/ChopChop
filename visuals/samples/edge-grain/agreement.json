@@ -1,0 +1,14 @@
+{
+ "ok": true,
+ "labelsChecked": 62,
+ "issues": [],
+ "exportSha256": "64889ceeb0c74726e8b4732bcc0a7eff61b64a2b36cdccc7ad73a08c10efbf99",
+ "freshExportIdentical": true,
+ "preset": "edge-grain",
+ "sets": [
+  "handles.enabled=true",
+  "handles.type=hand-hole-slot"
+ ],
+ "catalogDraft": "NEW DRAFT 3.0-draft5 by Board Master, re",
+ "exportVsCatalog": []
+}

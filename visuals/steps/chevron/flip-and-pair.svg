@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="518" height="478" viewBox="0 0 518 478" data-figure="chevron/flip-and-pair">
+<rect data-bg="1" x="0" y="0" width="518" height="478" fill="#FFFFFF"/>
+<text x="20.00" y="30.00" font-family="DejaVu Sans" font-size="16" fill="#222222" font-weight="bold"><tspan x="20.00" y="30.00">Chevron: strip sequence</tspan></text>
+<rect x="40.00" y="60.00" width="32.66" height="80.00" rx="0.00" fill="#5B3A29" stroke="#333" stroke-width="0.8"/>
+<rect x="72.66" y="60.00" width="32.66" height="80.00" rx="0.00" fill="#5B3A29" stroke="#333" stroke-width="0.8"/>
+<rect x="105.31" y="60.00" width="32.66" height="80.00" rx="0.00" fill="#5B3A29" stroke="#333" stroke-width="0.8"/>
+<rect x="137.97" y="60.00" width="32.66" height="80.00" rx="0.00" fill="#5B3A29" stroke="#333" stroke-width="0.8"/>
+<rect x="170.63" y="60.00" width="32.66" height="80.00" rx="0.00" fill="#5B3A29" stroke="#333" stroke-width="0.8"/>
+<rect x="203.29" y="60.00" width="32.66" height="80.00" rx="0.00" fill="#5B3A29" stroke="#333" stroke-width="0.8"/>
+<rect x="235.94" y="60.00" width="32.66" height="80.00" rx="0.00" fill="#5B3A29" stroke="#333" stroke-width="0.8"/>
+<rect x="268.60" y="60.00" width="32.66" height="80.00" rx="0.00" fill="#5B3A29" stroke="#333" stroke-width="0.8"/>
+<rect x="301.26" y="60.00" width="32.66" height="80.00" rx="0.00" fill="#5B3A29" stroke="#333" stroke-width="0.8"/>
+<rect x="333.91" y="60.00" width="32.66" height="80.00" rx="0.00" fill="#5B3A29" stroke="#333" stroke-width="0.8"/>
+<rect x="366.57" y="60.00" width="32.66" height="80.00" rx="0.00" fill="#5B3A29" stroke="#333" stroke-width="0.8"/>
+<rect x="399.23" y="60.00" width="32.66" height="80.00" rx="0.00" fill="#5B3A29" stroke="#333" stroke-width="0.8"/>
+<rect x="431.89" y="60.00" width="32.66" height="80.00" rx="0.00" fill="#5B3A29" stroke="#333" stroke-width="0.8"/>
+<rect x="464.54" y="60.00" width="32.66" height="80.00" rx="0.00" fill="#5B3A29" stroke="#333" stroke-width="0.8"/>
+<text x="40.00" y="170.00" font-family="DejaVu Sans" font-size="11" fill="#222222"><tspan x="40.00" y="170.00">1. Walnut</tspan></text>
+<text x="40.00" y="189.30" font-family="DejaVu Sans" font-size="11" fill="#222222"><tspan x="40.00" y="189.30">2. Walnut</tspan></text>
+<text x="40.00" y="208.60" font-family="DejaVu Sans" font-size="11" fill="#222222"><tspan x="40.00" y="208.60">3. Walnut</tspan></text>
+<text x="40.00" y="227.90" font-family="DejaVu Sans" font-size="11" fill="#222222"><tspan x="40.00" y="227.90">4. Walnut</tspan></text>
+<text x="40.00" y="247.20" font-family="DejaVu Sans" font-size="11" fill="#222222"><tspan x="40.00" y="247.20">5. Walnut</tspan></text>
+<text x="40.00" y="266.50" font-family="DejaVu Sans" font-size="11" fill="#222222"><tspan x="40.00" y="266.50">6. Walnut</tspan></text>
+<text x="40.00" y="285.80" font-family="DejaVu Sans" font-size="11" fill="#222222"><tspan x="40.00" y="285.80">7. Walnut</tspan></text>
+<text x="40.00" y="305.10" font-family="DejaVu Sans" font-size="11" fill="#222222"><tspan x="40.00" y="305.10">8. Walnut</tspan></text>
+<text x="40.00" y="324.40" font-family="DejaVu Sans" font-size="11" fill="#222222"><tspan x="40.00" y="324.40">9. Walnut</tspan></text>
+<text x="40.00" y="343.70" font-family="DejaVu Sans" font-size="11" fill="#222222"><tspan x="40.00" y="343.70">10. Walnut</tspan></text>
+<text x="40.00" y="363.00" font-family="DejaVu Sans" font-size="11" fill="#222222"><tspan x="40.00" y="363.00">11. Walnut</tspan></text>
+<text x="40.00" y="382.30" font-family="DejaVu Sans" font-size="11" fill="#222222"><tspan x="40.00" y="382.30">12. Walnut</tspan></text>
+<text x="40.00" y="401.60" font-family="DejaVu Sans" font-size="11" fill="#222222"><tspan x="40.00" y="401.60">13. Walnut</tspan></text>
+<text x="40.00" y="420.90" font-family="DejaVu Sans" font-size="11" fill="#222222"><tspan x="40.00" y="420.90">14. Walnut</tspan></text>
+<text x="40.00" y="450.20" font-family="DejaVu Sans" font-size="11" fill="#222222" data-src="catalog.steps.4.description"><tspan x="40.00" y="450.20">Flip alternate pieces so the stripes meet in a V.</tspan></text>
+</svg>

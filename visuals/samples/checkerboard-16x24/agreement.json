@@ -1,0 +1,13 @@
+{
+ "ok": true,
+ "labelsChecked": 70,
+ "issues": [],
+ "exportSha256": "f59191a9292b8d3c952fe5681c032ef055a8d075874c09b86ef14875375bf780",
+ "freshExportIdentical": true,
+ "preset": "checkerboard-16x24",
+ "sets": [
+  "juiceGroove.enabled=true"
+ ],
+ "catalogDraft": "NEW DRAFT 3.0-draft5 by Board Master, re",
+ "exportVsCatalog": []
+}

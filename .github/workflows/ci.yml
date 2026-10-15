@@ -1,0 +1,128 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, cursor/** ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '22'
+        cache: 'npm'
+    
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Type check
+      run: npx tsc --noEmit
+    
+    - name: Lint
+      run: npm run lint
+    
+    - name: Build
+      run: npm run build
+    
+    - name: Run tests
+      run: npm test -- --run --reporter=verbose
+    
+    - name: Regenerate sample PDFs and byte-compare with committed files
+      run: |
+        npm run generate-samples
+        # Any modified, deleted or new file under samples/ means the committed samples are stale
+        git status --porcelain -- samples/
+        test -z "$(git status --porcelain -- samples/)" || { echo "FAIL: regenerated samples differ from committed"; git diff --stat -- samples/; exit 1; }
+    
+    - name: Run boardviz strict tests
+      run: |
+        # Install Python dependencies
+        python3 -m pip install --user Pillow
+        
+        # Install exporter dependencies
+        cd visuals/exporter && npm ci && cd ../..
+        
+        # Run boardviz unit tests
+        cd visuals
+        export CHOPCHOP_DIR=$GITHUB_WORKSPACE
+        unset BOARDVIZ_ALLOW_MISMATCH
+        python3 -m unittest test_boardviz -v
+        
+        # Check all agreement.json files
+        echo "Checking all agreement.json files..."
+        VIOLATIONS=0
+        shopt -s nullglob
+        AGREEMENTS=(samples/*/agreement.json)
+        if [ ${#AGREEMENTS[@]} -eq 0 ]; then echo "FAIL: no agreement.json files"; exit 1; fi
+        for sample in "${AGREEMENTS[@]}"; do
+          if true; then
+            echo "Checking $sample..."
+            if ! python3 -c "import json; d=json.load(open('$sample')); exit(0 if d.get('ok') and len(d.get('exportVsCatalog',[]))==0 else 1)"; then
+              echo "FAIL: $sample has issues"
+              cat "$sample"
+              VIOLATIONS=$((VIOLATIONS + 1))
+            fi
+          fi
+        done
+        
+        if [ $VIOLATIONS -gt 0 ]; then
+          echo "Total violations: $VIOLATIONS"
+          exit 1
+        fi
+        
+        # Run boardviz strict mode and compare outputs
+        echo "Running boardviz.py all --strict..."
+        python3 boardviz.py all --out /tmp/boardviz-test --strict
+        
+        # Compare generated samples SVGs with committed ones
+        echo "Comparing sample SVGs..."
+        # Every regenerated sample SVG (outside steps/) must exist in samples/ and match byte for byte
+        COUNT=0
+        while IFS= read -r svg; do
+          COUNT=$((COUNT + 1))
+          rel_path=$(realpath --relative-to=/tmp/boardviz-test "$svg")
+          if [ ! -f "samples/$rel_path" ]; then
+            echo "MISSING: samples/$rel_path"; VIOLATIONS=$((VIOLATIONS + 1))
+          elif ! cmp -s "$svg" "samples/$rel_path"; then
+            echo "DIFF: samples/$rel_path differs from regenerated version"; VIOLATIONS=$((VIOLATIONS + 1))
+          fi
+        done < <(find /tmp/boardviz-test -name '*.svg' -not -path '*/steps/*' | sort)
+        if [ $COUNT -eq 0 ]; then echo "FAIL: boardviz produced no sample SVGs"; exit 1; fi
+
+        # Run boardviz steps generation
+        echo "Running boardviz.py steps..."
+        python3 boardviz.py steps --out /tmp/boardviz-steps
+        
+        # Compare steps SVGs
+        echo "Comparing steps SVGs..."
+        COUNT=0
+        for svg in /tmp/boardviz-steps/*/*.svg; do
+          COUNT=$((COUNT + 1))
+          rel_path=$(realpath --relative-to=/tmp/boardviz-steps "$svg")
+          if [ ! -f "steps/$rel_path" ]; then
+            echo "MISSING: steps/$rel_path"; VIOLATIONS=$((VIOLATIONS + 1))
+          elif ! cmp -s "$svg" "steps/$rel_path"; then
+            echo "DIFF: steps/$rel_path differs from regenerated version"; VIOLATIONS=$((VIOLATIONS + 1))
+          fi
+        done
+        if [ $COUNT -eq 0 ]; then echo "FAIL: boardviz produced no step SVGs"; exit 1; fi
+
+        if [ $VIOLATIONS -gt 0 ]; then
+          echo "Total SVG differences: $VIOLATIONS"
+          exit 1
+        fi
+        
+        echo "All boardviz checks passed"
+        cd ..

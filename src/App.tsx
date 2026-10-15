@@ -1,0 +1,93 @@
+import { buildPdfInBrowser } from './lib/browserPdf';
+import { generateMillPlan } from './lib/pdf';
+import { useState } from 'react';
+import './App.css';
+import { BoardDesign } from './types';
+import { createDefaultBoard } from './lib/defaults';
+import { validateBoard } from './lib/validation';
+import { DesignEditor } from './components/DesignEditor';
+import { PreviewPanel } from './components/PreviewPanel';
+import { LumberPlanner } from './components/LumberPlanner';
+
+function App() {
+  const [design, setDesign] = useState<BoardDesign>(createDefaultBoard());
+  const [validation, setValidation] = useState(validateBoard(createDefaultBoard()));
+
+  const handleDesignChange = (newDesign: BoardDesign) => {
+    setDesign(newDesign);
+    const validationResult = validateBoard(newDesign);
+    setValidation(validationResult);
+  };
+
+  const handleExportPDF = () => {
+    if (!validation.valid) {
+      alert('Please fix validation errors before exporting');
+      return;
+    }
+
+    buildPdfInBrowser(design).then(pdf => {
+      pdf.save(`chopchop-${design.style}-${Date.now()}.pdf`);
+    }).catch((error: unknown) => {
+      console.error('PDF export failed:', error);
+      alert(`PDF export failed: ${error instanceof Error ? error.message : String(error)}`);
+    });
+  };
+
+  const handleExportMillPlan = () => {
+    try {
+      generateMillPlan(design).save(`chopchop-mill-plan-${design.style}-${Date.now()}.pdf`);
+    } catch (error: unknown) {
+      console.error('Mill plan export failed:', error);
+      alert(`Mill plan export failed: ${error instanceof Error ? error.message : String(error)}`);
+    }
+  };
+
+  return (
+    <div className="app-container">
+      <header>
+        <h1>ChopChop Cutting Board Designer</h1>
+        <p>Design and generate cutting board plans with step-by-step instructions</p>
+      </header>
+
+      {!validation.valid && (
+        <div className="validation-errors">
+          <h3>Validation Errors</h3>
+          <ul>
+            {validation.errors.map((error, i) => (
+              <li key={i}>{error}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {validation.warnings.length > 0 && (
+        <div className="validation-warnings">
+          <h3>Warnings</h3>
+          <ul>
+            {validation.warnings.map((warning, i) => (
+              <li key={i}>{warning}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      <div className="editor-grid">
+        <DesignEditor design={design} onChange={handleDesignChange} />
+        <PreviewPanel design={design} />
+      </div>
+
+      <LumberPlanner design={design} />
+
+      <div className="button-group">
+        <button className="primary" onClick={handleExportPDF} disabled={!validation.valid}>
+          Export Cut Sheet PDF
+        </button>
+        <button className="secondary" onClick={handleExportMillPlan} disabled={!validation.valid}>
+          Export Mill Plan PDF
+        </button>
+      </div>
+    </div>
+  );
+}
+
+export default App;

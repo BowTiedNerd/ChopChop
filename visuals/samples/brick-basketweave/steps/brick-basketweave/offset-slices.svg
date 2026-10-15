@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="518" height="285" viewBox="0 0 518 285" data-figure="brick-basketweave/offset-slices">
+<rect data-bg="1" x="0" y="0" width="518" height="285" fill="#FFFFFF"/>
+<text x="20.00" y="30.00" font-family="DejaVu Sans" font-size="16" fill="#222222" font-weight="bold"><tspan x="20.00" y="30.00">Brick / Basketweave (End Grain): strip sequence</tspan></text>
+<rect x="40.00" y="60.00" width="114.30" height="80.00" rx="0.00" fill="#5B3A29" stroke="#333" stroke-width="0.8"/>
+<rect x="154.30" y="60.00" width="114.30" height="80.00" rx="0.00" fill="#5B3A29" stroke="#333" stroke-width="0.8"/>
+<rect x="268.60" y="60.00" width="114.30" height="80.00" rx="0.00" fill="#5B3A29" stroke="#333" stroke-width="0.8"/>
+<rect x="382.90" y="60.00" width="114.30" height="80.00" rx="0.00" fill="#5B3A29" stroke="#333" stroke-width="0.8"/>
+<text x="40.00" y="170.00" font-family="DejaVu Sans" font-size="11" fill="#222222"><tspan x="40.00" y="170.00">1. Walnut</tspan></text>
+<text x="40.00" y="189.30" font-family="DejaVu Sans" font-size="11" fill="#222222"><tspan x="40.00" y="189.30">2. Walnut</tspan></text>
+<text x="40.00" y="208.60" font-family="DejaVu Sans" font-size="11" fill="#222222"><tspan x="40.00" y="208.60">3. Walnut</tspan></text>
+<text x="40.00" y="227.90" font-family="DejaVu Sans" font-size="11" fill="#222222"><tspan x="40.00" y="227.90">4. Walnut</tspan></text>
+<text x="40.00" y="257.20" font-family="DejaVu Sans" font-size="11" fill="#222222" data-src="catalog.steps.6.description"><tspan x="40.00" y="257.20">Shift every other slice by half a block. Trim the ragged ends after glue-up.</tspan></text>
+</svg>

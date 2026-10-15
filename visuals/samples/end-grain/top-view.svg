@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="588" viewBox="0 0 420 588" data-figure="top-view">
+<rect data-bg="1" x="0" y="0" width="420" height="588" fill="#FFFFFF"/>
+<text x="20.00" y="30.00" font-family="DejaVu Sans" font-size="16" fill="#222222" font-weight="bold"><tspan x="20.00" y="30.00">End Grain: top view</tspan></text>
+<polygon points="97.94,80.00 122.94,80.00 122.94,530.00 97.94,530.00" fill="#5B3A29" stroke="#333" stroke-width="0.5"/>
+<polygon points="122.94,80.00 147.94,80.00 147.94,530.00 122.94,530.00" fill="#F3E7D3" stroke="#333" stroke-width="0.5"/>
+<polygon points="147.94,80.00 172.94,80.00 172.94,530.00 147.94,530.00" fill="#5B3A29" stroke="#333" stroke-width="0.5"/>
+<polygon points="172.94,80.00 197.94,80.00 197.94,530.00 172.94,530.00" fill="#F3E7D3" stroke="#333" stroke-width="0.5"/>
+<polygon points="197.94,80.00 222.94,80.00 222.94,530.00 197.94,530.00" fill="#5B3A29" stroke="#333" stroke-width="0.5"/>
+<polygon points="222.94,80.00 247.94,80.00 247.94,530.00 222.94,530.00" fill="#F3E7D3" stroke="#333" stroke-width="0.5"/>
+<polygon points="247.94,80.00 272.94,80.00 272.94,530.00 247.94,530.00" fill="#5B3A29" stroke="#333" stroke-width="0.5"/>
+<polygon points="272.94,80.00 297.94,80.00 297.94,530.00 272.94,530.00" fill="#F3E7D3" stroke="#333" stroke-width="0.5"/>
+<polygon points="297.94,80.00 322.94,80.00 322.94,530.00 297.94,530.00" fill="#5B3A29" stroke="#333" stroke-width="0.5"/>
+<polygon points="322.94,80.00 347.94,80.00 347.94,530.00 322.94,530.00" fill="#F3E7D3" stroke="#333" stroke-width="0.5"/>
+<polygon points="347.94,80.00 372.94,80.00 372.94,530.00 347.94,530.00" fill="#5B3A29" stroke="#333" stroke-width="0.5"/>
+<polygon points="372.94,80.00 397.94,80.00 397.94,530.00 372.94,530.00" fill="#F3E7D3" stroke="#333" stroke-width="0.5"/>
+<rect x="97.94" y="80.00" width="300.00" height="450.00" rx="0.00" fill="none" stroke="#222222" stroke-width="1.5"/>
+<desc data-strips="12" data-export-strips="12"></desc>
+<line x1="97.94" y1="64.00" x2="397.94" y2="64.00" stroke="#555" stroke-width="1" data-dim="1"/>
+<line x1="97.94" y1="60.00" x2="97.94" y2="68.00" stroke="#555" stroke-width="1" data-dim="1"/>
+<line x1="397.94" y1="60.00" x2="397.94" y2="68.00" stroke="#555" stroke-width="1" data-dim="1"/>
+<rect data-patch="1" x="222.97" y="46.00" width="49.94" height="18.30" fill="#FFFFFF"/>
+<text x="247.94" y="59.00" font-family="DejaVu Sans" font-size="11" fill="#222222" text-anchor="middle" data-dim="1" data-src="text.width"><tspan x="247.94" y="59.00">300 mm</tspan></text>
+<line x1="81.94" y1="80.00" x2="81.94" y2="530.00" stroke="#555" stroke-width="1" data-dim="2"/>
+<line x1="77.94" y1="80.00" x2="85.94" y2="80.00" stroke="#555" stroke-width="1" data-dim="2"/>
+<line x1="77.94" y1="530.00" x2="85.94" y2="530.00" stroke="#555" stroke-width="1" data-dim="2"/>
+<rect data-patch="2" x="26.00" y="296.00" width="49.94" height="18.30" fill="#FFFFFF"/>
+<text x="73.94" y="309.00" font-family="DejaVu Sans" font-size="11" fill="#222222" text-anchor="end" data-dim="2" data-src="text.length"><tspan x="73.94" y="309.00">450 mm</tspan></text>
+<rect x="116.94" y="99.00" width="262.00" height="412.00" rx="25.50" fill="none" stroke="#1F4E79" stroke-width="3.125" stroke-dasharray="6,3"/>
+<text x="97.94" y="560.00" font-family="DejaVu Sans" font-size="11" fill="#222222" data-src="label.thickness"><tspan x="97.94" y="560.00">Thickness 40 mm</tspan></text>
+</svg>

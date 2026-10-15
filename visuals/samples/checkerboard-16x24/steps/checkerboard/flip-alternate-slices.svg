@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="671" height="439" viewBox="0 0 671 439" data-figure="checkerboard/flip-alternate-slices">
+<rect data-bg="1" x="0" y="0" width="671" height="439" fill="#FFFFFF"/>
+<text x="20.00" y="30.00" font-family="DejaVu Sans" font-size="16" fill="#222222" font-weight="bold"><tspan x="20.00" y="30.00">Checkerboard (End Grain): strip sequence</tspan></text>
+<rect x="40.00" y="60.00" width="50.80" height="80.00" rx="0.00" fill="#5B3A29" stroke="#333" stroke-width="0.8"/>
+<rect x="90.80" y="60.00" width="50.80" height="80.00" rx="0.00" fill="#F3E7D3" stroke="#333" stroke-width="0.8"/>
+<rect x="141.60" y="60.00" width="50.80" height="80.00" rx="0.00" fill="#5B3A29" stroke="#333" stroke-width="0.8"/>
+<rect x="192.40" y="60.00" width="50.80" height="80.00" rx="0.00" fill="#F3E7D3" stroke="#333" stroke-width="0.8"/>
+<rect x="243.20" y="60.00" width="50.80" height="80.00" rx="0.00" fill="#5B3A29" stroke="#333" stroke-width="0.8"/>
+<rect x="294.00" y="60.00" width="50.80" height="80.00" rx="0.00" fill="#F3E7D3" stroke="#333" stroke-width="0.8"/>
+<rect x="344.80" y="60.00" width="50.80" height="80.00" rx="0.00" fill="#5B3A29" stroke="#333" stroke-width="0.8"/>
+<rect x="395.60" y="60.00" width="50.80" height="80.00" rx="0.00" fill="#F3E7D3" stroke="#333" stroke-width="0.8"/>
+<rect x="446.40" y="60.00" width="50.80" height="80.00" rx="0.00" fill="#5B3A29" stroke="#333" stroke-width="0.8"/>
+<rect x="497.20" y="60.00" width="50.80" height="80.00" rx="0.00" fill="#F3E7D3" stroke="#333" stroke-width="0.8"/>
+<rect x="548.00" y="60.00" width="50.80" height="80.00" rx="0.00" fill="#5B3A29" stroke="#333" stroke-width="0.8"/>
+<rect x="598.80" y="60.00" width="50.80" height="80.00" rx="0.00" fill="#F3E7D3" stroke="#333" stroke-width="0.8"/>
+<text x="40.00" y="170.00" font-family="DejaVu Sans" font-size="11" fill="#222222"><tspan x="40.00" y="170.00">1. Walnut</tspan></text>
+<text x="40.00" y="189.30" font-family="DejaVu Sans" font-size="11" fill="#222222"><tspan x="40.00" y="189.30">2. Maple</tspan></text>
+<text x="40.00" y="208.60" font-family="DejaVu Sans" font-size="11" fill="#222222"><tspan x="40.00" y="208.60">3. Walnut</tspan></text>
+<text x="40.00" y="227.90" font-family="DejaVu Sans" font-size="11" fill="#222222"><tspan x="40.00" y="227.90">4. Maple</tspan></text>
+<text x="40.00" y="247.20" font-family="DejaVu Sans" font-size="11" fill="#222222"><tspan x="40.00" y="247.20">5. Walnut</tspan></text>
+<text x="40.00" y="266.50" font-family="DejaVu Sans" font-size="11" fill="#222222"><tspan x="40.00" y="266.50">6. Maple</tspan></text>
+<text x="40.00" y="285.80" font-family="DejaVu Sans" font-size="11" fill="#222222"><tspan x="40.00" y="285.80">7. Walnut</tspan></text>
+<text x="40.00" y="305.10" font-family="DejaVu Sans" font-size="11" fill="#222222"><tspan x="40.00" y="305.10">8. Maple</tspan></text>
+<text x="40.00" y="324.40" font-family="DejaVu Sans" font-size="11" fill="#222222"><tspan x="40.00" y="324.40">9. Walnut</tspan></text>
+<text x="40.00" y="343.70" font-family="DejaVu Sans" font-size="11" fill="#222222"><tspan x="40.00" y="343.70">10. Maple</tspan></text>
+<text x="40.00" y="363.00" font-family="DejaVu Sans" font-size="11" fill="#222222"><tspan x="40.00" y="363.00">11. Walnut</tspan></text>
+<text x="40.00" y="382.30" font-family="DejaVu Sans" font-size="11" fill="#222222"><tspan x="40.00" y="382.30">12. Maple</tspan></text>
+<text x="40.00" y="411.60" font-family="DejaVu Sans" font-size="11" fill="#222222" data-src="catalog.steps.6.description"><tspan x="40.00" y="411.60">Flip every other slice end for end so the colours alternate into squares.</tspan></text>
+</svg>

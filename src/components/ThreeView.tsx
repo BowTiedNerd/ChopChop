@@ -1,0 +1,203 @@
+import { useEffect, useRef } from 'react';
+import * as THREE from 'three';
+import { BoardDesign } from '../types';
+import { generatePattern } from '../lib/patterns';
+
+interface ThreeViewProps {
+  design: BoardDesign;
+}
+
+export function ThreeView({ design }: ThreeViewProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const sceneRef = useRef<THREE.Scene | null>(null);
+  const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
+  const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
+  const animationIdRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    // Initialize scene
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0xf0f0f0);
+    sceneRef.current = scene;
+
+    // Initialize camera
+    const width = container.clientWidth;
+    const height = container.clientHeight;
+    const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 10000);
+    camera.position.set(500, 400, 500);
+    camera.lookAt(0, 0, 0);
+    cameraRef.current = camera;
+
+    // Initialize renderer
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(width, height);
+    container.appendChild(renderer.domElement);
+    rendererRef.current = renderer;
+
+    // Add lights
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+    scene.add(ambientLight);
+
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+    directionalLight.position.set(500, 500, 500);
+    scene.add(directionalLight);
+
+    // Add grid helper
+    const gridHelper = new THREE.GridHelper(1000, 20);
+    scene.add(gridHelper);
+
+    // Create board mesh
+    updateBoard(scene, design);
+
+    // Animation loop
+    const animate = () => {
+      animationIdRef.current = requestAnimationFrame(animate);
+      
+      // Slow rotation
+      if (sceneRef.current) {
+        sceneRef.current.rotation.y += 0.002;
+      }
+      
+      renderer.render(scene, camera);
+    };
+    animate();
+
+    // Handle resize
+    const handleResize = () => {
+      if (!containerRef.current || !cameraRef.current || !rendererRef.current) return;
+      
+      const width = containerRef.current.clientWidth;
+      const height = containerRef.current.clientHeight;
+      
+      cameraRef.current.aspect = width / height;
+      cameraRef.current.updateProjectionMatrix();
+      rendererRef.current.setSize(width, height);
+    };
+    window.addEventListener('resize', handleResize);
+
+    // Cleanup
+    return () => {
+      if (animationIdRef.current) {
+        cancelAnimationFrame(animationIdRef.current);
+      }
+      if (rendererRef.current && container) {
+        container.removeChild(rendererRef.current.domElement);
+      }
+      window.removeEventListener('resize', handleResize);
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (sceneRef.current) {
+      updateBoard(sceneRef.current, design);
+    }
+  }, [design]);
+
+  return <div ref={containerRef} className="three-view" />;
+}
+
+function updateBoard(scene: THREE.Scene, design: BoardDesign) {
+  // Remove existing board strips
+  const existingStrips = scene.children.filter(child => child.name.startsWith('strip-'));
+  for (const strip of existingStrips) {
+    scene.remove(strip);
+  }
+  
+  // Generate pattern and render each strip
+  const pattern = generatePattern(design);
+  
+  for (let i = 0; i < pattern.strips.length; i++) {
+    const strip = pattern.strips[i];
+    
+    // Create strip geometry
+    const geometry = new THREE.BoxGeometry(strip.width, strip.height, strip.depth);
+    
+    // Create material with wood color
+    const color = new THREE.Color(strip.species.color);
+    const material = new THREE.MeshStandardMaterial({
+      color: color,
+      roughness: 0.7,
+      metalness: 0.1,
+    });
+
+    const mesh = new THREE.Mesh(geometry, material);
+    mesh.name = `strip-${i}`;
+    
+    // Position: convert from pattern coords (x,y,z where y is height) to Three.js coords
+    // Pattern: x=width, y=height, z=depth
+    // Three.js: x=width, y=height, z=depth (but center origin)
+    const centerX = strip.x + strip.width / 2 - pattern.bounds.width / 2;
+    const centerY = strip.height / 2;
+    const centerZ = strip.z + strip.depth / 2 - pattern.bounds.depth / 2;
+    
+    mesh.position.set(centerX, centerY, centerZ);
+    
+    // Apply rotation if needed
+    if (strip.rotation !== 0) {
+      mesh.rotation.y = strip.rotation;
+    }
+    
+    scene.add(mesh);
+  }
+
+  // Add juice groove if enabled
+  if (design.juiceGroove.enabled) {
+    addJuiceGroove(scene, design);
+  }
+
+  // Add rubber feet if enabled
+  if (design.rubberFeet.enabled) {
+    addRubberFeet(scene, design);
+  }
+}
+
+function addJuiceGroove(scene: THREE.Scene, design: BoardDesign) {
+  const { width, thickness } = design.dimensions;
+  const { width: grooveWidth, fromEdge } = design.juiceGroove;
+
+  const grooveGeometry = new THREE.TorusGeometry(
+    (width / 2 - fromEdge - grooveWidth / 2),
+    grooveWidth / 2,
+    16,
+    50
+  );
+  
+  const grooveMaterial = new THREE.MeshStandardMaterial({
+    color: 0x666666,
+    roughness: 0.8,
+  });
+
+  const groove = new THREE.Mesh(grooveGeometry, grooveMaterial);
+  groove.position.set(0, thickness / 2 + 1, 0);
+  groove.rotation.x = Math.PI / 2;
+  
+  scene.add(groove);
+}
+
+function addRubberFeet(scene: THREE.Scene, design: BoardDesign) {
+  const { width, length, thickness } = design.dimensions;
+  const { diameter, height, inset } = design.rubberFeet;
+
+  const footGeometry = new THREE.CylinderGeometry(diameter / 2, diameter / 2, height, 16);
+  const footMaterial = new THREE.MeshStandardMaterial({
+    color: 0x333333,
+    roughness: 0.9,
+  });
+
+  const positions = [
+    [-width / 2 + inset, -thickness / 2 - height / 2, -length / 2 + inset],
+    [width / 2 - inset, -thickness / 2 - height / 2, -length / 2 + inset],
+    [-width / 2 + inset, -thickness / 2 - height / 2, length / 2 - inset],
+    [width / 2 - inset, -thickness / 2 - height / 2, length / 2 - inset],
+  ];
+
+  for (const [x, y, z] of positions) {
+    const foot = new THREE.Mesh(footGeometry, footMaterial);
+    foot.position.set(x, y, z);
+    scene.add(foot);
+  }
+}

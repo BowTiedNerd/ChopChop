@@ -1,0 +1,13 @@
+{
+ "ok": true,
+ "labelsChecked": 69,
+ "issues": [],
+ "exportSha256": "a0519a2581986365cbe2bb909fa112bd77d7a74bc0f2e6abd6b34318dff90457",
+ "freshExportIdentical": true,
+ "preset": "metric",
+ "sets": [
+  "rubberFeet.enabled=true"
+ ],
+ "catalogDraft": "NEW DRAFT 3.0-draft5 by Board Master, re",
+ "exportVsCatalog": []
+}

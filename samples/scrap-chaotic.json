@@ -1,0 +1,168 @@
+{
+  "version": "1.0.0",
+  "exportedAt": "2026-01-01T00:00:00.000Z",
+  "commitSha": "sample",
+  "design": {
+    "style": "scrap-chaotic",
+    "dimensions": {
+      "width": "12.000\" (12\")",
+      "length": "18.000\" (18\")",
+      "thickness": "1.500\" (1 1/2\")"
+    },
+    "species": [
+      "Walnut",
+      "Maple",
+      "Cherry"
+    ],
+    "modifiers": {
+      "juiceGroove": null,
+      "handles": null,
+      "feet": null
+    },
+    "unitSystem": "imperial"
+  },
+  "pattern": {
+    "stripCount": 19,
+    "strips": [
+      {
+        "species": "Maple",
+        "width": "3.595\" (≈3 19/32\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "2.023\" (≈2 1/64\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "2.838\" (≈2 27/32\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "3.012\" (≈3 1/64\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "4.805\" (≈4 13/16\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "2.024\" (≈2 1/32\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "0.762\" (≈49/64\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "4.635\" (≈4 41/64\")"
+      },
+      {
+        "species": "Maple",
+        "width": "4.613\" (≈4 39/64\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "2.943\" (≈2 15/16\")"
+      },
+      {
+        "species": "Cherry",
+        "width": "3.597\" (≈3 19/32\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "3.856\" (≈3 55/64\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "3.228\" (≈3 15/64\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "3.338\" (≈3 11/32\")"
+      },
+      {
+        "species": "Maple",
+        "width": "0.562\" (≈9/16\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "3.030\" (≈3 1/32\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "4.572\" (≈4 37/64\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "4.323\" (≈4 21/64\")"
+      },
+      {
+        "species": "Cherry",
+        "width": "5.668\" (≈5 43/64\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "4.467\" (≈4 15/32\")"
+      },
+      {
+        "species": "Cherry",
+        "width": "1.760\" (≈1 49/64\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "2.416\" (≈2 27/64\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "3.745\" (≈3 3/4\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "4.105\" (≈4 7/64\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "2.222\" (≈2 7/32\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "3.017\" (≈3 1/64\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "3.424\" (≈3 27/64\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "3.887\" (≈3 57/64\")"
+      },
+      {
+        "species": "Maple",
+        "width": "2.609\" (≈2 39/64\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "4.421\" (≈4 27/64\")"
+      },
+      {
+        "species": "Maple",
+        "width": "2.320\" (≈2 21/64\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.067\" (≈1 1/16\")"
+      },
+      {
+        "species": "Cherry",
+        "width": "3.164\" (≈3 5/32\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.067\" (≈1 1/16\")"
+      },
+      {
+        "species": "Cherry",
+        "width": "4.654\" (≈4 21/32\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.067\" (≈1 1/16\")"
+      },
+      {
+        "species": "Walnut",
+        "width": "1.861\" (≈1 55/64\")",
+        "height": "1.500\" (1 1/2\")",
+        "depth": "1.067\" (≈1 1/16\")"
+      }
+    ]
+  },
+  "cutList": [
+    {
+      "part": "Panel A: Maple/Walnut strip-set panel 12\" (305 mm) wide: 1 × Maple 3-19/32\" (91 mm) (rip 3-21/32\" (93 mm), then joint) + 1 × Walnut 2-27/32\" (72 mm) (rip 2-29/32\" (74 mm), then joint) + 1 × Walnut 4-13/16\" (122 mm) (rip 4-7/8\" (124 mm), then joint) + 1 × Walnut 3/4\" (19.4 mm) (rip 13/16\" (21.0 mm), then joint); too wide for the planer at 12\" (305 mm): flatten on the router sled or drum sander; then crosscut sled with stop block (never fence) 10 slices × 1-11/16\" (43 mm) each; Too wide for the planer (11-25/32\" (299 mm)): flatten both faces on the router sled or drum sander",
+      "quantity": 1,
+      "width": "12.000\" (12\")",
+      "thickness": "1.835\" (≈1 53/64\")",
+      "length": "20.187\" (≈20 3/16\")",
+      "species": "Maple/Walnut",
+      "panelId": "A",
+      "dims": {
+        "panelWidth_mm": 304.8,
+        "sliceThickness_mm": 43.1,
+        "jointerMaxWidth_mm": 152.4,
+        "stripWidth0_mm": 91.31601508916324,
+        "ripWidth0_mm": 92.91601508916324,
+        "stripWidth1_mm": 72.07347393689986,
+        "ripWidth1_mm": 73.67347393689985,
+        "stripWidth2_mm": 122.04389574759945,
+        "ripWidth2_mm": 123.64389574759944,
+        "stripWidth3_mm": 19.366615226337444,
+        "ripWidth3_mm": 20.966615226337446
+      },
+      "slices": 10
+    }
+  ]
+}
