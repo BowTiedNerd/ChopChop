@@ -90,7 +90,7 @@ export interface CutListItem {
   /** slices (or angled pieces) crosscut from this blank/panel/log */
   slices?: number;
   /** tumbling block numbers (catalog tumblingBlockMethod) */
-  tumbling?: { diamondSide_mm: number; stripThickness_mm: number; stripsPerTone: number; logCount: number; logLength_mm: number; slicesPerLog: number; tones: { light: string; mid: string; dark: string } };
+  tumbling?: { tiles: number; cols: number; tileRows: number; hexPerSlice: number; spare: number; offset_mm: number; diamondSide_mm: number; stripThickness_mm: number; stripsPerTone: number; logCount: number; logLength_mm: number; slicesPerLog: number; tones: { light: string; mid: string; dark: string } };
 }
 
 // Step instruction

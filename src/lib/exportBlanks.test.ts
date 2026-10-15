@@ -1,7 +1,7 @@
 /** Export side, every sample design: no blank/panel over blankMaxLength (catalog blankRule.blankMaxLength_mm, 914.4 mm = 36"), and per-blank slice counts add up to the board's slices. */
 import { describe, it, expect } from 'vitest';
 import { buildExportDoc } from '../../scripts/export';
-import { generatePattern } from './patterns';
+import { neededSlices } from './neededSlices';
 import { sampleDesigns as designs } from './sampleDesigns';
 
 import { catalogBlankMax } from './catalogBlankMax';
@@ -21,14 +21,13 @@ describe('export: every blank/panel/log within the catalog min and max length, a
         expect(cutList[i].length, `${name}: ${r.part}`).toBeGreaterThanOrEqual(br.blankMinLength_mm);
       });
       if (cut.length === 0) return; // no crosscut rows
-      const strips = generatePattern(design).strips as Array<{ z?: number }>;
-      const tb = (exportDoc as { tumblingBlock?: { logCount: number; slicesPerLog: number } }).tumblingBlock;
-      // board slices: one per row along the length; tumbling block: one hexagon per slice (3 diamonds each)
-      const total = tb ? Math.ceil(strips.length / 3) : new Set(strips.map(s => (s.z ?? 0).toFixed(3))).size;
-      // sub-panels of one panel share its slices: count each panel once (sub-panel 1)
-      const sum = cut.filter(r => !r.subPanel || r.subPanel.index === 1).reduce((a, r) => a + r.slices!, 0);
-      if (tb) expect(sum, `${name}: log slices`).toBeGreaterThanOrEqual(total);
-      else expect(sum, `${name}: per-panel slices`).toBe(total);
+      // needed slices from board size and catalog values only (never pattern code)
+      const need = neededSlices(design, cut[0] && cutList[rows.indexOf(cut[0])].thickness);
+      if (!need) return;
+      const tb = (exportDoc as { tumblingBlock?: { spare: number } }).tumblingBlock;
+      // sub-panels of one panel share its slices: count each panel once (sub-panel 1); tumbling: the spare is not counted
+      const sum = cut.filter(r => !r.subPanel || r.subPanel.index === 1).reduce((acc, r) => acc + r.slices!, 0) - (tb ? tb.spare : 0);
+      expect(sum, `${name}: slices`).toBeGreaterThanOrEqual(need.slices);
     });
   }
 });

@@ -1,7 +1,7 @@
 import { jsPDF } from 'jspdf';
 import { BoardDesign, StepInstruction, CutListItem } from '../types';
 import { sheetLen, shopSize, sixteenthsText, normalizeQuotedSizes, VERBATIM_CATALOG_KEYS } from '../utils/format';
-import { STRIP_SET_PREFIX, TUMBLING_GLUE_UP, TUMBLING_TILT, catalogText } from './lumberPlanner';
+import { TUMBLING_BEVEL_WARNING, STRIP_SET_PREFIX, TUMBLING_GLUE_UP, TUMBLING_TILT, catalogText } from './lumberPlanner';
 import { generateTopViewFigure, generateCutListFigure } from './stepFigures';
 import { loadStyleCatalog } from './catalogLoader';
 import { calculateRequiredParts } from './lumberPlanner';
@@ -144,12 +144,17 @@ export class PdfGenerator {
             description = `${description}\n${w > sledMax
               ? `Sled width: the glue-up is ${sheetLen(w, this.design.unitSystem)}, wider than the ${sheetLen(sledMax, this.design.unitSystem)} sled; trim with a track saw or router and straightedge, never freehand.`
               : `Sled width: sled must clear the glue-up, ${sheetLen(w, this.design.unitSystem)}.`}`;
+            if (!this.isEndGrain(catalog) && w <= sledMax) description = `${description}\nSet a stop block for the final length, ${shopSize(this.design.dimensions.length, this.design.unitSystem)}, and crosscut on the sled; never use the rip fence as a stop.`;
           }
           if (step.stepId === 'angled-cuts') {
             description = `${description}\nSet a stop block on the angled sled for the piece width and clamp each cut with the hold-down; never use the rip fence as a stop.\nPieces: ${this.sliceCountLine()}.`;
           }
           if (step.stepId === 'edge-profile' && this.design.handles.enabled && this.design.handles.type !== 'handle') {
             description = `${description}\nHand hole: rout a ${this.handHoleText()}.`;
+          }
+          // scrap (Board Master ruling): every other slice turned 180° end-for-end, ends kept flush, no offset
+          if (this.design.style === 'scrap-chaotic' && step.stepId === 'glue-up-2') {
+            description = `${description}\nTurn every other slice 180° end-for-end; keep the ends flush, with no offset, so the panel gets no longer.`;
           }
           if (this.tumbling(catalog)) description = this.tumblingStep(step.stepId, description, catalog);
           if (/crosscut|angled-cuts/.test(step.stepId)) {
@@ -161,16 +166,15 @@ export class PdfGenerator {
         return {
           stepNumber: step.stepNumber,
           stepId: step.stepId,
-          title: step.title,
+          // Board Master: tumbling step 2 mills the three tone boards, it rips nothing narrow
+          title: this.tumbling(catalog) && step.stepId === 'rip-strips' ? 'Mill tone boards' : step.title,
           description,
           // normalize the catalog's own quoted sizes first, then fill in computed values (already formatted from the
           // true size): re-formatting a computed value from its rounded fraction would print 29/32" (23.0 mm) for 23.37 mm
-          settings: this.resolveSettings(Object.fromEntries(Object.entries(step.settings ?? {})
-            .map(([k, v]) => [k, (VERBATIM_CATALOG_KEYS as readonly string[]).includes(k) ? v : normalizeQuotedSizes(v, unitSys)])), catalog) ?? {},
+          settings: this.tumblingSettings(step.stepId, this.resolveSettings(Object.fromEntries(Object.entries(step.settings ?? {})
+            .map(([k, v]) => [k, (VERBATIM_CATALOG_KEYS as readonly string[]).includes(k) ? v : normalizeQuotedSizes(v, unitSys)])), catalog) ?? {}, catalog),
           // mixed-grain / end-grain final flatten never sees the planer: drop the planer infeed warning there
-          safetyBanners: step.stepId === 'flatten-and-sand' && this.mixedSheet(catalog)
-            ? step.safetyBanners.filter(b => !/infeed and outfeed/i.test(b))
-            : step.safetyBanners,
+          safetyBanners: this.bannersFor(step.stepId, description, step.safetyBanners, catalog),
           figure: undefined, // Will be generated based on figureType
           figureType: step.figureType,
         } as StepInstruction;
@@ -198,6 +202,28 @@ export class PdfGenerator {
     return out;
   }
 
+  /** Tumbling log glue-up: no bar-clamp spacing (Board Master). */
+  private tumblingSettings(stepId: string, settings: Record<string, string>, catalog: StyleCatalog): Record<string, string> {
+    if (!this.tumbling(catalog) || stepId !== 'glue-up' || !('Clamp spacing' in settings)) return settings;
+    const { ['Clamp spacing']: _drop, ...rest } = settings;
+    void _drop;
+    return { ...rest, Clamping: 'light, even pressure in the 60° cradle or with tape; no bar-clamp spacing.' };
+  }
+
+  /** Safety banners per step: no planer infeed warning on a step that never uses the planer (router sled / drum
+   *  sander only, or a mixed-grain final flatten); tumbling bevel rip gets its featherboard warning instead of the
+   *  rip-fence one (Board Master, verbatim). */
+  private bannersFor(stepId: string, description: string, banners: string[], catalog: StyleCatalog): string[] {
+    let out = banners;
+    const noPlaner = (stepId === 'flatten-and-sand' && this.mixedSheet(catalog))
+      || (/router sled|drum sander/i.test(description) && !/Planer OK/.test(description));
+    if (noPlaner) out = out.filter(b => !/infeed and outfeed/i.test(b));
+    if (this.tumbling(catalog) && stepId === 'bevel-strips') {
+      out = out.map(b => /never against the rip fence alone/i.test(b) ? `WARNING: ${TUMBLING_BEVEL_WARNING}` : b);
+    }
+    return out;
+  }
+
   /** Hand-hole slot from catalog features.handHole: 4" × 1" (102 × 25 mm), 1/2" (12.7 mm) end radius. */
   private handHoleText(): string {
     const h = (loadStyleCatalog(this.design.style as CatalogStyleName) as unknown as { features?: { handHole?: { length_mm: number; width_mm: number; endRadius_mm: number; edgeInset_mm: number } } }).features?.handHole;
@@ -217,7 +243,7 @@ export class PdfGenerator {
   }
 
   private tumbling(catalog: StyleCatalog) {
-    const m = (catalog.cutListAllowances as unknown as { tumblingBlockMethod?: { bladeTilt_deg: number; diamondAngles_deg: number[]; minStockWidthForBevelRip_mm: number; tiltDirection: string; glueUp: string } }).tumblingBlockMethod;
+    const m = (catalog.cutListAllowances as unknown as { tumblingBlockMethod?: { rowGlueUp: string; bladeTilt_deg: number; diamondAngles_deg: number[]; minStockWidthForBevelRip_mm: number; tiltDirection: string; glueUp: string } }).tumblingBlockMethod;
     return this.design.style === 'tumbling-block-3d' ? m : undefined;
   }
 
@@ -234,9 +260,14 @@ export class PdfGenerator {
       case 'bevel-strips':
         return `Bevel the wide stock first: tilt the blade ${m.bladeTilt_deg}° and bevel one edge of each wide board. Then cut each ${a60}°/${a120}° diamond (side ${shopSize(t.diamondSide_mm, u)}) off with a thin-rip jig, the keeper (the diamond) falling away from the fence: ${catalogText(TUMBLING_TILT, m.tiltDirection, 'tiltDirection')}. Re-bevel the wide board's edge before each next diamond. Never bevel a strip that is already narrow. ${t.stripsPerTone} diamond strip${t.stripsPerTone === 1 ? '' : 's'} per tone.`;
       case 'glue-up':
-        return `Glue one diamond strip of each tone into an offset log (${t.logCount} log${t.logCount === 1 ? '' : 's'}, ${shopSize(t.logLength_mm, u)} long) ${catalogText(TUMBLING_GLUE_UP, m.glueUp, 'glueUp')}. Logs are never planed.`;
+        return `Glue the diamond strips into ${t.logCount === 1 ? 'one log' : `${t.logCount} logs`} one hexagon row wide: ${t.hexPerSlice} hexagons side by side, one diamond strip of each tone per hexagon, ${shopSize(t.logLength_mm, u)} long, ${catalogText(TUMBLING_GLUE_UP, m.glueUp, 'glueUp')}. Logs are never planed.`;
+      case 'glue-up-2':
+        // catalog rowGlueUp: nest row strips, alternate rows offset half a hexagon, pairs on a flat caul, trim on the sled
+        return `Nest the row strips (slices) with alternate rows offset by half a hexagon, ${shopSize(t.offset_mm, u)}. Glue them in pairs, then join the pairs, on a flat caul with light, even pressure. Trim the zig-zag edges on the sled with a stop block and hold-down. ${t.tileRows} rows used, ${t.spare} spare.`;
       case 'crosscut-slices':
-        return [`Crosscut each log into ${t.slicesPerLog} slices on a crosscut sled with a stop block.`, ...description.split('\n').slice(1)].join('\n');
+        return [`Crosscut ${t.logCount === 1 ? 'the log' : 'each log'} into ${t.slicesPerLog} slices on a crosscut sled with a stop block; each slice is a whole row strip of ${t.hexPerSlice} hexagons.`,
+          `Cut height: ${shopSize(this.tumblingLog().height, u)} (log height). Blade height: set the blade ${shopSize(3.175, u)} above the log, ${shopSize(this.tumblingLog().height + 3.175, u)}.`,
+          'If a slice is not cut through in one pass, finish it on the bandsaw; never flip the log for a second pass on the sled.', ...description.split('\n').slice(1)].join('\n');
       default:
         return description;
     }
@@ -307,6 +338,12 @@ export class PdfGenerator {
       : this.planerRoute(d.width, d.length, this.isEndGrain(catalog), catalog);
     const rest = generic.slice(Math.max(0, generic.indexOf('Sand ')));
     return `Flatten the final glue-up, ${sheetLen(d.width, unit)} wide:\n${route}.\nThen sand: ${rest.replace(/^Sand /, '')}`.trim();
+  }
+
+  private tumblingLog() {
+    const log = calculateRequiredParts(this.design).find(r => r.tumbling && r.panelId);
+    if (!log) throw new Error('tumbling log missing');
+    return { width: log.width, height: log.thickness };
   }
 
   /** Sled width each crosscut needs; over catalog sledMaxWidth_mm, split first. */

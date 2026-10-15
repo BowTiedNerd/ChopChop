@@ -1,5 +1,4 @@
 import { BoardDesign, JuiceGroove, RubberFeet, WoodSpecies } from '../types';
-import { roundToHalfMm } from '../utils/format';
 
 /**
  * Common wood species
@@ -40,14 +39,14 @@ export const DEFAULT_JUICE_GROOVE_16X24: JuiceGroove = {
 
 /**
  * Default rubber feet (metric)
- * Known label: "4 rubber feet, 25.5 mm diameter × 9.5 mm high, 
+ * Known label: "4 rubber feet, 25.4 mm diameter × 9.5 mm high, 
  *               foot centres 32 mm in from the edges (underside)."
  * 
  * Note: 2.5.4 changes to: 1" (25.4 mm) × 3/8" (9.5 mm)
  */
 export const DEFAULT_RUBBER_FEET_METRIC: RubberFeet = {
   enabled: false,
-  diameter: roundToHalfMm(25.5), // 25.5 mm (will be 25.4 in 2.5.4)
+  diameter: 25.4, // 1" (25 mm) (Board Master: not 25.5, which prints 1" (26 mm))
   height: 9.5,      // 3/8"
   inset: 32,        // 32 mm
 };
@@ -74,25 +73,28 @@ export const DIMENSIONS_16X24 = {
  * Create default board design
  */
 export function createDefaultBoard(): BoardDesign {
-  return {
+  // a fresh copy: callers mutate designs, never the shared defaults
+  return structuredClone<BoardDesign>({
     style: 'checkerboard',
     dimensions: DEFAULT_DIMENSIONS_CHECKERBOARD,
     species: [WOOD_SPECIES[0], WOOD_SPECIES[1]], // Walnut and Maple
-    juiceGroove: DEFAULT_JUICE_GROOVE_METRIC,
+    // inch board: inch groove defaults (1/2" (12.7 mm) wide, 3/4" (19.1 mm) from the edge), not the metric 12.5/19
+    juiceGroove: DEFAULT_JUICE_GROOVE_16X24,
     handles: {
       enabled: false,
       type: 'handle',
     },
     rubberFeet: DEFAULT_RUBBER_FEET_METRIC,
     unitSystem: 'imperial',
-  };
+  });
 }
 
 /**
  * Create 16x24 checkerboard design
  */
 export function create16x24Board(): BoardDesign {
-  return {
+  // a fresh copy: callers mutate designs, never the shared defaults
+  return structuredClone<BoardDesign>({
     style: 'checkerboard',
     dimensions: DIMENSIONS_16X24,
     species: [WOOD_SPECIES[0], WOOD_SPECIES[1]],
@@ -108,14 +110,15 @@ export function create16x24Board(): BoardDesign {
       inset: 32,
     },
     unitSystem: 'imperial',
-  };
+  });
 }
 
 /**
  * Create metric board design
  */
 export function createMetricBoard(): BoardDesign {
-  return {
+  // a fresh copy: callers mutate designs, never the shared defaults
+  return structuredClone<BoardDesign>({
     style: 'checkerboard',
     dimensions: {
       width: 300,
@@ -130,7 +133,7 @@ export function createMetricBoard(): BoardDesign {
     },
     rubberFeet: DEFAULT_RUBBER_FEET_METRIC,
     unitSystem: 'metric',
-  };
+  });
 }
 
 /**

@@ -1,0 +1,110 @@
+{
+  "version": "1.0.0",
+  "exportedAt": "2026-01-01T00:00:00.000Z",
+  "commitSha": "sample",
+  "design": {
+    "style": "edge-grain",
+    "dimensions": {
+      "width": "300 mm",
+      "length": "450 mm",
+      "thickness": "38 mm"
+    },
+    "species": [
+      "Walnut",
+      "Maple"
+    ],
+    "modifiers": {
+      "juiceGroove": {
+        "width": "10 mm",
+        "depth": "8 mm",
+        "fromEdge": "20 mm",
+        "cornerRadius": "25.4 mm"
+      },
+      "handles": {
+        "type": "handle"
+      },
+      "feet": {
+        "diameter": "25.4 mm",
+        "height": "9.5 mm",
+        "inset": "25.4 mm"
+      }
+    },
+    "unitSystem": "metric"
+  },
+  "pattern": {
+    "stripCount": 8,
+    "strips": [
+      {
+        "species": "Walnut",
+        "width": "38.1 mm",
+        "height": "38 mm",
+        "depth": "450 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "38.1 mm",
+        "height": "38 mm",
+        "depth": "450 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "38.1 mm",
+        "height": "38 mm",
+        "depth": "450 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "38.1 mm",
+        "height": "38 mm",
+        "depth": "450 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "38.1 mm",
+        "height": "38 mm",
+        "depth": "450 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "38.1 mm",
+        "height": "38 mm",
+        "depth": "450 mm"
+      },
+      {
+        "species": "Walnut",
+        "width": "38.1 mm",
+        "height": "38 mm",
+        "depth": "450 mm"
+      },
+      {
+        "species": "Maple",
+        "width": "33.3 mm",
+        "height": "38 mm",
+        "depth": "450 mm"
+      }
+    ]
+  },
+  "cutList": [
+    {
+      "part": "Panel A: Walnut/Maple strip-set panel 300 mm (11.81\") wide: 4 × Walnut 38 mm (1.50\") (rip 40 mm (1.56\"), then joint) + 3 × Maple 38 mm (1.50\") (rip 40 mm (1.56\"), then joint) + 1 × Maple 33 mm (1.31\") (rip 35 mm (1.37\"), then joint); too wide for the planer at 300 mm (11.81\"): flatten on the router sled or drum sander; Crosscut to final length: 450 mm (17.72\"); Too wide for the jointer (152 mm (6.00\")): flatten one face on a planer sled first, then plane the other face parallel",
+      "quantity": 1,
+      "width": "300 mm",
+      "thickness": "43 mm",
+      "length": "503.2 mm",
+      "species": "Walnut/Maple",
+      "panelId": "A",
+      "dims": {
+        "panelWidth_mm": 300,
+        "sliceThickness_mm": 450,
+        "jointerMaxWidth_mm": 152.4,
+        "stripWidth0_mm": 38.1,
+        "ripWidth0_mm": 39.7,
+        "stripWidth1_mm": 38.1,
+        "ripWidth1_mm": 39.7,
+        "stripWidth2_mm": 33.30000000000001,
+        "ripWidth2_mm": 34.90000000000001
+      },
+      "slices": 1
+    }
+  ]
+}

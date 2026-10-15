@@ -201,7 +201,7 @@ describe('draft5k/5l rules', () => {
     expect(flat('tumbling-block-3d')).toContain('Species: Maple, Cherry, Walnut');
     const j = JSON.parse(readFileSync('samples/tumbling-block-3d.json', 'utf-8'));
     const logs = j.cutList.filter((r: { part: string }) => /^Log [A-Z]:/.test(r.part));
-    expect(logs.map((r: { panelId: string }) => r.panelId)).toEqual(['A', 'B']);
+    expect(logs.map((r: { panelId: string }) => r.panelId)).toEqual('ABCDEFGHIJKLMNOPQRSTUVWXYZ'.slice(0, j.tumblingBlock.logCount).split(''));
     const t = j.tumblingBlock;
     for (const k of ['diamondSide_mm', 'stripThickness_mm', 'stripsPerTone', 'logCount', 'logLength_mm', 'slicesPerLog']) expect(typeof t[k], k).toBe('number');
     expect(t.stripThickness_mm).toBeCloseTo(t.diamondSide_mm * Math.sin(Math.PI / 3), 2);

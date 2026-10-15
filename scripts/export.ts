@@ -114,7 +114,7 @@ export function buildExportDoc(design: BoardDesign, meta: { exportedAt: string; 
     ...(cutList.find(i => i.tumbling) ? { tumblingBlock: (() => {
       const t = cutList.find(i => i.tumbling)!.tumbling!;
       const mm = (v: number) => Math.round(v * 1000) / 1000; // numbers in mm for Board Visuals
-      return { ...t, diamondSide_mm: mm(t.diamondSide_mm), stripThickness_mm: mm(t.stripThickness_mm), logLength_mm: mm(t.logLength_mm) };
+      return { ...t, diamondSide_mm: mm(t.diamondSide_mm), stripThickness_mm: mm(t.stripThickness_mm), logLength_mm: mm(t.logLength_mm), offset_mm: mm(t.offset_mm) };
     })() } : {}),
   };
   

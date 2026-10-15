@@ -76,7 +76,7 @@ describe('(c) tumbling block', () => {
     expect(f).toContain('diamond side 1-1/2" (38 mm), 60°/120° angles');
     const t = calculateRequiredParts(tb).find(r => r.tumbling)!.tumbling!;
     expect(f).toContain(`${t.stripsPerTone} strips per tone ×`);
-    expect(f).toContain(`Crosscut each log into ${t.slicesPerLog} slices`);
+    expect(f).toContain(`Crosscut ${t.logCount === 1 ? 'the log' : 'each log'} into ${t.slicesPerLog} slices`);
     expect(f).toContain('logs are never planed');
     expect(f).not.toMatch(/Planer OK/i);
     expect(f).toContain('on a right-tilt saw, the jig and keeper are left of the blade');

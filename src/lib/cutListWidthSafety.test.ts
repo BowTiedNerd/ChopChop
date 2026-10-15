@@ -140,6 +140,8 @@ describe('Cut List Width Safety - widthRule enforcement', () => {
             }
             
             // Wide panel MUST have either router sled or split sub-panels method
+            // tumbling logs are never flattened at all (only crosscut on the sled): no flatten method to name
+            if (/logs are never planed or jointed/.test(part.part)) continue;
             const hasRouterSled = part.part.includes('Router sled') || part.part.includes('drum sander');
             const hasSplitMethod = part.part.includes('Split into sub-panels');
             

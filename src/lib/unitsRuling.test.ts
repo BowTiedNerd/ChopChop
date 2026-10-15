@@ -4,16 +4,19 @@
  *  Each printed cut-list cell must also appear in the committed sample PDF. */
 import { describe, it, expect } from 'vitest';
 import { execFileSync } from 'child_process';
-import { INCH_FRACTION_DENOMINATOR, METRIC_INCH_DECIMALS, MM_STEP, MM_WHOLE_FROM, MM_SMALL_DECIMALS, shopSize, VERBATIM_CATALOG_KEYS } from '../utils/format';
+import { shopSize } from '../utils/format'; // the function under test only; tolerances are hard-coded below
 import { calculateRequiredParts } from './lumberPlanner';
 import { createDefaultBoard, create16x24Board, createMetricBoard } from './defaults';
 import { BoardDesign } from '../types';
 import { readdirSync, readFileSync } from 'fs';
 
-const FRAC_TOL_IN = 1 / INCH_FRACTION_DENOMINATOR / 2;
-const DEC_TOL_IN = Math.pow(10, -METRIC_INCH_DECIMALS) / 2;
-const MM_TOL = MM_STEP / 2;                                   // whole mm: 0.5 mm
-const MM_SMALL_TOL = Math.pow(10, -MM_SMALL_DECIMALS) / 2;    // one decimal under 25 mm: 0.05 mm
+// Units ruling tolerances, hard-coded (Board QA): never derived from format.ts constants
+const FRAC_TOL_IN = 1 / 64;
+const DEC_TOL_IN = 0.005;
+const MM_TOL = 0.5;
+const MM_SMALL_TOL = 0.05;
+const MM_WHOLE_FROM = 25;
+const VERBATIM_CATALOG_KEYS = ['Final pass depth'];
 const frac = (s: string) => { const m = /^(?:(\d+)-)?(?:(\d+)\/(\d+)|(\d+))$/.exec(s); if (!m) throw new Error(`not a fraction: ${s}`); return m[4] ? Number(m[4]) : Number(m[1] ?? 0) + Number(m[2]) / Number(m[3]); };
 const pdf = (n: string) => execFileSync('pdftotext', ['-raw', `samples/${n}.pdf`, '-'], { encoding: 'utf-8' }).replace(/\s+/g, ' ');
 
@@ -37,7 +40,7 @@ describe('units ruling: printed values vs true dimensions', () => {
           if (d.unitSystem === 'metric') {
             const m = /^(\d+) mm \((\d+\.(\d+))"\)$/.exec(printed);
             expect(m, printed).not.toBeNull();
-            expect(m![3].length, printed).toBe(METRIC_INCH_DECIMALS);
+            expect(m![3].length, printed).toBe(2);
             expect(Math.abs(Number(m![1]) - trueMm), `${printed} vs ${trueMm}`).toBeLessThanOrEqual(MM_TOL + 1e-9);
             expect(Math.abs(Number(m![2]) - trueMm / 25.4), `${printed} vs ${trueMm}`).toBeLessThanOrEqual(DEC_TOL_IN + 1e-9);
           } else {
@@ -138,7 +141,7 @@ export function quotedPairMismatches(dir = 'styles'): string[] {
       if (typeof v !== 'number') { bad.push(`${q.file}: ${map[3]} missing for ${q.pair}`); continue; }
       t = v;
     }
-    const inTol = 25.4 / INCH_FRACTION_DENOMINATOR / 2;
+    const inTol = 25.4 / 64;
     const mmTol = Math.pow(10, -(m[5]?.length ?? 0)) / 2;
     if (Math.abs(inMm - t) > inTol + 1e-9 || Math.abs(mm - t) > mmTol + 1e-9) bad.push(`${q.file} ${q.pair} vs ${map[3]} = ${t}`);
   }

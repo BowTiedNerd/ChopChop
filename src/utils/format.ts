@@ -161,7 +161,8 @@ export const MM_SMALL_DECIMALS = 1;            // inch sheets: one decimal mm un
  */
 export function shopSize(mm: number, unit: 'imperial' | 'metric'): string {
   if (unit === 'metric') {
-    const main = Math.round(mm / MM_STEP) * MM_STEP;
+    // one decimal under 25 mm (12.5, 5.0, 9.5, 3.2, 12.7), whole mm from 25 mm up; never (0 mm)
+    const main = mm >= MM_WHOLE_FROM ? `${Math.round(mm / MM_STEP) * MM_STEP}` : mm.toFixed(MM_SMALL_DECIMALS);
     return `${main} mm (${(mm / 25.4).toFixed(METRIC_INCH_DECIMALS)}")`;
   }
   const n = Math.round((mm / 25.4) * INCH_FRACTION_DENOMINATOR);

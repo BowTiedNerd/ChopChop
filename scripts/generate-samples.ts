@@ -26,11 +26,11 @@ import { PdfGenerator, generateMillPlan } from '../src/lib/pdf';
 import { 
   createDefaultBoard, 
   create16x24Board, 
-  createMetricBoard
 } from '../src/lib/defaults';
 import { BoardDesign } from '../src/types';
 import { calculateRequiredParts } from '../src/lib/lumberPlanner';
 import { buildExportDoc } from './export';
+import { featuresCombinedDesign, handHoleDesign, metricDesign } from '../src/lib/sampleDesigns';
 
 const SAMPLES_DIR = 'samples';
 
@@ -100,10 +100,7 @@ generateSample('tumbling-block-3d', tumblingBoard);
 generateSampleJson('tumbling-block-3d', tumblingBoard);
 
 // Metric board
-const metricBoard = createMetricBoard();
-metricBoard.juiceGroove.enabled = true;
-metricBoard.rubberFeet.enabled = true;
-generateSample('metric', metricBoard);
+generateSample('metric', metricDesign());
 
 // Herringbone
 const herringboneBoard = createDefaultBoard();
@@ -112,11 +109,7 @@ herringboneBoard.angle = 45;
 generateSample('herringbone', herringboneBoard);
 
 // Hand-hole handles
-const handHoleBoard = createDefaultBoard();
-handHoleBoard.handles = {
-  enabled: true,
-  type: 'hand-hole',
-};
+const handHoleBoard = handHoleDesign();
 generateSample('hand-hole', handHoleBoard);
 generateSampleJson('hand-hole', handHoleBoard);
 
@@ -132,32 +125,9 @@ generateSample('scrap-chaotic', scrapBoard);
 generateSampleJson('scrap-chaotic', scrapBoard);
 
 // Features combined: juice groove + rubber feet + finger grip
-const featuresBoard = createDefaultBoard();
-featuresBoard.style = 'edge-grain';
-featuresBoard.dimensions = {
-  length: 450,
-  width: 300,
-  thickness: 38
-};
-featuresBoard.juiceGroove = {
-  enabled: true,
-  width: 10,
-  depth: 8,
-  fromEdge: 20,
-  cornerRadius: 25.4  // 1" (25 mm) corner radius
-};
-featuresBoard.rubberFeet = {
-  enabled: true,
-  diameter: 25.4,  // 1" diameter
-  height: 9.5,     // 3/8" height
-  inset: 25.4
-};
-featuresBoard.handles = {
-  enabled: true,
-  type: 'handle',
-};
-featuresBoard.unitSystem = 'metric';
+const featuresBoard = featuresCombinedDesign();
 generateSample('features-combined', featuresBoard);
+generateSampleJson('features-combined', featuresBoard);
 
 // Planer margin edge case: long-grain edge-grain board 11-7/8" (302 mm) wide, inside the planer's 305 mm but over
 // the 299 mm limit (planerMaxWidth_mm - planerMargin_mm), so the planer-margin rule-off has something to fail on
