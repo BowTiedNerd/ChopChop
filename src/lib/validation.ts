@@ -1,3 +1,4 @@
+import { loadStyleCatalog } from './catalogLoader';
 import { BoardDesign, ValidationResult, AngleConstraints, BoardStyle } from '../types';
 import { getKerf } from './catalogLoader';
 import { CatalogStyleName } from '../types/catalog';
@@ -18,6 +19,13 @@ export function validateBoard(design: BoardDesign): ValidationResult {
   const errors: string[] = [];
   const warnings: string[] = [];
   
+  // Tumbling block diamond side: catalog tumblingBlockMethod.diamondSide_mm min..max (Board Master draft5t)
+  if (design.style === 'tumbling-block-3d' && design.tumblingDiamondSide_mm !== undefined) {
+    const r = (loadStyleCatalog('tumbling-block-3d').cutListAllowances as unknown as { tumblingBlockMethod: { diamondSide_mm: { min: number; max: number } } }).tumblingBlockMethod.diamondSide_mm;
+    const v = design.tumblingDiamondSide_mm;
+    if (!(v >= r.min - 1e-9 && v <= r.max + 1e-9)) errors.push(`Diamond side must be ${r.min}-${r.max} mm`);
+  }
+
   // Validate dimensions
   if (design.dimensions.width <= 0) {
     errors.push('Board width must be greater than 0');

@@ -159,16 +159,22 @@ export const MM_SMALL_DECIMALS = 1;            // inch sheets: one decimal mm un
  * conversion of the printed main value, so it converts back to it within half the main rounding step.
  * inch sheets: 1-11/32" (34 mm); metric sheets: 25 mm (0.98"), never a fraction.
  */
+/** One decimal, half up on the decimal value (6.35 -> 6.4; toFixed gives 6.3 from the binary 6.3499...). */
+function oneDecimal(mm: number): string {
+  const f = Math.pow(10, MM_SMALL_DECIMALS);
+  return (Math.round(Number((mm * f).toPrecision(12))) / f).toFixed(MM_SMALL_DECIMALS);
+}
+
 export function shopSize(mm: number, unit: 'imperial' | 'metric'): string {
   if (unit === 'metric') {
     // one decimal under 25 mm (12.5, 5.0, 9.5, 3.2, 12.7), whole mm from 25 mm up; never (0 mm)
-    const main = mm >= MM_WHOLE_FROM ? `${Math.round(mm / MM_STEP) * MM_STEP}` : mm.toFixed(MM_SMALL_DECIMALS);
+    const main = mm >= MM_WHOLE_FROM ? `${Math.round(mm / MM_STEP) * MM_STEP}` : oneDecimal(mm);
     return `${main} mm (${(mm / 25.4).toFixed(METRIC_INCH_DECIMALS)}")`;
   }
   const n = Math.round((mm / 25.4) * INCH_FRACTION_DENOMINATOR);
   const mainMm = (n / INCH_FRACTION_DENOMINATOR) * 25.4;
   // mm of the true size: whole mm from 25 mm up, one decimal under 25 mm (1/8" (3.2 mm)); never (0 mm)
-  const mmText = mm >= MM_WHOLE_FROM ? `${Math.round(mm / MM_STEP) * MM_STEP}` : mm.toFixed(MM_SMALL_DECIMALS);
+  const mmText = mm >= MM_WHOLE_FROM ? `${Math.round(mm / MM_STEP) * MM_STEP}` : oneDecimal(mm);
   return `${sixteenthsText(mainMm, INCH_FRACTION_DENOMINATOR)} (${mmText} mm)`;
 }
 
@@ -180,10 +186,12 @@ export const VERBATIM_CATALOG_KEYS = ['Final pass depth'] as const;
  * sheet's units, taking the fraction as the true size (inch sheets get 1/8" (3.2 mm), metric sheets 3 mm (0.13")).
  * Approximate values ('~1/64" (0.4 mm)') are fixed catalog text and are left as written.
  */
-export function normalizeQuotedSizes(text: string, unit: 'imperial' | 'metric'): string {
-  return text.replace(/(~?)(?:(\d+)-)?(\d+)(?:\/(\d+))?"\s*\((\d+(?:\.\d+)?) mm\)/g, (all, tilde, w, a, b) => {
+export function normalizeQuotedSizes(text: string, unit: 'imperial' | 'metric', trueMm: number[] = []): string {
+  return text.replace(/(~?)(?:(\d+)-)?(\d+)(?:\/(\d+))?"\s*\((\d+(?:\.\d+)?) mm\)/g, (all, tilde, w, a, b, q) => {
     if (tilde) return all;
     const inches = b ? Number(w ?? 0) + Number(a) / Number(b) : Number(a);
-    return shopSize(inches * 25.4, unit);
+    // a catalog true value (rough-stock allowance 3.0 mm) quoted as its fraction keeps its own mm
+    const own = trueMm.find(t => Math.abs(t - Number(q)) < 1e-9 && Math.abs(t - inches * 25.4) <= 25.4 / 64);
+    return shopSize(own ?? inches * 25.4, unit);
   });
 }

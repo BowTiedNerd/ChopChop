@@ -73,7 +73,7 @@ describe('(c) tumbling block', () => {
   });
   it('the sheet prints side, 60/120 deg, logs, slices per log, and never "Planer OK"', () => {
     const f = flat('tumbling-block-3d');
-    expect(f).toContain('diamond side 1-1/2" (38 mm), 60°/120° angles');
+    expect(f).toContain('diamond side 1-1/4" (32 mm), 60°/120° angles');
     const t = calculateRequiredParts(tb).find(r => r.tumbling)!.tumbling!;
     expect(f).toContain(`${t.stripsPerTone} strips per tone ×`);
     expect(f).toContain(`Crosscut ${t.logCount === 1 ? 'the log' : 'each log'} into ${t.slicesPerLog} slices`);

@@ -1,6 +1,6 @@
 {
   "style": "edge-grain",
-  "draft": "NEW DRAFT 3.0-draft5s by Board Master, rebuilt from standard shop practice after the 2026-10-13 data loss. NOT 2.5.3.2. Values marked shopDefault:true are my defaults, not recovered values.",
+  "draft": "NEW DRAFT 3.0-draft5u by Board Master, rebuilt from standard shop practice after the 2026-10-13 data loss. NOT 2.5.3.2. Values marked shopDefault:true are my defaults, not recovered values.",
   "displayName": "Edge Grain",
   "description": "Strips turned 90\u00b0 so the edge grain is the cutting face.",
   "angles": null,
@@ -148,6 +148,14 @@
       "glueUp": "60degCradleOrTapeRollUp_lightClampPressure",
       "logStructure": "oneHexRowPerLog_hexPerSlice=ceil(W/(sqrt3*side))+1_rows=ceil(L/(1.5*side))+1_slices=rows+1spare",
       "stripsPerTone": "hexPerSlice",
+      "hexOrientation": "pointyTop_flatTopRowsAreZigzag99mmTaller",
+      "diamondSide_mm": {
+        "default": 31.75,
+        "min": 25.4,
+        "max": 31.75
+      },
+      "logCutHeight": "2*side_mustBe<=63.5mm_tableSawSled_bladeHeight=cutHeight+6.35",
+      "logWidth": "hexPerSlice*sqrt3*side_upToSledMaxWidth_609.6_neverSplitRow_printSledWidth",
       "rowGlueUp": "nestRowStripsOffsetHalfHex(sqrt3*side/2)_alternateRows_glueInPairsOnFlatCaul_lightPressure_trimZigzagEdgesOnSled",
       "logBlankRules": "sameAsBlank_305to914.4mm_length>=slices*(slice+kerf)+50",
       "minStockWidthForBevelRip_mm": 152.4,
@@ -163,6 +171,12 @@
         "logLength",
         "slicesPerLog"
       ]
+    },
+    "brickRule": {
+      "blockLength_mm": 76.2,
+      "offsetCleanup_mm": 6.35,
+      "panelWidth": "boardWidth+blockLength_mm/2+offsetCleanup_mm",
+      "trimTo": "boardWidthOnSledWithStopBlock"
     },
     "stripRipRule": {
       "ripOver_mm": 1.6,
@@ -198,13 +212,18 @@
       ],
       "mixedGrainRoute": "routerSledOrDrumSander",
       "faceTooWideForJointerText": "Too wide for the jointer ({jointerMax}): flatten one face on a planer sled first, then plane the other face parallel",
+      "faceTooWideForJointerAppliesWidth_mm": [
+        152.4,
+        299.0
+      ],
+      "faceTooWideForPlanerText": "Too wide for the planer ({planerLimit}): flatten both faces on the router sled or drum sander",
       "neverFor": "endGrain",
       "template": "Planer OK: {width} wide, long grain"
     },
     "planerMaxWidth_mm": 305.0,
     "jointerMaxWidth_mm": 152.4,
     "widthRule": {
-      "text": "A panel wider than the planer max width (305 mm) goes to the router sled or drum sander. Face-joint only boards no wider than the jointer max width (152 mm); wider boards get a planer sled or are flattened by hand."
+      "text": "A panel wider than the planer max width (305 mm) goes to the router sled or drum sander. Face-joint only boards no wider than the jointer max width (152 mm); boards 152-299 mm wide get a planer sled for the first face; boards over 299 mm go to the router sled or drum sander on both faces."
     },
     "minPieceLength_mm": {
       "planerJointer": 305.0,

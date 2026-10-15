@@ -16,7 +16,7 @@ export function neededSlices(d: BoardDesign, panelThickness?: number): { slices:
   const L = d.dimensions.length, W = d.dimensions.width;
   if (d.style === 'tumbling-block-3d') {
     const ls = /hexPerSlice=ceil\(W\/\(sqrt3\*side\)\)\+(\d+)_rows=ceil\(L\/\(1\.5\*side\)\)\+(\d+)/.exec(a.tumblingBlockMethod.logStructure)!;
-    const side = 38.1;
+    const side = d.tumblingDiamondSide_mm ?? a.tumblingBlockMethod.diamondSide_mm.default;
     return { slices: Math.ceil(L / (1.5 * side) - 1e-9) + Number(ls[2]), hexPerSlice: Math.ceil(W / (Math.sqrt(3) * side) - 1e-9) + Number(ls[1]) };
   }
   if (d.style === 'scrap-chaotic') {

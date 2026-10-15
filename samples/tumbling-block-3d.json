@@ -532,75 +532,80 @@
   },
   "cutList": [
     {
-      "part": "Maple (light) diamond strips: diamond side 1-1/2\" (38 mm), 60°/120° angles; mill stock 1-5/16\" (33 mm) thick (side × sin 60°) and at least 6\" (152 mm) wide; bevel the wide stock at 30° first, then cut each diamond off with a thin-rip jig, keeper away from the fence; 6 strips per tone × 20-3/16\" (513 mm) long",
-      "quantity": 6,
+      "part": "Maple (light) diamond strips: diamond side 1-1/4\" (32 mm), 60°/120° angles; mill stock 1-3/32\" (27 mm) thick (side × sin 60°) and at least 6\" (152 mm) wide; bevel the wide stock at 30° first, then cut each diamond off with a thin-rip jig, keeper away from the fence; 7 strips per tone × 23-27/32\" (605 mm) long",
+      "quantity": 7,
       "width": "6.000\" (6\")",
-      "thickness": "1.299\" (≈1 19/64\")",
-      "length": "20.187\" (≈20 3/16\")",
+      "thickness": "1.083\" (≈1 5/64\")",
+      "length": "23.831\" (≈23 53/64\")",
       "species": "Maple",
       "dims": {
-        "diamondSide_mm": 38.1,
-        "stripThickness_mm": 32.99556788418711,
-        "logLength_mm": 512.75
+        "diamondSide_mm": 31.75,
+        "stripThickness_mm": 27.496306570155927,
+        "logLength_mm": 605.3
       }
     },
     {
-      "part": "Cherry (mid) diamond strips: diamond side 1-1/2\" (38 mm), 60°/120° angles; mill stock 1-5/16\" (33 mm) thick (side × sin 60°) and at least 6\" (152 mm) wide; bevel the wide stock at 30° first, then cut each diamond off with a thin-rip jig, keeper away from the fence; 6 strips per tone × 20-3/16\" (513 mm) long",
-      "quantity": 6,
+      "part": "Cherry (mid) diamond strips: diamond side 1-1/4\" (32 mm), 60°/120° angles; mill stock 1-3/32\" (27 mm) thick (side × sin 60°) and at least 6\" (152 mm) wide; bevel the wide stock at 30° first, then cut each diamond off with a thin-rip jig, keeper away from the fence; 7 strips per tone × 23-27/32\" (605 mm) long",
+      "quantity": 7,
       "width": "6.000\" (6\")",
-      "thickness": "1.299\" (≈1 19/64\")",
-      "length": "20.187\" (≈20 3/16\")",
+      "thickness": "1.083\" (≈1 5/64\")",
+      "length": "23.831\" (≈23 53/64\")",
       "species": "Cherry",
       "dims": {
-        "diamondSide_mm": 38.1,
-        "stripThickness_mm": 32.99556788418711,
-        "logLength_mm": 512.75
+        "diamondSide_mm": 31.75,
+        "stripThickness_mm": 27.496306570155927,
+        "logLength_mm": 605.3
       }
     },
     {
-      "part": "Walnut (dark) diamond strips: diamond side 1-1/2\" (38 mm), 60°/120° angles; mill stock 1-5/16\" (33 mm) thick (side × sin 60°) and at least 6\" (152 mm) wide; bevel the wide stock at 30° first, then cut each diamond off with a thin-rip jig, keeper away from the fence; 6 strips per tone × 20-3/16\" (513 mm) long",
-      "quantity": 6,
+      "part": "Walnut (dark) diamond strips: diamond side 1-1/4\" (32 mm), 60°/120° angles; mill stock 1-3/32\" (27 mm) thick (side × sin 60°) and at least 6\" (152 mm) wide; bevel the wide stock at 30° first, then cut each diamond off with a thin-rip jig, keeper away from the fence; 7 strips per tone × 23-27/32\" (605 mm) long",
+      "quantity": 7,
       "width": "6.000\" (6\")",
-      "thickness": "1.299\" (≈1 19/64\")",
-      "length": "20.187\" (≈20 3/16\")",
+      "thickness": "1.083\" (≈1 5/64\")",
+      "length": "23.831\" (≈23 53/64\")",
       "species": "Walnut",
       "dims": {
-        "diamondSide_mm": 38.1,
-        "stripThickness_mm": 32.99556788418711,
-        "logLength_mm": 512.75
+        "diamondSide_mm": 31.75,
+        "stripThickness_mm": 27.496306570155927,
+        "logLength_mm": 605.3
       }
     },
     {
-      "part": "Log A: one hexagon row wide, 6 hexagons side by side (one diamond strip of each tone, Maple/Cherry/Walnut, per hexagon) glued in a 60° cradle or by the masking-tape roll-up method, light clamp pressure only; logs are never planed or jointed (15-19/32\" (396 mm) wide: too wide for the planer at 15-19/32\" (396 mm) and the jointer; crosscut only on the sled); log 20-3/16\" (513 mm) long; crosscut 10 slices × 1-11/16\" (43 mm) each on a crosscut sled with a stop block (9 rows used + 1 spare: slice 10 spare; 6 hexagons per slice); offset alternate rows by half a hexagon, 1-5/16\" (33 mm)",
+      "part": "Log A: one hexagon row wide, 7 hexagons side by side (one diamond strip of each tone, Maple/Cherry/Walnut, per hexagon) glued in a 60° cradle or by the masking-tape roll-up method, light clamp pressure only; logs are never planed or jointed (15-5/32\" (385 mm) wide: too wide for the planer at 15-5/32\" (385 mm) and the jointer; crosscut only on the sled); log 23-27/32\" (605 mm) long; crosscut 12 slices × 1-11/16\" (43 mm) each on a crosscut sled with a stop block (11 rows used + 1 spare: slice 12 spare; 7 hexagons per slice); offset alternate rows by half a hexagon, 1-3/32\" (27 mm)",
       "quantity": 1,
-      "width": "15.588\" (≈15 19/32\")",
-      "thickness": "2.598\" (≈2 19/32\")",
-      "length": "20.187\" (≈20 3/16\")",
+      "width": "15.155\" (≈15 5/32\")",
+      "thickness": "2.500\" (2 1/2\")",
+      "length": "23.831\" (≈23 53/64\")",
       "species": "Maple/Cherry/Walnut",
       "panelId": "A",
       "dims": {
-        "logLength_mm": 512.75,
+        "logLength_mm": 605.3,
         "sliceThickness_mm": 43.1,
-        "offset_mm": 32.99556788418711,
-        "logWidth_mm": 395.9468146102453,
-        "logHeight_mm": 65.99113576837422
+        "offset_mm": 27.496306570155927,
+        "logWidth_mm": 384.948291982183,
+        "logHeight_mm": 63.5
       },
-      "slices": 10
+      "slices": 12
     }
   ],
   "tumblingBlock": {
-    "tiles": 54,
-    "cols": 6,
-    "tileRows": 9,
-    "hexPerSlice": 6,
+    "cutHeight_mm": 63.5,
+    "bladeAbove_mm": 6.35,
+    "bladeHeight_mm": 69.85,
+    "sledMax_mm": 609.6,
+    "logWidth_mm": 384.948291982183,
+    "tiles": 77,
+    "cols": 7,
+    "tileRows": 11,
+    "hexPerSlice": 7,
     "spare": 1,
-    "offset_mm": 32.996,
-    "diamondSide_mm": 38.1,
-    "stripThickness_mm": 32.996,
-    "stripsPerTone": 6,
+    "offset_mm": 27.496,
+    "diamondSide_mm": 31.75,
+    "stripThickness_mm": 27.496,
+    "stripsPerTone": 7,
     "logCount": 1,
-    "logLength_mm": 512.75,
-    "slicesPerLog": 10,
+    "logLength_mm": 605.3,
+    "slicesPerLog": 12,
     "tones": {
       "light": "Maple",
       "mid": "Cherry",

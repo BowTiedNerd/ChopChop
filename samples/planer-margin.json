@@ -75,10 +75,10 @@
   },
   "cutList": [
     {
-      "part": "Panel A: Walnut/Maple strip-set panel 11-7/8\" (302 mm) wide: 4 × Walnut 1-1/2\" (38 mm) (rip 1-9/16\" (40 mm), then joint) + 3 × Maple 1-1/2\" (38 mm) (rip 1-9/16\" (40 mm), then joint) + 1 × Maple 1-3/8\" (35 mm) (rip 1-7/16\" (37 mm), then joint); too wide for the planer at 11-7/8\" (302 mm): flatten on the router sled or drum sander; Crosscut to final length: 18\" (457 mm); Too wide for the jointer (6\" (152 mm)): flatten one face on a planer sled first, then plane the other face parallel",
+      "part": "Panel A: Walnut/Maple strip-set panel 11-7/8\" (302 mm) wide: 4 × Walnut 1-1/2\" (38 mm) (rip 1-9/16\" (40 mm), then joint) + 3 × Maple 1-1/2\" (38 mm) (rip 1-9/16\" (40 mm), then joint) + 1 × Maple 1-3/8\" (35 mm) (rip 1-7/16\" (37 mm), then joint); too wide for the planer at 11-7/8\" (302 mm): flatten on the router sled or drum sander; Crosscut to final length: 18\" (457 mm); Too wide for the planer (11-25/32\" (299 mm)): flatten both faces on the router sled or drum sander",
       "quantity": 1,
       "width": "11.875\" (11 7/8\")",
-      "thickness": "1.697\" (≈1 45/64\")",
+      "thickness": "1.559\" (≈1 9/16\")",
       "length": "20.094\" (≈20 3/32\")",
       "species": "Walnut/Maple",
       "panelId": "A",

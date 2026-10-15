@@ -43,7 +43,7 @@ describe('tumbling block tiling (Board Master)', () => {
   const cat = loadStyleCatalog('tumbling-block-3d' as CatalogStyleName).cutListAllowances as unknown as Record<string, any>;
   const need = neededSlices(d)!;
   const spare = Number(/_slices=rows\+(\d+)spare/.exec(cat.tumblingBlockMethod.logStructure)![1]);
-  const offset = Math.sqrt(3) * 38.1 / 2;
+  const offset = Math.sqrt(3) * cat.tumblingBlockMethod.diamondSide_mm.default / 2;
   it('row strips: slices used x hexagons per slice >= rows x hexagons, plus the spare', () => {
     const t = calculateRequiredParts(d).find(r => r.tumbling)!.tumbling!;
     expect([t.hexPerSlice, t.tileRows, t.spare]).toEqual([need.hexPerSlice, need.slices, spare]);
@@ -59,12 +59,12 @@ describe('tumbling block tiling (Board Master)', () => {
     const f = flat('tumbling-block-3d');
     expect(f).toContain(`${need.hexPerSlice} hexagons per slice`);
     expect(f).toContain(`${need.slices} rows used + ${spare} spare: slice ${need.slices + spare} spare`);
-    expect(f).toContain(`offset alternate rows by half a hexagon, 1-5/16" (${Math.round(offset)} mm)`);
+    expect(f).toContain(`offset alternate rows by half a hexagon, 1-3/32" (${Math.round(offset)} mm)`);
     expect(f).toContain('Glue them in pairs, then join the pairs, on a flat caul with light, even pressure. Trim the zig-zag edges on the sled with a stop block and hold-down.');
   });
   it('log crosscut prints cut height, blade height, sled width and the bandsaw warning', () => {
     const f = flat('tumbling-block-3d');
-    expect(f).toMatch(/Cut height: \S+ \(66 mm\) \(log height\)\. Blade height: set the blade/);
+    expect(f).toMatch(/Cut height: 2-1\/2" \(64 mm\) \(log height, 2 × diamond side\) on the table-saw crosscut sled\. Blade height: set the blade 1\/4" \(6\.4 mm\) above the log/);
     expect(f).toMatch(/Sled width: sled must clear the log/);
     expect(f).toContain('If a slice is not cut through in one pass, finish it on the bandsaw; never flip the log for a second pass on the sled.');
   });
@@ -89,7 +89,7 @@ describe('metric sheets: under 25 mm one decimal, from the true value', () => {
       expect(f.match(/(?<![\d.])(?:[1-9]|1\d|2[0-4]) mm \(\d+\.\d\d"\)/g) ?? [], n).toEqual([]);
     }
     expect(flat('metric')).toContain('12.5 mm (0.49") wide × 5.0 mm (0.20") deep');
-    expect(flat('metric')).toContain('plus 3.2 mm (0.13")');
+    expect(flat('metric')).toContain('plus 3.0 mm (0.12")');
     expect(flat('features-combined')).toContain('9.5 mm (0.38") high');
   });
   it('each sub-25 mm metric value is within 0.05 mm of its true size', () => {

@@ -119,7 +119,8 @@ export class PdfGenerator {
       
       return catalog.steps.map(step => {
         const unitSys = this.design.unitSystem;
-        let description = normalizeQuotedSizes(step.description, unitSys);
+        // the rough-stock allowance ("final thickness plus 1/8\" (3 mm)") keeps its true catalog 3.0 mm; other 1/8" pairs (bits, kerf) stay 3.175
+        let description = step.description.split(/(?=final thickness plus )/).map((part, i) => normalizeQuotedSizes(part, unitSys, i > 0 ? [catalog.cutListAllowances.roughToFinalOversize_mm.thickness] : [])).join('');
         
         // Customize flatten-first-panel step based on actual panel widths
         const hasFlattenStep = catalog.steps.some(st => st.stepId === 'flatten-first-panel');
@@ -145,6 +146,11 @@ export class PdfGenerator {
               ? `Sled width: the glue-up is ${sheetLen(w, this.design.unitSystem)}, wider than the ${sheetLen(sledMax, this.design.unitSystem)} sled; trim with a track saw or router and straightedge, never freehand.`
               : `Sled width: sled must clear the glue-up, ${sheetLen(w, this.design.unitSystem)}.`}`;
             if (!this.isEndGrain(catalog) && w <= sledMax) description = `${description}\nSet a stop block for the final length, ${shopSize(this.design.dimensions.length, this.design.unitSystem)}, and crosscut on the sled; never use the rip fence as a stop.`;
+          }
+          if (this.design.style === 'brick-basketweave' && step.stepId === 'offset-slices') {
+            const u = this.design.unitSystem, W = this.design.dimensions.width;
+            const panelW = calculateRequiredParts(this.design).find(r => r.panelId)?.width ?? W;
+            description = `${description}\nThe panels are ${shopSize(panelW, u)} wide (board width + half a block + ${shopSize((catalog.cutListAllowances as unknown as { brickRule: { offsetCleanup_mm: number } }).brickRule.offsetCleanup_mm, u)} cleanup). After glue-up, trim both ragged ends on the crosscut sled with a stop block, down to the board width ${shopSize(W, u)}.`;
           }
           if (step.stepId === 'angled-cuts') {
             description = `${description}\nSet a stop block on the angled sled for the piece width and clamp each cut with the hold-down; never use the rip fence as a stop.\nPieces: ${this.sliceCountLine()}.`;
@@ -266,7 +272,7 @@ export class PdfGenerator {
         return `Nest the row strips (slices) with alternate rows offset by half a hexagon, ${shopSize(t.offset_mm, u)}. Glue them in pairs, then join the pairs, on a flat caul with light, even pressure. Trim the zig-zag edges on the sled with a stop block and hold-down. ${t.tileRows} rows used, ${t.spare} spare.`;
       case 'crosscut-slices':
         return [`Crosscut ${t.logCount === 1 ? 'the log' : 'each log'} into ${t.slicesPerLog} slices on a crosscut sled with a stop block; each slice is a whole row strip of ${t.hexPerSlice} hexagons.`,
-          `Cut height: ${shopSize(this.tumblingLog().height, u)} (log height). Blade height: set the blade ${shopSize(3.175, u)} above the log, ${shopSize(this.tumblingLog().height + 3.175, u)}.`,
+          `Cut height: ${shopSize(t.cutHeight_mm, u)} (log height, 2 × diamond side) on the table-saw crosscut sled. Blade height: set the blade ${shopSize(t.bladeAbove_mm, u)} above the log, ${shopSize(t.bladeHeight_mm, u)}.`,
           'If a slice is not cut through in one pass, finish it on the bandsaw; never flip the log for a second pass on the sled.', ...description.split('\n').slice(1)].join('\n');
       default:
         return description;
@@ -340,12 +346,6 @@ export class PdfGenerator {
     return `Flatten the final glue-up, ${sheetLen(d.width, unit)} wide:\n${route}.\nThen sand: ${rest.replace(/^Sand /, '')}`.trim();
   }
 
-  private tumblingLog() {
-    const log = calculateRequiredParts(this.design).find(r => r.tumbling && r.panelId);
-    if (!log) throw new Error('tumbling log missing');
-    return { width: log.width, height: log.thickness };
-  }
-
   /** Sled width each crosscut needs; over catalog sledMaxWidth_mm, split first. */
   private crosscutSledLines(catalog: StyleCatalog, stepId = ''): string {
     const blankRule = catalog.cutListAllowances?.blankRule;
@@ -353,7 +353,7 @@ export class PdfGenerator {
     if (sledMax === undefined) throw new Error(`${this.design.style}: catalog sledMaxWidth_mm missing`);
     const unit = this.design.unitSystem;
     const logs = this.cutList.filter(i => i.tumbling && i.slices);
-    if (logs.length) return `Sled width: sled must clear the log, ${sheetLen(Math.max(...logs.map(l => l.width)), unit)}.`;
+    if (logs.length) return `Sled width: sled must clear the log, ${sheetLen(Math.max(...logs.map(l => l.width)), unit)} (sled at most ${sheetLen(logs[0].tumbling!.sledMax_mm, unit)}; a row is never split).`;
     const panels = this.panelItems();
     if (panels.length === 0) {
       // no strip-set panels: after a glue-up the sled crosscuts the glued panel (full board width);

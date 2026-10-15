@@ -56,6 +56,8 @@ export interface BoardDesign {
   dimensions: BoardDimensions;
   species: WoodSpecies[];
   angle?: number;     // degrees, for chevron/herringbone
+  /** tumbling-block-3d diamond side in mm; catalog tumblingBlockMethod.diamondSide_mm default and min..max */
+  tumblingDiamondSide_mm?: number;
   juiceGroove: JuiceGroove;
   handles: Handles;
   rubberFeet: RubberFeet;
@@ -90,7 +92,7 @@ export interface CutListItem {
   /** slices (or angled pieces) crosscut from this blank/panel/log */
   slices?: number;
   /** tumbling block numbers (catalog tumblingBlockMethod) */
-  tumbling?: { tiles: number; cols: number; tileRows: number; hexPerSlice: number; spare: number; offset_mm: number; diamondSide_mm: number; stripThickness_mm: number; stripsPerTone: number; logCount: number; logLength_mm: number; slicesPerLog: number; tones: { light: string; mid: string; dark: string } };
+  tumbling?: { cutHeight_mm: number; bladeAbove_mm: number; bladeHeight_mm: number; sledMax_mm: number; logWidth_mm: number; tiles: number; cols: number; tileRows: number; hexPerSlice: number; spare: number; offset_mm: number; diamondSide_mm: number; stripThickness_mm: number; stripsPerTone: number; logCount: number; logLength_mm: number; slicesPerLog: number; tones: { light: string; mid: string; dark: string } };
 }
 
 // Step instruction
