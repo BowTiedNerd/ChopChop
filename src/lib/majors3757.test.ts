@@ -1,6 +1,7 @@
 /** Shop Tester 3757189 majors with Board Master rulings: brick offset width, wide-panel flattening, per-style allowance. */
 import { describe, it, expect } from 'vitest';
 import { execFileSync } from 'child_process';
+import { existsSync } from 'fs';
 import { calculateRequiredParts } from './lumberPlanner';
 import { loadStyleCatalog } from './catalogLoader';
 import { CatalogStyleName } from '../types/catalog';
@@ -106,4 +107,36 @@ describe('no committed sample prints blankRule.panelWidthText or "no wider than 
       expect(f).not.toContain('no wider than 12"');
     });
   }
+});
+
+describe('every trim step: sled width >= that step\'s glue-up width and names a stop block (all samples)', () => {
+  const PDF: Record<string, string> = { 'brick-basketweave': 'brick', 'edge-grain': 'planer-margin', 'face-grain': 'planer-margin', 'stripe-inlay': 'planer-margin', 'blank-limit-914.4': 'end-grain' };
+  for (const [n, d] of sampleDesigns()) {
+    const pdf = PDF[n] ?? n;
+    if (!existsSync(`samples/${pdf}.pdf`) || (PDF[n] && n !== 'brick-basketweave')) continue;
+    it(n, () => {
+      // independent glue-up width: widest panel, sub-panels side by side, angled ragged ends (piece length cos a + width sin a)
+      const rows = calculateRequiredParts(d).filter(r => r.panelId && typeof r.slices === 'number');
+      let glue = d.dimensions.width;
+      const sub = new Map<string, number>();
+      for (const r of rows) { glue = Math.max(glue, r.width); if (r.subPanel) sub.set(r.panelId!, (sub.get(r.panelId!) ?? 0) + r.width); }
+      for (const v of sub.values()) glue = Math.max(glue, v);
+      if (['chevron', 'herringbone'].includes(d.style) && sub.size === 0) {
+        const a = (d.angle ?? 45) * Math.PI / 180;
+        glue = Math.max(glue, d.dimensions.width + Math.max(...rows.map(r => r.sliceThickness!)) * Math.cos(a) + Math.max(...rows.flatMap(r => r.strips!).map(s => s.width)) * Math.sin(a));
+      }
+      const f = execFileSync('pdftotext', ['-raw', `samples/${pdf}.pdf`, '-'], { encoding: 'utf-8' });
+      let n2 = 0;
+      for (const m of f.matchAll(/Step \d+: Trim[^\n]*\n([\s\S]*?)(?=\nStep \d+:|$)/g)) {
+        const t = m[1].replace(/\s+/g, ' ');
+        const w = /(?:sled must clear the glue-up|the glue-up is),? (?:[^(]*\((\d+) mm\)|(\d+) mm \()/.exec(t);
+        expect(w, t.slice(0, 120)).not.toBeNull();
+        n2++;
+        expect(Number(w![1] ?? w![2]) + 0.5).toBeGreaterThanOrEqual(glue);
+        expect(t).toMatch(/stop block|track saw/);
+      }
+      void n2;
+    });
+  }
+  it('brick Step 9 prints 15" (381 mm) and a stop block', () => expect(flat('brick')).toMatch(/Trim ends .*sled must clear the glue-up, 15" \(381 mm\)\. Square the ends on the sled with a stop block\./));
 });

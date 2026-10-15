@@ -140,11 +140,13 @@ export class PdfGenerator {
             description = `${description}\nSlice size: ${shopSize(slice, u)}.\nFinal thickness: ${shopSize(this.design.dimensions.thickness, u)}.\nEnd-grain allowance: ${shopSize(allowance, u)}.\nSlices: ${this.sliceCountLine()}.`;
           }
           if (/^trim/.test(step.stepId)) {
-            const w = this.design.dimensions.width, sledMax = catalog.cutListAllowances.blankRule?.sledMaxWidth_mm;
+            // the glue-up being trimmed is as wide as the widest glued panel (brick: board width + offset blocks)
+            const w = this.trimGlueUpWidth();
+            const sledMax = catalog.cutListAllowances.blankRule?.sledMaxWidth_mm;
             if (sledMax === undefined) throw new Error(`${this.design.style}: catalog sledMaxWidth_mm missing`);
             description = `${description}\n${w > sledMax
               ? `Sled width: the glue-up is ${sheetLen(w, this.design.unitSystem)}, wider than the ${sheetLen(sledMax, this.design.unitSystem)} sled; trim with a track saw or router and straightedge, never freehand.`
-              : `Sled width: sled must clear the glue-up, ${sheetLen(w, this.design.unitSystem)}.`}`;
+              : `Sled width: sled must clear the glue-up, ${sheetLen(w, this.design.unitSystem)}. Square the ends on the sled with a stop block.`}`;
             if (!this.isEndGrain(catalog) && w <= sledMax) description = `${description}\nSet a stop block for the final length, ${shopSize(this.design.dimensions.length, this.design.unitSystem)}, and crosscut on the sled; never use the rip fence as a stop.`;
           }
           if (this.design.style === 'brick-basketweave' && step.stepId === 'offset-slices') {
@@ -344,6 +346,29 @@ export class PdfGenerator {
       : this.planerRoute(d.width, d.length, this.isEndGrain(catalog), catalog);
     const rest = generic.slice(Math.max(0, generic.indexOf('Sand ')));
     return `Flatten the final glue-up, ${sheetLen(d.width, unit)} wide:\n${route}.\nThen sand: ${rest.replace(/^Sand /, '')}`.trim();
+  }
+
+  /** Widest glue-up a trim step cuts (never the finished board width):
+   *  - sub-panels glued side by side (chevron V halves): the sum of a panel's sub-panel widths
+   *  - angled pieces without sub-panels (herringbone): board width + one piece's projected span (length cos a +
+   *    width sin a), the ragged angled ends before the trim
+   *  - widened panels (brick offset blocks) and plain panels: the widest panel; never under the board width */
+  trimGlueUpWidth(): number {
+    const rows = calculateRequiredParts(this.design).filter(r => r.panelId && typeof r.slices === 'number');
+    let w = this.design.dimensions.width;
+    const byPanel = new Map<string, number>();
+    for (const r of rows) {
+      w = Math.max(w, r.width);
+      if (r.subPanel) byPanel.set(r.panelId!, (byPanel.get(r.panelId!) ?? 0) + r.width);
+    }
+    for (const v of byPanel.values()) w = Math.max(w, v);
+    if (this.design.angle !== undefined && /angled cuts/.test(rows.map(r => r.part).join(' ')) && byPanel.size === 0) {
+      const a = (this.design.angle * Math.PI) / 180;
+      const pieceLen = Math.max(...rows.map(r => r.sliceThickness ?? 0));
+      const pieceW = Math.max(...(rows.flatMap(r => r.strips ?? []).map(st => st.width)));
+      w = Math.max(w, this.design.dimensions.width + pieceLen * Math.abs(Math.cos(a)) + pieceW * Math.abs(Math.sin(a)));
+    }
+    return w;
   }
 
   /** Sled width each crosscut needs; over catalog sledMaxWidth_mm, split first. */
