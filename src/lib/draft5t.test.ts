@@ -71,4 +71,29 @@ describe('draft5t tumbling ruling (Board Master)', () => {
       expect(() => calculateRequiredParts(d)).toThrow(/outside/);
     }
   });
+  it('tone boards: strips over boards >= stripsPerTone, each <= planer limit (299) and >= log length; offcut noted', () => {
+    const a = loadStyleCatalog('tumbling-block-3d').cutListAllowances as unknown as { planerMaxWidth_mm: number; planerTextRule: { planerMargin_mm: number }; kerf_mm: number };
+    const limit = a.planerMaxWidth_mm - a.planerTextRule.planerMargin_mm;
+    const rows = calculateRequiredParts(tb());
+    const t = info();
+    const side = m.diamondSide_mm.default, perStrip = side + a.kerf_mm / Math.cos(Math.PI / 6), off = side * Math.sin(Math.PI / 3) / Math.tan(Math.PI / 3);
+    for (const tone of ['light', 'mid', 'dark']) {
+      const boards = rows.filter(r => r.toneBoard?.tone === tone);
+      expect(boards.reduce((s, r) => s + r.toneBoard!.strips, 0)).toBeGreaterThanOrEqual(t.stripsPerTone);
+      for (const r of boards) {
+        expect(r.width).toBeLessThanOrEqual(limit);
+        expect(r.width).toBeGreaterThanOrEqual(152.4 + off + r.toneBoard!.strips * perStrip - 1e-6);
+        expect(r.length).toBeGreaterThanOrEqual(t.logLength_mm - 1e-6);
+      }
+    }
+    const f = flat('tumbling-block-3d');
+    expect(f).toMatch(/Tone board 1\/3 - tone: light; species: Maple; strips: 3; width: [^;]+; length: [^;]+; thickness: [^;]+;/);
+    expect(f).toContain('the last 6" (152 mm) is offcut');
+    expect(f).toContain('strips: 3; width: 11" (279 mm);');
+    expect(f).toContain('strips: 2; width: 9-1/2" (241 mm);');
+    for (const r of rows.filter(x => x.toneBoard)) expect(Math.abs(r.width / 6.35 - Math.round(r.width / 6.35))).toBeLessThan(1e-9);
+  });
+  it('tumbling glue-up steps never print "Clamp spacing"', () => {
+    expect(flat('tumbling-block-3d')).not.toContain('Clamp spacing');
+  });
 });

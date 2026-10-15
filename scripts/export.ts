@@ -109,6 +109,7 @@ export function buildExportDoc(design: BoardDesign, meta: { exportedAt: string; 
       ...(item.subPanel ? { subPanel: item.subPanel } : {}),
       ...(item.dims ? { dims: item.dims } : {}),
       ...(item.slices !== undefined ? { slices: item.slices } : {}),
+      ...(item.courseSequence ? { courseSequence: item.courseSequence } : {}),
     })),
     // tumbling block (catalog tumblingBlockMethod): the numbers Board Visuals checks
     ...(cutList.find(i => i.tumbling) ? { tumblingBlock: (() => {

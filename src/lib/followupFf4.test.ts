@@ -22,6 +22,9 @@ describe('coverage: slices cover the board, needed count from board size + catal
     const cut = rows.filter(r => typeof r.slices === 'number');
     const need = neededSlices(d, cut[0]?.thickness);
     if (!need) continue;
+    // hard-coded sample counts next to the helper, so a halved helper fails too
+    const HARD: Record<string, number> = { 'tumbling-block-3d': 77, 'scrap-chaotic': 10, 'brick-basketweave': 18 };
+    if (HARD[name] !== undefined) it(`${name}: needed count is ${HARD[name]}`, () => expect(need.slices * (need.hexPerSlice ?? 1)).toBe(HARD[name]));
     it(name, () => {
       const t = rows.find(r => r.tumbling)?.tumbling;
       if (t) {

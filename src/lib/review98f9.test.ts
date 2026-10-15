@@ -12,13 +12,13 @@ const step = (name: string, title: string) => {
 describe('Board Master 98f9ec19', () => {
   it('brick: one panel per course type, strips sum to 12" (305 mm), one length per panel, slices add up', () => {
     const f = flat('brick');
-    expect(f).toContain('Panel A: Walnut strip-set panel 13-3/4" (349 mm) wide: 4 × Walnut 3" (76 mm)');
-    expect(f).toContain('Panel B: Walnut strip-set panel 13-3/4" (349 mm) wide: 12 × Walnut 1" (25 mm)');
+    expect(f).toContain('Panel A: Walnut strip-set panel 15" (381 mm) wide: 5 × Walnut 3" (76 mm)');
+    expect(f).toContain('Panel B: Walnut strip-set panel 14" (356 mm) wide: 14 × Walnut 1" (25 mm)');
     expect(f).toContain('Slices: 18 in all (Panel A 3, Panel B 7, Panel C 2, Panel D 6)');
     expect(f).not.toMatch(/Walnut blank|Maple blank/);
   });
   it('brick fence line gives both rip settings (78 mm and 27 mm)', () => {
-    expect(flat('brick')).toContain('Fence to blade: 3-1/16" (78 mm) and 1-13/16" (46 mm) and 1-1/16" (27 mm)');
+    expect(flat('brick')).toContain('Fence to blade: 3-1/16" (78 mm) and 1-1/16" (27 mm)');
   });
   it('scrap: one glued panel, slices from it, no "1 slices"', () => {
     const f = flat('scrap-chaotic');

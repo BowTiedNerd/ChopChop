@@ -16,13 +16,29 @@ describe('M1 brick offset: panel = board width + half a block + 1/4" cleanup, tr
   const br = (loadStyleCatalog('brick-basketweave').cutListAllowances as unknown as { brickRule: { blockLength_mm: number; offsetCleanup_mm: number } }).brickRule;
   const half = br.blockLength_mm / 2;
   it('catalog brickRule is 76.2 / 6.35', () => expect([br.blockLength_mm, br.offsetCleanup_mm]).toEqual([76.2, 6.35]));
-  it('every panel is about 349.5 mm and its strips sum to it', () => {
+  it('every panel covers board width + block/2 + cleanup with whole continued blocks; strips sum to it', () => {
     for (const r of calculateRequiredParts(d).filter(x => x.panelId)) {
-      expect(r.width).toBeCloseTo(W + half + br.offsetCleanup_mm, 6);
-      expect(r.width).toBeCloseTo(349.25, 1);
-      const sum = r.strips!.reduce((a, c) => a + c.width * c.count, 0);
-      expect(sum).toBeCloseTo(r.width, 6);
-      expect(r.part).toMatch(/\+ 1 × \S+ 1-3\/4" \(44 mm\) \(rip [^;]+; half-block offset \+ 1\/4" \(6\.4 mm\) cleanup\)/);
+      expect(r.width).toBeGreaterThanOrEqual(W + half + br.offsetCleanup_mm - 1e-6);
+      expect(r.strips!.reduce((a, c) => a + c.width * c.count, 0)).toBeCloseTo(r.width, 6);
+      expect(r.courseSequence!.reduce((a, c) => a + c.width, 0)).toBeCloseTo(r.width, 6);
+      expect(r.part).not.toMatch(/1-3\/4" \(44 mm\)/);
+      expect(r.part).toMatch(/includes \d+ continued blocks? in course order for the half-block offset \+ 1\/4" \(6\.4 mm\) cleanup/);
+    }
+    expect(flat('brick')).not.toContain('(46 mm)');
+  });
+  it('coverage: the trimmed 305 mm board, shifted 0 or half a block, shows only the course sequence (no cleanup species)', () => {
+    for (const r of calculateRequiredParts(d).filter(x => x.panelId)) {
+      const seq = r.courseSequence!;
+      // the course's own repeat: the board-width part of the panel (strips laid before any continuation)
+      let base = 0, acc = 0;
+      while (acc < W - 1e-6) acc += seq[base++].width;
+      for (let i = base; i < seq.length; i++) expect(seq[i], `${r.panelId} strip ${i}`).toEqual(seq[i % base]);
+      for (const shift of [0, half]) {
+        // visible window [shift, shift + W] after trimming both ragged ends
+        let x = 0;
+        for (const st of seq) { if (x + st.width > shift + 1e-6 && x < shift + W - 1e-6) expect(seq.slice(0, base)).toContainEqual(st); x += st.width; }
+        expect(x).toBeGreaterThanOrEqual(shift + W - 1e-6);
+      }
     }
   });
   it('the offset step trims both ragged ends on the sled with a stop block to 12" (305 mm); coverage after trim', () => {

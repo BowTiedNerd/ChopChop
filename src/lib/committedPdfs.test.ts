@@ -136,7 +136,7 @@ describe('Shop Tester G: brick, herringbone and scrap print their sled width', (
   it('crosscut / angled-cut steps say "Sled width: sled must clear 12" (305 mm)"', () => {
     for (const n of ['herringbone', 'scrap-chaotic']) expect(flat(n), n).toMatch(/(Sled width|Panel [A-Z]): sled must clear 12" \(305 mm\)\./);
     // brick panels are widened by the half-block offset + cleanup (3757189 M1)
-    expect(flat('brick')).toMatch(/Panel [A-Z]: sled must clear 13-3\/4" \(349 mm\)\./);
+    expect(flat('brick')).toMatch(/Panel [A-Z]: sled must clear 15" \(381 mm\)\./);
   });
 });
 

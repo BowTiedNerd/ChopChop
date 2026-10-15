@@ -210,10 +210,10 @@ export class PdfGenerator {
 
   /** Tumbling log glue-up: no bar-clamp spacing (Board Master). */
   private tumblingSettings(stepId: string, settings: Record<string, string>, catalog: StyleCatalog): Record<string, string> {
-    if (!this.tumbling(catalog) || stepId !== 'glue-up' || !('Clamp spacing' in settings)) return settings;
+    if (!this.tumbling(catalog) || !/^glue-up/.test(stepId) || !('Clamp spacing' in settings)) return settings;
     const { ['Clamp spacing']: _drop, ...rest } = settings;
     void _drop;
-    return { ...rest, Clamping: 'light, even pressure in the 60° cradle or with tape; no bar-clamp spacing.' };
+    return { ...rest, Clamping: stepId === 'glue-up' ? 'light, even pressure in the 60° cradle or with tape; no bar-clamp spacing.' : 'light, even pressure on a flat caul; no bar-clamp spacing.' };
   }
 
   /** Safety banners per step: no planer infeed warning on a step that never uses the planer (router sled / drum

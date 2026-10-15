@@ -47,6 +47,10 @@ export interface CutItem {
   subPanel?: { index: number; count: number };
   /** Tumbling block (catalog tumblingBlockMethod): numbers for the export and Board Visuals */
   tumbling?: { cutHeight_mm: number; bladeAbove_mm: number; bladeHeight_mm: number; sledMax_mm: number; logWidth_mm: number; tiles: number; cols: number; tileRows: number; hexPerSlice: number; spare: number; offset_mm: number; diamondSide_mm: number; stripThickness_mm: number; stripsPerTone: number; logCount: number; logLength_mm: number; slicesPerLog: number; tones: { light: string; mid: string; dark: string } };
+  /** brick: the panel's strips in glue order, the course sequence continued across the offset width */
+  courseSequence?: Array<{ species: string; width: number }>;
+  /** tumbling tone board: tone and strips cut from it */
+  toneBoard?: { tone: string; strips: number };
   /** Slices crosscut from this blank/panel/log (absent when the row is not crosscut) */
   slices?: number;
 }
@@ -114,7 +118,7 @@ export function tumblingDiamondSide(design: BoardDesign, m: Pick<TumblingMethod,
   return side;
 }
 
-export function tumblingBlockParts(design: BoardDesign, m: TumblingMethod, a: { kerf_mm: number; flatteningAllowance_mm: number; blankRule: { blankMinLength_mm: number; blankMaxLength_mm?: number; crosscutTrim_mm: number } }): CutItem[] {
+export function tumblingBlockParts(design: BoardDesign, m: TumblingMethod, a: { kerf_mm: number; flatteningAllowance_mm: number; planerLimit_mm: number; jointerNote?: string; blankRule: { blankMinLength_mm: number; blankMaxLength_mm?: number; crosscutTrim_mm: number } }): CutItem[] {
   if (design.species.length < m.minSpecies) {
     throw new Error(`Tumbling block needs ${m.minSpecies} species (${m.tones.join(', ')}); only ${design.species.length} chosen`);
   }
@@ -156,11 +160,24 @@ export function tumblingBlockParts(design: BoardDesign, m: TumblingMethod, a: { 
   const tones = { light, mid, dark };
   const [a60, a120] = m.diamondAngles_deg;
   const info = { cutHeight_mm: sec.height, bladeAbove_mm: lr.bladeAbove, bladeHeight_mm: sec.height + lr.bladeAbove, sledMax_mm: lr.sledMax, logWidth_mm: sec.width, tiles: hexPerSlice * tileRows, cols: hexPerSlice, tileRows, hexPerSlice, spare, offset_mm: offset, diamondSide_mm: side, stripThickness_mm: stripT, stripsPerTone, logCount, logLength_mm: logLength, slicesPerLog, tones };
-  const rows: CutItem[] = (['light', 'mid', 'dark'] as const).map(tone => ({
-    part: `${tones[tone]} (${tone}) diamond strips: diamond side ${shopSize(side, u)}, ${a60}°/${a120}° angles; mill stock ${shopSize(stripT, u)} thick (side × sin 60°) and at least ${shopSize(m.minStockWidthForBevelRip_mm, u)} wide; bevel the wide stock at ${m.bladeTilt_deg}° first, then cut each diamond off with a thin-rip jig, keeper away from the fence; ${stripsPerTone} strip${stripsPerTone === 1 ? '' : 's'} per tone × ${shopSize(logLength, u)} long`,
-    width: m.minStockWidthForBevelRip_mm, thickness: stripT, length: logLength, quantity: stripsPerTone, species: tones[tone],
-    dims: { diamondSide_mm: side, stripThickness_mm: stripT, logLength_mm: logLength }, tumbling: info,
-  }));
+  // tone boards (Board Master on 480ff2c): each strip uses side + kerf/cos30 of board width, the first bevel
+  // wastes stripT/tan60, and minStockWidthForBevelRip_mm must remain when the last strip comes off (offcut).
+  // Width rounds up to 1/4"; strips per board are capped so a board stays within the planer limit.
+  const perStrip = side + a.kerf_mm / Math.cos(Math.PI / 6);
+  const startOffcut = stripT / Math.tan(Math.PI / 3);
+  const remain = m.minStockWidthForBevelRip_mm;
+  const roundQ = (v: number) => Math.ceil(v / 6.35 - 1e-9) * 6.35;
+  const maxPerBoard = Math.floor((a.planerLimit_mm - remain - startOffcut) / perStrip);
+  if (maxPerBoard < 1) throw new Error('tumbling tone board: no strip fits within the planer limit');
+  const boardCount = Math.ceil(stripsPerTone / maxPerBoard);
+  const boardStrips = Array.from({ length: boardCount }, (_, i) => Math.floor(stripsPerTone / boardCount) + (i < stripsPerTone % boardCount ? 1 : 0));
+  const boardWidth = (k: number) => roundQ(remain + startOffcut + k * perStrip);
+  const rows: CutItem[] = (['light', 'mid', 'dark'] as const).flatMap(tone => boardStrips.map((k, i) => ({
+    part: `Tone board ${i + 1}/${boardCount} - tone: ${tone}; species: ${tones[tone]}; strips: ${k}; width: ${shopSize(boardWidth(k), u)}; length: ${shopSize(logLength, u)}; thickness: ${shopSize(stripT, u)}; diamond side ${shopSize(side, u)}, ${a60}°/${a120}° angles; mill stock ${shopSize(stripT, u)} thick (side × sin 60°) and at least ${shopSize(m.minStockWidthForBevelRip_mm, u)} wide; bevel the wide stock at ${m.bladeTilt_deg}° first, then cut each diamond off with a thin-rip jig, keeper away from the fence; ${stripsPerTone} strip${stripsPerTone === 1 ? '' : 's'} per tone × ${shopSize(logLength, u)} long; the last ${shopSize(remain, u)} is offcut${a.jointerNote ? `; ${a.jointerNote}` : ''}`,
+    width: boardWidth(k), thickness: stripT, length: logLength, quantity: 1, species: tones[tone],
+    dims: { diamondSide_mm: side, stripThickness_mm: stripT, logLength_mm: logLength, perStrip_mm: perStrip, startOffcut_mm: startOffcut }, tumbling: info,
+    toneBoard: { tone, strips: k },
+  })));
   const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   for (let i = 0; i < logCount; i++) {
     rows.push({
@@ -265,7 +282,7 @@ export function calculateRequiredParts(design: BoardDesign): CutItem[] {
   const sandingLoss = need(allowances.sandingLoss_mm, 'sandingLoss_mm');
   const blankRule = catalog.cutListAllowances.blankRule;
   const tumbling = (allowances as unknown as { tumblingBlockMethod?: TumblingMethod }).tumblingBlockMethod;
-  if (tumbling && design.style === 'tumbling-block-3d') return tumblingBlockParts(design, tumbling, { kerf_mm: kerf, flatteningAllowance_mm: flatteningAllowance, blankRule: blankRule as BlankRule });
+  if (tumbling && design.style === 'tumbling-block-3d') return tumblingBlockParts(design, tumbling, { jointerNote: (allowances as unknown as { planerTextRule?: { faceTooWideForJointerText?: string } }).planerTextRule?.faceTooWideForJointerText?.replace('{jointerMax}', sheetLen(need(allowances.jointerMaxWidth_mm, 'jointerMaxWidth_mm'), design.unitSystem)), kerf_mm: kerf, flatteningAllowance_mm: flatteningAllowance, planerLimit_mm: need(allowances.planerMaxWidth_mm, 'planerMaxWidth_mm') - need((allowances as unknown as { planerTextRule?: { planerMargin_mm?: number } }).planerTextRule?.planerMargin_mm, 'planerTextRule.planerMargin_mm'), blankRule: blankRule as BlankRule });
   
   // Check if blankRule is enabled
   if (blankRule?.millWholeBlanksFirst) {
@@ -595,20 +612,24 @@ function calculateBlanksWithRule(
         // split over-long panels by length into the fewest panels that fit; slices always add up
         let count = 1;
         while (lenFor(Math.ceil(g.rows / count)) > maxLength) count++;
-        const widths = g.strips.map(st => st.width);
-        // brick (3757189 M1, Board Master): panel = board width + half a block (the offset) + cleanup, so both
-        // ragged ends trim back to the board width; the extra goes on as one more strip of the panel's species
-        const extra = course !== undefined ? brickOffsetExtra(ctx.allowances.brickRule) : 0;
-        const w = widths.reduce((p, q) => p + q, 0) + extra;
+        // brick (Board Master on 480ff2c): the offset width (block/2 + cleanup, catalog brickRule) continues the
+        // course's own sequence: the next strips, same species and block length, until it is covered, so the
+        // shifted rows still read as brick after the trim; never a plain cleanup strip
+        const offsetNeed = course !== undefined ? brickOffsetExtra(ctx.allowances.brickRule) : 0;
+        const seq = [...g.strips];
+        let added = 0;
+        for (let k = 0; added < offsetNeed - 1e-9; k++) { const st = g.strips[k % g.strips.length]; seq.push(st); added += st.width; }
+        const continued = seq.length - g.strips.length;
+        const w = seq.reduce((p, q) => p + q.width, 0);
         const counts = new Map<string, { species: string; width: number; count: number }>();
-        for (const st of g.strips) {
+        for (const st of seq) {
           const k = `${st.species.name}:${st.width.toFixed(2)}`;
           const c = counts.get(k);
           if (c) c.count++; else counts.set(k, { species: st.species.name, width: st.width, count: 1 });
         }
         const stripList = [...counts.values()];
         const stripText = stripList.map(c => `${c.count} × ${c.species} ${shopSize(c.width, unitSystem)} (rip ${shopSize(c.width + ripOver, unitSystem)}, then joint)`).join(' + ')
-          + (extra ? ` + 1 × ${g.strips[g.strips.length - 1].species.name} ${shopSize(extra, unitSystem)} (rip ${shopSize(extra + ripOver, unitSystem)}, then joint; half-block offset + ${shopSize(ctx.allowances.brickRule!.offsetCleanup_mm, unitSystem)} cleanup)` : '');
+          + (continued ? ` (includes ${continued} continued block${continued === 1 ? '' : 's'} in course order for the half-block offset + ${shopSize(ctx.allowances.brickRule!.offsetCleanup_mm, unitSystem)} cleanup)` : '');
         const millNote = course !== undefined
           ? `; strips milled ${shopSize(course + need(eg?.stripMillThicknessOver_mm, 'endGrainGridRule.stripMillThicknessOver_mm'), unitSystem)} thick, plane the panel to the course height ${shopSize(course, unitSystem)}`
           : '';
@@ -620,9 +641,9 @@ function calculateBlanksWithRule(
           blanks.push({
             part: `Panel ${id}: ${speciesList} strip-set panel ${shopSize(w, unitSystem)} wide: ${stripText}${millNote}; ${rowFlatten(w, len)}; ${!ctx.endGrain && !ctx.angled ? `Crosscut to final length: ${shopSize(ctx.boardLength ?? sliceT, unitSystem)}` : `then ${ctx.angled ? 'angled cuts on the sled with a stop block and hold-down:' : 'crosscut sled with stop block (never fence)'} ${n} ${ctx.angled ? 'piece' : 'slice'}${n === 1 ? '' : 's'} × ${shopSize(sliceT, unitSystem)} each`}${wideFaceNote(ctx, w, unitSystem)}`,
             width: w, thickness, length: len, quantity: 1, species: speciesList,
-            strips: extra ? [...stripList, { species: g.strips[g.strips.length - 1].species.name, width: extra, count: 1 }] : stripList, panelLabel: `Panel ${id}`, panelId: id, slices: n, sliceThickness: sliceT,
+            strips: stripList, courseSequence: course !== undefined ? seq.map(st => ({ species: st.species.name, width: st.width })) : undefined, panelLabel: `Panel ${id}`, panelId: id, slices: n, sliceThickness: sliceT,
             dims: {
-              ...(extra ? { brickOffsetExtra_mm: extra, brickCleanup_mm: ctx.allowances.brickRule!.offsetCleanup_mm } : {}),
+              ...(offsetNeed ? { brickOffsetExtra_mm: offsetNeed, brickCleanup_mm: ctx.allowances.brickRule!.offsetCleanup_mm } : {}),
               panelWidth_mm: w, sliceThickness_mm: sliceT, jointerMaxWidth_mm: jointerMaxWidth,
               ...(course !== undefined ? { course_mm: course } : {}),
               ...Object.fromEntries(stripList.flatMap((c, j) => [[`stripWidth${j}_mm`, c.width], [`ripWidth${j}_mm`, c.width + ripOver]])),

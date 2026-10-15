@@ -15,12 +15,12 @@ describe('tumbling-block log model', () => {
   it('3 tone rows + logs; logs sized by the blank rule; no strip-set panels, sub-panels or planing', () => {
     const parts = calculateRequiredParts(three());
     const br = loadStyleCatalog('tumbling-block-3d').cutListAllowances.blankRule!;
-    const tones = parts.filter(p => /diamond strips/.test(p.part));
+    const tones = parts.filter(p => p.toneBoard && /^Tone board 1\//.test(p.part));
     const logs = parts.filter(p => /^Log [A-Z]:/.test(p.part));
-    expect(tones.map(p => /\((light|mid|dark)\)/.exec(p.part)![1])).toEqual(['light', 'mid', 'dark']);
+    expect(tones.map(p => p.toneBoard!.tone)).toEqual(['light', 'mid', 'dark']);
     const t = logs[0].tumbling!;
     expect(logs.length).toBe(t.logCount);
-    for (const p of tones) expect(p.quantity).toBe(t.stripsPerTone);
+    for (const tone of ["light", "mid", "dark"]) expect(parts.filter(p => p.toneBoard?.tone === tone).reduce((s, p) => s + p.toneBoard!.strips, 0)).toBe(t.stripsPerTone);
     for (const l of logs) {
       expect(l.slices).toBe(t.slicesPerLog);
       expect(l.length).toBeGreaterThanOrEqual(br.blankMinLength_mm);
