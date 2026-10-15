@@ -53,75 +53,60 @@ export function LumberPlanner({ design }: LumberPlannerProps) {
 
       <h3>Available Stock</h3>
       
-      <div style={{ marginBottom: '1rem' }}>
+      <div className="stock-table" data-testid="stock-table">
         {stock.map((board) => (
-          <div key={board.id} style={{ 
-            display: 'grid', 
-            gridTemplateColumns: '1fr 1fr 1fr 1fr 80px 80px',
-            gap: '0.5rem',
-            marginBottom: '0.5rem',
-            padding: '0.5rem',
-            background: '#f9f9f9',
-            borderRadius: '4px',
-          }}>
+          <div key={board.id} className="stock-row">
             <div className="form-group" style={{ marginBottom: 0 }}>
-              <label style={{ fontSize: '0.8rem' }}>Species</label>
+              <label htmlFor={`stock-${board.id}-species`} style={{ fontSize: '0.8rem' }}>Species</label>
               <input
+                id={`stock-${board.id}-species`}
                 type="text"
                 value={board.species}
                 onChange={(e) => updateStock(board.id, 'species', e.target.value)}
-                style={{ fontSize: '0.9rem', padding: '0.4rem' }}
               />
             </div>
             <div className="form-group" style={{ marginBottom: 0 }}>
-              <label style={{ fontSize: '0.8rem' }}>Width (mm)</label>
+              <label htmlFor={`stock-${board.id}-width`} style={{ fontSize: '0.8rem' }}>Width (mm)</label>
               <input
+                id={`stock-${board.id}-width`}
                 type="number"
                 value={board.width}
                 onChange={(e) => updateStock(board.id, 'width', parseFloat(e.target.value))}
-                style={{ fontSize: '0.9rem', padding: '0.4rem' }}
               />
             </div>
             <div className="form-group" style={{ marginBottom: 0 }}>
-              <label style={{ fontSize: '0.8rem' }}>Thickness (mm)</label>
+              <label htmlFor={`stock-${board.id}-thickness`} style={{ fontSize: '0.8rem' }}>Thickness (mm)</label>
               <input
+                id={`stock-${board.id}-thickness`}
                 type="number"
                 value={board.thickness}
                 onChange={(e) => updateStock(board.id, 'thickness', parseFloat(e.target.value))}
-                style={{ fontSize: '0.9rem', padding: '0.4rem' }}
               />
             </div>
             <div className="form-group" style={{ marginBottom: 0 }}>
-              <label style={{ fontSize: '0.8rem' }}>Length (mm)</label>
+              <label htmlFor={`stock-${board.id}-length`} style={{ fontSize: '0.8rem' }}>Length (mm)</label>
               <input
+                id={`stock-${board.id}-length`}
                 type="number"
                 value={board.length}
                 onChange={(e) => updateStock(board.id, 'length', parseFloat(e.target.value))}
-                style={{ fontSize: '0.9rem', padding: '0.4rem' }}
               />
             </div>
             <div className="form-group" style={{ marginBottom: 0 }}>
-              <label style={{ fontSize: '0.8rem' }}>Qty</label>
+              <label htmlFor={`stock-${board.id}-qty`} style={{ fontSize: '0.8rem' }}>Qty</label>
               <input
+                id={`stock-${board.id}-qty`}
                 type="number"
                 value={board.quantity}
                 onChange={(e) => updateStock(board.id, 'quantity', parseInt(e.target.value))}
-                style={{ fontSize: '0.9rem', padding: '0.4rem' }}
                 min="1"
               />
             </div>
-            <div style={{ display: 'flex', alignItems: 'flex-end' }}>
-              <button 
+            <div className="stock-row-remove">
+              <button
+                type="button"
+                aria-label={`Remove ${board.species} stock board`}
                 onClick={() => removeStock(board.id)}
-                style={{ 
-                  fontSize: '0.8rem', 
-                  padding: '0.4rem',
-                  background: '#e74c3c',
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: '4px',
-                  cursor: 'pointer',
-                }}
               >
                 Remove
               </button>
